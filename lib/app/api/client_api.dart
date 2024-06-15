@@ -99,13 +99,10 @@ class ApiClient {
           headers: {'Authorization': 'Bearer $accessToken'},
         ),
       );
-      print(response.data);
       final data = response.data;
       apartmentModel = ApartmentModel.fromJsonToMap(data);
-      print(apartmentModel);
       return apartmentModel;
     } on DioError catch (e) {
-      print(e);
       return e.response!.data;
     }
   }

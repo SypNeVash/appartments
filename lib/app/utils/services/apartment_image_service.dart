@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_unnecessary_containers
-
 import 'dart:io';
 
 import 'package:apartments/app/providers/appartment_provider.dart';
@@ -9,41 +7,53 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class ChooseImageForAppartment extends StatefulWidget {
-  final List? imagesFromJobEdit;
-  const ChooseImageForAppartment(this.imagesFromJobEdit, {Key? key})
-      : super(key: key);
+  final List<dynamic>? imagesFromJobEdit;
+  const ChooseImageForAppartment(this.imagesFromJobEdit, {super.key});
 
   @override
   State<ChooseImageForAppartment> createState() =>
-      _ChooseImageForPortfolioState();
+      _ChooseImageForAppartmentState();
 }
 
-class _ChooseImageForPortfolioState extends State<ChooseImageForAppartment> {
+class _ChooseImageForAppartmentState extends State<ChooseImageForAppartment> {
   final ImagePicker imagePicker = ImagePicker();
   List<XFile> imageFileList = [];
   bool iconEnabled = false;
-  List<dynamic>? allPortfolioImagesWothNotifier = [];
+  List<dynamic>? allPortfolioImagesWothNotifierList = [];
   bool loading = false;
   @override
   void initState() {
     AppartDetailsListener profileDetailsListener =
         Provider.of<AppartDetailsListener>(context, listen: false);
+    print(
+        'dfsfsgsgsrgsrgg>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>:${widget.imagesFromJobEdit}');
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      profileDetailsListener.setAllPortfolioImagesWithNotifier =
-          allPortfolioImagesWothNotifier;
-      if (widget.imagesFromJobEdit != null) {
-        allPortfolioImagesWothNotifier = widget.imagesFromJobEdit;
-      } else {
-        // allPortfolioImagesWothNotifier!
-        //     .addAll(profileDetailsListener.getPortfolioModel.photos);
-      }
-    });
+    // profileDetailsListener.setAllPortfolioImagesWithNotifier =
+    //     allPortfolioImagesWothNotifierList;
+    if (widget.imagesFromJobEdit != null) {
+      allPortfolioImagesWothNotifierList = widget.imagesFromJobEdit;
+    } else {
+      // allPortfolioImagesWothNotifierList!
+      //     .addAll(profileDetailsListener.getPortfolioModel.photos);
+    }
+
     super.initState();
+  }
+
+  @override
+  void didUpdateWidget(ChooseImageForAppartment oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.imagesFromJobEdit != widget.imagesFromJobEdit) {
+      setState(() {
+        allPortfolioImagesWothNotifierList = widget.imagesFromJobEdit;
+      });
+      print(allPortfolioImagesWothNotifierList);
+    }
   }
 
   void selectImage() async {
@@ -68,9 +78,10 @@ class _ChooseImageForPortfolioState extends State<ChooseImageForAppartment> {
   deleteImageFromBottomSheet(dynamic index) {
     AppartDetailsListener profileDetailsListener =
         Provider.of<AppartDetailsListener>(context, listen: false);
-    allPortfolioImagesWothNotifier!.removeWhere((element) => element == index);
+    allPortfolioImagesWothNotifierList!
+        .removeWhere((element) => element == index);
     profileDetailsListener.setAllPortfolioImagesWithNotifier =
-        allPortfolioImagesWothNotifier;
+        allPortfolioImagesWothNotifierList;
     setState(() {});
   }
 
@@ -89,15 +100,12 @@ class _ChooseImageForPortfolioState extends State<ChooseImageForAppartment> {
 
     return Column(
       children: [
-        if (profileDetailsListener.getuseDifferentFormat == true &&
-            allPortfolioImagesWothNotifier!.isNotEmpty) ...[
-          Container(
-            child: ImagesListToSend(
-              imageFileList: allPortfolioImagesWothNotifier,
-              deleteImage: deleteImageFromBottomSheet,
-            ),
+        Container(
+          child: ImagesListToSend(
+            imageFileList: allPortfolioImagesWothNotifierList,
+            deleteImage: deleteImageFromBottomSheet,
           ),
-        ],
+        ),
         if (profileDetailsListener.getXfileList.isNotEmpty) ...[
           Container(
             child: ImagesXFileListToSend(
@@ -172,7 +180,7 @@ class _ChooseImageForPortfolioState extends State<ChooseImageForAppartment> {
   }
 }
 
-class ImagesListToSend extends StatelessWidget {
+class ImagesListToSend extends StatefulWidget {
   final List? imageFileList;
 
   final Function deleteImage;
@@ -181,12 +189,17 @@ class ImagesListToSend extends StatelessWidget {
       : super(key: key);
 
   @override
+  State<ImagesListToSend> createState() => _ImagesListToSendState();
+}
+
+class _ImagesListToSendState extends State<ImagesListToSend> {
+  @override
   Widget build(BuildContext context) {
     return GridView.builder(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         padding: const EdgeInsets.only(bottom: 10, top: 4),
-        itemCount: imageFileList!.length,
+        itemCount: widget.imageFileList!.length,
         addAutomaticKeepAlives: true,
         itemBuilder: (BuildContext context, int index) {
           return ShowUp2(
@@ -202,30 +215,27 @@ class ImagesListToSend extends StatelessWidget {
                       border: Border.all(color: Colors.grey.shade200)),
                   child: ClipRRect(
                       borderRadius: const BorderRadius.all(Radius.circular(12)),
-                      child: CachedNetworImageWidget(
-                          imageUrl: imageFileList![index])),
+                      child: Image(
+                        image: NetworkImage(widget.imageFileList![index]),
+                      )),
                 ),
                 Positioned(
-                  left: 42,
+                  left: 47,
                   bottom: 40,
                   child: InkWell(
                     onTap: () {
-                      deleteImage(imageFileList![index]);
+                      widget.deleteImage(widget.imageFileList![index]);
                     },
                     child: Container(
-                      height: 26,
-                      width: 26,
+                      height: 28,
+                      width: 28,
                       decoration: BoxDecoration(
                           border: Border.all(width: 1.5, color: Colors.white),
                           shape: BoxShape.circle,
-                          color: Colors.black),
-                      child: Padding(
-                        padding: const EdgeInsets.all(2.0),
-                        child: SvgPicture.asset(
-                          'assets/icons/closes.svg',
-                          width: 15,
-                          color: Colors.white,
-                        ),
+                          color: Colors.white),
+                      child: const FaIcon(
+                        FontAwesomeIcons.circleXmark,
+                        color: Colors.grey,
                       ),
                     ),
                   ),
@@ -258,7 +268,7 @@ class ImagesXFileListToSend extends StatelessWidget {
         const Align(
           alignment: Alignment.centerLeft,
           child: Text(
-            'Add image',
+            'Adding new image',
             style: TextStyle(
                 color: Colors.black, fontWeight: FontWeight.w500, fontSize: 14),
           ),

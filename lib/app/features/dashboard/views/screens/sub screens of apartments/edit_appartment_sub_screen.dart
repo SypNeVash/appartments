@@ -1,13 +1,18 @@
 import 'package:apartments/app/api/client_api.dart';
 import 'package:apartments/app/features/dashboard/views/components/text_form_fiel_decoration.dart';
 import 'package:apartments/app/models/get_all_appart_model.dart';
+import 'package:apartments/app/providers/appartment_provider.dart';
+import 'package:apartments/app/utils/animations/show_up_animation.dart';
 import 'package:apartments/app/utils/services/apartment_image_service.dart';
+import 'package:apartments/app/utils/services/cached_image_services.dart';
 import 'package:apartments/app/utils/services/shared_preferences.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-  
+import 'package:provider/provider.dart';
+
 class TextFormForAddingEditingApt extends StatefulWidget {
   const TextFormForAddingEditingApt({Key? key}) : super(key: key);
 
@@ -79,9 +84,11 @@ class _TextFormForAddingEditingAptState
       return false;
     }
   }
- List <dynamic>?apartmentPhotos;
-  getApartmentDetails() async {
 
+  List<dynamic>? apartmentPhotos = [];
+  getApartmentDetails() async {
+    AppartDetailsListener profileDetailsListener =
+        Provider.of<AppartDetailsListener>(context, listen: false);
     apartmentModel = await apiClient.fetchApartmentDetails();
     contactPerson.text = apartmentModel.contactPerson.toString();
     address.text = apartmentModel.address.toString();
@@ -94,13 +101,17 @@ class _TextFormForAddingEditingAptState
     comments.text = apartmentModel.comment.toString();
     phone.text = apartmentModel.phone.toString();
     floor.text = apartmentModel.floor.toString();
-    apartmentPhotos = apartmentModel.photos;
 
+    profileDetailsListener.setAllPortfolioImagesWithNotifier =
+        apartmentModel.photos;
+
+    setState(() {});
   }
 
   @override
   void initState() {
     getApartmentDetails();
+
     super.initState();
   }
 
@@ -129,7 +140,7 @@ class _TextFormForAddingEditingAptState
           autovalidateMode: AutovalidateMode.onUserInteraction,
           textCapitalization: TextCapitalization.sentences,
           autofocus: false,
-          
+
           keyboardType: TextInputType.multiline,
           style: const TextStyle(
               fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
@@ -190,7 +201,7 @@ class _TextFormForAddingEditingAptState
           height: 15,
         ),
         TextFormField(
-          controller:postalCode ,
+          controller: postalCode,
           autovalidateMode: AutovalidateMode.always,
           textCapitalization: TextCapitalization.sentences,
           autofocus: false,
@@ -206,7 +217,7 @@ class _TextFormForAddingEditingAptState
           height: 15,
         ),
         TextFormField(
-          controller:price ,
+          controller: price,
           autovalidateMode: AutovalidateMode.always,
           textCapitalization: TextCapitalization.sentences,
           autofocus: false,
@@ -226,7 +237,7 @@ class _TextFormForAddingEditingAptState
           height: 15,
         ),
         TextFormField(
-          controller:type ,
+          controller: type,
           autovalidateMode: AutovalidateMode.always,
           textCapitalization: TextCapitalization.sentences,
           autofocus: false,
@@ -307,11 +318,11 @@ class _TextFormForAddingEditingAptState
         const SizedBox(
           height: 55,
         ),
-         ChooseImageForAppartment(null),
+        ChooseImageForAppartment(apartmentModel.photos),
         const SizedBox(
-          height: 55, 
+          height: 55,
         ),
-        Container(
+        SizedBox(
           width: 250,
           height: 40,
           child: ElevatedButton(
