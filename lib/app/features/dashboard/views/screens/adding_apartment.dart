@@ -13,16 +13,15 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:uuid/uuid.dart';
 
-
 var types = [
-    "1 кімнатна",
-    "2 кімнатна",
-    "3 кімнатна",
-    "4 кімнатна",
-    "Студія",
-    "Приватний будинок",
-    "Частина будинку",
-  ];
+  "1 кімнатна",
+  "2 кімнатна",
+  "3 кімнатна",
+  "4 кімнатна",
+  "Студія",
+  "Приватний будинок",
+  "Частина будинку",
+];
 
 var regions = [
   "Галицький",
@@ -245,6 +244,11 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
           onChanged: (val) {
             city.text = val!;
           },
+          icon: const FaIcon(
+            FontAwesomeIcons.chevronDown,
+            size: 15,
+            color: Colors.grey,
+          ),
           items: cities.map((String value) {
             return DropdownMenuItem<String>(
               value: value,
@@ -265,6 +269,11 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
           onChanged: (val) {
             region.text = val!;
           },
+          icon: const FaIcon(
+            FontAwesomeIcons.chevronDown,
+            size: 15,
+            color: Colors.grey,
+          ),
           items: regions.map((String value) {
             return DropdownMenuItem<String>(
               value: value,
@@ -319,6 +328,11 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
           onChanged: (val) {
             type.text = val!;
           },
+          icon: const FaIcon(
+            FontAwesomeIcons.chevronDown,
+            size: 15,
+            color: Colors.grey,
+          ),
           items: types.map((String value) {
             return DropdownMenuItem<String>(
               value: value,
