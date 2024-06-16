@@ -5,7 +5,6 @@ part of dashboard;
 class DashboardController extends GetxController {
   final scafoldKey = GlobalKey<ScaffoldState>();
   final AuthController authController = Get.put(AuthController());
-
   final dataProfil = const UserProfileData(
     image: AssetImage(ImageRasterPath.man),
     name: "Parviz",
@@ -21,6 +20,9 @@ class DashboardController extends GetxController {
     if (index == 1) {
       // NavigationService().navigateToScreen(AddingNewApartment());
       Get.to(AddingNewApartment());
+    }
+    if (index == 2) {
+      // Get.to(AllClientsList());
     }
     if (index == 3) {
       authController.logout();

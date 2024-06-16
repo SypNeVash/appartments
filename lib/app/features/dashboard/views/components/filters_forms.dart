@@ -33,14 +33,13 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
           keyboardType: TextInputType.multiline,
           style: const TextStyle(
               fontSize: 16, color: Colors.black, fontWeight: FontWeight.w500),
-          decoration: decorationForTextFormField('Phone number')
-              .copyWith(fillColor: Colors.white10),
+          decoration: decorationForTextFormField('Phone number'),
           onChanged: (val) {},
         ),
         const SizedBox(
           height: 25,
         ),
-        Container(
+        SizedBox(
           width: 150,
           height: 40,
           child: ElevatedButton(

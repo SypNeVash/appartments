@@ -1,6 +1,8 @@
 import 'package:apartments/app/constans/app_constants.dart';
+import 'package:apartments/app/providers/appartment_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 
 class SelectionButtonData {
   final IconData activeIcon;
@@ -43,6 +45,8 @@ class _SelectionButtonState extends State<SelectionButton> {
 
   @override
   Widget build(BuildContext context) {
+    AppartDetailsListener profileDetailsListener =
+        Provider.of<AppartDetailsListener>(context, listen: true);
     return Column(
       children: widget.data.asMap().entries.map((e) {
         final index = e.key;
@@ -57,6 +61,10 @@ class _SelectionButtonState extends State<SelectionButton> {
               setState(() {
                 selected = index;
               });
+
+              if (index == 2) {
+                profileDetailsListener.setPageIndex = index;
+              }
             },
             data: data,
           ),

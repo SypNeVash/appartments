@@ -4,6 +4,7 @@ import 'package:apartments/app/constans/app_constants.dart';
 import 'package:apartments/app/features/dashboard/controllers/authcontroller.dart';
 import 'package:apartments/app/features/dashboard/views/components/filters_forms.dart';
 import 'package:apartments/app/features/dashboard/views/screens/adding_apartment.dart';
+import 'package:apartments/app/providers/appartment_provider.dart';
 
 import 'package:apartments/app/shared_components/header_text.dart';
 import 'package:apartments/app/shared_components/list_task_assigned.dart';
@@ -21,8 +22,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:apartments/app/utils/helpers/app_helpers.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:provider/provider.dart';
 
 import 'all_aparts_screen.dart';
+import 'clients/all_clients_grid_view.dart';
+import 'clients/clients components/all_clients_screen.dart';
 
 // binding
 part '../../bindings/dashboard_binding.dart';
@@ -47,6 +51,8 @@ class DashboardScreen extends GetView<DashboardController> {
 
   @override
   Widget build(BuildContext context) {
+    AppartDetailsListener profileDetailsListener =
+        Provider.of<AppartDetailsListener>(context, listen: true);
     return Scaffold(
       key: controller.scafoldKey,
       drawer: ResponsiveBuilder.isDesktop(context)
@@ -103,14 +109,26 @@ class DashboardScreen extends GetView<DashboardController> {
                     child: _buildSidebar(context),
                   ),
                 ),
-                Flexible(
-                  flex: constraints.maxWidth > 1350 ? 10 : 9,
-                  child: SingleChildScrollView(
-                    controller: ScrollController(),
-                    physics: const BouncingScrollPhysics(),
-                    child: _buildTaskContent(),
+                if (profileDetailsListener.getPageIndex == 2) ...[
+                  Flexible(
+                    flex: constraints.maxWidth > 1350 ? 10 : 9,
+                    child: const Column(
+                      children: [
+                        FormsLists(),
+                        Flexible(flex: 3, child: AllClientsList()),
+                      ],
+                    ),
                   ),
-                ),
+                ] else ...[
+                  Flexible(
+                    flex: constraints.maxWidth > 1350 ? 8 : 7,
+                    child: SingleChildScrollView(
+                      controller: ScrollController(),
+                      physics: const BouncingScrollPhysics(),
+                      child: _buildTaskContent(),
+                    ),
+                  ),
+                ],
                 SizedBox(
                   height: MediaQuery.of(context).size.height,
                   child: const VerticalDivider(),

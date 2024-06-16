@@ -1,5 +1,4 @@
 import 'dart:collection';
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:apartments/app/models/get_all_appart_model.dart';
@@ -11,7 +10,7 @@ class AppartDetailsListener with ChangeNotifier {
 
   bool? useDifferentFormat;
   List? allPortfolioImagesWithNotifier = [];
-
+  int pageIndex = 0;
   List<XFile> xfileList = [];
   List<Uint8List?> unitfileList = [];
   List<ApartmentModel> portfolioModelList = [];
@@ -22,7 +21,7 @@ class AppartDetailsListener with ChangeNotifier {
       UnmodifiableListView(portfolioModelList);
   get getuseDifferentFormat => useDifferentFormat;
   get getAllPortfolioImagesWithNotifier => allPortfolioImagesWithNotifier;
-
+  get getPageIndex => pageIndex;
   set setApartmentModel(ApartmentModel apartmentModels) {
     apartmentModel = apartmentModels;
     notifyListeners();
@@ -50,6 +49,11 @@ class AppartDetailsListener with ChangeNotifier {
 
   set setAllPortfolioImagesWithNotifier(List? imagesList) {
     allPortfolioImagesWithNotifier = imagesList;
+    notifyListeners();
+  }
+
+  set setPageIndex(int pageInd) {
+    pageIndex = pageInd;
     notifyListeners();
   }
 }

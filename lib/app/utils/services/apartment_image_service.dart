@@ -2,11 +2,9 @@ import 'dart:io';
 
 import 'package:apartments/app/providers/appartment_provider.dart';
 import 'package:apartments/app/utils/animations/show_up_animation.dart';
-import 'package:apartments/app/utils/services/cached_image_services.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
