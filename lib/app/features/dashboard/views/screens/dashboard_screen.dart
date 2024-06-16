@@ -53,6 +53,8 @@ class DashboardScreen extends GetView<DashboardController> {
   Widget build(BuildContext context) {
     AppartDetailsListener profileDetailsListener =
         Provider.of<AppartDetailsListener>(context, listen: true);
+    print(
+        'profileDetailsListener.getPageIndex ------ ${profileDetailsListener.getPageIndex}');
     return Scaffold(
       key: controller.scafoldKey,
       drawer: ResponsiveBuilder.isDesktop(context)
@@ -109,23 +111,30 @@ class DashboardScreen extends GetView<DashboardController> {
                     child: _buildSidebar(context),
                   ),
                 ),
-                if (profileDetailsListener.getPageIndex == 2) ...[
-                  Flexible(
-                    flex: constraints.maxWidth > 1350 ? 10 : 9,
-                    child: const Column(
-                      children: [
-                        FormsLists(),
-                        Flexible(flex: 3, child: AllClientsList()),
-                      ],
-                    ),
-                  ),
-                ] else ...[
+                if (profileDetailsListener.getPageIndex == 0) ...[
                   Flexible(
                     flex: constraints.maxWidth > 1350 ? 8 : 7,
                     child: SingleChildScrollView(
                       controller: ScrollController(),
                       physics: const BouncingScrollPhysics(),
                       child: _buildTaskContent(),
+                    ),
+                  ),
+                ] else if (profileDetailsListener.getPageIndex == 1) ...[
+                  Flexible(
+                      flex: constraints.maxWidth > 1350 ? 8 : 7,
+                      child: SingleChildScrollView(
+                          controller: ScrollController(),
+                          physics: const BouncingScrollPhysics(),
+                          child: const AddingNewApartments())),
+                ] else if (profileDetailsListener.getPageIndex == 2) ...[
+                  Flexible(
+                    flex: constraints.maxWidth > 1350 ? 8 : 7,
+                    child: const Column(
+                      children: [
+                        FormsLists(),
+                        Flexible(flex: 3, child: AllClientsList()),
+                      ],
                     ),
                   ),
                 ],

@@ -20,11 +20,13 @@ class _LoginScreenState extends State<LoginScreen> {
   final ApiClient _apiClient = ApiClient();
   bool _showPassword = false;
   final AuthController authController = Get.find();
-
+  bool showCircular = false;
+  String textForerror = '';
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    final AuthController authController = Get.find();
+    // final AuthController authController = Get.find();
+    final authController = Get.find<AuthController>();
 
     return Scaffold(
         backgroundColor: Colors.blueGrey[200],
@@ -109,6 +111,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                 ),
                               ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                textForerror,
+                                style: TextStyle(color: Colors.black),
+                              ),
                               SizedBox(height: size.height * 0.04),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -116,9 +125,29 @@ class _LoginScreenState extends State<LoginScreen> {
                                   Expanded(
                                     child: ElevatedButton(
                                       onPressed: () async {
-                                        await authController.login(
-                                            usernameController.text,
-                                            passwordController.text);
+                                        if (_formKey.currentState!.validate()) {
+                                          setState(() {
+                                            showCircular = true;
+                                          });
+
+                                          await authController.login(
+                                              usernameController.text,
+                                              passwordController.text);
+
+                                          if (authController
+                                                  .isAuthenticated.value ==
+                                              true) {
+                                            setState(() {
+                                              showCircular = false;
+                                            });
+                                          }
+                                        } else {
+                                          setState(() {
+                                            textForerror =
+                                                'Login or Password is wrong';
+                                            showCircular = false;
+                                          });
+                                        }
                                       },
                                       style: ElevatedButton.styleFrom(
                                           backgroundColor: Colors.indigo,
@@ -127,14 +156,18 @@ class _LoginScreenState extends State<LoginScreen> {
                                                   BorderRadius.circular(8)),
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 40, vertical: 15)),
-                                      child: const Text(
-                                        "Login",
-                                        style: TextStyle(
-                                          fontSize: 20,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
+                                      child: showCircular == true
+                                          ? const CircularProgressIndicator(
+                                              color: Colors.white,
+                                            )
+                                          : const Text(
+                                              "Login",
+                                              style: TextStyle(
+                                                fontSize: 20,
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
                                     ),
                                   ),
                                 ],

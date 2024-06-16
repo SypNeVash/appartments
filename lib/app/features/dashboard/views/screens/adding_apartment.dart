@@ -33,56 +33,77 @@ var cities = [
   "Львів",
 ];
 
-class AddingNewApartment extends StatefulWidget {
-  const AddingNewApartment({Key? key}) : super(key: key);
+// class AddingNewApartment extends StatefulWidget {
+//   const AddingNewApartment({Key? key}) : super(key: key);
 
-  @override
-  State<AddingNewApartment> createState() => _AddingNewApartmentState();
-}
+//   @override
+//   State<AddingNewApartment> createState() => _AddingNewApartmentState();
+// }
 
-class _AddingNewApartmentState extends State<AddingNewApartment> {
+// class _AddingNewApartmentState extends State<AddingNewApartment> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//         body: SafeArea(
+//             child: ResponsiveBuilder(mobileBuilder: (context, constraints) {
+//       return const SingleChildScrollView(
+//           child: Padding(
+//         padding: EdgeInsets.symmetric(horizontal: 25, vertical: 25),
+//         child: Column(
+//           children: [
+//             FormsList(),
+//             TextFormForAddingNewApt(),
+//           ],
+//         ),
+//       ));
+//     }, tabletBuilder: (context, constraints) {
+//       return SingleChildScrollView(
+//           controller: ScrollController(),
+//           child: Container(
+//               constraints: const BoxConstraints(maxWidth: 400),
+//               child: const Column(
+//                 children: [
+//                   FormsList(),
+//                   TextFormForAddingNewApt(),
+//                 ],
+//               )));
+//     }, desktopBuilder: (context, constraints) {
+//       return SingleChildScrollView(
+//           scrollDirection: Axis.vertical,
+//           controller: ScrollController(),
+//           child: Container(
+//               constraints: const BoxConstraints(maxWidth: 400),
+//               padding: const EdgeInsets.symmetric(vertical: 55),
+//               child: const Column(
+//                 children: [
+//                   FormsList(),
+//                   TextFormForAddingNewApt(),
+//                 ],
+//               )));
+//     })));
+//   }
+//}
+
+class AddingNewApartments extends StatelessWidget {
+  const AddingNewApartments({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: SafeArea(
-            child: ResponsiveBuilder(mobileBuilder: (context, constraints) {
-      return const SingleChildScrollView(
+    return const Row(
+      children: [
+        Expanded(flex: 2, child: SizedBox()),
+        Expanded(
+          flex: 3,
           child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 25, vertical: 25),
-        child: Column(
-          children: [
-            FormsList(),
-            TextFormForAddingNewApt(),
-          ],
+            padding: EdgeInsets.only(top: 28.0),
+            child: Column(
+              children: [FormsList(), TextFormForAddingNewApt()],
+            ),
+          ),
         ),
-      ));
-    }, tabletBuilder: (context, constraints) {
-      return SingleChildScrollView(
-          controller: ScrollController(),
-          child: Container(
-              constraints: const BoxConstraints(maxWidth: 400),
-              child: const Column(
-                children: [
-                  FormsList(),
-                  TextFormForAddingNewApt(),
-                ],
-              )));
-    }, desktopBuilder: (context, constraints) {
-      return SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          controller: ScrollController(),
-          child: Center(
-            child: Container(
-                constraints: const BoxConstraints(maxWidth: 400),
-                padding: const EdgeInsets.symmetric(vertical: 55),
-                child: const Column(
-                  children: [
-                    FormsList(),
-                    TextFormForAddingNewApt(),
-                  ],
-                )),
-          ));
-    })));
+        Expanded(flex: 2, child: SizedBox()),
+      ],
+    );
   }
 }
 
@@ -92,7 +113,6 @@ class FormsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           'Adding new appartment',
@@ -437,5 +457,5 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
 }
 
 textShow() {
-  return Text('dddd');
+  return const Text('dddd');
 }

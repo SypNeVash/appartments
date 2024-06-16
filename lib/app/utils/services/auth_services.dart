@@ -5,7 +5,6 @@ import 'package:jwt_decoder/jwt_decoder.dart';
 class AuthService {
   static Future<bool> isAuthenticated() async {
     final prefs = await SPHelper.getTokenSharedPreference();
-
     return prefs != null && prefs.isNotEmpty;
   }
 

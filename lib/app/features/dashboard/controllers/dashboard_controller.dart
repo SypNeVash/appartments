@@ -15,11 +15,12 @@ class DashboardController extends GetxController {
 
   Future<void> onSelectedMainMenu(int index, SelectionButtonData value) async {
     if (index == 0) {
-      Get.toNamed('/');
+      print(index);
+      // Get.toNamed('/');
     }
     if (index == 1) {
       // NavigationService().navigateToScreen(AddingNewApartment());
-      Get.to(AddingNewApartment());
+      // Get.to(AddingNewApartment());
     }
     if (index == 2) {
       // Get.to(AllClientsList());

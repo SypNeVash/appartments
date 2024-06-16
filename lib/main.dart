@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:apartments/app/features/dashboard/controllers/authcontroller.dart';
 import 'package:apartments/app/features/dashboard/views/screens/apartment_details.dart';
+import 'package:apartments/app/features/dashboard/views/screens/clients/add_new_clients.dart';
 import 'package:apartments/app/features/dashboard/views/screens/dashboard_screen.dart';
 import 'package:apartments/app/features/dashboard/views/screens/edit_appartment_screen.dart';
 
@@ -94,6 +95,7 @@ class _MyAppState extends State<MyApp> {
         GetPage(
             name: '/editingApartments',
             page: () => const ApartmentEditDetail()),
+        GetPage(name: '/addingNewClient', page: () => const AddingNewClients()),
         GetPage(
           name: '/second',
           page: () => const SecondPage(),

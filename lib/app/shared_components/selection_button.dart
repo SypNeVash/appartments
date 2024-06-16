@@ -62,9 +62,7 @@ class _SelectionButtonState extends State<SelectionButton> {
                 selected = index;
               });
 
-              if (index == 2) {
-                profileDetailsListener.setPageIndex = index;
-              }
+              profileDetailsListener.setPageIndex = index;
             },
             data: data,
           ),

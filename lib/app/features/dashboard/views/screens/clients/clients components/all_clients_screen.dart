@@ -1,6 +1,9 @@
+import 'package:apartments/app/constans/app_constants.dart';
 import 'package:apartments/app/features/dashboard/views/screens/clients/all_clients_grid_view.dart';
 import 'package:apartments/app/shared_components/responsive_builder.dart';
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 // class AllClientsScreen extends StatefulWidget {
 //   const AllClientsScreen({Key? key}) : super(key: key);
@@ -56,20 +59,49 @@ class FormsLists extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
-      children: [
-        Text(
-          'Adding new appartment',
-          style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-        ),
-        Text(
-          'Please fill the form',
-          style: TextStyle(fontSize: 15),
-        ),
-        SizedBox(
-          height: 20,
-        ),
-      ],
+    return Padding(
+      padding: const EdgeInsets.only(top: 28.0),
+      child: Column(
+        children: [
+          const TextField(
+            decoration: InputDecoration(
+              prefixIcon: Icon(EvaIcons.search),
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(width: .1),
+              ),
+              hintText: 'Search for clients' ?? "search..",
+            ),
+            textInputAction: TextInputAction.search,
+            style: TextStyle(color: Colors.black),
+          ),
+          // Text(
+          //   'All Clients',
+          //   style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+          // ),
+          const SizedBox(
+            height: 20,
+          ),
+          Align(
+              alignment: Alignment.centerLeft,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.orange),
+                onPressed: () {
+                  Get.toNamed('/addingNewClient');
+                },
+                child: const Text(
+                  '+ Add new client',
+                  style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
+                ),
+              )),
+
+          const SizedBox(
+            height: 30,
+          ),
+        ],
+      ),
     );
   }
 }
