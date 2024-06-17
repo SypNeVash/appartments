@@ -1,12 +1,9 @@
-import 'dart:convert';
-import 'package:apartments/app/api/client_api.dart';
 import 'package:apartments/app/features/dashboard/views/components/text_form_fiel_decoration.dart';
 import 'package:apartments/app/shared_components/responsive_builder.dart';
 import 'package:apartments/app/utils/services/shared_preferences.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:uuid/uuid.dart';
 
 class AddingNewClients extends StatefulWidget {
@@ -105,6 +102,7 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
   final TextEditingController password = TextEditingController();
   final TextEditingController username = TextEditingController();
   final TextEditingController email = TextEditingController();
+  String errorText = '';
 
   Future<bool> postClientData() async {
     Dio dio = Dio();
@@ -315,6 +313,11 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
             email.text = val;
           },
         ),
+        Text(
+          errorText,
+          style: const TextStyle(
+              fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
+        ),
         const SizedBox(
           height: 55,
         ),
@@ -331,6 +334,11 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
                 if (done == true) {
                   cancel();
                   Navigator.of(context).pop();
+                } else {
+                  cancel();
+                  setState(() {
+                    errorText = 'Error: Please check and try again';
+                  });
                 }
               },
               child: const Text(
@@ -347,5 +355,5 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
 }
 
 textShow() {
-  return Text('dddd');
+  return const Text('dddd');
 }

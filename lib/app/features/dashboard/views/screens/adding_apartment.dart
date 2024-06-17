@@ -91,7 +91,7 @@ class AddingNewApartments extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Row(
       children: [
-        Expanded(flex: 2, child: SizedBox()),
+        Expanded(flex: 1, child: SizedBox()),
         Expanded(
           flex: 3,
           child: Padding(
@@ -101,7 +101,7 @@ class AddingNewApartments extends StatelessWidget {
             ),
           ),
         ),
-        Expanded(flex: 2, child: SizedBox()),
+        Expanded(flex: 1, child: SizedBox()),
       ],
     );
   }

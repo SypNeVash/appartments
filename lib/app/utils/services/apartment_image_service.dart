@@ -140,16 +140,12 @@ class _ChooseImageForAppartmentState extends State<ChooseImageForAppartment> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Add Images',
+                          'Images',
                           style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.w500,
                               fontSize: 16),
                         ),
-                        Text(
-                          'Jpg,gif and other image formats',
-                          style: TextStyle(color: Colors.grey, fontSize: 14),
-                        )
                       ],
                     ),
                     AnimatedContainer(
@@ -285,8 +281,8 @@ class ImagesXFileListToSend extends StatelessWidget {
                 clipBehavior: Clip.none,
                 children: [
                   Container(
-                    height: 65,
-                    width: 65,
+                    height: 100,
+                    width: 100,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(color: Colors.grey.shade200)),
@@ -326,8 +322,8 @@ class ImagesXFileListToSend extends StatelessWidget {
                     ),
                   ),
                   Positioned(
-                    left: 50,
-                    bottom: 50,
+                    // left: 42,
+                    // bottom: 20,
                     child: InkWell(
                       onTap: () {
                         deleteImage(imageXFileList![index]);

@@ -74,19 +74,17 @@ class CustomerModel {
 
   factory CustomerModel.fromMap(Map<String, dynamic> map) {
     return CustomerModel(
-      id: map['id'] != null ? map['id'] as String : null,
-      name: map['name'] != null ? map['name'] as String : null,
-      surname: map['surname'] != null ? map['surname'] as String : null,
-      patronymic:
-          map['patronymic'] != null ? map['patronymic'] as String : null,
-      passport: map['passport'] != null ? map['passport'] as String : null,
-      phoneNumber:
-          map['phoneNumber'] != null ? map['phoneNumber'] as String : null,
-      address: map['address'] != null ? map['address'] as String : null,
-      birthday: map['birthday'] != null ? map['birthday'] as String : null,
-      password: map['password'] != null ? map['password'] as String : null,
-      username: map['username'] != null ? map['username'] as String : null,
-      email: map['email'] != null ? map['email'] as String : null,
+      id: map['id'] as String,
+      name: map['name'] as String,
+      surname: map['surname'] as String,
+      patronymic: map['patronymic'] as String,
+      passport: map['passport'] as String,
+      phoneNumber: map['phoneNumber'] as String,
+      address: map['address'] as String,
+      birthday: map['birthday'] as String,
+      // password: map['password'] as String : null,
+      username: map['username'] as String,
+      email: map['email'] as String,
     );
   }
 
@@ -130,5 +128,20 @@ class CustomerModel {
         password.hashCode ^
         username.hashCode ^
         email.hashCode;
+  }
+}
+
+class CustomerModelList {
+  final List<CustomerModel> customerModel;
+
+  CustomerModelList({
+    required this.customerModel,
+  });
+
+  factory CustomerModelList.fromJsons(List<dynamic> parsedJson) {
+    List<CustomerModel> listOfApp = [];
+
+    listOfApp = parsedJson.map((i) => CustomerModel.fromMap(i)).toList();
+    return CustomerModelList(customerModel: listOfApp);
   }
 }

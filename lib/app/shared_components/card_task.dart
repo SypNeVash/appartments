@@ -56,7 +56,7 @@ class CardTask extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                        height: 120,
+                        height: 80,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -68,17 +68,20 @@ class CardTask extends StatelessWidget {
                         ),
                       ),
                       const Spacer(flex: 1),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           _buildDate(),
-                          SizedBox(
-                            height: 20,
-                            child: VerticalDivider(
-                              thickness: 1,
-                              color: onPrimary,
-                            ),
+                          const SizedBox(
+                            height: 15,
                           ),
+                          // SizedBox(
+                          //   height: 20,
+                          //   child: VerticalDivider(
+                          //     thickness: 1,
+                          //     color: onPrimary,
+                          //   ),
+                          // ),
                           _buildHours(),
                         ],
                       ),

@@ -11,6 +11,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../models/customers_model.dart';
+
 class ApiClient {
   final Dio _dio = Dio();
 
@@ -145,5 +147,37 @@ class ApiClient {
       print('Upload error: $e');
     }
     return photoReferences;
+  }
+
+  Future<CustomerModelList> fetchClientDataFromAzure(int page, int limit,
+      {String? filter}) async {
+    var url = 'https://realtor.azurewebsites.net/api/CustomerCards/pagination';
+    late CustomerModelList customerModelList;
+    try {
+      final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
+      Map<String, dynamic> queryParameters = {
+        'page': page,
+        'count': limit,
+      };
+      // if (filter != null && filter.isNotEmpty) {
+      //   queryParameters['filter'] = filter;
+      // }
+      print('here we are');
+      Response response = await _dio.get(
+        url,
+        queryParameters: queryParameters,
+        options: Options(
+          headers: {'Authorization': 'Bearer $accessToken'},
+        ),
+      );
+      print(response.statusMessage);
+      final data = response.data;
+
+      customerModelList = CustomerModelList.fromJsons(data);
+
+      return customerModelList;
+    } on DioError catch (e) {
+      return e.response!.data;
+    }
   }
 }

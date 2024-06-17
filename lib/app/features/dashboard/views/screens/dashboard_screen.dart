@@ -15,7 +15,6 @@ import 'package:apartments/app/shared_components/selection_button.dart';
 import 'package:apartments/app/shared_components/simple_selection_button.dart';
 import 'package:apartments/app/shared_components/simple_user_profile.dart';
 import 'package:apartments/app/shared_components/user_profile.dart';
-import 'package:apartments/app/utils/helpers/navigation_services.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -26,7 +25,6 @@ import 'package:provider/provider.dart';
 
 import 'all_aparts_screen.dart';
 import 'clients/all_clients_grid_view.dart';
-import 'clients/clients components/all_clients_screen.dart';
 
 // binding
 part '../../bindings/dashboard_binding.dart';
@@ -130,11 +128,10 @@ class DashboardScreen extends GetView<DashboardController> {
                 ] else if (profileDetailsListener.getPageIndex == 2) ...[
                   Flexible(
                     flex: constraints.maxWidth > 1350 ? 8 : 7,
-                    child: const Column(
-                      children: [
-                        FormsLists(),
-                        Flexible(flex: 3, child: AllClientsList()),
-                      ],
+                    child: SingleChildScrollView(
+                      controller: ScrollController(),
+                      physics: const BouncingScrollPhysics(),
+                      child: AllClientsList(),
                     ),
                   ),
                 ],
