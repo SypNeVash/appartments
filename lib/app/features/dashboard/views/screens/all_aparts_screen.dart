@@ -31,8 +31,8 @@ class AllApartmentsScreenState extends State<AllApartmentsScreen> {
       borderRadius: BorderRadius.circular(kBorderRadius * 2),
       child: Consumer<ApartmentProvider>(
         builder: (context, provider, child) {
-          return FutureBuilder<ApartmentModelList>(
-            future: provider.futureApartmentModelList,
+          return FutureBuilder<>(
+            future: provider.searchApartments([]),
             builder: (BuildContext context,
                 AsyncSnapshot<ApartmentModelList> snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {

@@ -12,48 +12,16 @@ class FilterOfAppartments extends StatefulWidget {
 }
 
 class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _priceController = TextEditingController();
-  final TextEditingController _idController = TextEditingController();
+  final TextEditingController _propertyController = TextEditingController();
+  final TextEditingController _valueController = TextEditingController();
+  final TextEditingController _conditionController = TextEditingController();
 
   @override
   void dispose() {
-    _nameController.dispose();
-    _priceController.dispose();
-    _idController.dispose();
+    _propertyController.dispose();
+    _valueController.dispose();
+    _conditionController.dispose();
     super.dispose();
-  }
-
-  void _submitSearch(ApartmentProvider provider) {
-    String? name =
-        _nameController.text.isNotEmpty ? _nameController.text : null;
-    double? price = _priceController.text.isNotEmpty
-        ? double.tryParse(_priceController.text)
-        : null;
-    int? id =
-        _idController.text.isNotEmpty ? int.tryParse(_idController.text) : null;
-
-    List<FilterCondition> filters = [];
-    if (name != null) {
-      filters.add(
-          FilterCondition(property: 'name', value: name, condition: 'equals'));
-    }
-    if (price != null) {
-      filters.add(FilterCondition(
-          property: 'price',
-          value: price.toString(),
-          condition: 'greater_than'));
-    }
-    if (id != null) {
-      filters.add(FilterCondition(
-          property: 'id', value: id.toString(), condition: 'equals'));
-    }
-
-    // provider.searchApartments(
-    //   page: 1,
-    //   limit: 10,
-    //   filters: filters.isEmpty ? null : filters,
-    // );
   }
 
   @override
@@ -63,7 +31,7 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
     return Column(
       children: [
         TextFormField(
-          controller: _idController,
+          controller: _propertyController,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           textCapitalization: TextCapitalization.sentences,
           autofocus: false,
@@ -77,7 +45,21 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
           height: 15,
         ),
         TextFormField(
-          controller: _priceController,
+          controller: _valueController,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          textCapitalization: TextCapitalization.sentences,
+          autofocus: false,
+          keyboardType: TextInputType.multiline,
+          style: const TextStyle(
+              fontSize: 16, color: Colors.black, fontWeight: FontWeight.w500),
+          decoration: decorationForTextFormField('Phone number'),
+          onChanged: (val) {},
+        ),
+        const SizedBox(
+          height: 25,
+        ),
+        TextFormField(
+          controller: _conditionController,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           textCapitalization: TextCapitalization.sentences,
           autofocus: false,
@@ -98,7 +80,16 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
                 backgroundColor: const Color.fromARGB(255, 255, 188, 2),
               ),
               onPressed: () async {
-                _submitSearch(provider);
+                String property = _propertyController.text;
+                String value = _valueController.text;
+                String condition = _conditionController.text;
+
+                List<FilterCondition> filters = [
+                  FilterCondition(
+                      property: property, value: value, condition: condition),
+                ];
+
+                provider.searchApartments(filters);
 
                 // var cancel = BotToast.showLoading();
                 // final done = await postData();
