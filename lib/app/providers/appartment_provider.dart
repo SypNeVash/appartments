@@ -1,6 +1,7 @@
 import 'dart:collection';
 import 'dart:typed_data';
 
+import 'package:apartments/app/api/all_apartments_api.dart';
 import 'package:apartments/app/models/get_all_appart_model.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -11,6 +12,7 @@ class AppartDetailsListener with ChangeNotifier {
   bool? useDifferentFormat;
   List? allPortfolioImagesWithNotifier = [];
   int pageIndex = 0;
+  String phoneNumberFilter = '';
   List<XFile> xfileList = [];
   List<Uint8List?> unitfileList = [];
   List<ApartmentModel> portfolioModelList = [];
@@ -22,6 +24,8 @@ class AppartDetailsListener with ChangeNotifier {
   get getuseDifferentFormat => useDifferentFormat;
   get getAllPortfolioImagesWithNotifier => allPortfolioImagesWithNotifier;
   get getPageIndex => pageIndex;
+  get getphoneNumberForFilter => phoneNumberFilter;
+
   set setApartmentModel(ApartmentModel apartmentModels) {
     apartmentModel = apartmentModels;
     notifyListeners();
@@ -56,28 +60,26 @@ class AppartDetailsListener with ChangeNotifier {
     pageIndex = pageInd;
     notifyListeners();
   }
+
+  set setPhoneNumberForFilter(String phoneNumber) {
+    phoneNumberFilter = phoneNumber;
+    notifyListeners();
+  }
 }
 
-class ModalForProfileDetailsListener {
-  String? selfyFile;
-  String? passportFile;
-  String? dateOfBirth;
-  String? taxId;
-  String? uid;
-  String? image;
-  String? name;
+class ApartmentProvider extends ChangeNotifier {
+  RemoteApi remoteApi = RemoteApi();
+  final int limit = 10;
+  int currentPage = 1;
+  Future<ApartmentModelList>? _futureApartmentModelList;
 
-  ModalForProfileDetailsListener();
+  Future<ApartmentModelList>? get futureApartmentModelList =>
+      _futureApartmentModelList;
 
-  Map<String, dynamic> toMap() {
-    return {
-      'selfyFile': selfyFile,
-      'passportFile': passportFile,
-      'dateOfBirth': dateOfBirth,
-      'taxId': taxId,
-      'uid': uid,
-      'image': image,
-      'name': name,
-    };
+  void fetchApartments(int page) {
+    currentPage = page;
+    _futureApartmentModelList =
+        remoteApi.fetchDataFromAzure(currentPage, limit);
+    notifyListeners();
   }
 }

@@ -56,6 +56,9 @@ void main() async {
 
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (_) => AppartDetailsListener()),
+    ChangeNotifierProvider(
+      create: (context) => ApartmentProvider(),
+    ),
   ], child: const MyApp()));
 }
 

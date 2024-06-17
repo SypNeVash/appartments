@@ -74,10 +74,6 @@ class FormsLists extends StatelessWidget {
             textInputAction: TextInputAction.search,
             style: TextStyle(color: Colors.black),
           ),
-          // Text(
-          //   'All Clients',
-          //   style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-          // ),
           const SizedBox(
             height: 20,
           ),
@@ -96,7 +92,6 @@ class FormsLists extends StatelessWidget {
                       color: Colors.white),
                 ),
               )),
-
           const SizedBox(
             height: 30,
           ),
