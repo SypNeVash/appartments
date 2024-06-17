@@ -2,36 +2,12 @@ import 'dart:convert';
 import 'package:apartments/app/api/client_api.dart';
 import 'package:apartments/app/features/dashboard/views/components/text_form_fiel_decoration.dart';
 import 'package:apartments/app/shared_components/responsive_builder.dart';
-import 'package:apartments/app/utils/services/apartment_image_service.dart';
 import 'package:apartments/app/utils/services/shared_preferences.dart';
 import 'package:bot_toast/bot_toast.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:uuid/uuid.dart';
-
-var types = [
-  "1 кімнатна",
-  "2 кімнатна",
-  "3 кімнатна",
-  "4 кімнатна",
-  "Студія",
-  "Приватний будинок",
-  "Частина будинку",
-];
-
-var regions = [
-  "Галицький",
-  "Залізничний",
-  "Личаківський",
-  "Франківський",
-  "Шевченківський",
-  "Сихівський",
-];
-
-var cities = [
-  "Львів",
-];
 
 class AddingNewClients extends StatefulWidget {
   const AddingNewClients({Key? key}) : super(key: key);
@@ -119,7 +95,6 @@ class TextFormForAddingNewApt extends StatefulWidget {
 }
 
 class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
-  final String apiUrl = 'https://realtor.azurewebsites.net/api/RentObjects';
   final TextEditingController name = TextEditingController();
   final TextEditingController surname = TextEditingController();
   final TextEditingController patronymic = TextEditingController();
@@ -130,50 +105,46 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
   final TextEditingController password = TextEditingController();
   final TextEditingController username = TextEditingController();
   final TextEditingController email = TextEditingController();
-  DateTime now = DateTime.now();
 
-  Future<bool> postData() async {
+  Future<bool> postClientData() async {
+    Dio dio = Dio();
+    String apiUrl = 'https://realtor.azurewebsites.net/api/CustomerCards';
+    final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
+    String uuid = const Uuid().v4();
     try {
-      String uuid = const Uuid().v4();
-      final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
-      final listOfImages = await ApiClient().sendImages(context, accessToken);
-      final response = await http.post(Uri.parse(apiUrl),
-          headers: <String, String>{
-            'Content-Type': 'application/json; charset=UTF-8',
-            // 'Content-Type': 'multipart/form-data',
-            'Accept': 'application/json',
-            'Authorization': 'Bearer $accessToken'
-          },
-          body: jsonEncode(
-            <String, dynamic>{
-              "id": uuid,
-              "name": name.text,
-              "surname": surname.text,
-              "patronymic": patronymic.text,
-              "passport": passport.text,
-              "phoneNumber": phoneNumber.text,
-              "address": address.text,
-              "birthday": birthday.text,
-              "password": password.text,
-              "username": username.text,
-              "email": email.text,
-            },
-          ));
+      Map<String, String> datas = {
+        "id": uuid,
+        "name": name.text,
+        "surname": surname.text,
+        "patronymic": patronymic.text,
+        "passport": passport.text,
+        "phoneNumber": phoneNumber.text,
+        "address": address.text,
+        "birthday": birthday.text,
+        "password": password.text,
+        "username": username.text,
+        "email": email.text,
+      };
 
+      Response response = await dio.post(
+        apiUrl,
+        data: datas,
+        options: Options(
+          contentType: 'application/json',
+          headers: {'Authorization': 'Bearer $accessToken'},
+        ),
+      );
+      print(response.statusCode);
       if (response.statusCode == 200 || response.statusCode == 201) {
+        print(response);
         return true;
       } else {
+        print(response.statusCode);
         return false;
       }
     } catch (e) {
       return false;
     }
-  }
-
-  @override
-  void initState() {
-    print(now);
-    super.initState();
   }
 
   @override
@@ -356,7 +327,7 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
               ),
               onPressed: () async {
                 var cancel = BotToast.showLoading();
-                final done = await postData();
+                final done = await postClientData();
                 if (done == true) {
                   cancel();
                   Navigator.of(context).pop();
