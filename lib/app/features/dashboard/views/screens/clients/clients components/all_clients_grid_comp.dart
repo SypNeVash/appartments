@@ -1,7 +1,10 @@
 import 'package:apartments/app/constans/app_constants.dart';
+import 'package:apartments/app/features/dashboard/views/screens/clients/crud_client_api.dart';
 import 'package:apartments/app/models/customers_model.dart';
 import 'package:apartments/app/utils/animations/show_up_animation.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 
 class CustomerGrid extends StatefulWidget {
   final List<CustomerModel> customers;
@@ -78,6 +81,51 @@ class CustomerCard extends StatefulWidget {
 }
 
 class _CustomerCardState extends State<CustomerCard> {
+  void _showAlertDialog(String apartmentId) async {
+    Get.defaultDialog(
+      title: "Oqoo!",
+      middleText: "Ti uveren bratishka?",
+      textConfirm: "Dokancsa",
+      confirmTextColor: Colors.white,
+      onConfirm: () async {
+        final deleted =
+            await RemoteClientApi().deleteClientDataFromDB(apartmentId);
+        if (deleted == true) {
+          showSnackBarForConfirmation();
+        } else {
+          showSnackBarForError();
+        }
+        Get.back(); // Close the dialog
+      },
+      textCancel: "Zadniy",
+      onCancel: () {
+        // Perform any action on cancel, if needed
+      },
+    );
+  }
+
+  showSnackBarForConfirmation() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        backgroundColor: Colors.green,
+        content: Text(
+          'Sucessfully deleted',
+          style: TextStyle(color: Colors.white),
+        ),
+        duration: Duration(seconds: 2),
+      ),
+    );
+  }
+
+  showSnackBarForError() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Try again'),
+        duration: Duration(seconds: 2),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -101,7 +149,8 @@ class _CustomerCardState extends State<CustomerCard> {
           child: Row(
             children: [
               const CircleAvatar(
-                radius: 25,
+                radius: 35,
+                backgroundImage: AssetImage('images/user.png'),
               ),
               const SizedBox(
                 width: 20,
@@ -118,13 +167,44 @@ class _CustomerCardState extends State<CustomerCard> {
                     ),
                   ),
                   const SizedBox(height: 5),
-                  Text('Phone: ${widget.customer.phoneNumber}'),
+                  Text('Address: ${widget.customer.address}'),
                   const SizedBox(height: 5),
                   Text('Email: ${widget.customer.email}'),
                   const SizedBox(height: 5),
-                  Text('Address: ${widget.customer.address}'),
+                  Text('Birthday: ${widget.customer.birthday}'),
+                  const SizedBox(height: 5),
+                  Text('Pasport: ${widget.customer.passport}'),
+                  const SizedBox(height: 5),
+                  Text('Patronymic: ${widget.customer.patronymic}'),
+                  const SizedBox(height: 5),
+                  Text('Phone: ${widget.customer.phoneNumber}'),
                 ],
               ),
+              const Spacer(),
+              Row(
+                children: [
+                  InkWell(
+                    onTap: () => null,
+                    child: const FaIcon(
+                      FontAwesomeIcons.pencil,
+                      color: Colors.blue,
+                      size: 18,
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  InkWell(
+                    onTap: () =>
+                        _showAlertDialog(widget.customer.id.toString()),
+                    child: const FaIcon(
+                      FontAwesomeIcons.trashCan,
+                      color: Colors.black,
+                      size: 18,
+                    ),
+                  )
+                ],
+              )
             ],
           ),
         ),

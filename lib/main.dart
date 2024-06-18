@@ -107,7 +107,9 @@ class _MyAppState extends State<MyApp> {
       ],
       scrollBehavior: CustomScrollBehaviour(),
       builder: BotToastInit(),
-      navigatorObservers: [BotToastNavigatorObserver(), MyNavigatorObserver()],
+      navigatorObservers: [
+        BotToastNavigatorObserver(),
+      ],
       debugShowCheckedModeBanner: false,
     );
   }

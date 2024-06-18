@@ -12,7 +12,7 @@ class ResponsiveRowColumn extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        if (constraints.maxWidth < 1500) {
+        if (constraints.maxWidth < 400) {
           return Column(
             children: [child1, child2, child3!, child4!],
           );

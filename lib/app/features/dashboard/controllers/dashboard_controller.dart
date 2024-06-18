@@ -5,9 +5,10 @@ part of dashboard;
 class DashboardController extends GetxController {
   final scafoldKey = GlobalKey<ScaffoldState>();
   final AuthController authController = Get.put(AuthController());
+
   final dataProfil = const UserProfileData(
     image: AssetImage(ImageRasterPath.man),
-    name: "Parviz",
+    name: 'dvdddd',
     jobDesk: "Owner",
   );
 

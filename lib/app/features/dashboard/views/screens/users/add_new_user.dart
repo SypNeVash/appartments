@@ -18,7 +18,7 @@ class _AddNewUsersState extends State<AddNewUsers> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: ResponsiveBuilder(mobileBuilder: (context, constraints) {
-      return Padding(
+      return const Padding(
         padding: EdgeInsets.symmetric(horizontal: 25, vertical: 25),
         child: Column(
           children: [
@@ -39,12 +39,17 @@ class _AddNewUsersState extends State<AddNewUsers> {
     }, desktopBuilder: (context, constraints) {
       return Center(
         child: Container(
-            constraints: const BoxConstraints(maxWidth: 400),
             padding: const EdgeInsets.symmetric(vertical: 55),
             child: const Column(
               children: [
                 FormsListForUsers(),
-                TextFormForAddingNewUser(),
+                Row(
+                  children: [
+                    Expanded(flex: 1, child: SizedBox()),
+                    Expanded(flex: 3, child: TextFormForAddingNewUser()),
+                    Expanded(flex: 1, child: SizedBox())
+                  ],
+                ),
               ],
             )),
       );
@@ -61,7 +66,7 @@ class FormsListForUsers extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Adding new Client',
+          'Adding new User',
           style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
         ),
         Text(

@@ -1,4 +1,5 @@
 import 'package:apartments/app/constans/app_constants.dart';
+import 'package:apartments/app/utils/services/shared_preferences.dart';
 import 'package:flutter/material.dart';
 
 class UserProfileData {
@@ -13,7 +14,7 @@ class UserProfileData {
   });
 }
 
-class UserProfile extends StatelessWidget {
+class UserProfile extends StatefulWidget {
   const UserProfile({
     required this.data,
     required this.onPressed,
@@ -24,12 +25,33 @@ class UserProfile extends StatelessWidget {
   final Function() onPressed;
 
   @override
+  State<UserProfile> createState() => _UserProfileState();
+}
+
+class _UserProfileState extends State<UserProfile> {
+  String name = '';
+  String role = '';
+  @override
+  void initState() {
+    getUserData();
+    super.initState();
+  }
+
+  getUserData() async {
+    name = await SPHelper.getNameSharedPreference() ?? '';
+    role = await SPHelper.getRolesSharedPreference() ?? '';
+    print(name);
+    print(role);
+    setState(() {});
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(10),
       child: InkWell(
         borderRadius: BorderRadius.circular(kBorderRadius),
-        onTap: onPressed,
+        onTap: widget.onPressed,
         child: Padding(
           padding: const EdgeInsets.all(10),
           child: Row(
@@ -56,13 +78,13 @@ class UserProfile extends StatelessWidget {
   Widget _buildImage() {
     return CircleAvatar(
       radius: 25,
-      backgroundImage: data.image,
+      backgroundImage: widget.data.image,
     );
   }
 
   Widget _buildName() {
     return Text(
-      data.name,
+      name,
       style: TextStyle(
         fontWeight: FontWeight.bold,
         color: kFontColorPallets[0],
@@ -74,7 +96,7 @@ class UserProfile extends StatelessWidget {
 
   Widget _buildJobdesk() {
     return Text(
-      data.jobDesk,
+      role,
       style: TextStyle(
         fontWeight: FontWeight.w300,
         color: kFontColorPallets[1],

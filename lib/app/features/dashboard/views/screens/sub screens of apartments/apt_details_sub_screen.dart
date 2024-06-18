@@ -72,7 +72,7 @@ class _ApartmentDetailsSubScreenState extends State<ApartmentDetailsSubScreen> {
                     padding: const EdgeInsets.only(top: 25),
                     child: Container(
                       padding: const EdgeInsets.symmetric(
-                          vertical: 15, horizontal: 25),
+                          vertical: 15, horizontal: 15),
                       decoration: BoxDecoration(
                         color: const Color.fromARGB(255, 248, 246, 246),
                         borderRadius: BorderRadius.circular(10),
@@ -80,13 +80,13 @@ class _ApartmentDetailsSubScreenState extends State<ApartmentDetailsSubScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const SizedBox(
-                            child: FaIcon(
-                              FontAwesomeIcons.arrowLeftLong,
-                              color: Colors.black,
-                              size: 18,
-                            ),
-                          ),
+                          // const SizedBox(
+                          //   child: FaIcon(
+                          //     FontAwesomeIcons.arrowLeftLong,
+                          //     color: Colors.black,
+                          //     size: 18,
+                          //   ),
+                          // ),
                           const Text(
                             "Apartment details",
                             style: TextStyle(

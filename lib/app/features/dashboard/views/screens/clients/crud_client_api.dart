@@ -37,13 +37,12 @@ class RemoteClientApi {
   }
 
   Future<bool> deleteClientDataFromDB(
-    String apartmentId,
+    String clientId,
   ) async {
-    var url = 'https://realtor.azurewebsites.net/api/RentObjects/$apartmentId';
-    print('started');
+    var url = 'https://realtor.azurewebsites.net/api/CustomerCards/$clientId';
+
     try {
       final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
-      print(accessToken);
 
       Response response = await _dio.delete(
         url,
@@ -51,14 +50,13 @@ class RemoteClientApi {
           headers: {'Authorization': 'Bearer $accessToken'},
         ),
       );
-      final data = response.data;
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        print('Apartment deleted successfully');
+      if (response.statusCode == 200 ||
+          response.statusCode == 201 ||
+          response.statusCode == 204) {
+        return true;
       } else {
-        print('Failed to delete the apartment');
+        return false;
       }
-      print(data);
-      return true;
     } on DioError catch (e) {
       return e.response!.data;
     }

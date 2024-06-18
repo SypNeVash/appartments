@@ -23,22 +23,42 @@ class AuthService {
       if (res['status'] != 401) {
         String accessToken = res['token'];
         String token = accessToken;
-        print(token);
         Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
 
         bool isTokenExpired = JwtDecoder.isExpired(token);
 
         if (isTokenExpired == true) {}
 
-        await _saveToken(token);
+        await _saveToken(token, decodedToken);
       }
     } on DioError catch (e) {
       return e.response!.data;
     }
   }
 
-  static Future<void> _saveToken(String token) async {
+  Future<void> _saveToken(String token, decodedToken) async {
     await SPHelper.saveTokenSharedPreference(token);
+
+    final role = await getField('/identity/claims/role', decodedToken);
+    await SPHelper.saveRoleSharedPreference(role);
+    final name = await getField('/identity/claims/name', decodedToken);
+    await SPHelper.saveNameSharedPreference(name);
+  }
+
+  Future<String> getField(String partialKey, token) async {
+    try {
+      // Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
+      String valueField = '';
+      token.forEach((key, val) {
+        if (key.contains(partialKey)) {
+          valueField = val;
+        }
+      });
+      print(valueField);
+      return valueField;
+    } catch (e) {
+      return 'Error decoding token';
+    }
   }
 
   static Future<void> logout() async {
