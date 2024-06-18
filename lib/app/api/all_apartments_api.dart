@@ -3,6 +3,8 @@ import 'package:apartments/app/models/get_all_appart_model.dart';
 import 'package:apartments/app/utils/services/shared_preferences.dart';
 import 'package:dio/dio.dart';
 
+import '../providers/appartment_provider.dart';
+
 class RemoteApi {
   final Dio _dio = Dio();
 
@@ -28,6 +30,8 @@ class RemoteApi {
         ),
       );
       final data = response.data;
+      print(data);
+
       apartmentModelList = ApartmentModelList.fromJson(data);
 
       return apartmentModelList;
@@ -36,21 +40,29 @@ class RemoteApi {
     }
   }
 
-  Future<ApartmentModelList> searchApartments(
+  static Future<ApartmentModelList> searchApartments(
       List<FilterCondition> filters) async {
-    var url = 'https://realtor.azurewebsites.net/api/';
+    var url =
+        'https://realtor.azurewebsites.net/api/RentObjects/paginationWithFiler';
+    final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
     try {
-      Map<String, dynamic> queryParameters = {};
-
+      Map<String, dynamic> queryParameters = {
+        'page': 1,
+        'count': 10,
+      };
       for (var filter in filters) {
         queryParameters[filter.property] = filter.value;
         queryParameters['${filter.property}_condition'] = filter.condition;
       }
 
-      final response = await _dio.get('$url/RentObjects/paginationWithFiler',
+      final response = await Dio().get(url,
+          options: Options(
+            headers: {'Authorization': 'Bearer $accessToken'},
+          ),
           queryParameters: queryParameters);
 
       final data = response.data;
+      print(data);
       return ApartmentModelList.fromJson(data);
     } catch (e) {
       throw Exception('Failed to search apartments: $e');

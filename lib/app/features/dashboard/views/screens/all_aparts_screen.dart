@@ -19,10 +19,10 @@ class AllApartmentsScreen extends StatefulWidget {
 class AllApartmentsScreenState extends State<AllApartmentsScreen> {
   @override
   void initState() {
+    super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Provider.of<ApartmentProvider>(context, listen: false).fetchApartments(1);
     });
-    super.initState();
   }
 
   @override
@@ -31,10 +31,10 @@ class AllApartmentsScreenState extends State<AllApartmentsScreen> {
       borderRadius: BorderRadius.circular(kBorderRadius * 2),
       child: Consumer<ApartmentProvider>(
         builder: (context, provider, child) {
-          return FutureBuilder<>(
-            future: provider.searchApartments([]),
+          return FutureBuilder<List<ApartmentModel>>(
+            future: provider.futureApartmentModelList,
             builder: (BuildContext context,
-                AsyncSnapshot<ApartmentModelList> snapshot) {
+                AsyncSnapshot<List<ApartmentModel>> snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(
                   child: SizedBox(
@@ -51,14 +51,14 @@ class AllApartmentsScreenState extends State<AllApartmentsScreen> {
               } else if (snapshot.hasData) {
                 return Column(
                   children: [
-                    if (snapshot.data!.apartmentModel.isEmpty) ...[
+                    if (snapshot.data!.isEmpty) ...[
                       const Text('No Apartments found'),
                     ] else ...[
                       ListView.builder(
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         scrollDirection: Axis.vertical,
-                        itemCount: snapshot.data!.apartmentModel.length,
+                        itemCount: snapshot.data!.length,
                         itemBuilder: (context, index) => Padding(
                           padding: const EdgeInsets.symmetric(
                               vertical: kSpacing / 2),
@@ -67,13 +67,12 @@ class AllApartmentsScreenState extends State<AllApartmentsScreen> {
                             child: InkWell(
                               onTap: () async {
                                 await SPHelper.saveIDAptSharedPreference(
-                                    snapshot.data!.apartmentModel[index].id
-                                        .toString());
+                                    snapshot.data![index].id.toString());
                                 Get.toNamed('/apartmentdetail',
                                     preventDuplicates: false);
                               },
                               child: CardTask(
-                                data: snapshot.data!.apartmentModel[index],
+                                data: snapshot.data![index],
                                 primary:
                                     const Color.fromARGB(255, 105, 188, 255),
                                 onPrimary: Colors.white,
@@ -97,7 +96,7 @@ class AllApartmentsScreenState extends State<AllApartmentsScreen> {
                   ],
                 );
               } else {
-                return const Center(child: Text('No data found'));
+                return const Center(child: Text('Loading'));
               }
             },
           );

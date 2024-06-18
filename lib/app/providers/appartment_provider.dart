@@ -2,6 +2,7 @@ import 'dart:collection';
 import 'dart:typed_data';
 
 import 'package:apartments/app/api/all_apartments_api.dart';
+import 'package:apartments/app/features/dashboard/views/screens/apartment_details.dart';
 import 'package:apartments/app/models/filter_models.dart';
 import 'package:apartments/app/models/get_all_appart_model.dart';
 import 'package:flutter/material.dart';
@@ -74,7 +75,7 @@ class AppartDetailsListener with ChangeNotifier {
 //   int currentPage = 1;
 //   Future<ApartmentModelList>? _futureApartmentModelList;
 
-//   Future<ApartmentModelList>? get futureApartmentModelList =>
+//   Future<ApartmentModelList>? get getfutureApartmentModelList =>
 //       _futureApartmentModelList;
 
 //   void fetchApartments(int page) {
@@ -89,51 +90,73 @@ class ApartmentProvider extends ChangeNotifier {
   List<ApartmentModel> _apartments = [];
   bool _isLoading = false;
   String _errorMessage = '';
-  int _currentPage = 1; // Track current page
+  int _currentPage = 1;
+  Future<List<ApartmentModel>>? _futureApartmentModelList;
 
   List<ApartmentModel> get apartments => _apartments;
   bool get isLoading => _isLoading;
   String get errorMessage => _errorMessage;
   int get currentPage => _currentPage;
+  Future<List<ApartmentModel>>? get futureApartmentModelList =>
+      _futureApartmentModelList;
 
-  Future<void> fetchApartments(int page) async {
+  Future<List<ApartmentModel>> fetchApartments(int page) async {
     try {
       _isLoading = true;
       notifyListeners();
 
-      final result = await RemoteApi()
-          .fetchDataFromAzure(page); // Implement fetchApartments in ApiService
+      final result = await RemoteApi().fetchDataFromAzure(page);
       _apartments = result.apartmentModel;
       _currentPage = page;
+
+      _futureApartmentModelList = Future.value(_apartments);
 
       _isLoading = false;
       _errorMessage = '';
 
       notifyListeners();
+      return _apartments;
     } catch (e) {
       _isLoading = false;
       _errorMessage = 'Failed to fetch apartments: $e';
       notifyListeners();
+      return [];
     }
   }
 
-  Future<void> searchApartments(List<FilterCondition> filters) async {
+  Future<List<ApartmentModel>> searchApartments(
+      List<FilterCondition> filters) async {
     try {
       _isLoading = true;
       notifyListeners();
 
-      final result = await RemoteApi().searchApartments(
-          filters); // Implement searchApartments in ApiService
+      final result = await RemoteApi.searchApartments(filters);
       _apartments = result.apartmentModel;
+
+      _futureApartmentModelList = Future.value(_apartments);
 
       _isLoading = false;
       _errorMessage = '';
 
       notifyListeners();
+      return _apartments;
     } catch (e) {
       _isLoading = false;
       _errorMessage = 'Failed to search apartments: $e';
       notifyListeners();
+      return [];
     }
   }
+}
+
+class FilterCondition {
+  final String property;
+  final String value;
+  final String condition;
+
+  FilterCondition({
+    required this.property,
+    required this.value,
+    required this.condition,
+  });
 }
