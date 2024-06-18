@@ -16,6 +16,86 @@ class CardTask extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return LayoutBuilder(builder: (context, constraints) {
+      if (constraints.maxWidth > 800) {
+        // Use Row layout if screen width is greater than 600 pixels
+        return desktopCardTask();
+      } else {
+        // Use Column layout if screen width is less than or equal to 600 pixels
+        return mobileCardTask();
+      }
+    });
+  }
+
+  ClipRRect mobileCardTask() {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(20),
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [primary, primary.withOpacity(.7)],
+            begin: AlignmentDirectional.topCenter,
+            end: AlignmentDirectional.bottomCenter,
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(
+                width: 200,
+                height: 200,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Image(
+                    image: NetworkImage(
+                      data.photos!.first.toString(),
+                    ),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 25,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      _buildLabel(),
+                      const SizedBox(height: 20),
+                      _buildJobdesk(),
+                    ],
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildDate(),
+                      const SizedBox(
+                        height: 25,
+                      ),
+                      _buildHours(),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  _doneButton(),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  ClipRRect desktopCardTask() {
     return ClipRRect(
       borderRadius: BorderRadius.circular(20),
       child: Container(
