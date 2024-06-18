@@ -36,15 +36,21 @@ class _TextFormForAddingEditingAptState
   ApartmentModel apartmentModel = ApartmentModel();
   ApiClient apiClient = ApiClient();
 
-  Future<bool> postData() async {
+  Future<bool> postDataFOrEditing() async {
+    AppartDetailsListener profileDetailsListener =
+        Provider.of<AppartDetailsListener>(context, listen: false);
     final Dio _dio = Dio();
     final id = await SPHelper.getIDAptSharedPreference() ?? '';
-
+    final List<String> listFromModelPhoto =
+        profileDetailsListener.getAllPortfolioImagesWithNotifier;
     String url = 'https://realtor.azurewebsites.net/api/RentObjects/$id';
 
     try {
       final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
-      final listOfImages = await ApiClient().sendImages(context, accessToken);
+      final listOfImages =
+          await ApiClient().sendImages(context, accessToken, id);
+      print('listOfImages: $listOfImages');
+      print('listFromModelPhoto: $listFromModelPhoto');
 
       Map<String, dynamic> data = {
         "id": "uuid",
@@ -62,7 +68,7 @@ class _TextFormForAddingEditingAptState
         "status": "string",
         "createdData": now.toString(),
         "updatedUser": now.toString(),
-        "photos": listOfImages,
+        "photos": listOfImages + listFromModelPhoto,
       };
 
       final response = await _dio.put(
@@ -328,7 +334,7 @@ class _TextFormForAddingEditingAptState
               ),
               onPressed: () async {
                 var cancel = BotToast.showLoading();
-                final done = await postData();
+                final done = await postDataFOrEditing();
                 if (done == true) {
                   cancel();
                   Navigator.of(context).pop();

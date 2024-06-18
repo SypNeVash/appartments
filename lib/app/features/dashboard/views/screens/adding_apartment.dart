@@ -157,11 +157,11 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
     try {
       String uuid = const Uuid().v4();
       final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
-      final listOfImages = await ApiClient().sendImages(context, accessToken);
+      final listOfImages =
+          await ApiClient().sendImages(context, accessToken, uuid);
       final response = await http.post(Uri.parse(apiUrl),
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
-            // 'Content-Type': 'multipart/form-data',
             'Accept': 'application/json',
             'Authorization': 'Bearer $accessToken'
           },

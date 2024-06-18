@@ -109,14 +109,13 @@ class ApiClient {
     }
   }
 
-// Working code
   Future<List<dynamic>> sendImages(
-      BuildContext context, String _jwtToken) async {
+      BuildContext context, String _jwtToken, String id) async {
     AppartDetailsListener profileDetailsListener =
         Provider.of<AppartDetailsListener>(context, listen: false);
     late List<dynamic> photoReferences;
     String url =
-        'https://realtor.azurewebsites.net/api/Files'; // Replace with your API endpoint
+        'https://realtor.azurewebsites.net/api/Files/$id'; // Replace with your API endpoint
 
     try {
       var request = http.MultipartRequest('POST', Uri.parse(url));

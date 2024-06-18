@@ -17,11 +17,6 @@ class ApartmentDetailsSubScreen extends StatefulWidget {
 }
 
 class _ApartmentDetailsSubScreenState extends State<ApartmentDetailsSubScreen> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
   ApiClient apiClient = ApiClient();
 
   void _showAlertDialog() async {
