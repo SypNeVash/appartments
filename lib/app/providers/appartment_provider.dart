@@ -159,4 +159,12 @@ class FilterCondition {
     required this.value,
     required this.condition,
   });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'property': property,
+      'value': value,
+      'condition': condition,
+    };
+  }
 }

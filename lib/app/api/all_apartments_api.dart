@@ -60,7 +60,9 @@ class RemoteApi {
         queryParameters['conditions[$i].value'] = filters[i].value;
         queryParameters['conditions[$i].condition'] = filters[i].condition;
       }
+
       print(queryParameters);
+
       final response = await Dio().get(url,
           options: Options(
             headers: {'Authorization': 'Bearer $accessToken'},
@@ -68,7 +70,6 @@ class RemoteApi {
           queryParameters: queryParameters);
 
       final data = response.data;
-      print(data);
       return ApartmentModelList.fromJson(data);
     } catch (e) {
       throw Exception('Failed to search apartments: $e');
