@@ -30,7 +30,6 @@ class RemoteApi {
         ),
       );
       final data = response.data;
-      print(data);
 
       apartmentModelList = ApartmentModelList.fromJson(data);
 
@@ -50,11 +49,18 @@ class RemoteApi {
         'page': 1,
         'count': 10,
       };
-      for (var filter in filters) {
-        queryParameters[filter.property] = filter.value;
-        queryParameters['${filter.property}_condition'] = filter.condition;
-      }
+      // for (var filter in filters) {
+      //   queryParameters["property"] = filter.property;
+      //   queryParameters['value'] = filter.value;
+      //   queryParameters['condition'] = filter.condition;
+      // }
 
+      for (int i = 0; i < filters.length; i++) {
+        queryParameters['conditions[$i].property'] = filters[i].property;
+        queryParameters['conditions[$i].value'] = filters[i].value;
+        queryParameters['conditions[$i].condition'] = filters[i].condition;
+      }
+      print(queryParameters);
       final response = await Dio().get(url,
           options: Options(
             headers: {'Authorization': 'Bearer $accessToken'},

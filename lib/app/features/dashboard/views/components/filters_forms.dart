@@ -24,6 +24,21 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
     super.dispose();
   }
 
+  void _submitForm() {
+    final property = _propertyController.text;
+    final value = _valueController.text;
+    final condition = _conditionController.text;
+
+    final filter = FilterCondition(
+      property: property,
+      value: value,
+      condition: condition,
+    );
+
+    Provider.of<ApartmentProvider>(context, listen: false)
+        .searchApartments([filter]);
+  }
+
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<ApartmentProvider>(context);
@@ -80,16 +95,7 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
                 backgroundColor: const Color.fromARGB(255, 255, 188, 2),
               ),
               onPressed: () async {
-                String property = _propertyController.text;
-                String value = _valueController.text;
-                String condition = _conditionController.text;
-
-                List<FilterCondition> filters = [
-                  FilterCondition(
-                      property: property, value: value, condition: condition),
-                ];
-
-                provider.searchApartments(filters);
+                _submitForm();
 
                 // var cancel = BotToast.showLoading();
                 // final done = await postData();
