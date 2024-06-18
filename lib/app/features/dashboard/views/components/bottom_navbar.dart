@@ -31,6 +31,15 @@ class _BottomNavbarState extends State<_BottomNavbar> {
           label: "Clients",
         ),
         BottomNavigationBarItem(
+          activeIcon: Icon(
+            EvaIcons.personAddOutline,
+          ),
+          icon: Icon(
+            EvaIcons.personAddOutline,
+          ),
+          label: "Add user",
+        ),
+        BottomNavigationBarItem(
           activeIcon: Icon(EvaIcons.settings),
           icon: Icon(EvaIcons.settingsOutline),
           label: "Settings",

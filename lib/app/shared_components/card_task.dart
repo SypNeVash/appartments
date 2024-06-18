@@ -18,80 +18,68 @@ class CardTask extends StatelessWidget {
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(20),
-      child: Material(
-        child: Container(
-          width: 250,
-          height: 200,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [primary, primary.withOpacity(.7)],
-              begin: AlignmentDirectional.topCenter,
-              end: AlignmentDirectional.bottomCenter,
-            ),
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [primary, primary.withOpacity(.7)],
+            begin: AlignmentDirectional.topCenter,
+            end: AlignmentDirectional.bottomCenter,
           ),
-          child: _BackgroundDecoration(
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: Row(
-                children: [
-                  Container(
-                    width: 200,
-                    child: AspectRatio(
-                      aspectRatio: 3 / 9,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image(
-                          image: NetworkImage(
-                            data.photos!.first.toString(),
-                          ),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Row(
+            children: [
+              SizedBox(
+                width: 200,
+                height: 200,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Image(
+                    image: NetworkImage(
+                      data.photos!.first.toString(),
                     ),
+                    fit: BoxFit.cover,
                   ),
-                  const SizedBox(
-                    width: 25,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 80,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            _buildLabel(),
-                            const SizedBox(height: 20),
-                            _buildJobdesk(),
-                          ],
-                        ),
-                      ),
-                      const Spacer(flex: 1),
-                      Column(
+                ),
+              ),
+              const SizedBox(
+                width: 25,
+              ),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: 80,
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          _buildDate(),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          // SizedBox(
-                          //   height: 20,
-                          //   child: VerticalDivider(
-                          //     thickness: 1,
-                          //     color: onPrimary,
-                          //   ),
-                          // ),
-                          _buildHours(),
+                          _buildLabel(),
+                          const SizedBox(height: 20),
+                          _buildJobdesk(),
                         ],
                       ),
-                      const Spacer(flex: 2),
-                      _doneButton(),
-                    ],
-                  ),
-                ],
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildDate(),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        _buildHours(),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 25,
+                    ),
+                    _doneButton(),
+                  ],
+                ),
               ),
-            ),
+            ],
           ),
         ),
       ),

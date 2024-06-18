@@ -25,6 +25,7 @@ import 'package:provider/provider.dart';
 
 import 'all_aparts_screen.dart';
 import 'clients/all_clients_grid_view.dart';
+import 'users/add_new_user.dart';
 
 // binding
 part '../../bindings/dashboard_binding.dart';
@@ -131,7 +132,16 @@ class DashboardScreen extends GetView<DashboardController> {
                     child: SingleChildScrollView(
                       controller: ScrollController(),
                       physics: const BouncingScrollPhysics(),
-                      child: AllClientsList(),
+                      child: const AllClientsList(),
+                    ),
+                  ),
+                ] else if (profileDetailsListener.getPageIndex == 3) ...[
+                  Flexible(
+                    flex: constraints.maxWidth > 1350 ? 8 : 7,
+                    child: SingleChildScrollView(
+                      controller: ScrollController(),
+                      physics: const BouncingScrollPhysics(),
+                      child: const AddNewUsers(),
                     ),
                   ),
                 ],

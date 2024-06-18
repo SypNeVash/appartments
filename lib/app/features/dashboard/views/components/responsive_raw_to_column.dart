@@ -20,11 +20,7 @@ class ResponsiveRowColumn extends StatelessWidget {
         } else {
           return Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              child1,
-              child2,
-              child3!,
-            ],
+            children: [child1, child2, child3!],
           );
         }
       },
