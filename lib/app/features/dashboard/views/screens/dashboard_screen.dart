@@ -132,7 +132,7 @@ class DashboardScreen extends GetView<DashboardController> {
                     child: SingleChildScrollView(
                       controller: ScrollController(),
                       physics: const BouncingScrollPhysics(),
-                      child: const AllClientsList(),
+                      child: const AllClientsMain(),
                     ),
                   ),
                 ] else if (profileDetailsListener.getPageIndex == 3) ...[

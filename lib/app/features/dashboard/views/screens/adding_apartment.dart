@@ -41,7 +41,7 @@ class AddingNewApartments extends StatelessWidget {
       children: [
         Expanded(flex: 1, child: SizedBox()),
         Expanded(
-          flex: 3,
+          flex: 4,
           child: Padding(
             padding: EdgeInsets.only(top: 28.0),
             child: Column(
@@ -398,6 +398,9 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
                     fontWeight: FontWeight.w600),
               )),
         ),
+        const SizedBox(
+          height: 50,
+        )
       ],
     );
   }

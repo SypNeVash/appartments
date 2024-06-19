@@ -68,10 +68,8 @@ class _AllClientsListState extends State<AllClientsList> {
               return Column(
                 children: [
                   if (snapshot.data!.length <= 1) ...[
-                    const FormsLists(),
-                    const Center(child: Text('No Kvartira found')),
+                    const Center(child: Text('No Client Found')),
                   ] else ...[
-                    const FormsLists(),
                     ListView.builder(
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
@@ -80,7 +78,7 @@ class _AllClientsListState extends State<AllClientsList> {
                         itemBuilder: (context, index) {
                           return Padding(
                             padding: const EdgeInsets.symmetric(
-                                vertical: kSpacing / 2),
+                                horizontal: kSpacing, vertical: kSpacing / 2),
                             child: ShowUp(
                               delay: 400,
                               child:
@@ -109,5 +107,16 @@ class _AllClientsListState extends State<AllClientsList> {
             }
           });
     });
+  }
+}
+
+class AllClientsMain extends StatelessWidget {
+  const AllClientsMain({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Column(
+      children: [FormsLists(), AllClientsList()],
+    );
   }
 }

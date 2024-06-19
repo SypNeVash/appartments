@@ -202,6 +202,7 @@ class _ImagesListToSendState extends State<ImagesListToSend> {
                   child: ClipRRect(
                       borderRadius: const BorderRadius.all(Radius.circular(12)),
                       child: Image(
+                        fit: BoxFit.cover,
                         image: NetworkImage(widget.imageFileList![index]),
                       )),
                 ),
@@ -281,10 +282,9 @@ class ImagesXFileListToSend extends StatelessWidget {
                     child: ClipRRect(
                       borderRadius: const BorderRadius.all(Radius.circular(12)),
                       child: kIsWeb
-                          ? Image.network(frameBuilder: (BuildContext context,
-                              Widget child,
-                              int? frame,
-                              bool wasSynchronouslyLoaded) {
+                          ? Image.network(fit: BoxFit.cover, frameBuilder:
+                              (BuildContext context, Widget child, int? frame,
+                                  bool wasSynchronouslyLoaded) {
                               if (wasSynchronouslyLoaded) {
                                 return child;
                               }

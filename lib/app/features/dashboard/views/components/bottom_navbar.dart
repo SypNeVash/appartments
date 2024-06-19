@@ -18,7 +18,7 @@ class _BottomNavbarState extends State<_BottomNavbar> {
         BottomNavigationBarItem(
           activeIcon: Icon(EvaIcons.home),
           icon: Icon(EvaIcons.homeOutline),
-          label: "Home",
+          label: "Apartments",
         ),
         BottomNavigationBarItem(
           activeIcon: Icon(EvaIcons.bell),

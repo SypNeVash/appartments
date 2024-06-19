@@ -1,5 +1,4 @@
 import 'package:apartments/app/features/dashboard/views/components/text_form_fiel_decoration.dart';
-import 'package:apartments/app/shared_components/responsive_builder.dart';
 import 'package:apartments/app/utils/services/shared_preferences.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:dio/dio.dart';
@@ -16,44 +15,23 @@ class AddNewUsers extends StatefulWidget {
 class _AddNewUsersState extends State<AddNewUsers> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: ResponsiveBuilder(mobileBuilder: (context, constraints) {
-      return const Padding(
-        padding: EdgeInsets.symmetric(horizontal: 25, vertical: 25),
-        child: Column(
-          children: [
-            FormsListForUsers(),
-            TextFormForAddingNewUser(),
-          ],
+    return Row(
+      children: [
+        const Expanded(flex: 1, child: SizedBox()),
+        Expanded(
+          flex: 4,
+          child: Container(
+              padding: const EdgeInsets.symmetric(vertical: 55),
+              child: const Column(
+                children: [
+                  FormsListForUsers(),
+                  TextFormForAddingNewUser(),
+                ],
+              )),
         ),
-      );
-    }, tabletBuilder: (context, constraints) {
-      return Container(
-          constraints: const BoxConstraints(maxWidth: 400),
-          child: const Column(
-            children: [
-              FormsListForUsers(),
-              TextFormForAddingNewUser(),
-            ],
-          ));
-    }, desktopBuilder: (context, constraints) {
-      return Center(
-        child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 55),
-            child: const Column(
-              children: [
-                FormsListForUsers(),
-                Row(
-                  children: [
-                    Expanded(flex: 1, child: SizedBox()),
-                    Expanded(flex: 3, child: TextFormForAddingNewUser()),
-                    Expanded(flex: 1, child: SizedBox())
-                  ],
-                ),
-              ],
-            )),
-      );
-    }));
+        const Expanded(flex: 1, child: SizedBox()),
+      ],
+    );
   }
 }
 
