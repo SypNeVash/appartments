@@ -130,12 +130,9 @@ class _TextFormForAddingNewUserState extends State<TextFormForAddingNewUser> {
           headers: {'Authorization': 'Bearer $accessToken'},
         ),
       );
-      print(response.statusCode);
       if (response.statusCode == 200 || response.statusCode == 201) {
-        print(response);
         return true;
       } else {
-        print(response.statusCode);
         return false;
       }
     } catch (e) {

@@ -48,7 +48,6 @@ class _TextFormForAddingEditingAptState
         profileDetailsListener.getAllPortfolioImagesWithNotifier;
     String url = 'https://realtor.azurewebsites.net/api/RentObjects/$id';
     List<dynamic> mergedList = [];
-    print('listFromModelPhoto is: $listFromModelPhoto');
     try {
       if (profileDetailsListener.getXfileList.isNotEmpty &&
           listFromModelPhoto.isEmpty) {
@@ -67,8 +66,6 @@ class _TextFormForAddingEditingAptState
           profileDetailsListener.getXfileList.isEmpty) {
         mergedList = [];
       }
-
-      print('Merged: $mergedList');
 
       Map<String, dynamic> data = {
         "id": id,
@@ -96,7 +93,6 @@ class _TextFormForAddingEditingAptState
           headers: {'Authorization': 'Bearer $accessToken'},
         ),
       );
-      print(response.statusCode);
       if (response.statusCode == 200 ||
           response.statusCode == 201 ||
           response.statusCode == 204) {
@@ -238,7 +234,7 @@ class _TextFormForAddingEditingAptState
             size: 15,
             color: Colors.grey,
           ),
-          hint: Text('Status'),
+          hint: const Text('Status'),
           items: statuses.map((String value) {
             return DropdownMenuItem<String>(
               value: value,
@@ -264,7 +260,7 @@ class _TextFormForAddingEditingAptState
             size: 15,
             color: Colors.grey,
           ),
-          hint: Text('City'),
+          hint: const Text('City'),
           items: cities.map((String value) {
             return DropdownMenuItem<String>(
               value: value,
@@ -290,7 +286,7 @@ class _TextFormForAddingEditingAptState
             size: 15,
             color: Colors.grey,
           ),
-          hint: Text('Region'),
+          hint: const Text('Region'),
           items: regions.map((String value) {
             return DropdownMenuItem<String>(
               value: value,

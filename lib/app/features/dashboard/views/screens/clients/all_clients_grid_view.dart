@@ -20,10 +20,6 @@ class AllClientsList extends StatefulWidget {
 class _AllClientsListState extends State<AllClientsList> {
   ApiClient fetchClientDataFromAzure = ApiClient();
 
-  final int _limit = 10; // Number of items per page
-  int _currentPage = 1;
-  late Future<CustomerModelList> _futureClientModelList;
-
   @override
   void initState() {
     super.initState();

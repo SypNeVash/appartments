@@ -1,5 +1,6 @@
 part of dashboard;
 
+// ignore: unused_element
 class _HeaderWeeklyTask extends StatelessWidget {
   const _HeaderWeeklyTask({Key? key}) : super(key: key);
 

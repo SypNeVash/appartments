@@ -54,7 +54,6 @@ class AuthService {
           valueField = val;
         }
       });
-      print(valueField);
       return valueField;
     } catch (e) {
       return 'Error decoding token';

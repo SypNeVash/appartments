@@ -68,6 +68,5 @@ class _ClientSearchFormState extends State<ClientSearchForm> {
         ],
       ),
     );
-    ;
   }
 }

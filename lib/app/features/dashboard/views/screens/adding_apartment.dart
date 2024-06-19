@@ -146,7 +146,6 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
 
   @override
   void initState() {
-    print(now);
     super.initState();
   }
 

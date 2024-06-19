@@ -1,5 +1,4 @@
 import 'package:apartments/app/features/dashboard/views/components/text_form_fiel_decoration.dart';
-import 'package:apartments/app/models/filter_models.dart';
 import 'package:apartments/app/providers/appartment_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -67,8 +66,6 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<ApartmentProvider>(context);
-
     return Form(
       key: _formKey,
       child: Column(

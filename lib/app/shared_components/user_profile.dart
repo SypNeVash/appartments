@@ -40,8 +40,6 @@ class _UserProfileState extends State<UserProfile> {
   getUserData() async {
     name = await SPHelper.getNameSharedPreference() ?? '';
     role = await SPHelper.getRolesSharedPreference() ?? '';
-    print(name);
-    print(role);
     setState(() {});
   }
 

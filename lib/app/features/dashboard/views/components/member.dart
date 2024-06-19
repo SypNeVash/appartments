@@ -1,5 +1,6 @@
 part of dashboard;
 
+// ignore: unused_element
 class _Member extends StatelessWidget {
   const _Member({
     required this.member,

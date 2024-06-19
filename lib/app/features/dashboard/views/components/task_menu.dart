@@ -1,5 +1,6 @@
 part of dashboard;
 
+// ignore: unused_element
 class _TaskMenu extends StatelessWidget {
   const _TaskMenu({
     required this.onSelected,

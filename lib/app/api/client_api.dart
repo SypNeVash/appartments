@@ -128,7 +128,6 @@ class ApiClient {
           fileBytes,
           filename: basename(file.path),
         );
-        print("file name is: ${multipartFile.filename}");
 
         request.files.add(multipartFile);
       }
@@ -137,11 +136,7 @@ class ApiClient {
       if (response.statusCode == 200) {
         var responseData = await response.stream.bytesToString();
         photoReferences = json.decode(responseData);
-        print(photoReferences);
-        print('Upload successful: ${response.statusCode}');
-      } else {
-        print('Upload failed with status: ${response.statusCode}');
-      }
+      } else {}
     } catch (e) {
       print('Upload error: $e');
     }
@@ -161,7 +156,6 @@ class ApiClient {
       // if (filter != null && filter.isNotEmpty) {
       //   queryParameters['filter'] = filter;
       // }
-      print('here we are');
       Response response = await _dio.get(
         url,
         queryParameters: queryParameters,
@@ -169,7 +163,6 @@ class ApiClient {
           headers: {'Authorization': 'Bearer $accessToken'},
         ),
       );
-      print(response.statusMessage);
       final data = response.data;
 
       customerModelList = CustomerModelList.fromJsons(data);
@@ -204,8 +197,6 @@ class ApiClient {
         queryParameters['conditions[$i].value'] = filters[i].value;
         queryParameters['conditions[$i].condition'] = filters[i].condition;
       }
-
-      print(queryParameters);
 
       final response = await Dio().get(url,
           options: Options(

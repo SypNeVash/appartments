@@ -57,6 +57,7 @@ class _CustomerGridState extends State<CustomerGrid> {
     // );
   }
 
+  // ignore: unused_element
   int _getCrossAxisCount(double width) {
     if (width < 400) {
       return 2;
@@ -184,7 +185,7 @@ class _CustomerCardState extends State<CustomerCard> {
               Row(
                 children: [
                   InkWell(
-                    onTap: () => null,
+                    onTap: () {},
                     child: const FaIcon(
                       FontAwesomeIcons.pencil,
                       color: Colors.blue,

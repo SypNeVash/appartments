@@ -1,5 +1,6 @@
 part of dashboard;
 
+// ignore: unused_element
 class _TaskGroup extends StatelessWidget {
   const _TaskGroup({
     required this.title,

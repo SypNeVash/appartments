@@ -26,11 +26,6 @@ class _ChooseImageForAppartmentState extends State<ChooseImageForAppartment> {
   bool loading = false;
   @override
   void initState() {
-    AppartDetailsListener profileDetailsListener =
-        Provider.of<AppartDetailsListener>(context, listen: false);
-    print(
-        'dfsfsgsgsrgsrgg>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>:${widget.imagesFromJobEdit}');
-
     // profileDetailsListener.setAllPortfolioImagesWithNotifier =
     //     allPortfolioImagesWothNotifierList;
     if (widget.imagesFromJobEdit != null) {
@@ -50,14 +45,12 @@ class _ChooseImageForAppartmentState extends State<ChooseImageForAppartment> {
       setState(() {
         allPortfolioImagesWothNotifierList = widget.imagesFromJobEdit;
       });
-      print(allPortfolioImagesWothNotifierList);
     }
   }
 
   void selectImage() async {
     AppartDetailsListener profileDetailsListener =
         Provider.of<AppartDetailsListener>(context, listen: false);
-    print('select image ');
     final List<XFile>? selectedImages =
         await imagePicker.pickMultiImage(imageQuality: 60);
 
@@ -68,7 +61,6 @@ class _ChooseImageForAppartmentState extends State<ChooseImageForAppartment> {
       //   selectedImages.removeRange(10, selectedImages.length);
       // }
 
-      print(selectedImages);
       profileDetailsListener.setXfileList(selectedImages);
     }
   }
@@ -98,14 +90,14 @@ class _ChooseImageForAppartmentState extends State<ChooseImageForAppartment> {
 
     return Column(
       children: [
-        Container(
+        SizedBox(
           child: ImagesListToSend(
             imageFileList: allPortfolioImagesWothNotifierList,
             deleteImage: deleteImageFromBottomSheet,
           ),
         ),
         if (profileDetailsListener.getXfileList.isNotEmpty) ...[
-          Container(
+          SizedBox(
             child: ImagesXFileListToSend(
               imageXFileList: profileDetailsListener.getXfileList,
               deleteImage: deleteXFileFromBottomSheet,

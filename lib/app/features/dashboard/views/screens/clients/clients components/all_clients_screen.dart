@@ -1,6 +1,3 @@
-import 'package:apartments/app/constans/app_constants.dart';
-import 'package:apartments/app/features/dashboard/views/screens/clients/all_clients_grid_view.dart';
-import 'package:apartments/app/shared_components/responsive_builder.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -69,7 +66,7 @@ class FormsLists extends StatelessWidget {
               enabledBorder: UnderlineInputBorder(
                 borderSide: BorderSide(width: .1),
               ),
-              hintText: 'Search for clients' ?? "search..",
+              hintText: 'Search for clients',
             ),
             textInputAction: TextInputAction.search,
             style: TextStyle(color: Colors.black),

@@ -9,7 +9,6 @@ class RemoteClientApi {
       {String? filter}) async {
     var url = 'https://realtor.azurewebsites.net/api/RentObjects/pagination';
     late ApartmentModelList apartmentModelList;
-    print('started');
     try {
       final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
       Map<String, dynamic> queryParameters = {
@@ -27,7 +26,6 @@ class RemoteClientApi {
         ),
       );
       final data = response.data;
-      print(data);
       apartmentModelList = ApartmentModelList.fromJson(data);
 
       return apartmentModelList;
@@ -78,10 +76,7 @@ class RemoteClientApi {
       Response response = await dio.patch(url, data: data);
 
       if (response.statusCode == 200) {
-        print('Field updated successfully.');
-      } else {
-        print('Failed to update field: ${response.statusCode}');
-      }
+      } else {}
     } catch (e) {
       print('Error updating field: $e');
     }

@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:apartments/app/models/filter_models.dart';
 import 'package:apartments/app/models/get_all_appart_model.dart';
 import 'package:apartments/app/utils/services/shared_preferences.dart';
 import 'package:dio/dio.dart';
@@ -66,8 +65,6 @@ class RemoteApi {
         queryParameters['conditions[$i].condition'] = filters[i].condition;
       }
 
-      print(queryParameters);
-
       final response = await Dio().get(url,
           options: Options(
             headers: {'Authorization': 'Bearer $accessToken'},
@@ -88,7 +85,6 @@ class RemoteApi {
 
     try {
       final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
-      print(accessToken);
 
       Response response = await _dio.delete(
         url,
@@ -96,7 +92,7 @@ class RemoteApi {
           headers: {'Authorization': 'Bearer $accessToken'},
         ),
       );
-      final data = response.data;
+      // final data = response.data;
       if (response.statusCode == 200 || response.statusCode == 201) {
       } else {}
       return true;
@@ -110,7 +106,6 @@ class RemoteApi {
 
     try {
       final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
-      print(accessToken);
 
       Response response = await _dio.patch(
         url,
@@ -118,7 +113,7 @@ class RemoteApi {
           headers: {'Authorization': 'Bearer $accessToken'},
         ),
       );
-      final data = response.data;
+      // final data = response.data;
       if (response.statusCode == 200 || response.statusCode == 201) {
       } else {}
       return true;

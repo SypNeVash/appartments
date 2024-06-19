@@ -1,10 +1,7 @@
-import 'package:apartments/app/api/client_api.dart';
 import 'package:apartments/app/features/dashboard/controllers/authcontroller.dart';
-import 'package:apartments/app/utils/services/shared_preferences.dart';
 import 'package:apartments/app/utils/services/validator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:jwt_decoder/jwt_decoder.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -17,7 +14,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final ApiClient _apiClient = ApiClient();
   bool _showPassword = false;
   final AuthController authController = Get.find();
   bool showCircular = false;
@@ -116,7 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                               Text(
                                 textForerror,
-                                style: TextStyle(color: Colors.black),
+                                style: const TextStyle(color: Colors.black),
                               ),
                               SizedBox(height: size.height * 0.04),
                               Row(

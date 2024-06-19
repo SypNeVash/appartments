@@ -1,5 +1,6 @@
 part of dashboard;
 
+// ignore: unused_element
 class _WeeklyTask extends StatelessWidget {
   const _WeeklyTask({
     required this.data,

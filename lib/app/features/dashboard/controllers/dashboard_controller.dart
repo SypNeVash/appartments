@@ -16,7 +16,6 @@ class DashboardController extends GetxController {
 
   Future<void> onSelectedMainMenu(int index, SelectionButtonData value) async {
     if (index == 0) {
-      print(index);
       // Get.toNamed('/');
     }
     if (index == 1) {

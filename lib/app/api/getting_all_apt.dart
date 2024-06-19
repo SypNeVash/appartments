@@ -18,7 +18,6 @@ class RemoteApi {
       };
       if (filter != null && filter.isNotEmpty) {
         queryParameters['phone'] = filter;
-        print(filter);
       }
       Response response = await _dio.get(
         url,
@@ -43,7 +42,6 @@ class RemoteApi {
 
     try {
       final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
-      print(accessToken);
 
       Response response = await _dio.delete(
         url,
@@ -51,7 +49,7 @@ class RemoteApi {
           headers: {'Authorization': 'Bearer $accessToken'},
         ),
       );
-      final data = response.data;
+      // final data = response.data;
       if (response.statusCode == 200 || response.statusCode == 201) {
       } else {}
       return true;
@@ -65,7 +63,6 @@ class RemoteApi {
 
     try {
       final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
-      print(accessToken);
 
       Response response = await _dio.patch(
         url,
@@ -73,7 +70,7 @@ class RemoteApi {
           headers: {'Authorization': 'Bearer $accessToken'},
         ),
       );
-      final data = response.data;
+      // final data = response.data;
       if (response.statusCode == 200 || response.statusCode == 201) {
       } else {}
       return true;
