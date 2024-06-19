@@ -53,8 +53,7 @@ class DashboardScreen extends GetView<DashboardController> {
   Widget build(BuildContext context) {
     AppartDetailsListener profileDetailsListener =
         Provider.of<AppartDetailsListener>(context, listen: true);
-    print(
-        'profileDetailsListener.getPageIndex :  ${profileDetailsListener.getPageIndex}');
+
     return Scaffold(
       key: controller.scafoldKey,
       drawer: ResponsiveBuilder.isDesktop(context)

@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:apartments/app/api/token_control.dart';
 import 'package:apartments/app/features/dashboard/controllers/authcontroller.dart';
 import 'package:apartments/app/features/dashboard/views/screens/apartment_details.dart';
 import 'package:apartments/app/features/dashboard/views/screens/clients/add_new_clients.dart';
@@ -32,30 +33,30 @@ class AuthMiddleware extends GetMiddleware {
   }
 }
 
-class MyNavigatorObserver extends NavigatorObserver {
-  @override
-  void didPop(Route route, Route? previousRoute) {
-    super.didPop(route, previousRoute);
-    print(
-        'didPop: ${route.settings.name}, previousRoute: ${previousRoute?.settings.name}');
-    // Custom behavior on pop
-  }
+// class MyNavigatorObserver extends NavigatorObserver {
+//   @override
+//   void didPop(Route route, Route? previousRoute) {
+//     super.didPop(route, previousRoute);
+//     print(
+//         'didPop: ${route.settings.name}, previousRoute: ${previousRoute?.settings.name}');
+//     // Custom behavior on pop
+//   }
 
-  @override
-  void didPush(Route route, Route? previousRoute) {
-    super.didPush(route, previousRoute);
-    print(
-        'didPush: ${route.settings.name}, previousRoute: ${previousRoute?.settings.name}');
-    // Custom behavior on push
-  }
-}
+//   @override
+//   void didPush(Route route, Route? previousRoute) {
+//     super.didPush(route, previousRoute);
+//     print(
+//         'didPush: ${route.settings.name}, previousRoute: ${previousRoute?.settings.name}');
+//     // Custom behavior on push
+//   }
+// }
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Get.put(DashboardController()); // Initialize DashboardController
   final authController = Get.put(AuthController());
   await authController.checkAuthenticationStatus();
-
+  await TokenManager.getToken();
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (_) => AppartDetailsListener()),
     ChangeNotifierProvider(
