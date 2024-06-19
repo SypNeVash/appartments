@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:apartments/app/models/filter_models.dart';
 import 'package:apartments/app/models/get_all_appart_model.dart';
 import 'package:apartments/app/utils/services/shared_preferences.dart';
@@ -44,10 +46,13 @@ class RemoteApi {
     var url =
         'https://realtor.azurewebsites.net/api/RentObjects/paginationWithFiler';
     final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
+
+    var filterJson = jsonEncode(filters);
     try {
       Map<String, dynamic> queryParameters = {
         'page': 1,
         'count': 10,
+        'conditions': filterJson
       };
       // for (var filter in filters) {
       //   queryParameters["property"] = filter.property;

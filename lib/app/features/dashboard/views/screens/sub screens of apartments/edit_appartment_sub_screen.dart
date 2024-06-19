@@ -32,6 +32,7 @@ class _TextFormForAddingEditingAptState
   final TextEditingController floor = TextEditingController();
   final TextEditingController phone = TextEditingController();
   final TextEditingController comments = TextEditingController();
+  final TextEditingController status = TextEditingController();
   DateTime now = DateTime.now();
   ApartmentModel apartmentModel = ApartmentModel();
   ApiClient apiClient = ApiClient();
@@ -41,19 +42,36 @@ class _TextFormForAddingEditingAptState
         Provider.of<AppartDetailsListener>(context, listen: false);
     final Dio _dio = Dio();
     final id = await SPHelper.getIDAptSharedPreference() ?? '';
-    final List<String> listFromModelPhoto =
+    final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
+    List listOfImages = [];
+    final List<dynamic> listFromModelPhoto =
         profileDetailsListener.getAllPortfolioImagesWithNotifier;
     String url = 'https://realtor.azurewebsites.net/api/RentObjects/$id';
-
+    List<dynamic> mergedList = [];
+    print('listFromModelPhoto is: $listFromModelPhoto');
     try {
-      final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
-      final listOfImages =
-          await ApiClient().sendImages(context, accessToken, id);
-      print('listOfImages: $listOfImages');
-      print('listFromModelPhoto: $listFromModelPhoto');
+      if (profileDetailsListener.getXfileList.isNotEmpty &&
+          listFromModelPhoto.isEmpty) {
+        listOfImages = await ApiClient().sendImages(context, accessToken, id);
+        mergedList = listOfImages;
+      }
+      if (listFromModelPhoto.isNotEmpty &&
+          profileDetailsListener.getXfileList.isNotEmpty) {
+        final listOfImage =
+            await ApiClient().sendImages(context, accessToken, id);
+        mergedList = [...listOfImage, ...listFromModelPhoto];
+      } else if (profileDetailsListener.getXfileList.isEmpty &&
+          listFromModelPhoto.isNotEmpty) {
+        mergedList = listFromModelPhoto;
+      } else if (listFromModelPhoto.isEmpty &&
+          profileDetailsListener.getXfileList.isEmpty) {
+        mergedList = [];
+      }
+
+      print('Merged: $mergedList');
 
       Map<String, dynamic> data = {
-        "id": "uuid",
+        "id": id,
         "contactPerson": contactPerson.text,
         "address": address.text,
         "city": city.text,
@@ -65,10 +83,10 @@ class _TextFormForAddingEditingAptState
         "comment": comments.text,
         "phone": phone.text,
         "floor": floor.text,
-        "status": "string",
+        "status": status.text,
         "createdData": now.toString(),
         "updatedUser": now.toString(),
-        "photos": listOfImages + listFromModelPhoto,
+        "photos": mergedList,
       };
 
       final response = await _dio.put(
@@ -78,7 +96,10 @@ class _TextFormForAddingEditingAptState
           headers: {'Authorization': 'Bearer $accessToken'},
         ),
       );
-      if (response.statusCode == 200 || response.statusCode == 201) {
+      print(response.statusCode);
+      if (response.statusCode == 200 ||
+          response.statusCode == 201 ||
+          response.statusCode == 204) {
         return true;
       } else {
         return false;
@@ -89,6 +110,10 @@ class _TextFormForAddingEditingAptState
   }
 
   List<dynamic>? apartmentPhotos = [];
+  String? selectedType;
+  String? selectedCity;
+  String? selectedRegion;
+  String? selectedStatus;
   getApartmentDetails() async {
     AppartDetailsListener profileDetailsListener =
         Provider.of<AppartDetailsListener>(context, listen: false);
@@ -96,21 +121,48 @@ class _TextFormForAddingEditingAptState
     contactPerson.text = apartmentModel.contactPerson.toString();
     address.text = apartmentModel.address.toString();
     region.text = apartmentModel.region.toString();
+    selectedRegion = apartmentModel.region.toString();
+    status.text = apartmentModel.status.toString();
+    selectedStatus = apartmentModel.status.toString();
     city.text = apartmentModel.city.toString();
+    selectedCity = apartmentModel.city.toString();
     postalCode.text = apartmentModel.postalCode.toString();
     price.text = apartmentModel.price.toString();
     type.text = apartmentModel.type.toString();
+    selectedType = apartmentModel.type.toString();
     description.text = apartmentModel.description.toString();
     comments.text = apartmentModel.comment.toString();
     phone.text = apartmentModel.phone.toString();
     floor.text = apartmentModel.floor.toString();
-
     profileDetailsListener.setAllPortfolioImagesWithNotifier =
         apartmentModel.photos;
-
     setState(() {});
   }
 
+  var types = [
+    "1 кімнатна",
+    "2 кімнатна",
+    "3 кімнатна",
+    "4 кімнатна",
+    "Студія",
+    "Приватний будинок",
+    "Частина будинку",
+  ];
+
+  var regions = [
+    "Галицький",
+    "Залізничний",
+    "Личаківський",
+    "Франківський",
+    "Шевченківський",
+    "Сихівський",
+  ];
+
+  var cities = [
+    "Львів",
+  ];
+
+  var statuses = ["Active", "Deleted", "Progress"];
   @override
   void initState() {
     getApartmentDetails();
@@ -131,6 +183,7 @@ class _TextFormForAddingEditingAptState
     comments.dispose();
     phone.dispose();
     floor.dispose();
+    status.dispose();
     super.dispose();
   }
 
@@ -171,34 +224,80 @@ class _TextFormForAddingEditingAptState
         const SizedBox(
           height: 15,
         ),
-        TextFormField(
-          controller: city,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          textCapitalization: TextCapitalization.sentences,
+        DropdownButtonFormField<String>(
+          autovalidateMode: AutovalidateMode.always,
           autofocus: false,
-          keyboardType: TextInputType.multiline,
           style: const TextStyle(
               fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField('City'),
-          // onChanged: (val) {
-          //   city.text = val;
-          // },
+          decoration: decorationForTextFormField('Status'),
+          onChanged: (val) {
+            status.text = val!;
+          },
+          icon: const FaIcon(
+            FontAwesomeIcons.chevronDown,
+            size: 15,
+            color: Colors.grey,
+          ),
+          hint: Text('Status'),
+          items: statuses.map((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value),
+            );
+          }).toList(),
+          value: selectedStatus ?? statuses[0],
         ),
         const SizedBox(
           height: 15,
         ),
-        TextFormField(
-          controller: region,
-          autovalidateMode: AutovalidateMode.always,
-          textCapitalization: TextCapitalization.sentences,
+        DropdownButtonFormField<String>(
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           autofocus: false,
-          keyboardType: TextInputType.multiline,
+          style: const TextStyle(
+              fontSize: 16, color: Colors.black, fontWeight: FontWeight.w500),
+          decoration: decorationForTextFormField('City'),
+          onChanged: (val) {
+            city.text = val!;
+          },
+          icon: const FaIcon(
+            FontAwesomeIcons.chevronDown,
+            size: 15,
+            color: Colors.grey,
+          ),
+          hint: Text('City'),
+          items: cities.map((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value),
+            );
+          }).toList(),
+          value: selectedCity ?? cities[0],
+        ),
+        const SizedBox(
+          height: 15,
+        ),
+        DropdownButtonFormField<String>(
+          autovalidateMode: AutovalidateMode.always,
+          autofocus: false,
           style: const TextStyle(
               fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
           decoration: decorationForTextFormField('Region'),
-          // onChanged: (val) {
-          //   region.text = val;
-          // },
+          onChanged: (val) {
+            region.text = val!;
+          },
+          icon: const FaIcon(
+            FontAwesomeIcons.chevronDown,
+            size: 15,
+            color: Colors.grey,
+          ),
+          hint: Text('Region'),
+          items: regions.map((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value),
+            );
+          }).toList(),
+          value: selectedRegion ?? regions[0],
         ),
         const SizedBox(
           height: 15,
@@ -239,18 +338,28 @@ class _TextFormForAddingEditingAptState
         const SizedBox(
           height: 15,
         ),
-        TextFormField(
-          controller: type,
+        DropdownButtonFormField<String>(
           autovalidateMode: AutovalidateMode.always,
-          textCapitalization: TextCapitalization.sentences,
           autofocus: false,
-          keyboardType: TextInputType.multiline,
           style: const TextStyle(
               fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
           decoration: decorationForTextFormField('Type'),
-          // onChanged: (val) {
-          //   type.text = val;
-          // },
+          onChanged: (val) {
+            type.text = val!;
+          },
+          icon: const FaIcon(
+            FontAwesomeIcons.chevronDown,
+            size: 15,
+            color: Colors.grey,
+          ),
+          hint: const Text('Type'),
+          items: types.map((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value),
+            );
+          }).toList(),
+          value: selectedType ?? types[0],
         ),
         const SizedBox(
           height: 15,

@@ -173,9 +173,9 @@ class _ApartmentDetailsSubScreenState extends State<ApartmentDetailsSubScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          'Apartment in the middle of city',
-                          style: TextStyle(
+                        Text(
+                          apartment.type.toString(),
+                          style: const TextStyle(
                               fontSize: 20, fontWeight: FontWeight.w600),
                         ),
                         Row(

@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:apartments/app/api/client_api.dart';
 import 'package:apartments/app/features/dashboard/views/components/text_form_fiel_decoration.dart';
-import 'package:apartments/app/shared_components/responsive_builder.dart';
 import 'package:apartments/app/utils/services/apartment_image_service.dart';
 import 'package:apartments/app/utils/services/shared_preferences.dart';
 import 'package:bot_toast/bot_toast.dart';
@@ -32,57 +31,6 @@ var regions = [
 var cities = [
   "Львів",
 ];
-
-// class AddingNewApartment extends StatefulWidget {
-//   const AddingNewApartment({Key? key}) : super(key: key);
-
-//   @override
-//   State<AddingNewApartment> createState() => _AddingNewApartmentState();
-// }
-
-// class _AddingNewApartmentState extends State<AddingNewApartment> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//         body: SafeArea(
-//             child: ResponsiveBuilder(mobileBuilder: (context, constraints) {
-//       return const SingleChildScrollView(
-//           child: Padding(
-//         padding: EdgeInsets.symmetric(horizontal: 25, vertical: 25),
-//         child: Column(
-//           children: [
-//             FormsList(),
-//             TextFormForAddingNewApt(),
-//           ],
-//         ),
-//       ));
-//     }, tabletBuilder: (context, constraints) {
-//       return SingleChildScrollView(
-//           controller: ScrollController(),
-//           child: Container(
-//               constraints: const BoxConstraints(maxWidth: 400),
-//               child: const Column(
-//                 children: [
-//                   FormsList(),
-//                   TextFormForAddingNewApt(),
-//                 ],
-//               )));
-//     }, desktopBuilder: (context, constraints) {
-//       return SingleChildScrollView(
-//           scrollDirection: Axis.vertical,
-//           controller: ScrollController(),
-//           child: Container(
-//               constraints: const BoxConstraints(maxWidth: 400),
-//               padding: const EdgeInsets.symmetric(vertical: 55),
-//               child: const Column(
-//                 children: [
-//                   FormsList(),
-//                   TextFormForAddingNewApt(),
-//                 ],
-//               )));
-//     })));
-//   }
-//}
 
 class AddingNewApartments extends StatelessWidget {
   const AddingNewApartments({super.key});
@@ -179,7 +127,7 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
               "comment": comments.text,
               "phone": phone.text,
               "floor": floor.text,
-              "status": "string",
+              "status": "Active",
               "createdData": now.toString(),
               "updatedUser": now.toString(),
               "photos": listOfImages,
@@ -272,7 +220,7 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
               child: Text(value),
             );
           }).toList(),
-          value: cities[0],
+          // value: cities[0],
         ),
         const SizedBox(
           height: 15,
@@ -297,7 +245,7 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
               child: Text(value),
             );
           }).toList(),
-          value: regions[0],
+          // value: regions[0],
         ),
         const SizedBox(
           height: 15,
@@ -356,7 +304,7 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
               child: Text(value),
             );
           }).toList(),
-          value: types[0],
+          // value: types[0],
         ),
         const SizedBox(
           height: 15,
