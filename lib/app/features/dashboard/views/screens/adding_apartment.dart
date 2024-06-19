@@ -1,12 +1,14 @@
 import 'dart:convert';
 import 'package:apartments/app/api/client_api.dart';
 import 'package:apartments/app/features/dashboard/views/components/text_form_fiel_decoration.dart';
+import 'package:apartments/app/providers/appartment_provider.dart';
 import 'package:apartments/app/utils/services/apartment_image_service.dart';
 import 'package:apartments/app/utils/services/shared_preferences.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
 var types = [
@@ -167,6 +169,7 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<AppartDetailsListener>(context, listen: true);
     return Column(
       children: [
         TextFormField(
@@ -387,7 +390,7 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
                 final done = await postData();
                 if (done == true) {
                   cancel();
-                  Navigator.of(context).pop();
+                  provider.setPageIndex = 0;
                 }
               },
               child: const Text(

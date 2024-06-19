@@ -1,10 +1,13 @@
 import 'package:apartments/app/constans/app_constants.dart';
 import 'package:apartments/app/features/dashboard/views/screens/clients/crud_client_api.dart';
 import 'package:apartments/app/models/customers_model.dart';
+import 'package:apartments/app/providers/clients_provider.dart';
 import 'package:apartments/app/utils/animations/show_up_animation.dart';
+import 'package:apartments/app/utils/services/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 
 class CustomerGrid extends StatefulWidget {
   final List<CustomerModel> customers;
@@ -96,7 +99,10 @@ class _CustomerCardState extends State<CustomerCard> {
         } else {
           showSnackBarForError();
         }
-        Get.back(); // Close the dialog
+        Get.back();
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          Provider.of<ClientProvider>(context, listen: false).fetchClients(1);
+        }); // Close the dialog
       },
       textCancel: "Zadniy",
       onCancel: () {
@@ -185,7 +191,11 @@ class _CustomerCardState extends State<CustomerCard> {
               Row(
                 children: [
                   InkWell(
-                    onTap: () {},
+                    onTap: () async {
+                      await SPHelper.saveClientsIDSharedPreference(
+                          widget.customer.id.toString());
+                      Get.toNamed('/editClientsData');
+                    },
                     child: const FaIcon(
                       FontAwesomeIcons.pencil,
                       color: Colors.blue,

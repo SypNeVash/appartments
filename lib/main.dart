@@ -15,6 +15,7 @@ import 'app/config/themes/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'app/features/dashboard/views/screens/clients/edit_clients_dat.dart';
 import 'app/features/dashboard/views/screens/login_screen.dart';
 import 'app/providers/appartment_provider.dart';
 import 'app/utils/services/auth_services.dart';
@@ -103,6 +104,7 @@ class _MyAppState extends State<MyApp> {
             name: '/editingApartments',
             page: () => const ApartmentEditDetail()),
         GetPage(name: '/addingNewClient', page: () => const AddingNewClients()),
+        GetPage(name: '/editClientsData', page: () => const EditClientsData()),
         GetPage(
           name: '/second',
           page: () => const SecondPage(),

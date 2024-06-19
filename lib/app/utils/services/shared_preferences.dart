@@ -5,6 +5,7 @@ class SPHelper {
   static String sharedPreferenceApartmentIdKey = "APARTID";
   static String sharedPreferenceRoleIdKey = "ROLE";
   static String sharedPreferenceNameIdKey = "NAME";
+  static String sharedPreferenceClientIdKey = "CLIENTID";
 
   static Future<bool> saveTokenSharedPreference(String tokenKey) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -52,5 +53,16 @@ class SPHelper {
   static Future<String?> getNameSharedPreference() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     return preferences.getString(sharedPreferenceRoleIdKey);
+  }
+
+  //id of the clients
+  static Future<bool> saveClientsIDSharedPreference(String tokenKey) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    return await preferences.setString(sharedPreferenceClientIdKey, tokenKey);
+  }
+
+  static Future<String?> getClientsIDSharedPreference() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    return preferences.getString(sharedPreferenceClientIdKey);
   }
 }

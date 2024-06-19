@@ -210,4 +210,28 @@ class ApiClient {
       throw Exception('Failed to search apartments: $e');
     }
   }
+
+  Future<CustomerModel> fetchClientDataById() async {
+    final id = await SPHelper.getClientsIDSharedPreference() ?? '';
+    var url = 'https://realtor.azurewebsites.net/api/CustomerCards/$id';
+    late CustomerModel customerModel;
+
+    try {
+      final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
+
+      Response response = await _dio.get(
+        url,
+        options: Options(
+          headers: {'Authorization': 'Bearer $accessToken'},
+        ),
+      );
+      final data = response.data;
+
+      customerModel = CustomerModel.fromJsonToMap(data);
+
+      return customerModel;
+    } on DioError catch (e) {
+      return e.response!.data;
+    }
+  }
 }

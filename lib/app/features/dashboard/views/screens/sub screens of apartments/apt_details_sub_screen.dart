@@ -2,11 +2,13 @@ import 'package:apartments/app/api/all_apartments_api.dart';
 import 'package:apartments/app/api/client_api.dart';
 import 'package:apartments/app/features/dashboard/views/components/responsive_raw_to_column.dart';
 import 'package:apartments/app/models/get_all_appart_model.dart';
+import 'package:apartments/app/providers/appartment_provider.dart';
 import 'package:apartments/app/utils/services/shared_preferences.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 
 class ApartmentDetailsSubScreen extends StatefulWidget {
   const ApartmentDetailsSubScreen({super.key});
@@ -27,13 +29,34 @@ class _ApartmentDetailsSubScreenState extends State<ApartmentDetailsSubScreen> {
       confirmTextColor: Colors.white,
       onConfirm: () async {
         String apartmentId = await SPHelper.getIDAptSharedPreference() ?? '';
-        await RemoteApi().deleteApartDataFromAzure(apartmentId);
-        Get.back(); // Close the dialog
+        final response =
+            await RemoteApi().deleteApartDataFromAzure(apartmentId);
+
+        if (response == true) {
+          Get.back();
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            Provider.of<ApartmentProvider>(context, listen: false)
+                .fetchApartments(1);
+          });
+
+          Get.toNamed('/');
+        } else {
+          showSnackBarForError();
+        }
       },
       textCancel: "Zadniy",
       onCancel: () {
         // Perform any action on cancel, if needed
       },
+    );
+  }
+
+  showSnackBarForError() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Could not delete apartment.Please try again'),
+        duration: Duration(seconds: 4),
+      ),
     );
   }
 

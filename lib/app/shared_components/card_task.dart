@@ -69,7 +69,8 @@ class CardTask extends StatelessWidget {
                     children: [
                       _buildLabel(),
                       const SizedBox(height: 20),
-                      _buildJobdesk(),
+                      _buildStatus(),
+                      const SizedBox(height: 15),
                     ],
                   ),
                   Column(
@@ -77,7 +78,7 @@ class CardTask extends StatelessWidget {
                     children: [
                       _buildDate(),
                       const SizedBox(
-                        height: 25,
+                        height: 15,
                       ),
                       _buildHours(),
                     ],
@@ -138,7 +139,8 @@ class CardTask extends StatelessWidget {
                         children: [
                           _buildLabel(),
                           const SizedBox(height: 20),
-                          _buildJobdesk(),
+                          _buildStatus(),
+                          const SizedBox(height: 15),
                         ],
                       ),
                     ),
@@ -199,20 +201,31 @@ class CardTask extends StatelessWidget {
     );
   }
 
-  Widget _buildJobdesk() {
+  Widget _buildStatus() {
     return Container(
-      decoration: BoxDecoration(
-        color: onPrimary.withOpacity(.3),
-        borderRadius: BorderRadius.circular(10),
-      ),
+      decoration: data.status == 'Deleted'
+          ? BoxDecoration(
+              color: Colors.red,
+              borderRadius: BorderRadius.circular(25),
+            )
+          : BoxDecoration(
+              color: onPrimary,
+              borderRadius: BorderRadius.circular(10),
+            ),
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       child: Text(
-        data.contactPerson ?? '',
-        style: TextStyle(
-          color: onPrimary,
-          fontSize: 10,
-          letterSpacing: 1,
-        ),
+        data.status ?? '',
+        style: data.status == 'Deleted'
+            ? const TextStyle(
+                color: Colors.white,
+                fontSize: 15,
+                letterSpacing: 1,
+              )
+            : const TextStyle(
+                color: Colors.black,
+                fontSize: 15,
+                letterSpacing: 1,
+              ),
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
       ),

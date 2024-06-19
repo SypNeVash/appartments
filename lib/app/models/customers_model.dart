@@ -13,34 +13,35 @@ class CustomerModel {
   final String? password;
   final String? username;
   final String? email;
+  final String? role;
 
-  CustomerModel({
-    this.id,
-    this.name,
-    this.surname,
-    this.patronymic,
-    this.passport,
-    this.phoneNumber,
-    this.address,
-    this.birthday,
-    this.password,
-    this.username,
-    this.email,
-  });
+  CustomerModel(
+      {this.id,
+      this.name,
+      this.surname,
+      this.patronymic,
+      this.passport,
+      this.phoneNumber,
+      this.address,
+      this.birthday,
+      this.password,
+      this.username,
+      this.email,
+      this.role});
 
-  CustomerModel copyWith({
-    String? id,
-    String? name,
-    String? surname,
-    String? patronymic,
-    String? passport,
-    String? phoneNumber,
-    String? address,
-    String? birthday,
-    String? password,
-    String? username,
-    String? email,
-  }) {
+  CustomerModel copyWith(
+      {String? id,
+      String? name,
+      String? surname,
+      String? patronymic,
+      String? passport,
+      String? phoneNumber,
+      String? address,
+      String? birthday,
+      String? password,
+      String? username,
+      String? email,
+      String? role}) {
     return CustomerModel(
       id: id ?? this.id,
       name: name ?? this.name,
@@ -53,6 +54,7 @@ class CustomerModel {
       password: password ?? this.password,
       username: username ?? this.username,
       email: email ?? this.email,
+      role: role ?? this.role,
     );
   }
 
@@ -69,6 +71,7 @@ class CustomerModel {
       'password': password,
       'username': username,
       'email': email,
+      'role': role
     };
   }
 
@@ -85,6 +88,7 @@ class CustomerModel {
       // password: map['password'] as String : null,
       username: map['username'] as String,
       email: map['email'] as String,
+      role: map['role'] as String,
     );
   }
 
@@ -92,6 +96,10 @@ class CustomerModel {
 
   factory CustomerModel.fromJson(String source) =>
       CustomerModel.fromMap(json.decode(source) as Map<String, dynamic>);
+
+  factory CustomerModel.fromJsonToMap(Map<String, dynamic> map) {
+    return CustomerModel.fromMap(map);
+  }
 
   @override
   String toString() {

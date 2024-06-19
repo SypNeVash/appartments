@@ -93,9 +93,13 @@ class RemoteApi {
         ),
       );
       // final data = response.data;
-      if (response.statusCode == 200 || response.statusCode == 201) {
-      } else {}
-      return true;
+      if (response.statusCode == 200 ||
+          response.statusCode == 201 ||
+          response.statusCode == 204) {
+        return true;
+      } else {
+        return false;
+      }
     } on DioError catch (e) {
       return e.response!.data;
     }
