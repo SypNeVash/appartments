@@ -53,7 +53,8 @@ class DashboardScreen extends GetView<DashboardController> {
   Widget build(BuildContext context) {
     AppartDetailsListener profileDetailsListener =
         Provider.of<AppartDetailsListener>(context, listen: true);
-
+    print(
+        'profileDetailsListener.getPageIndex :  ${profileDetailsListener.getPageIndex}');
     return Scaffold(
       key: controller.scafoldKey,
       drawer: ResponsiveBuilder.isDesktop(context)
@@ -142,6 +143,15 @@ class DashboardScreen extends GetView<DashboardController> {
                       controller: ScrollController(),
                       physics: const BouncingScrollPhysics(),
                       child: const AddNewUsers(),
+                    ),
+                  ),
+                ] else ...[
+                  Flexible(
+                    flex: constraints.maxWidth > 1350 ? 8 : 7,
+                    child: SingleChildScrollView(
+                      controller: ScrollController(),
+                      physics: const BouncingScrollPhysics(),
+                      child: _buildTaskContent(),
                     ),
                   ),
                 ],
@@ -297,12 +307,14 @@ class _BuilFilterContentState extends State<BuilFilterContent> {
           if (widget.desktop == 'mobile') ...[
             openFilter == true ? const FilterOfAppartments() : const SizedBox(),
           ] else ...[
-            if (profileDetailsListener.getPageIndex == 1) ...[
+            if (profileDetailsListener.getPageIndex == 0) ...[
               const FilterOfAppartments(),
             ],
             if (profileDetailsListener.getPageIndex == 2) ...[
               const ClientSearchForm(),
-            ],
+            ] else ...[
+              const SizedBox(),
+            ]
           ]
         ],
       ),

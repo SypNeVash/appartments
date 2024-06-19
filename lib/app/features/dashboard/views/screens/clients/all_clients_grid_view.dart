@@ -103,7 +103,7 @@ class _AllClientsListState extends State<AllClientsList> {
                 ],
               );
             } else {
-              return const Center(child: Text('No data found'));
+              return const Center(child: Text('Loading data'));
             }
           });
     });
