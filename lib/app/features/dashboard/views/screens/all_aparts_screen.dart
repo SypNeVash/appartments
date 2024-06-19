@@ -87,8 +87,8 @@ class AllApartmentsScreenState extends State<AllApartmentsScreen> {
                       padding: const EdgeInsets.all(8.0),
                       child: WebPagination(
                         currentPage: provider.currentPage,
-                        totalPage: 10, // Adjust according to your total pages
-                        displayItemCount: 3, // Number of pages to display
+                        totalPage: 10,
+                        displayItemCount: 3,
                         onPageChanged: provider.fetchApartments,
                       ),
                     ),

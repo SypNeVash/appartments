@@ -2,8 +2,7 @@ import 'dart:collection';
 import 'dart:typed_data';
 
 import 'package:apartments/app/api/all_apartments_api.dart';
-import 'package:apartments/app/features/dashboard/views/screens/apartment_details.dart';
-import 'package:apartments/app/models/filter_models.dart';
+
 import 'package:apartments/app/models/get_all_appart_model.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';

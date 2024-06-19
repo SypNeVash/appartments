@@ -26,6 +26,7 @@ import 'package:provider/provider.dart';
 
 import 'all_aparts_screen.dart';
 import 'clients/all_clients_grid_view.dart';
+import 'clients/clients components/search_text_form.dart';
 import 'users/add_new_user.dart';
 
 // binding
@@ -265,8 +266,11 @@ class BuilFilterContent extends StatefulWidget {
 
 class _BuilFilterContentState extends State<BuilFilterContent> {
   bool openFilter = false;
+
   @override
   Widget build(BuildContext context) {
+    AppartDetailsListener profileDetailsListener =
+        Provider.of<AppartDetailsListener>(context, listen: true);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: kSpacing),
       child: Column(
@@ -295,7 +299,12 @@ class _BuilFilterContentState extends State<BuilFilterContent> {
           if (widget.desktop == 'mobile') ...[
             openFilter == true ? const FilterOfAppartments() : const SizedBox(),
           ] else ...[
-            const FilterOfAppartments()
+            if (profileDetailsListener.getPageIndex == 1) ...[
+              const FilterOfAppartments(),
+            ],
+            if (profileDetailsListener.getPageIndex == 2) ...[
+              const ClientSearchForm(),
+            ],
           ]
         ],
       ),

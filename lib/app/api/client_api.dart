@@ -148,7 +148,7 @@ class ApiClient {
     return photoReferences;
   }
 
-  Future<CustomerModelList> fetchClientDataFromAzure(int page, int limit,
+  Future<CustomerModelList> fetchClientDataFromAzure(int page,
       {String? filter}) async {
     var url = 'https://realtor.azurewebsites.net/api/CustomerCards/pagination';
     late CustomerModelList customerModelList;
@@ -156,7 +156,7 @@ class ApiClient {
       final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
       Map<String, dynamic> queryParameters = {
         'page': page,
-        'count': limit,
+        'count': 10,
       };
       // if (filter != null && filter.isNotEmpty) {
       //   queryParameters['filter'] = filter;
@@ -177,6 +177,46 @@ class ApiClient {
       return customerModelList;
     } on DioError catch (e) {
       return e.response!.data;
+    }
+  }
+
+  static Future<CustomerModelList> searchClients(
+      List<FilterCondition> filters) async {
+    var url =
+        'https://realtor.azurewebsites.net/api/CustomerCards/paginationWithFilter';
+    final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
+
+    var filterJson = jsonEncode(filters);
+    try {
+      Map<String, dynamic> queryParameters = {
+        'page': 1,
+        'count': 10,
+        'conditions': filterJson
+      };
+      // for (var filter in filters) {
+      //   queryParameters["property"] = filter.property;
+      //   queryParameters['value'] = filter.value;
+      //   queryParameters['condition'] = filter.condition;
+      // }
+
+      for (int i = 0; i < filters.length; i++) {
+        queryParameters['conditions[$i].property'] = filters[i].property;
+        queryParameters['conditions[$i].value'] = filters[i].value;
+        queryParameters['conditions[$i].condition'] = filters[i].condition;
+      }
+
+      print(queryParameters);
+
+      final response = await Dio().get(url,
+          options: Options(
+            headers: {'Authorization': 'Bearer $accessToken'},
+          ),
+          queryParameters: queryParameters);
+
+      final data = response.data;
+      return CustomerModelList.fromJsons(data);
+    } catch (e) {
+      throw Exception('Failed to search apartments: $e');
     }
   }
 }

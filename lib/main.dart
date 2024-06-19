@@ -6,6 +6,7 @@ import 'package:apartments/app/features/dashboard/views/screens/dashboard_screen
 import 'package:apartments/app/features/dashboard/views/screens/edit_appartment_screen.dart';
 
 import 'package:apartments/app/features/dashboard/views/screens/second_page.dart';
+import 'package:apartments/app/providers/clients_provider.dart';
 import 'package:apartments/app/utils/helpers/navigation_services.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:provider/provider.dart';
@@ -58,6 +59,9 @@ void main() async {
     ChangeNotifierProvider(create: (_) => AppartDetailsListener()),
     ChangeNotifierProvider(
       create: (context) => ApartmentProvider(),
+    ),
+    ChangeNotifierProvider(
+      create: (context) => ClientProvider(),
     ),
   ], child: const MyApp()));
 }
