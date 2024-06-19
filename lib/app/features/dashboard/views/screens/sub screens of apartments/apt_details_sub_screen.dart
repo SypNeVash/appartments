@@ -27,7 +27,6 @@ class _ApartmentDetailsSubScreenState extends State<ApartmentDetailsSubScreen> {
       confirmTextColor: Colors.white,
       onConfirm: () async {
         String apartmentId = await SPHelper.getIDAptSharedPreference() ?? '';
-        print(apartmentId);
         await RemoteApi().deleteApartDataFromAzure(apartmentId);
         Get.back(); // Close the dialog
       },
@@ -173,10 +172,20 @@ class _ApartmentDetailsSubScreenState extends State<ApartmentDetailsSubScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          apartment.type.toString(),
-                          style: const TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.w600),
+                        Row(
+                          children: [
+                            Text(
+                              apartment.region.toString(),
+                              style: const TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.w600),
+                            ),
+                            const SizedBox(width: 10),
+                            Text(
+                              "- ${apartment.type}",
+                              style: const TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.w600),
+                            ),
+                          ],
                         ),
                         Row(
                           children: [
