@@ -40,21 +40,33 @@ class AddingNewApartments extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Row(
-      children: [
-        Expanded(flex: 1, child: SizedBox()),
-        Expanded(
-          flex: 4,
-          child: Padding(
-            padding: EdgeInsets.only(top: 28.0),
-            child: Column(
-              children: [FormsList(), TextFormForAddingNewApt()],
+    return LayoutBuilder(builder: (context, constraints) {
+      if (constraints.maxWidth > 800) {
+        // Use Row layout if screen width is greater than 600 pixels
+        return const Row(
+          children: [
+            Expanded(flex: 1, child: SizedBox()),
+            Expanded(
+              flex: 5,
+              child: Padding(
+                padding: EdgeInsets.only(top: 28.0),
+                child: Column(
+                  children: [FormsList(), TextFormForAddingNewApt()],
+                ),
+              ),
             ),
+            Expanded(flex: 1, child: SizedBox()),
+          ],
+        );
+      } else {
+        return const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.0),
+          child: Column(
+            children: [FormsList(), TextFormForAddingNewApt()],
           ),
-        ),
-        Expanded(flex: 1, child: SizedBox()),
-      ],
-    );
+        );
+      }
+    });
   }
 }
 

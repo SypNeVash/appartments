@@ -14,7 +14,7 @@ class DashboardController extends GetxController {
 
   void onPressedProfil() {}
 
-  Future<void> onSelectedMainMenu(int index, SelectionButtonData value) async {
+  Future onSelectedMainMenu(int index, SelectionButtonData value) async {
     if (index == 0) {
       // Get.toNamed('/');
     }

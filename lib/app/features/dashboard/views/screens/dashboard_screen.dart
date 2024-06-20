@@ -55,7 +55,7 @@ part '../components/task_group.dart';
 //   @override
 //   Widget build(BuildContext context) {}
 
-Widget _buildSidebar(BuildContext context) {
+Widget _buildSidebar(BuildContext context, bool? mobile) {
   final DashboardController controller = Get.find<DashboardController>();
 
   return Column(
@@ -219,11 +219,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
   final DashboardController controller = Get.find<DashboardController>();
   late Timer _timer;
   String? _token;
-
+  bool? isMobile;
   @override
   void initState() {
     super.initState();
     _startTokenCheck();
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      AppartDetailsListener profileDetailsListener =
+          Provider.of<AppartDetailsListener>(context, listen: false);
+      profileDetailsListener.setMobile = isMobile;
+    });
   }
 
   void _startTokenCheck() {
@@ -262,6 +267,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget build(BuildContext context) {
     AppartDetailsListener profileDetailsListener =
         Provider.of<AppartDetailsListener>(context, listen: true);
+    isMobile = MediaQuery.of(context).size.width < 600;
 
     return Scaffold(
       key: controller.scafoldKey,
@@ -269,7 +275,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ? null
           : Drawer(
               child: SafeArea(
-                child: SingleChildScrollView(child: _buildSidebar(context)),
+                child:
+                    SingleChildScrollView(child: _buildSidebar(context, true)),
               ),
             ),
       bottomNavigationBar: (ResponsiveBuilder.isDesktop(context) || kIsWeb)
@@ -329,7 +336,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   child: SingleChildScrollView(
                     physics: const BouncingScrollPhysics(),
                     controller: ScrollController(),
-                    child: _buildSidebar(context),
+                    child: _buildSidebar(context, false),
                   ),
                 ),
                 if (profileDetailsListener.getPageIndex == 0) ...[

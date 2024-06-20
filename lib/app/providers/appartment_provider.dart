@@ -66,6 +66,13 @@ class AppartDetailsListener with ChangeNotifier {
     phoneNumberFilter = phoneNumber;
     notifyListeners();
   }
+
+  bool? mobile;
+  get getMobile => mobile;
+  set setMobile(bool? mobileOrNot) {
+    mobile = mobileOrNot;
+    notifyListeners();
+  }
 }
 
 // class ApartmentProvider extends ChangeNotifier {
