@@ -2,6 +2,8 @@ import 'package:apartments/app/utils/services/shared_preferences.dart';
 import 'package:dio/dio.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
+import '../../api/token_control.dart';
+
 class AuthService {
   static Future<bool> isAuthenticated() async {
     final prefs = await SPHelper.getTokenSharedPreference();
@@ -38,11 +40,11 @@ class AuthService {
 
   Future<void> _saveToken(String token, decodedToken) async {
     await SPHelper.saveTokenSharedPreference(token);
-
     final role = await getField('/identity/claims/role', decodedToken);
     await SPHelper.saveRoleSharedPreference(role);
     final name = await getField('/identity/claims/name', decodedToken);
     await SPHelper.saveNameSharedPreference(name);
+    await TokenManager.saveToken(token);
   }
 
   Future<String> getField(String partialKey, token) async {

@@ -1,5 +1,8 @@
 library dashboard;
 
+import 'dart:async';
+
+import 'package:apartments/app/api/token_control.dart';
 import 'package:apartments/app/constans/app_constants.dart';
 import 'package:apartments/app/features/dashboard/controllers/authcontroller.dart';
 import 'package:apartments/app/features/dashboard/views/components/filters_forms.dart';
@@ -46,8 +49,209 @@ part '../components/member.dart';
 part '../components/weekly_task.dart';
 part '../components/task_group.dart';
 
-class DashboardScreen extends GetView<DashboardController> {
-  const DashboardScreen({Key? key}) : super(key: key);
+// class DashboardScreen extends GetView<DashboardController> {
+//   const DashboardScreen({Key? key}) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {}
+
+Widget _buildSidebar(BuildContext context) {
+  final DashboardController controller = Get.find<DashboardController>();
+
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: UserProfile(
+          data: controller.dataProfil,
+          onPressed: controller.onPressedProfil,
+        ),
+      ),
+      const SizedBox(height: 15),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: _MainMenu(onSelected: controller.onSelectedMainMenu),
+      ),
+      const Divider(
+        indent: 20,
+        thickness: 1,
+        endIndent: 20,
+        height: 60,
+      ),
+      // _Member(member: controller.member),
+      const SizedBox(height: kSpacing),
+      // _TaskMenu(
+      //   onSelected: controller.onSelectedTaskMenu,
+      // ),
+      const SizedBox(height: kSpacing),
+      const Padding(
+        padding: EdgeInsets.all(kSpacing),
+        child: Text(
+          "2024 Arzuman",
+        ),
+      ),
+    ],
+  );
+}
+
+Widget _buildTaskContent({Function()? onPressedMenu}) {
+  final DashboardController controller = Get.find<DashboardController>();
+
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: kSpacing),
+    child: Column(
+      children: [
+        const SizedBox(height: kSpacing),
+        Row(
+          children: [
+            if (onPressedMenu != null)
+              Padding(
+                padding: const EdgeInsets.only(right: kSpacing / 2),
+                child: IconButton(
+                  onPressed: onPressedMenu,
+                  icon: const Icon(Icons.menu),
+                ),
+              ),
+            Expanded(
+              child: SearchField(
+                onSearch: controller.searchTask,
+                hintText: "Search Task .. ",
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: kSpacing),
+        Row(
+          children: [
+            Expanded(
+              child: HeaderText(
+                DateTime.now().formatdMMMMY(),
+              ),
+            ),
+            const SizedBox(width: kSpacing / 2),
+            // SizedBox(
+            //   width: 200,
+            //   child: TaskProgress(data: controller.dataTask),
+            // ),
+          ],
+        ),
+        const SizedBox(height: kSpacing),
+        const AllApartmentsScreen(),
+      ],
+    ),
+  );
+}
+
+class BuilFilterContent extends StatefulWidget {
+  final bool? isActive;
+  final String desktop;
+
+  const BuilFilterContent(
+      {required this.isActive, required this.desktop, super.key});
+
+  @override
+  State<BuilFilterContent> createState() => _BuilFilterContentState();
+}
+
+class _BuilFilterContentState extends State<BuilFilterContent> {
+  bool openFilter = false;
+
+  @override
+  Widget build(BuildContext context) {
+    AppartDetailsListener profileDetailsListener =
+        Provider.of<AppartDetailsListener>(context, listen: true);
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: kSpacing),
+      child: Column(
+        children: [
+          const SizedBox(height: kSpacing),
+          Row(
+            children: [
+              const Expanded(child: HeaderText("Filter")),
+              IconButton(
+                onPressed: () {
+                  if (widget.isActive == true || widget.isActive == null) {
+                    openFilter = !openFilter;
+                    setState(() {});
+                  }
+                },
+                icon: openFilter == true
+                    ? const FaIcon(FontAwesomeIcons.circleXmark)
+                    : const Icon(EvaIcons.funnelOutline),
+                tooltip: "Filter",
+              )
+            ],
+          ),
+          const SizedBox(
+            height: 25,
+          ),
+          if (widget.desktop == 'mobile') ...[
+            openFilter == true ? const FilterOfAppartments() : const SizedBox(),
+          ] else ...[
+            if (profileDetailsListener.getPageIndex == 0) ...[
+              const FilterOfAppartments(),
+            ],
+            if (profileDetailsListener.getPageIndex == 2) ...[
+              const ClientSearchForm(),
+            ] else ...[
+              const SizedBox(),
+            ]
+          ]
+        ],
+      ),
+    );
+  }
+}
+
+class DashboardScreen extends StatefulWidget {
+  const DashboardScreen({super.key});
+  @override
+  _DashboardScreenState createState() => _DashboardScreenState();
+}
+
+class _DashboardScreenState extends State<DashboardScreen> {
+  final DashboardController controller = Get.find<DashboardController>();
+  late Timer _timer;
+  String? _token;
+
+  @override
+  void initState() {
+    super.initState();
+    _startTokenCheck();
+  }
+
+  void _startTokenCheck() {
+    _checkToken();
+    _timer = Timer.periodic(const Duration(minutes: 1), (timer) async {
+      await _checkToken();
+    });
+  }
+
+  Future<void> _checkToken() async {
+    final token = await TokenManager.getToken();
+    if (token == null) {
+      _logout();
+    } else {
+      setState(() {
+        _token = token;
+      });
+    }
+  }
+
+  void _logout() {
+    final AuthController authController = Get.put(AuthController());
+
+    _timer.cancel();
+    TokenManager.clearToken();
+    authController.logout();
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -171,151 +375,6 @@ class DashboardScreen extends GetView<DashboardController> {
             );
           },
         ),
-      ),
-    );
-  }
-
-  Widget _buildSidebar(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: UserProfile(
-            data: controller.dataProfil,
-            onPressed: controller.onPressedProfil,
-          ),
-        ),
-        const SizedBox(height: 15),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: _MainMenu(onSelected: controller.onSelectedMainMenu),
-        ),
-        const Divider(
-          indent: 20,
-          thickness: 1,
-          endIndent: 20,
-          height: 60,
-        ),
-        // _Member(member: controller.member),
-        const SizedBox(height: kSpacing),
-        // _TaskMenu(
-        //   onSelected: controller.onSelectedTaskMenu,
-        // ),
-        const SizedBox(height: kSpacing),
-        const Padding(
-          padding: EdgeInsets.all(kSpacing),
-          child: Text(
-            "2024 Arzuman",
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildTaskContent({Function()? onPressedMenu}) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: kSpacing),
-      child: Column(
-        children: [
-          const SizedBox(height: kSpacing),
-          Row(
-            children: [
-              if (onPressedMenu != null)
-                Padding(
-                  padding: const EdgeInsets.only(right: kSpacing / 2),
-                  child: IconButton(
-                    onPressed: onPressedMenu,
-                    icon: const Icon(Icons.menu),
-                  ),
-                ),
-              Expanded(
-                child: SearchField(
-                  onSearch: controller.searchTask,
-                  hintText: "Search Task .. ",
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: kSpacing),
-          Row(
-            children: [
-              Expanded(
-                child: HeaderText(
-                  DateTime.now().formatdMMMMY(),
-                ),
-              ),
-              const SizedBox(width: kSpacing / 2),
-              // SizedBox(
-              //   width: 200,
-              //   child: TaskProgress(data: controller.dataTask),
-              // ),
-            ],
-          ),
-          const SizedBox(height: kSpacing),
-          const AllApartmentsScreen(),
-        ],
-      ),
-    );
-  }
-}
-
-class BuilFilterContent extends StatefulWidget {
-  final bool? isActive;
-  final String desktop;
-
-  const BuilFilterContent(
-      {required this.isActive, required this.desktop, super.key});
-
-  @override
-  State<BuilFilterContent> createState() => _BuilFilterContentState();
-}
-
-class _BuilFilterContentState extends State<BuilFilterContent> {
-  bool openFilter = false;
-
-  @override
-  Widget build(BuildContext context) {
-    AppartDetailsListener profileDetailsListener =
-        Provider.of<AppartDetailsListener>(context, listen: true);
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: kSpacing),
-      child: Column(
-        children: [
-          const SizedBox(height: kSpacing),
-          Row(
-            children: [
-              const Expanded(child: HeaderText("Filter")),
-              IconButton(
-                onPressed: () {
-                  if (widget.isActive == true || widget.isActive == null) {
-                    openFilter = !openFilter;
-                    setState(() {});
-                  }
-                },
-                icon: openFilter == true
-                    ? const FaIcon(FontAwesomeIcons.circleXmark)
-                    : const Icon(EvaIcons.funnelOutline),
-                tooltip: "Filter",
-              )
-            ],
-          ),
-          const SizedBox(
-            height: 25,
-          ),
-          if (widget.desktop == 'mobile') ...[
-            openFilter == true ? const FilterOfAppartments() : const SizedBox(),
-          ] else ...[
-            if (profileDetailsListener.getPageIndex == 0) ...[
-              const FilterOfAppartments(),
-            ],
-            if (profileDetailsListener.getPageIndex == 2) ...[
-              const ClientSearchForm(),
-            ] else ...[
-              const SizedBox(),
-            ]
-          ]
-        ],
       ),
     );
   }
