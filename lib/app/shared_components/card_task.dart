@@ -138,7 +138,6 @@ class CardTask extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           _buildLabel(),
-                          const SizedBox(height: 20),
                           _buildStatus(),
                           const SizedBox(height: 15),
                         ],
