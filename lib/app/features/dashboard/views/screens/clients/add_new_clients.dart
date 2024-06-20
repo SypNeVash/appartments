@@ -4,6 +4,7 @@ import 'package:apartments/app/utils/services/shared_preferences.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:uuid/uuid.dart';
 
@@ -105,7 +106,7 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
   final TextEditingController email = TextEditingController();
   final TextEditingController role = TextEditingController();
   final TextEditingController status = TextEditingController();
-
+  final _formKey = GlobalKey<FormState>();
   String errorText = '';
 
   Future<bool> postClientData() async {
@@ -126,6 +127,8 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
         "password": password.text,
         "username": username.text,
         "email": email.text,
+        "role": role.text,
+        "status": status.text,
       };
 
       Response response = await dio.post(
@@ -136,7 +139,9 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
           headers: {'Authorization': 'Bearer $accessToken'},
         ),
       );
-      if (response.statusCode == 200 || response.statusCode == 201) {
+      if (response.statusCode == 200 ||
+          response.statusCode == 201 ||
+          response.statusCode == 204) {
         return true;
       } else {
         return false;
@@ -178,246 +183,265 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        TextFormField(
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          textCapitalization: TextCapitalization.sentences,
-          autofocus: false,
-          keyboardType: TextInputType.multiline,
-          style: const TextStyle(
-              fontSize: 16, color: Colors.black, fontWeight: FontWeight.w500),
-          decoration: decorationForTextFormField('Name'),
-          onChanged: (val) {
-            name.text = val;
-          },
-        ),
-        const SizedBox(
-          height: 15,
-        ),
-        TextFormField(
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          textCapitalization: TextCapitalization.sentences,
-          autofocus: false,
-          keyboardType: TextInputType.multiline,
-          style: const TextStyle(
-              fontSize: 16, color: Colors.black, fontWeight: FontWeight.w500),
-          decoration: decorationForTextFormField('Surname'),
-          onChanged: (val) {
-            surname.text = val;
-          },
-        ),
-        const SizedBox(
-          height: 15,
-        ),
-        TextFormField(
-          autovalidateMode: AutovalidateMode.always,
-          textCapitalization: TextCapitalization.sentences,
-          autofocus: false,
-          keyboardType: TextInputType.number,
-          style: const TextStyle(
-              fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField('Patronymic'),
-          onChanged: (val) {
-            patronymic.text = val;
-          },
-        ),
-        const SizedBox(
-          height: 15,
-        ),
-        TextFormField(
-          autovalidateMode: AutovalidateMode.always,
-          textCapitalization: TextCapitalization.sentences,
-          autofocus: false,
-          keyboardType: TextInputType.number,
-          style: const TextStyle(
-              fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField('Passport'),
-          onChanged: (val) {
-            passport.text = val;
-          },
-        ),
-        const SizedBox(
-          height: 15,
-        ),
-        TextFormField(
-          autovalidateMode: AutovalidateMode.always,
-          textCapitalization: TextCapitalization.sentences,
-          autofocus: false,
-          keyboardType: TextInputType.number,
-          style: const TextStyle(
-              fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField('Phone Number'),
-          onChanged: (val) {
-            phoneNumber.text = val;
-          },
-        ),
-        const SizedBox(
-          height: 15,
-        ),
-        TextFormField(
-          autovalidateMode: AutovalidateMode.always,
-          textCapitalization: TextCapitalization.sentences,
-          autofocus: false,
-          keyboardType: TextInputType.number,
-          style: const TextStyle(
-              fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField(
-            'Address',
+    return Form(
+      key: _formKey,
+      child: Column(
+        children: [
+          TextFormField(
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            textCapitalization: TextCapitalization.sentences,
+            autofocus: false,
+            keyboardType: TextInputType.multiline,
+            style: const TextStyle(
+                fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
+            decoration: decorationForTextFormField('Name'),
+            onChanged: (val) {
+              name.text = val;
+            },
           ),
-          onChanged: (val) {
-            address.text = val;
-          },
-        ),
-        const SizedBox(
-          height: 15,
-        ),
-        TextFormField(
-          autovalidateMode: AutovalidateMode.always,
-          textCapitalization: TextCapitalization.sentences,
-          autofocus: false,
-          keyboardType: TextInputType.multiline,
-          style: const TextStyle(
-              fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField('Birthday'),
-          onChanged: (val) {
-            birthday.text = val;
-          },
-        ),
-        const SizedBox(
-          height: 15,
-        ),
-        TextFormField(
-          autovalidateMode: AutovalidateMode.always,
-          textCapitalization: TextCapitalization.sentences,
-          autofocus: false,
-          keyboardType: TextInputType.multiline,
-          style: const TextStyle(
-              fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField('Password'),
-          onChanged: (val) {
-            password.text = val;
-          },
-        ),
-        const SizedBox(
-          height: 15,
-        ),
-        TextFormField(
-          autovalidateMode: AutovalidateMode.always,
-          textCapitalization: TextCapitalization.sentences,
-          autofocus: false,
-          keyboardType: TextInputType.multiline,
-          style: const TextStyle(
-              fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField('Username'),
-          onChanged: (val) {
-            username.text = val;
-          },
-        ),
-        const SizedBox(
-          height: 15,
-        ),
-        TextFormField(
-          autovalidateMode: AutovalidateMode.always,
-          textCapitalization: TextCapitalization.sentences,
-          autofocus: false,
-          keyboardType: TextInputType.multiline,
-          style: const TextStyle(
-              fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField('Email'),
-          onChanged: (val) {
-            email.text = val;
-          },
-        ),
-        const SizedBox(
-          height: 15,
-        ),
-        DropdownButtonFormField<String>(
-          autovalidateMode: AutovalidateMode.always,
-          autofocus: false,
-          style: const TextStyle(
-              fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField('Roles'),
-          onChanged: (val) {
-            role.text = val!;
-          },
-          icon: const FaIcon(
-            FontAwesomeIcons.chevronDown,
-            size: 15,
-            color: Colors.grey,
+          const SizedBox(
+            height: 15,
           ),
-          hint: const Text('Role'),
-          items: rolesOfClient.map((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
-              child: Text(value),
-            );
-          }).toList(),
-          value: rolesOfClient[0],
-        ),
-        const SizedBox(
-          height: 15,
-        ),
-        DropdownButtonFormField<String>(
-          autovalidateMode: AutovalidateMode.always,
-          autofocus: false,
-          style: const TextStyle(
-              fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField('Status'),
-          onChanged: (val) {
-            role.text = val!;
-          },
-          icon: const FaIcon(
-            FontAwesomeIcons.chevronDown,
-            size: 15,
-            color: Colors.grey,
+          TextFormField(
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            textCapitalization: TextCapitalization.sentences,
+            autofocus: false,
+            keyboardType: TextInputType.multiline,
+            style: const TextStyle(
+                fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
+            decoration: decorationForTextFormField('Surname'),
+            onChanged: (val) {
+              surname.text = val;
+            },
           ),
-          hint: const Text('Status'),
-          items: statusOfClient.map((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
-              child: Text(value),
-            );
-          }).toList(),
-          value: statusOfClient[2],
-        ),
-        Text(
-          errorText,
-          style: const TextStyle(
-              fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-        ),
-        const SizedBox(
-          height: 55,
-        ),
-        SizedBox(
-          width: 250,
-          height: 40,
-          child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(255, 255, 188, 2),
-              ),
-              onPressed: () async {
-                var cancel = BotToast.showLoading();
-                final done = await postClientData();
-                if (done == true) {
-                  cancel();
-                  Navigator.of(context).pop();
-                } else {
-                  cancel();
-                  setState(() {
-                    errorText = 'Error: Please check and try again';
-                  });
-                }
-              },
-              child: const Text(
-                'Submit',
-                style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w600),
-              )),
-        ),
-      ],
+          const SizedBox(
+            height: 15,
+          ),
+          TextFormField(
+            autovalidateMode: AutovalidateMode.always,
+            textCapitalization: TextCapitalization.sentences,
+            autofocus: false,
+            keyboardType: TextInputType.number,
+            style: const TextStyle(
+                fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
+            decoration: decorationForTextFormField('Patronymic'),
+            onChanged: (val) {
+              patronymic.text = val;
+            },
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          TextFormField(
+            autovalidateMode: AutovalidateMode.always,
+            textCapitalization: TextCapitalization.sentences,
+            autofocus: false,
+            keyboardType: TextInputType.number,
+            style: const TextStyle(
+                fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
+            decoration: decorationForTextFormField('Passport'),
+            onChanged: (val) {
+              passport.text = val;
+            },
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          TextFormField(
+            autovalidateMode: AutovalidateMode.always,
+            textCapitalization: TextCapitalization.sentences,
+            autofocus: false,
+            keyboardType: TextInputType.number,
+            style: const TextStyle(
+                fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
+            decoration: decorationForTextFormField('Phone Number'),
+            onChanged: (val) {
+              phoneNumber.text = val;
+            },
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          TextFormField(
+            autovalidateMode: AutovalidateMode.always,
+            textCapitalization: TextCapitalization.sentences,
+            autofocus: false,
+            keyboardType: TextInputType.number,
+            style: const TextStyle(
+                fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
+            decoration: decorationForTextFormField(
+              'Address',
+            ),
+            onChanged: (val) {
+              address.text = val;
+            },
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          TextFormField(
+            autovalidateMode: AutovalidateMode.always,
+            textCapitalization: TextCapitalization.sentences,
+            autofocus: false,
+            keyboardType: TextInputType.multiline,
+            style: const TextStyle(
+                fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
+            decoration: decorationForTextFormField('Birthday'),
+            onChanged: (val) {
+              birthday.text = val;
+            },
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          TextFormField(
+            autovalidateMode: AutovalidateMode.always,
+            textCapitalization: TextCapitalization.sentences,
+            autofocus: false,
+            keyboardType: TextInputType.multiline,
+            style: const TextStyle(
+                fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
+            decoration: decorationForTextFormField('Password'),
+            onChanged: (val) {
+              password.text = val;
+            },
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          TextFormField(
+            autovalidateMode: AutovalidateMode.always,
+            textCapitalization: TextCapitalization.sentences,
+            autofocus: false,
+            keyboardType: TextInputType.multiline,
+            style: const TextStyle(
+                fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
+            decoration: decorationForTextFormField('Username'),
+            onChanged: (val) {
+              username.text = val;
+            },
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          TextFormField(
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            textCapitalization: TextCapitalization.sentences,
+            autofocus: false,
+            keyboardType: TextInputType.multiline,
+            style: const TextStyle(
+                fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
+            decoration: decorationForTextFormField('Email'),
+            onChanged: (val) {
+              email.text = val;
+            },
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          DropdownButtonFormField<String>(
+            autovalidateMode: AutovalidateMode.always,
+            autofocus: false,
+            style: const TextStyle(
+                fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
+            decoration: decorationForTextFormField('Roles'),
+            onChanged: (val) {
+              role.text = val!;
+            },
+            icon: const FaIcon(
+              FontAwesomeIcons.chevronDown,
+              size: 15,
+              color: Colors.grey,
+            ),
+            hint: const Text('Role'),
+            validator: (value) {
+  if (value == null || value.isEmpty) {
+  }
+  return null;
+},
+
+            items: rolesOfClient.map((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            }).toList(),
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          DropdownButtonFormField<String>(
+            autovalidateMode: AutovalidateMode.always,
+            autofocus: false,
+            style: const TextStyle(
+                fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
+            decoration: decorationForTextFormField('Status'),
+            onChanged: (val) {
+              status.text = val!;
+            },
+            icon: const FaIcon(
+              FontAwesomeIcons.chevronDown,
+              size: 15,
+              color: Colors.grey,
+            ),
+            hint: const Text('Status'),
+            validator: (value) {
+  if (value == null || value.isEmpty) {
+    
+  }
+  return null;
+},
+
+            items: statusOfClient.map((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            }).toList(),
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          Text(
+            errorText,
+            style: const TextStyle(
+                fontSize: 16, color: Colors.grey, fontWeight: FontWeight.w600),
+          ),
+          const SizedBox(
+            height: 45,
+          ),
+          SizedBox(
+            width: 250,
+            height: 40,
+            child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color.fromARGB(255, 255, 188, 2),
+                ),
+                onPressed: () async {
+                  if (_formKey.currentState!.validate()) {
+                    var cancel = BotToast.showLoading();
+                    final done = await postClientData();
+                    if (done == true) {
+                      cancel();
+                      Navigator.of(context).pop();
+                    } else {
+                      cancel();
+                      setState(() {
+                        errorText = 'Error: Please check and try again';
+                      });
+                    }
+                  }
+                },
+                child: const Text(
+                  'Submit',
+                  style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w600),
+                )),
+          ),
+        ],
+      ),
     );
   }
 }
