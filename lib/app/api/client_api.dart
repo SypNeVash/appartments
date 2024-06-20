@@ -115,7 +115,7 @@ class ApiClient {
         Provider.of<AppartDetailsListener>(context, listen: false);
     late List<dynamic> photoReferences;
     String url =
-        'https://realtor.azurewebsites.net/api/Files/$id'; // Replace with your API endpoint
+        'https://realtor.azurewebsites.net/api/Files/$id'; 
 
     try {
       var request = http.MultipartRequest('POST', Uri.parse(url));

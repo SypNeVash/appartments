@@ -1,14 +1,12 @@
 library dashboard;
 
 import 'dart:async';
-
 import 'package:apartments/app/api/token_control.dart';
 import 'package:apartments/app/constans/app_constants.dart';
 import 'package:apartments/app/features/dashboard/controllers/authcontroller.dart';
 import 'package:apartments/app/features/dashboard/views/components/filters_forms.dart';
 import 'package:apartments/app/features/dashboard/views/screens/adding_apartment.dart';
 import 'package:apartments/app/providers/appartment_provider.dart';
-
 import 'package:apartments/app/shared_components/header_text.dart';
 import 'package:apartments/app/shared_components/list_task_assigned.dart';
 import 'package:apartments/app/shared_components/list_task_date.dart';
@@ -25,7 +23,6 @@ import 'package:get/get.dart';
 import 'package:apartments/app/utils/helpers/app_helpers.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:provider/provider.dart';
-
 import 'all_aparts_screen.dart';
 import 'clients/all_clients_grid_view.dart';
 import 'clients/clients components/search_text_form.dart';
@@ -224,7 +221,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   void initState() {
     super.initState();
     _startTokenCheck();
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       AppartDetailsListener profileDetailsListener =
           Provider.of<AppartDetailsListener>(context, listen: false);
       profileDetailsListener.setMobile = isMobile;

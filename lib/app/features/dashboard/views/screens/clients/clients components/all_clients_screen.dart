@@ -1,7 +1,6 @@
 import 'package:apartments/app/constans/app_constants.dart';
 import 'package:apartments/app/features/dashboard/views/screens/dashboard_screen.dart';
 import 'package:apartments/app/shared_components/search_field.dart';
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
