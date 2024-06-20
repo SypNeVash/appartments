@@ -88,7 +88,7 @@ Widget _buildSidebar(BuildContext context) {
       const Padding(
         padding: EdgeInsets.all(kSpacing),
         child: Text(
-          "2024 Arzuman",
+          "Realtor-2024",
         ),
       ),
     ],

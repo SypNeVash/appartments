@@ -26,7 +26,7 @@ class _MainMenu extends StatelessWidget {
         SelectionButtonData(
           activeIcon: EvaIcons.personOutline,
           icon: EvaIcons.personOutline,
-          label: "Clients",
+          label: "Customers",
         ),
         SelectionButtonData(
           activeIcon: EvaIcons.personAddOutline,

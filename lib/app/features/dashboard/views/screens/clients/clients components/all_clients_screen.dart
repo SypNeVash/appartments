@@ -82,7 +82,7 @@ class FormsLists extends StatelessWidget {
                   Get.toNamed('/addingNewClient');
                 },
                 child: const Text(
-                  '+ Add new client',
+                  '+ Add new Customer',
                   style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
