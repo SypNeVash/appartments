@@ -47,7 +47,7 @@ class FormsEditClientList extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Edit Client',
+          'Edit Customer',
           style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
         ),
         Text(

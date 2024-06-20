@@ -69,7 +69,7 @@ class FormsList extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Adding new Client',
+          'Adding new Customer',
           style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
         ),
         Text(
@@ -146,7 +146,7 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
     }
   }
 
-  var rolesOfClient = [
+  var statusOfClient = [
     "Recall",
     "Meet",
     "Inprogress",
@@ -155,7 +155,10 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
     "Returned",
     "Realtor"
   ];
-
+  var rolesOfClient = [
+    "Stuff",
+    "Customer",
+  ];
   @override
   void dispose() {
     name.dispose();
@@ -334,6 +337,32 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
           autofocus: false,
           style: const TextStyle(
               fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
+          decoration: decorationForTextFormField('Roles'),
+          onChanged: (val) {
+            role.text = val!;
+          },
+          icon: const FaIcon(
+            FontAwesomeIcons.chevronDown,
+            size: 15,
+            color: Colors.grey,
+          ),
+          hint: const Text('Role'),
+          items: rolesOfClient.map((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value),
+            );
+          }).toList(),
+          value: rolesOfClient[0],
+        ),
+        const SizedBox(
+          height: 15,
+        ),
+        DropdownButtonFormField<String>(
+          autovalidateMode: AutovalidateMode.always,
+          autofocus: false,
+          style: const TextStyle(
+              fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
           decoration: decorationForTextFormField('Status'),
           onChanged: (val) {
             role.text = val!;
@@ -344,13 +373,13 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
             color: Colors.grey,
           ),
           hint: const Text('Status'),
-          items: rolesOfClient.map((String value) {
+          items: statusOfClient.map((String value) {
             return DropdownMenuItem<String>(
               value: value,
               child: Text(value),
             );
           }).toList(),
-          value: rolesOfClient[2],
+          value: statusOfClient[2],
         ),
         Text(
           errorText,
