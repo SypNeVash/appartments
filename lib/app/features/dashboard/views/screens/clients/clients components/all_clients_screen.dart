@@ -1,3 +1,6 @@
+import 'package:apartments/app/constans/app_constants.dart';
+import 'package:apartments/app/features/dashboard/views/screens/dashboard_screen.dart';
+import 'package:apartments/app/shared_components/search_field.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -52,24 +55,34 @@ import 'package:get/get.dart';
 // }
 
 class FormsLists extends StatelessWidget {
-  const FormsLists({Key? key}) : super(key: key);
+  final bool? openDrawer;
+  const FormsLists({this.openDrawer, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final DashboardController controller = Get.find<DashboardController>();
+
     return Padding(
-      padding: const EdgeInsets.only(top: 28.0),
+      padding: const EdgeInsets.only(top: 20.0, left: 25, right: 25),
       child: Column(
         children: [
-          const TextField(
-            decoration: InputDecoration(
-              prefixIcon: Icon(EvaIcons.search),
-              enabledBorder: UnderlineInputBorder(
-                borderSide: BorderSide(width: .1),
+          Row(
+            children: [
+              if (openDrawer != null || openDrawer == true)
+                Padding(
+                  padding: const EdgeInsets.only(right: kSpacing / 2),
+                  child: IconButton(
+                    onPressed: controller.openDrawer,
+                    icon: const Icon(Icons.menu),
+                  ),
+                ),
+              Expanded(
+                child: SearchField(
+                  onSearch: controller.searchTask,
+                  hintText: "Search Task .. ",
+                ),
               ),
-              hintText: 'Search for clients',
-            ),
-            textInputAction: TextInputAction.search,
-            style: TextStyle(color: Colors.black),
+            ],
           ),
           const SizedBox(
             height: 20,

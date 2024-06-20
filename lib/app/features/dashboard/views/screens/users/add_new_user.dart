@@ -21,7 +21,9 @@ class _AddNewUsersState extends State<AddNewUsers> {
         Expanded(
           flex: 4,
           child: Container(
-              padding: const EdgeInsets.symmetric(vertical: 55),
+              padding: const EdgeInsets.symmetric(
+                vertical: 55,
+              ),
               child: const Column(
                 children: [
                   FormsListForUsers(),

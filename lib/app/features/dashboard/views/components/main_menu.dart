@@ -28,12 +28,12 @@ class _MainMenu extends StatelessWidget {
           icon: EvaIcons.personOutline,
           label: "Customers",
         ),
-        SelectionButtonData(
-          activeIcon: EvaIcons.personAddOutline,
-          icon: EvaIcons.personAddOutline,
-          label: "Add user",
-          totalNotif: 100,
-        ),
+        // SelectionButtonData(
+        //   activeIcon: EvaIcons.personAddOutline,
+        //   icon: EvaIcons.personAddOutline,
+        //   label: "Add user",
+        //   totalNotif: 100,
+        // ),
         SelectionButtonData(
           activeIcon: EvaIcons.logOutOutline,
           icon: EvaIcons.logOutOutline,

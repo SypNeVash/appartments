@@ -25,7 +25,7 @@ class DashboardController extends GetxController {
     if (index == 2) {
       // Get.to(AllClientsList());
     }
-    if (index == 4) {
+    if (index == 3) {
       authController.logout();
     }
   }

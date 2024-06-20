@@ -35,7 +35,8 @@ var cities = [
 ];
 
 class AddingNewApartments extends StatelessWidget {
-  const AddingNewApartments({super.key});
+  final Function? onPressedMenu;
+  const AddingNewApartments({this.onPressedMenu, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -66,10 +67,15 @@ class FormsList extends StatelessWidget {
       children: [
         Text(
           'Adding new appartment',
-          style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 25,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         Text(
           'Please fill the form',
+          textAlign: TextAlign.center,
           style: TextStyle(fontSize: 15),
         ),
         SizedBox(

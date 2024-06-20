@@ -111,12 +111,18 @@ class _AllClientsListState extends State<AllClientsList> {
 }
 
 class AllClientsMain extends StatelessWidget {
-  const AllClientsMain({super.key});
+  final bool? openDrawer;
+  const AllClientsMain({this.openDrawer, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
-      children: [FormsLists(), AllClientsList()],
+    return Column(
+      children: [
+        FormsLists(
+          openDrawer: openDrawer,
+        ),
+        const AllClientsList()
+      ],
     );
   }
 }

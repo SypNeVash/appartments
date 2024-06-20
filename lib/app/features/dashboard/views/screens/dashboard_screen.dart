@@ -95,6 +95,11 @@ Widget _buildSidebar(BuildContext context) {
   );
 }
 
+openDrawer() {
+  final DashboardController controller = Get.find<DashboardController>();
+  controller.openDrawer();
+}
+
 Widget _buildTaskContent({Function()? onPressedMenu}) {
   final DashboardController controller = Get.find<DashboardController>();
 
@@ -281,9 +286,21 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     isActive: true,
                     desktop: "mobile",
                   ),
-                  _buildTaskContent(
-                    onPressedMenu: () => controller.openDrawer(),
-                  ),
+                  if (profileDetailsListener.getPageIndex == 0) ...[
+                    _buildTaskContent(
+                      onPressedMenu: () => controller.openDrawer(),
+                    ),
+                  ] else if (profileDetailsListener.getPageIndex == 1) ...[
+                    const AddingNewApartments(),
+                  ] else if (profileDetailsListener.getPageIndex == 2) ...[
+                    const AllClientsMain(
+                      openDrawer: true,
+                    ),
+                  ] else if (profileDetailsListener.getPageIndex == 3) ...[
+                    const AddNewUsers(),
+                  ] else ...[
+                    _buildTaskContent(),
+                  ],
                 ],
               ),
             );
@@ -298,6 +315,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   _buildTaskContent(
                     onPressedMenu: () => controller.openDrawer(),
                   ),
+                  const AddingNewApartments(),
                 ],
               ),
             );
