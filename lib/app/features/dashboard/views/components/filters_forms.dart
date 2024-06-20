@@ -34,28 +34,28 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
         filters.add(FilterCondition(
           property: 'id',
           value: _idController.text,
-          condition: 'equals',
+          condition: 'contains',
         ));
       }
       if (_priceController.text.isNotEmpty) {
         filters.add(FilterCondition(
           property: 'price',
           value: _priceController.text,
-          condition: 'equals',
+          condition: 'contains',
         ));
       }
       if (_roomsController.text.isNotEmpty) {
         filters.add(FilterCondition(
           property: 'room',
           value: _roomsController.text,
-          condition: 'equals',
+          condition: 'contains',
         ));
       }
       if (_regionController.text.isNotEmpty) {
         filters.add(FilterCondition(
           property: 'region',
           value: _regionController.text,
-          condition: 'equals',
+          condition: 'contains',
         ));
       }
 

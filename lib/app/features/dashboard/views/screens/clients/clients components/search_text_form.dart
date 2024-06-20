@@ -22,7 +22,7 @@ class _ClientSearchFormState extends State<ClientSearchForm> {
         filters.add(FilterCondition(
           property: 'id',
           value: _phoneController.text,
-          condition: 'equals',
+          condition: 'contains',
         ));
       }
 
