@@ -4,6 +4,7 @@ import 'package:apartments/app/utils/services/shared_preferences.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:uuid/uuid.dart';
 
 class AddingNewClients extends StatefulWidget {
@@ -102,6 +103,9 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
   final TextEditingController password = TextEditingController();
   final TextEditingController username = TextEditingController();
   final TextEditingController email = TextEditingController();
+  final TextEditingController role = TextEditingController();
+  final TextEditingController status = TextEditingController();
+
   String errorText = '';
 
   Future<bool> postClientData() async {
@@ -142,6 +146,16 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
     }
   }
 
+  var rolesOfClient = [
+    "Recall",
+    "Meet",
+    "Inprogress",
+    "Finished",
+    "Freezed",
+    "Returned",
+    "Realtor"
+  ];
+
   @override
   void dispose() {
     name.dispose();
@@ -154,6 +168,8 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
     password.dispose();
     username.dispose();
     email.dispose();
+    role.dispose();
+    status.dispose();
     super.dispose();
   }
 
@@ -309,6 +325,32 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
           onChanged: (val) {
             email.text = val;
           },
+        ),
+        const SizedBox(
+          height: 15,
+        ),
+        DropdownButtonFormField<String>(
+          autovalidateMode: AutovalidateMode.always,
+          autofocus: false,
+          style: const TextStyle(
+              fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
+          decoration: decorationForTextFormField('Status'),
+          onChanged: (val) {
+            role.text = val!;
+          },
+          icon: const FaIcon(
+            FontAwesomeIcons.chevronDown,
+            size: 15,
+            color: Colors.grey,
+          ),
+          hint: const Text('Status'),
+          items: rolesOfClient.map((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value),
+            );
+          }).toList(),
+          value: rolesOfClient[2],
         ),
         Text(
           errorText,

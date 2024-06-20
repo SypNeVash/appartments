@@ -14,6 +14,7 @@ class CustomerModel {
   final String? username;
   final String? email;
   final String? role;
+  final String? status;
 
   CustomerModel(
       {this.id,
@@ -27,7 +28,8 @@ class CustomerModel {
       this.password,
       this.username,
       this.email,
-      this.role});
+      this.role,
+      this.status});
 
   CustomerModel copyWith(
       {String? id,
@@ -41,7 +43,8 @@ class CustomerModel {
       String? password,
       String? username,
       String? email,
-      String? role}) {
+      String? role,
+      String? status}) {
     return CustomerModel(
       id: id ?? this.id,
       name: name ?? this.name,
@@ -55,6 +58,7 @@ class CustomerModel {
       username: username ?? this.username,
       email: email ?? this.email,
       role: role ?? this.role,
+      status: status ?? this.status,
     );
   }
 
@@ -71,7 +75,8 @@ class CustomerModel {
       'password': password,
       'username': username,
       'email': email,
-      'role': role
+      'role': role,
+      'status': status
     };
   }
 
@@ -89,6 +94,7 @@ class CustomerModel {
       username: map['username'] as String,
       email: map['email'] as String,
       role: map['role'] as String,
+      status: map['status'] as String,
     );
   }
 
@@ -103,7 +109,7 @@ class CustomerModel {
 
   @override
   String toString() {
-    return 'CustomerModel(id: $id, name: $name, surname: $surname, patronymic: $patronymic, passport: $passport, phoneNumber: $phoneNumber, address: $address, birthday: $birthday, password: $password, username: $username, email: $email)';
+    return 'CustomerModel(id: $id, name: $name, surname: $surname, patronymic: $patronymic, passport: $passport, phoneNumber: $phoneNumber, address: $address, birthday: $birthday, password: $password, username: $username, email: $email, role:$role, status:$status)';
   }
 
   @override

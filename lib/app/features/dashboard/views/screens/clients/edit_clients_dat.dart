@@ -106,8 +106,6 @@ class _TextFormForEditingClientState extends State<TextFormForEditingClient> {
         "email": email.text,
         "role": role.text
       };
-      print(name.text);
-      print('erfefefefefefefefe');
       Response response = await dio.put(
         apiUrl,
         data: datas,
@@ -116,7 +114,6 @@ class _TextFormForEditingClientState extends State<TextFormForEditingClient> {
           headers: {'Authorization': 'Bearer $accessToken'},
         ),
       );
-      print(response.data);
       if (response.statusCode == 200 ||
           response.statusCode == 201 ||
           response.statusCode == 204) {
@@ -129,7 +126,15 @@ class _TextFormForEditingClientState extends State<TextFormForEditingClient> {
     }
   }
 
-  var rolesOfClient = ["Stuff", "Client"];
+  var rolesOfClient = [
+    "Recall",
+    "Meet",
+    "Inprogress",
+    "Finished",
+    "Freezed",
+    "Returned",
+    "Realtor"
+  ];
   String? selectedRole;
   getDataByID() async {
     customerModel = await ApiClient().fetchClientDataById();
