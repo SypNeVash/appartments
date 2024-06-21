@@ -22,7 +22,7 @@ class ApartmentDetailsSubScreen extends StatefulWidget {
 
 class _ApartmentDetailsSubScreenState extends State<ApartmentDetailsSubScreen> {
   ApiClient apiClient = ApiClient();
-
+  String? role;
   void _showAlertDialog() async {
     Get.defaultDialog(
       title: "Oqoo!",
@@ -60,6 +60,16 @@ class _ApartmentDetailsSubScreenState extends State<ApartmentDetailsSubScreen> {
         duration: Duration(seconds: 4),
       ),
     );
+  }
+
+  getUserData() async {
+    role = await SPHelper.getRolesSharedPreference() ?? '';
+  }
+
+  @override
+  void initState() {
+    getUserData();
+    super.initState();
   }
 
   @override
@@ -113,14 +123,16 @@ class _ApartmentDetailsSubScreenState extends State<ApartmentDetailsSubScreen> {
                               fontWeight: FontWeight.w700,
                             ),
                           ),
-                          InkWell(
-                            onTap: () => _showAlertDialog(),
-                            child: const FaIcon(
-                              FontAwesomeIcons.trashCan,
-                              color: Colors.black,
-                              size: 18,
-                            ),
-                          )
+                          if (role == 'Admin' || role == 'Stuff') ...[
+                            InkWell(
+                              onTap: () => _showAlertDialog(),
+                              child: const FaIcon(
+                                FontAwesomeIcons.trashCan,
+                                color: Colors.black,
+                                size: 18,
+                              ),
+                            )
+                          ]
                         ],
                       ),
                     ),
@@ -387,25 +399,27 @@ class _ApartmentDetailsSubScreenState extends State<ApartmentDetailsSubScreen> {
                   const SizedBox(
                     height: 45,
                   ),
-                  SizedBox(
-                      width: 240,
-                      height: 50,
-                      child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor:
-                                const Color.fromARGB(255, 255, 188, 2),
-                          ),
-                          onPressed: () {
-                            Get.toNamed('/editingApartments',
-                                preventDuplicates: false);
-                          },
-                          child: const Text(
-                            'Edit',
-                            style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white),
-                          ))),
+                  if (role == 'Admin' || role == 'Stuff') ...[
+                    SizedBox(
+                        width: 240,
+                        height: 50,
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor:
+                                  const Color.fromARGB(255, 255, 188, 2),
+                            ),
+                            onPressed: () {
+                              Get.toNamed('/editingApartments',
+                                  preventDuplicates: false);
+                            },
+                            child: const Text(
+                              'Edit',
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white),
+                            ))),
+                  ],
                   const SizedBox(
                     height: 55,
                   )

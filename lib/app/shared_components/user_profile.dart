@@ -1,6 +1,10 @@
+import 'package:apartments/app/api/token_control.dart';
 import 'package:apartments/app/constans/app_constants.dart';
+import 'package:apartments/app/features/dashboard/controllers/authcontroller.dart';
 import 'package:apartments/app/utils/services/shared_preferences.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 
 class UserProfileData {
   final ImageProvider image;
@@ -63,6 +67,12 @@ class _UserProfileState extends State<UserProfile> {
                   children: [
                     _buildName(),
                     _buildJobdesk(),
+                    if (role == 'Customer') ...[
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      const LogOutForCustomers()
+                    ]
                   ],
                 ),
               )
@@ -98,9 +108,43 @@ class _UserProfileState extends State<UserProfile> {
       style: TextStyle(
         fontWeight: FontWeight.w300,
         color: kFontColorPallets[1],
-      ),
+      ).copyWith(fontSize: 13),
       maxLines: 1,
       overflow: TextOverflow.ellipsis,
     );
+  }
+}
+
+class LogOutForCustomers extends StatelessWidget {
+  const LogOutForCustomers({super.key});
+
+  logOutForClient() {
+    final AuthController authController = Get.put(AuthController());
+    TokenManager.clearToken();
+    authController.logout();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+        onTap: () {
+          logOutForClient();
+        },
+        child: const Row(
+          children: [
+            FaIcon(FontAwesomeIcons.rightFromBracket,
+                color: Colors.black, size: 12),
+            SizedBox(
+              width: 3,
+            ),
+            Text(
+              'Logout',
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 13,
+                  fontWeight: FontWeight.w700),
+            ),
+          ],
+        ));
   }
 }

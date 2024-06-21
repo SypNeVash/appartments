@@ -16,6 +16,7 @@ import 'package:apartments/app/shared_components/selection_button.dart';
 import 'package:apartments/app/shared_components/simple_selection_button.dart';
 import 'package:apartments/app/shared_components/simple_user_profile.dart';
 import 'package:apartments/app/shared_components/user_profile.dart';
+import 'package:apartments/app/utils/services/shared_preferences.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -217,9 +218,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
   late Timer _timer;
   String? _token;
   bool? isMobile;
+  String? role;
+
   @override
   void initState() {
     super.initState();
+    getUserData();
     _startTokenCheck();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       AppartDetailsListener profileDetailsListener =
@@ -252,6 +256,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
     _timer.cancel();
     TokenManager.clearToken();
     authController.logout();
+  }
+
+  getUserData() async {
+    role = await SPHelper.getRolesSharedPreference() ?? '';
   }
 
   @override
@@ -359,15 +367,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       controller: ScrollController(),
                       physics: const BouncingScrollPhysics(),
                       child: const AllClientsMain(),
-                    ),
-                  ),
-                ] else if (profileDetailsListener.getPageIndex == 3) ...[
-                  Flexible(
-                    flex: constraints.maxWidth > 1350 ? 8 : 7,
-                    child: SingleChildScrollView(
-                      controller: ScrollController(),
-                      physics: const BouncingScrollPhysics(),
-                      child: const AddNewUsers(),
                     ),
                   ),
                 ] else ...[

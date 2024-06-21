@@ -9,37 +9,41 @@ class _BottomNavbar extends StatefulWidget {
 
 class _BottomNavbarState extends State<_BottomNavbar> {
   int index = 0;
+  String? role;
+  @override
+  void initState() {
+    getUserData();
+    super.initState();
+  }
+
+  getUserData() async {
+    role = await SPHelper.getRolesSharedPreference() ?? '';
+  }
 
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       currentIndex: index,
-      items: const [
-        BottomNavigationBarItem(
+      items: [
+        const BottomNavigationBarItem(
           activeIcon: Icon(EvaIcons.home),
-          icon: Icon(EvaIcons.homeOutline),
+          icon: const Icon(EvaIcons.homeOutline),
           label: "Apartments",
         ),
-        BottomNavigationBarItem(
-          activeIcon: Icon(EvaIcons.bell),
-          icon: Icon(EvaIcons.bellOutline),
-          label: "Notifications",
-        ),
-        BottomNavigationBarItem(
-          activeIcon: Icon(EvaIcons.checkmarkCircle2),
-          icon: Icon(EvaIcons.checkmarkCircle),
-          label: "Customers",
-        ),
-        // BottomNavigationBarItem(
-        //   activeIcon: Icon(
-        //     EvaIcons.personAddOutline,
-        //   ),
-        //   icon: Icon(
-        //     EvaIcons.personAddOutline,
-        //   ),
-        //   label: "Add user",
-        // ),
-        BottomNavigationBarItem(
+        if (role != 'Customer') ...[
+          const BottomNavigationBarItem(
+            activeIcon: Icon(EvaIcons.bell),
+            icon: Icon(EvaIcons.bellOutline),
+            label: "Notifications",
+          ),
+          const BottomNavigationBarItem(
+            activeIcon: Icon(EvaIcons.checkmarkCircle2),
+            icon: Icon(EvaIcons.checkmarkCircle),
+            label: "Customers",
+          ),
+        ] else
+          ...[],
+        const BottomNavigationBarItem(
           activeIcon: Icon(EvaIcons.settings),
           icon: Icon(EvaIcons.settingsOutline),
           label: "Settings",

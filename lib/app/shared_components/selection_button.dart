@@ -1,5 +1,6 @@
 import 'package:apartments/app/constans/app_constants.dart';
 import 'package:apartments/app/providers/appartment_provider.dart';
+import 'package:apartments/app/utils/services/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
@@ -41,6 +42,13 @@ class _SelectionButtonState extends State<SelectionButton> {
   void initState() {
     super.initState();
     selected = widget.initialSelected;
+    getUserData();
+  }
+
+  String? role;
+
+  getUserData() async {
+    role = await SPHelper.getRolesSharedPreference() ?? '';
   }
 
   @override
@@ -64,6 +72,7 @@ class _SelectionButtonState extends State<SelectionButton> {
               if (profileDetailsListener.getMobile == true) {
                 Get.back();
               }
+
               profileDetailsListener.setPageIndex = index;
             },
             data: data,
