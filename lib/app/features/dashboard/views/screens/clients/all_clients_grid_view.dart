@@ -67,7 +67,7 @@ class _AllClientsListState extends State<AllClientsList> {
             } else if (snapshot.hasData) {
               return Column(
                 children: [
-                  if (snapshot.data!.length <= 1) ...[
+                  if (snapshot.data!.isEmpty) ...[
                     const Center(child: Text('No Client Found')),
                   ] else ...[
                     ListView.builder(
