@@ -1,6 +1,8 @@
+import 'package:apartments/app/constans/app_constants.dart';
 import 'package:apartments/app/features/dashboard/views/components/text_form_fiel_decoration.dart';
 import 'package:apartments/app/providers/appartment_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 class FilterOfAppartments extends StatefulWidget {
@@ -16,6 +18,7 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
   final _priceController = TextEditingController();
   final _roomsController = TextEditingController();
   final _regionController = TextEditingController();
+  final _statusController = TextEditingController();
 
   @override
   void dispose() {
@@ -46,16 +49,24 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
       }
       if (_roomsController.text.isNotEmpty) {
         filters.add(FilterCondition(
-          property: 'room',
+          property: 'type',
           value: _roomsController.text,
-          condition: 'contains',
+          condition: 'equals',
         ));
       }
       if (_regionController.text.isNotEmpty) {
         filters.add(FilterCondition(
           property: 'region',
           value: _regionController.text,
-          condition: 'contains',
+          condition: 'equals',
+        ));
+      }
+
+      if (_regionController.text.isNotEmpty) {
+        filters.add(FilterCondition(
+          property: 'status',
+          value: _statusController.text,
+          condition: 'equals',
         ));
       }
 
@@ -90,22 +101,77 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
           const SizedBox(
             height: 10,
           ),
-          TextFormField(
-            controller: _roomsController,
-            decoration: decorationForTextFormField('Number of Rooms'),
-            validator: (value) {
-              return null; // Number of Rooms is optional, so no validation
+          DropdownButtonFormField<String>(
+            autovalidateMode: AutovalidateMode.always,
+            autofocus: false,
+            style: const TextStyle(
+                fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
+            decoration: decorationForTextFormField('Type'),
+            onChanged: (val) {
+              _roomsController.text = val!;
             },
+            icon: const FaIcon(
+              FontAwesomeIcons.chevronDown,
+              size: 15,
+              color: Colors.grey,
+            ),
+            items: [... types, ""].map((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            }).toList(),
+            // value: types[0],
           ),
           const SizedBox(
             height: 10,
           ),
-          TextFormField(
-            controller: _regionController,
+          DropdownButtonFormField<String>(
+            autovalidateMode: AutovalidateMode.always,
+            autofocus: false,
+            style: const TextStyle(
+                fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
             decoration: decorationForTextFormField('Region'),
-            validator: (value) {
-              return null; // Region is optional, so no validation
+            onChanged: (val) {
+              _regionController.text = val!;
             },
+            icon: const FaIcon(
+              FontAwesomeIcons.chevronDown,
+              size: 15,
+              color: Colors.grey,
+            ),
+            items: [... regions, ""].map((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            }).toList(),
+            // value: types[0],
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+           DropdownButtonFormField<String>(
+            autovalidateMode: AutovalidateMode.always,
+            autofocus: false,
+            style: const TextStyle(
+                fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
+            decoration: decorationForTextFormField('Status'),
+            onChanged: (val) {
+              _statusController.text = val!;
+            },
+            icon: const FaIcon(
+              FontAwesomeIcons.chevronDown,
+              size: 15,
+              color: Colors.grey,
+            ),
+            items: [... statuses, ""].map((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            }).toList(),
+            // value: types[0],
           ),
           const SizedBox(
             height: 25,

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:apartments/app/api/client_api.dart';
+import 'package:apartments/app/constans/app_constants.dart';
 import 'package:apartments/app/features/dashboard/views/components/text_form_fiel_decoration.dart';
 import 'package:apartments/app/providers/appartment_provider.dart';
 import 'package:apartments/app/utils/services/apartment_image_service.dart';
@@ -10,29 +11,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
-
-var types = [
-  "1 кімнатна",
-  "2 кімнатна",
-  "3 кімнатна",
-  "4 кімнатна",
-  "Студія",
-  "Приватний будинок",
-  "Частина будинку",
-];
-
-var regions = [
-  "Галицький",
-  "Залізничний",
-  "Личаківський",
-  "Франківський",
-  "Шевченківський",
-  "Сихівський",
-];
-
-var cities = [
-  "Львів",
-];
 
 class AddingNewApartments extends StatelessWidget {
   final Function? onPressedMenu;

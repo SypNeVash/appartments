@@ -12,3 +12,29 @@ const kFontColorPallets = [
 ];
 const kBorderRadius = 10.0;
 const kSpacing = 20.0;
+
+
+const types = [
+  "1 кімнатна",
+  "2 кімнатна",
+  "3 кімнатна",
+  "4 кімнатна",
+  "Студія",
+  "Приватний будинок",
+  "Частина будинку",
+];
+
+const regions = [
+  "Галицький",
+  "Залізничний",
+  "Личаківський",
+  "Франківський",
+  "Шевченківський",
+  "Сихівський",
+];
+
+const cities = [
+  "Львів",
+];
+
+var statuses = ["Active", "Deleted", "Progress"];

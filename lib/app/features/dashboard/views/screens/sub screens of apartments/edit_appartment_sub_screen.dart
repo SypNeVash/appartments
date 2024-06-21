@@ -1,4 +1,5 @@
 import 'package:apartments/app/api/client_api.dart';
+import 'package:apartments/app/constans/app_constants.dart';
 import 'package:apartments/app/features/dashboard/views/components/text_form_fiel_decoration.dart';
 import 'package:apartments/app/models/get_all_appart_model.dart';
 import 'package:apartments/app/providers/appartment_provider.dart';
@@ -135,30 +136,6 @@ class _TextFormForAddingEditingAptState
     setState(() {});
   }
 
-  var types = [
-    "1 кімнатна",
-    "2 кімнатна",
-    "3 кімнатна",
-    "4 кімнатна",
-    "Студія",
-    "Приватний будинок",
-    "Частина будинку",
-  ];
-
-  var regions = [
-    "Галицький",
-    "Залізничний",
-    "Личаківський",
-    "Франківський",
-    "Шевченківський",
-    "Сихівський",
-  ];
-
-  var cities = [
-    "Львів",
-  ];
-
-  var statuses = ["Active", "Deleted", "Progress"];
   @override
   void initState() {
     getApartmentDetails();
