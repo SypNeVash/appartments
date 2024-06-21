@@ -87,9 +87,9 @@ class CustomerCard extends StatefulWidget {
 class _CustomerCardState extends State<CustomerCard> {
   void _showAlertDialog(String apartmentId) async {
     Get.defaultDialog(
-      title: "Oqoo!",
-      middleText: "Ti uveren bratishka?",
-      textConfirm: "Dokancsa",
+      title: "Wait!",
+      middleText: "Please confirm",
+      textConfirm: "Yes",
       confirmTextColor: Colors.white,
       onConfirm: () async {
         final deleted =
@@ -104,7 +104,7 @@ class _CustomerCardState extends State<CustomerCard> {
           Provider.of<ClientProvider>(context, listen: false).fetchClients(1);
         }); // Close the dialog
       },
-      textCancel: "Zadniy",
+      textCancel: "Back",
       onCancel: () {
         // Perform any action on cancel, if needed
       },

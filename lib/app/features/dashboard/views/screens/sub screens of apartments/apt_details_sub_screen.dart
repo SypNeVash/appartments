@@ -25,9 +25,9 @@ class _ApartmentDetailsSubScreenState extends State<ApartmentDetailsSubScreen> {
   String? role;
   void _showAlertDialog() async {
     Get.defaultDialog(
-      title: "Oqoo!",
-      middleText: "Ti uveren bratishka?",
-      textConfirm: "Dokancsa",
+      title: "Wait!",
+      middleText: "Are you sure?",
+      textConfirm: "Yes",
       confirmTextColor: Colors.white,
       onConfirm: () async {
         String apartmentId = await SPHelper.getIDAptSharedPreference() ?? '';
@@ -46,7 +46,7 @@ class _ApartmentDetailsSubScreenState extends State<ApartmentDetailsSubScreen> {
           showSnackBarForError();
         }
       },
-      textCancel: "Zadniy",
+      textCancel: "Back",
       onCancel: () {
         // Perform any action on cancel, if needed
       },
