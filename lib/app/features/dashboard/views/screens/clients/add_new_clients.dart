@@ -1,10 +1,10 @@
 import 'package:apartments/app/features/dashboard/views/components/text_form_fiel_decoration.dart';
 import 'package:apartments/app/shared_components/responsive_builder.dart';
 import 'package:apartments/app/utils/services/shared_preferences.dart';
+import 'package:apartments/app/utils/services/validator.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:uuid/uuid.dart';
 
@@ -27,7 +27,7 @@ class _AddingNewClientsState extends State<AddingNewClients> {
         child: Column(
           children: [
             FormsList(),
-            TextFormForAddingNewApt(),
+            TextFormForAddingNewClients(),
           ],
         ),
       ));
@@ -39,7 +39,7 @@ class _AddingNewClientsState extends State<AddingNewClients> {
               child: const Column(
                 children: [
                   FormsList(),
-                  TextFormForAddingNewApt(),
+                  TextFormForAddingNewClients(),
                 ],
               )));
     }, desktopBuilder: (context, constraints) {
@@ -53,7 +53,7 @@ class _AddingNewClientsState extends State<AddingNewClients> {
                 child: const Column(
                   children: [
                     FormsList(),
-                    TextFormForAddingNewApt(),
+                    TextFormForAddingNewClients(),
                   ],
                 )),
           ));
@@ -67,14 +67,16 @@ class FormsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
           'Adding new Customer',
+          textAlign: TextAlign.center,
           style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
         ),
         Text(
           'Please fill the form',
+          textAlign: TextAlign.center,
           style: TextStyle(fontSize: 15),
         ),
         SizedBox(
@@ -85,15 +87,16 @@ class FormsList extends StatelessWidget {
   }
 }
 
-class TextFormForAddingNewApt extends StatefulWidget {
-  const TextFormForAddingNewApt({Key? key}) : super(key: key);
+class TextFormForAddingNewClients extends StatefulWidget {
+  const TextFormForAddingNewClients({Key? key}) : super(key: key);
 
   @override
-  State<TextFormForAddingNewApt> createState() =>
-      _TextFormForAddingNewAptState();
+  State<TextFormForAddingNewClients> createState() =>
+      _TextFormForAddingNewClientsState();
 }
 
-class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
+class _TextFormForAddingNewClientsState
+    extends State<TextFormForAddingNewClients> {
   final TextEditingController name = TextEditingController();
   final TextEditingController surname = TextEditingController();
   final TextEditingController patronymic = TextEditingController();
@@ -108,45 +111,45 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
   final TextEditingController status = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   String errorText = '';
+  bool _isValid = true;
 
   Future<bool> postClientData() async {
     Dio dio = Dio();
     String apiUrl = 'https://realtor.azurewebsites.net/api/CustomerCards';
     final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
     String uuid = const Uuid().v4();
-    try {
-      Map<String, String> datas = {
-        "id": uuid,
-        "name": name.text,
-        "surname": surname.text,
-        "patronymic": patronymic.text,
-        "passport": passport.text,
-        "phoneNumber": phoneNumber.text,
-        "address": address.text,
-        "birthday": birthday.text,
-        "password": password.text,
-        "username": username.text,
-        "email": email.text,
-        "role": role.text,
-        "status": status.text,
-      };
 
-      Response response = await dio.post(
-        apiUrl,
-        data: datas,
-        options: Options(
-          contentType: 'application/json',
-          headers: {'Authorization': 'Bearer $accessToken'},
-        ),
-      );
-      if (response.statusCode == 200 ||
-          response.statusCode == 201 ||
-          response.statusCode == 204) {
-        return true;
-      } else {
-        return false;
-      }
-    } catch (e) {
+    Map<String, String> datas = {
+      "id": uuid,
+      "name": name.text,
+      "surname": surname.text,
+      "patronymic": patronymic.text,
+      "passport": passport.text,
+      "phoneNumber": phoneNumber.text,
+      "address": address.text,
+      "birthday": birthday.text,
+      "password": password.text,
+      "username": username.text,
+      "email": email.text,
+      "role": role.text,
+      "status": status.text,
+    };
+
+    Response response = await dio.post(
+      apiUrl,
+      data: datas,
+      options: Options(
+        contentType: 'application/json',
+        headers: {'Authorization': 'Bearer $accessToken'},
+      ),
+    );
+
+    print(response.statusCode);
+    if (response.statusCode == 200 ||
+        response.statusCode == 201 ||
+        response.statusCode == 204) {
+      return true;
+    } else {
       return false;
     }
   }
@@ -179,6 +182,17 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
     role.dispose();
     status.dispose();
     super.dispose();
+  }
+
+  void _onSubmit() {
+    setState(() {
+      _isValid = _formKey.currentState?.validate() ?? false;
+    });
+    if (_formKey.currentState?.validate() ?? false) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('All information is valid')),
+      );
+    }
   }
 
   @override
@@ -295,31 +309,64 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
             height: 15,
           ),
           TextFormField(
-            autovalidateMode: AutovalidateMode.always,
+            controller: username,
+            validator: Validator.validateName,
             textCapitalization: TextCapitalization.sentences,
             autofocus: false,
             keyboardType: TextInputType.multiline,
             style: const TextStyle(
                 fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-            decoration: decorationForTextFormField('Password'),
-            onChanged: (val) {
-              password.text = val;
-            },
+            decoration: decorationForTextFormField('Username').copyWith(
+              border: const OutlineInputBorder(),
+              errorBorder: const OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: Colors.red,
+                  width: 2.0,
+                ),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: _isValid ? Colors.blue : Colors.red,
+                  width: 2.0,
+                ),
+              ),
+            ),
+            // onChanged: (val) {
+            //   username.text = val;
+            // },
           ),
           const SizedBox(
             height: 15,
           ),
           TextFormField(
-            autovalidateMode: AutovalidateMode.always,
+            validator: Validator.validatePassword,
+
             textCapitalization: TextCapitalization.sentences,
             autofocus: false,
+            controller: password,
+            // obscureText: true,
             keyboardType: TextInputType.multiline,
             style: const TextStyle(
                 fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-            decoration: decorationForTextFormField('Username'),
-            onChanged: (val) {
-              username.text = val;
-            },
+            decoration: decorationForTextFormField('Password').copyWith(
+              border: const OutlineInputBorder(),
+              errorBorder: const OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: Colors.red,
+                  width: 2.0,
+                ),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: _isValid ? Colors.blue : Colors.red,
+                  width: 2.0,
+                ),
+              ),
+            ),
+
+            // onChanged: (val) {
+            //   password.text = val;
+            // },
           ),
           const SizedBox(
             height: 15,
@@ -340,11 +387,27 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
             height: 15,
           ),
           DropdownButtonFormField<String>(
-            autovalidateMode: AutovalidateMode.always,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             autofocus: false,
             style: const TextStyle(
-                fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-            decoration: decorationForTextFormField('Roles'),
+              fontSize: 16,
+              color: Colors.black,
+            ),
+            decoration: decorationForTextFormField('Password').copyWith(
+              border: const OutlineInputBorder(),
+              errorBorder: const OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: Colors.red,
+                  width: 2.0,
+                ),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: _isValid ? Colors.blue : Colors.red,
+                  width: 2.0,
+                ),
+              ),
+            ),
             onChanged: (val) {
               role.text = val!;
             },
@@ -353,13 +416,14 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
               size: 15,
               color: Colors.grey,
             ),
-            hint: const Text('Role'),
-            validator: (value) {
-  if (value == null || value.isEmpty) {
-  }
-  return null;
-},
-
+            hint: const Text(
+              'Role',
+              style: TextStyle(
+                fontSize: 14,
+                color: Color.fromARGB(255, 112, 112, 112),
+              ),
+            ),
+            validator: Validator.validateDropDefaultData,
             items: rolesOfClient.map((String value) {
               return DropdownMenuItem<String>(
                 value: value,
@@ -371,11 +435,27 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
             height: 15,
           ),
           DropdownButtonFormField<String>(
-            autovalidateMode: AutovalidateMode.always,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             autofocus: false,
             style: const TextStyle(
-                fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-            decoration: decorationForTextFormField('Status'),
+              fontSize: 16,
+              color: Colors.black,
+            ),
+            decoration: decorationForTextFormField('Status').copyWith(
+              border: const OutlineInputBorder(),
+              errorBorder: const OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: Colors.red,
+                  width: 2.0,
+                ),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: _isValid ? Colors.blue : Colors.red,
+                  width: 2.0,
+                ),
+              ),
+            ),
             onChanged: (val) {
               status.text = val!;
             },
@@ -384,14 +464,14 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
               size: 15,
               color: Colors.grey,
             ),
-            hint: const Text('Status'),
-            validator: (value) {
-  if (value == null || value.isEmpty) {
-    
-  }
-  return null;
-},
-
+            hint: const Text(
+              'Status',
+              style: TextStyle(
+                fontSize: 14,
+                color: Color.fromARGB(255, 112, 112, 112),
+              ),
+            ),
+            validator: Validator.validateDropDefaultData,
             items: statusOfClient.map((String value) {
               return DropdownMenuItem<String>(
                 value: value,
@@ -419,8 +499,10 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
                 ),
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
+                    _onSubmit();
                     var cancel = BotToast.showLoading();
                     final done = await postClientData();
+                    print('done: $done');
                     if (done == true) {
                       cancel();
                       Navigator.of(context).pop();

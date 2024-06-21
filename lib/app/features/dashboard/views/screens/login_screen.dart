@@ -64,9 +64,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               SizedBox(height: size.height * 0.06),
                               TextFormField(
                                 controller: usernameController,
-                                validator: (value) {
-                                  return Validator.validateName(value ?? "");
-                                },
+                                // validator: (value) {
+                                //   return Validator.validateName(value ?? "");
+                                // },
                                 style: const TextStyle(
                                     fontWeight: FontWeight.w600),
                                 decoration: InputDecoration(
