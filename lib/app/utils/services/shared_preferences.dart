@@ -47,12 +47,12 @@ class SPHelper {
   //name of user
   static Future<bool> saveNameSharedPreference(String tokenKey) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    return await preferences.setString(sharedPreferenceRoleIdKey, tokenKey);
+    return await preferences.setString(sharedPreferenceNameIdKey, tokenKey);
   }
 
   static Future<String?> getNameSharedPreference() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    return preferences.getString(sharedPreferenceRoleIdKey);
+    return preferences.getString(sharedPreferenceNameIdKey);
   }
 
   //id of the clients
