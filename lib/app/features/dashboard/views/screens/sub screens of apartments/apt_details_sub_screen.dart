@@ -213,9 +213,31 @@ class _ApartmentDetailsSubScreenState extends State<ApartmentDetailsSubScreen> {
                         Row(
                           children: [
                             const FaIcon(
+                              FontAwesomeIcons.dollarSign,
+                              color: Colors.black,
+                              size: 18,
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              apartment.price.toString(),
+                              style: const TextStyle(
+                                  fontSize: 19,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.black),
+                            )
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          children: [
+                            const FaIcon(
                               FontAwesomeIcons.locationDot,
                               color: Colors.orange,
-                              size: 16,
+                              size: 13,
                             ),
                             const SizedBox(
                               width: 10,
@@ -223,7 +245,7 @@ class _ApartmentDetailsSubScreenState extends State<ApartmentDetailsSubScreen> {
                             Text(
                               apartment.city.toString(),
                               style: const TextStyle(
-                                fontSize: 18,
+                                fontSize: 16,
                               ),
                             ),
                           ],

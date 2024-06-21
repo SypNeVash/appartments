@@ -1,6 +1,9 @@
 import 'package:apartments/app/models/get_all_appart_model.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CardTask extends StatelessWidget {
   const CardTask({
@@ -76,17 +79,19 @@ class CardTask extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _buildDate(),
+                      price(),
                       const SizedBox(
                         height: 15,
                       ),
-                      _buildHours(),
+                      _buildDate(),
                     ],
                   ),
                   const SizedBox(
                     height: 25,
                   ),
-                  _doneButton(),
+                  IdButton(
+                    id: data.id.toString(),
+                  ),
                 ],
               ),
             ],
@@ -146,17 +151,19 @@ class CardTask extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        _buildDate(),
+                        price(),
                         const SizedBox(
                           height: 15,
                         ),
-                        _buildHours(),
+                        _buildDate(),
                       ],
                     ),
                     const SizedBox(
                       height: 25,
                     ),
-                    _doneButton(),
+                    IdButton(
+                      id: data.id.toString(),
+                    ),
                   ],
                 ),
               ),
@@ -187,16 +194,32 @@ class CardTask extends StatelessWidget {
   }
 
   Widget _buildLabel() {
-    return Text(
-      data.city ?? '',
-      style: TextStyle(
-        fontSize: 20,
-        fontWeight: FontWeight.w800,
-        color: onPrimary,
-        letterSpacing: 1,
-      ),
-      maxLines: 2,
-      overflow: TextOverflow.ellipsis,
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          data.region ?? '',
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w800,
+            color: onPrimary,
+            letterSpacing: 1,
+          ),
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+        ),
+        Text(
+          ' - ${data.type}',
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w800,
+            color: onPrimary,
+            letterSpacing: 1,
+          ),
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+        ),
+      ],
     );
   }
 
@@ -239,25 +262,33 @@ class CardTask extends StatelessWidget {
     );
   }
 
-  Widget _buildHours() {
-    return _IconLabel(
-      color: onPrimary,
-      iconData: EvaIcons.clockOutline,
-      label: data.phone ?? '',
+  Widget price() {
+    return Row(
+      children: [
+        const FaIcon(
+          FontAwesomeIcons.dollarSign,
+          color: Colors.white,
+          size: 18,
+        ),
+        const SizedBox(
+          width: 5,
+        ),
+        Text(
+          data.price.toString(),
+          style: const TextStyle(
+              fontSize: 19, fontWeight: FontWeight.w700, color: Colors.white),
+        )
+      ],
     );
   }
 
-  Widget _doneButton() {
-    return ElevatedButton.icon(
-      onPressed: () {},
-      style: ElevatedButton.styleFrom(
-        foregroundColor: onPrimary,
-        backgroundColor: Colors.orange,
-      ),
-      icon: const Icon(EvaIcons.checkmarkCircle2Outline),
-      label: const Text("More Details"),
-    );
-  }
+  // Widget _buildHours() {
+  //   return _IconLabel(
+  //     color: onPrimary,
+  //     iconData: EvaIcons.clockOutline,
+  //     label: data.phone ?? '',
+  //   );
+  // }
 }
 
 class _IconLabel extends StatelessWidget {
@@ -294,9 +325,8 @@ class _IconLabel extends StatelessWidget {
   }
 }
 
-class _BackgroundDecoration extends StatelessWidget {
-  const _BackgroundDecoration({required this.child, Key? key})
-      : super(key: key);
+class BackgroundDecoration extends StatelessWidget {
+  const BackgroundDecoration({required this.child, Key? key}) : super(key: key);
 
   final Widget child;
 
@@ -326,6 +356,76 @@ class _BackgroundDecoration extends StatelessWidget {
         ),
         child,
       ],
+    );
+  }
+}
+
+class IdButton extends StatefulWidget {
+  final String id;
+
+  const IdButton({required this.id, super.key});
+
+  @override
+  State<IdButton> createState() => _IdButtonState();
+}
+
+class _IdButtonState extends State<IdButton> {
+  bool isCopied = false;
+
+  get onPrimary => null;
+  copyToClipboard(String? id) async {
+    final text = widget.id;
+    if (text.isNotEmpty) {
+      // ClipboardData? data = await Clipboard.getData('text/plain');
+      Clipboard.setData(ClipboardData(text: text));
+      showSnackBarForConfirmation();
+      // if (data!.text == id) {
+      //   print('is the same');
+      //   setState(() {});
+      //   return false;
+      // } else {
+      //   setState(() {});
+      //   return true;
+      // }
+    }
+  }
+
+  showSnackBarForConfirmation() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        backgroundColor: Colors.green,
+        content: Center(
+          child: Text(
+            'Copied',
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
+        duration: Duration(seconds: 2),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton.icon(
+      onPressed: () {
+        copyToClipboard(widget.id);
+      },
+      style: ElevatedButton.styleFrom(
+        foregroundColor: onPrimary,
+        backgroundColor: Colors.orange,
+      ),
+      icon: const Icon(
+        EvaIcons.copy,
+        color: Colors.white,
+        size: 15,
+      ),
+      label: Text("ID: ${widget.id}",
+          overflow: TextOverflow.ellipsis,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 15,
+          )),
     );
   }
 }
