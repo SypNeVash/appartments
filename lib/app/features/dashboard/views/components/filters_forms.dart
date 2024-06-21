@@ -62,7 +62,7 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
         ));
       }
 
-      if (_regionController.text.isNotEmpty) {
+      if (_statusController.text.isNotEmpty) {
         filters.add(FilterCondition(
           property: 'status',
           value: _statusController.text,

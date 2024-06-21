@@ -20,7 +20,7 @@ class _ClientSearchFormState extends State<ClientSearchForm> {
 
       if (_phoneController.text.isNotEmpty) {
         filters.add(FilterCondition(
-          property: 'id',
+          property: 'phoneNumber',
           value: _phoneController.text,
           condition: 'contains',
         ));
