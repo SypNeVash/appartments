@@ -5,7 +5,9 @@ import 'package:apartments/app/models/get_all_appart_model.dart';
 import 'package:apartments/app/providers/appartment_provider.dart';
 import 'package:apartments/app/utils/services/shared_preferences.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
@@ -250,6 +252,12 @@ class _ApartmentDetailsSubScreenState extends State<ApartmentDetailsSubScreen> {
                             ),
                           ],
                         ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        IdButtonForAptDetails(
+                          id: apartment.id.toString(),
+                        ),
                       ],
                     ),
                   ),
@@ -408,5 +416,77 @@ class _ApartmentDetailsSubScreenState extends State<ApartmentDetailsSubScreen> {
             return const Center(child: Text('No data available'));
           }
         });
+  }
+}
+
+class IdButtonForAptDetails extends StatefulWidget {
+  final String id;
+
+  const IdButtonForAptDetails({required this.id, super.key});
+
+  @override
+  State<IdButtonForAptDetails> createState() => _IdButtonForAptDetailsState();
+}
+
+class _IdButtonForAptDetailsState extends State<IdButtonForAptDetails> {
+  bool isCopied = false;
+
+  get onPrimary => null;
+  copyToClipboard(String? id) async {
+    final text = widget.id;
+    if (text.isNotEmpty) {
+      // ClipboardData? data = await Clipboard.getData('text/plain');
+      Clipboard.setData(ClipboardData(text: text));
+      showSnackBarForConfirmation();
+      // if (data!.text == id) {
+      //   print('is the same');
+      //   setState(() {});
+      //   return false;
+      // } else {
+      //   setState(() {});
+      //   return true;
+      // }
+    }
+  }
+
+  showSnackBarForConfirmation() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        backgroundColor: Colors.green,
+        content: Center(
+          child: Text(
+            'Copied',
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
+        duration: Duration(seconds: 2),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton.icon(
+      onPressed: () {
+        copyToClipboard(widget.id);
+      },
+      style: ElevatedButton.styleFrom(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        elevation: 0,
+        foregroundColor: onPrimary,
+        backgroundColor: Colors.white,
+      ),
+      icon: const Icon(
+        EvaIcons.copy,
+        color: Colors.grey,
+        size: 17,
+      ),
+      label: Text("ID: ${widget.id}",
+          overflow: TextOverflow.ellipsis,
+          style: const TextStyle(
+            color: Colors.black,
+            fontSize: 16,
+          )),
+    );
   }
 }
