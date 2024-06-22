@@ -10,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:photo_view/photo_view.dart';
+import 'package:photo_view/photo_view_gallery.dart';
 import 'package:provider/provider.dart';
 
 class ApartmentDetailsSubScreen extends StatefulWidget {
@@ -181,10 +183,19 @@ class _ApartmentDetailsSubScreenState extends State<ApartmentDetailsSubScreen> {
                         child: ClipRRect(
                           borderRadius:
                               const BorderRadius.all(Radius.circular(10.0)),
-                          child: Image.network(
-                            apartment.photos![index],
-                            fit: BoxFit.cover,
-                            width: 1000.0,
+                          child: GestureDetector(
+                            onTap: () {
+                              Get.to(FullScreenImagePage(
+                                    images: apartment.photos!,
+                                    initialIndex: index,
+                                  ),);
+                             
+                            },
+                            child: Image.network(
+                              apartment.photos![index],
+                              fit: BoxFit.cover,
+                              width: 1000.0,
+                            ),
                           ),
                         ),
                       );
@@ -501,6 +512,42 @@ class _IdButtonForAptDetailsState extends State<IdButtonForAptDetails> {
             color: Colors.black,
             fontSize: 16,
           )),
+    );
+  }
+}
+
+class FullScreenImagePage extends StatelessWidget {
+  final List images;
+  final int initialIndex;
+
+  const FullScreenImagePage(
+      {Key? key, required this.images, required this.initialIndex})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.black,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
+      body: PhotoViewGallery.builder(
+        itemCount: images.length,
+        builder: (context, index) {
+          return PhotoViewGalleryPageOptions(
+            imageProvider: NetworkImage(images[index]),
+            minScale: PhotoViewComputedScale.contained,
+            maxScale: PhotoViewComputedScale.covered * 2,
+          );
+        },
+        scrollPhysics: const BouncingScrollPhysics(),
+        backgroundDecoration: const BoxDecoration(
+          color: Colors.black,
+        ),
+        pageController: PageController(initialPage: initialIndex),
+        onPageChanged: (index) {},
+      ),
     );
   }
 }
