@@ -312,12 +312,12 @@ class _ApartmentDetailsSubScreenState extends State<ApartmentDetailsSubScreen> {
                         child2: Row(
                           children: [
                             const Text(
-                              'Postal Code: ',
+                              'Square: ',
                               style: TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.w600),
                             ),
                             Text(
-                              apartment.postalCode.toString(),
+                              apartment.square.toString(),
                               style: const TextStyle(
                                 fontSize: 16,
                               ),

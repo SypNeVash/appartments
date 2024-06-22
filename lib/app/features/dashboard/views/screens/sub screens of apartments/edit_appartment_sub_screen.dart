@@ -26,11 +26,12 @@ class _TextFormForAddingEditingAptState
   final TextEditingController address = TextEditingController();
   final TextEditingController city = TextEditingController();
   final TextEditingController region = TextEditingController();
-  final TextEditingController postalCode = TextEditingController();
+  final TextEditingController square = TextEditingController();
   final TextEditingController price = TextEditingController();
   final TextEditingController type = TextEditingController();
   final TextEditingController description = TextEditingController();
   final TextEditingController floor = TextEditingController();
+  final TextEditingController maxFloor = TextEditingController();
   final TextEditingController phone = TextEditingController();
   final TextEditingController comments = TextEditingController();
   final TextEditingController status = TextEditingController();
@@ -74,13 +75,14 @@ class _TextFormForAddingEditingAptState
         "address": address.text,
         "city": city.text,
         "region": region.text,
-        "postalCode": postalCode.text,
+        "square": square.text,
         "price": price.text,
         "type": type.text,
         "description": description.text,
         "comment": comments.text,
         "phone": phone.text,
         "floor": floor.text,
+        "maxFloor": maxFloor.text,
         "status": status.text,
         "createdData": now.toString(),
         "updatedUser": now.toString(),
@@ -123,7 +125,7 @@ class _TextFormForAddingEditingAptState
     selectedStatus = apartmentModel.status.toString();
     city.text = apartmentModel.city.toString();
     selectedCity = apartmentModel.city.toString();
-    postalCode.text = apartmentModel.postalCode.toString();
+    square.text = apartmentModel.square.toString();
     price.text = apartmentModel.price.toString();
     type.text = apartmentModel.type.toString();
     selectedType = apartmentModel.type.toString();
@@ -131,6 +133,7 @@ class _TextFormForAddingEditingAptState
     comments.text = apartmentModel.comment.toString();
     phone.text = apartmentModel.phone.toString();
     floor.text = apartmentModel.floor.toString();
+    maxFloor.text = apartmentModel.maxFloor.toString();
     profileDetailsListener.setAllPortfolioImagesWithNotifier =
         apartmentModel.photos;
     setState(() {});
@@ -148,7 +151,7 @@ class _TextFormForAddingEditingAptState
     city.dispose();
     region.dispose();
     contactPerson.dispose();
-    postalCode.dispose();
+    square.dispose();
     address.dispose();
     price.dispose();
     type.dispose();
@@ -156,6 +159,7 @@ class _TextFormForAddingEditingAptState
     comments.dispose();
     phone.dispose();
     floor.dispose();
+    maxFloor.dispose();
     status.dispose();
     super.dispose();
   }
@@ -276,16 +280,16 @@ class _TextFormForAddingEditingAptState
           height: 15,
         ),
         TextFormField(
-          controller: postalCode,
+          controller: square,
           autovalidateMode: AutovalidateMode.always,
           textCapitalization: TextCapitalization.sentences,
           autofocus: false,
           keyboardType: TextInputType.number,
           style: const TextStyle(
               fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField('Postal Code'),
+          decoration: decorationForTextFormField('Square'),
           // onChanged: (val) {
-          //   postalCode.text = val;
+          //   square.text = val;
           // },
         ),
         const SizedBox(
@@ -363,6 +367,22 @@ class _TextFormForAddingEditingAptState
           style: const TextStyle(
               fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
           decoration: decorationForTextFormField('Floor'),
+          // onChanged: (val) {
+          //   floor.text = val;
+          // },
+        ),
+        const SizedBox(
+          height: 15,
+        ),
+        TextFormField(
+          controller: maxFloor,
+          autovalidateMode: AutovalidateMode.always,
+          textCapitalization: TextCapitalization.sentences,
+          autofocus: false,
+          keyboardType: TextInputType.multiline,
+          style: const TextStyle(
+              fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
+          decoration: decorationForTextFormField('Max Floor'),
           // onChanged: (val) {
           //   floor.text = val;
           // },

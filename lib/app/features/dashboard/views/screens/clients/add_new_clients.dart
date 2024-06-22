@@ -98,16 +98,8 @@ class TextFormForAddingNewClients extends StatefulWidget {
 class _TextFormForAddingNewClientsState
     extends State<TextFormForAddingNewClients> {
   final TextEditingController name = TextEditingController();
-  final TextEditingController surname = TextEditingController();
-  final TextEditingController patronymic = TextEditingController();
   final TextEditingController passport = TextEditingController();
   final TextEditingController phoneNumber = TextEditingController();
-  final TextEditingController address = TextEditingController();
-  final TextEditingController birthday = TextEditingController();
-  final TextEditingController password = TextEditingController();
-  final TextEditingController username = TextEditingController();
-  final TextEditingController email = TextEditingController();
-  final TextEditingController role = TextEditingController();
   final TextEditingController status = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   String errorText = '';
@@ -122,16 +114,8 @@ class _TextFormForAddingNewClientsState
     Map<String, String> datas = {
       "id": uuid,
       "name": name.text,
-      "surname": surname.text,
-      "patronymic": patronymic.text,
       "passport": passport.text,
       "phoneNumber": phoneNumber.text,
-      "address": address.text,
-      "birthday": birthday.text,
-      "password": password.text,
-      "username": username.text,
-      "email": email.text,
-      "role": role.text,
       "status": status.text,
     };
 
@@ -170,16 +154,8 @@ class _TextFormForAddingNewClientsState
   @override
   void dispose() {
     name.dispose();
-    surname.dispose();
-    patronymic.dispose();
     passport.dispose();
     phoneNumber.dispose();
-    address.dispose();
-    birthday.dispose();
-    password.dispose();
-    username.dispose();
-    email.dispose();
-    role.dispose();
     status.dispose();
     super.dispose();
   }
@@ -217,36 +193,6 @@ class _TextFormForAddingNewClientsState
             height: 15,
           ),
           TextFormField(
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            textCapitalization: TextCapitalization.sentences,
-            autofocus: false,
-            keyboardType: TextInputType.multiline,
-            style: const TextStyle(
-                fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-            decoration: decorationForTextFormField('Surname'),
-            onChanged: (val) {
-              surname.text = val;
-            },
-          ),
-          const SizedBox(
-            height: 15,
-          ),
-          TextFormField(
-            autovalidateMode: AutovalidateMode.always,
-            textCapitalization: TextCapitalization.sentences,
-            autofocus: false,
-            keyboardType: TextInputType.number,
-            style: const TextStyle(
-                fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-            decoration: decorationForTextFormField('Patronymic'),
-            onChanged: (val) {
-              patronymic.text = val;
-            },
-          ),
-          const SizedBox(
-            height: 15,
-          ),
-          TextFormField(
             autovalidateMode: AutovalidateMode.always,
             textCapitalization: TextCapitalization.sentences,
             autofocus: false,
@@ -272,164 +218,6 @@ class _TextFormForAddingNewClientsState
             onChanged: (val) {
               phoneNumber.text = val;
             },
-          ),
-          const SizedBox(
-            height: 15,
-          ),
-          TextFormField(
-            autovalidateMode: AutovalidateMode.always,
-            textCapitalization: TextCapitalization.sentences,
-            autofocus: false,
-            keyboardType: TextInputType.number,
-            style: const TextStyle(
-                fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-            decoration: decorationForTextFormField(
-              'Address',
-            ),
-            onChanged: (val) {
-              address.text = val;
-            },
-          ),
-          const SizedBox(
-            height: 15,
-          ),
-          TextFormField(
-            autovalidateMode: AutovalidateMode.always,
-            textCapitalization: TextCapitalization.sentences,
-            autofocus: false,
-            keyboardType: TextInputType.multiline,
-            style: const TextStyle(
-                fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-            decoration: decorationForTextFormField('Birthday'),
-            onChanged: (val) {
-              birthday.text = val;
-            },
-          ),
-          const SizedBox(
-            height: 15,
-          ),
-          TextFormField(
-            controller: username,
-            validator: Validator.validateName,
-            textCapitalization: TextCapitalization.sentences,
-            autofocus: false,
-            keyboardType: TextInputType.multiline,
-            style: const TextStyle(
-                fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-            decoration: decorationForTextFormField('Username').copyWith(
-              border: const OutlineInputBorder(),
-              errorBorder: const OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: Colors.red,
-                  width: 2.0,
-                ),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: _isValid ? Colors.blue : Colors.red,
-                  width: 2.0,
-                ),
-              ),
-            ),
-            // onChanged: (val) {
-            //   username.text = val;
-            // },
-          ),
-          const SizedBox(
-            height: 15,
-          ),
-          TextFormField(
-            validator: Validator.validatePassword,
-
-            textCapitalization: TextCapitalization.sentences,
-            autofocus: false,
-            controller: password,
-            // obscureText: true,
-            keyboardType: TextInputType.multiline,
-            style: const TextStyle(
-                fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-            decoration: decorationForTextFormField('Password').copyWith(
-              border: const OutlineInputBorder(),
-              errorBorder: const OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: Colors.red,
-                  width: 2.0,
-                ),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: _isValid ? Colors.blue : Colors.red,
-                  width: 2.0,
-                ),
-              ),
-            ),
-
-            // onChanged: (val) {
-            //   password.text = val;
-            // },
-          ),
-          const SizedBox(
-            height: 15,
-          ),
-          TextFormField(
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            textCapitalization: TextCapitalization.sentences,
-            autofocus: false,
-            keyboardType: TextInputType.multiline,
-            style: const TextStyle(
-                fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-            decoration: decorationForTextFormField('Email'),
-            onChanged: (val) {
-              email.text = val;
-            },
-          ),
-          const SizedBox(
-            height: 15,
-          ),
-          DropdownButtonFormField<String>(
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            autofocus: false,
-            style: const TextStyle(
-              fontSize: 16,
-              color: Colors.black,
-            ),
-            decoration: decorationForTextFormField('Password').copyWith(
-              border: const OutlineInputBorder(),
-              errorBorder: const OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: Colors.red,
-                  width: 2.0,
-                ),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: _isValid ? Colors.blue : Colors.red,
-                  width: 2.0,
-                ),
-              ),
-            ),
-            onChanged: (val) {
-              role.text = val!;
-            },
-            icon: const FaIcon(
-              FontAwesomeIcons.chevronDown,
-              size: 15,
-              color: Colors.grey,
-            ),
-            hint: const Text(
-              'Role',
-              style: TextStyle(
-                fontSize: 14,
-                color: Color.fromARGB(255, 112, 112, 112),
-              ),
-            ),
-            validator: Validator.validateDropDefaultData,
-            items: rolesOfClient.map((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(value),
-              );
-            }).toList(),
           ),
           const SizedBox(
             height: 15,

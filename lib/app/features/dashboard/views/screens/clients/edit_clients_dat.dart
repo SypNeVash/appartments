@@ -72,16 +72,9 @@ class TextFormForEditingClient extends StatefulWidget {
 
 class _TextFormForEditingClientState extends State<TextFormForEditingClient> {
   final TextEditingController name = TextEditingController();
-  final TextEditingController surname = TextEditingController();
-  final TextEditingController patronymic = TextEditingController();
   final TextEditingController passport = TextEditingController();
   final TextEditingController phoneNumber = TextEditingController();
-  final TextEditingController address = TextEditingController();
-  final TextEditingController birthday = TextEditingController();
-  final TextEditingController password = TextEditingController();
-  final TextEditingController username = TextEditingController();
-  final TextEditingController email = TextEditingController();
-  final TextEditingController role = TextEditingController();
+  final TextEditingController status = TextEditingController();
   String errorText = '';
   CustomerModel customerModel = CustomerModel();
 
@@ -95,16 +88,8 @@ class _TextFormForEditingClientState extends State<TextFormForEditingClient> {
       Map<String, String> datas = {
         "id": id,
         "name": name.text,
-        "surname": surname.text,
-        "patronymic": patronymic.text,
         "passport": passport.text,
         "phoneNumber": phoneNumber.text,
-        "address": address.text,
-        "birthday": birthday.text,
-        "username": username.text,
-        "password": password.text,
-        "email": email.text,
-        "role": role.text
       };
       Response response = await dio.put(
         apiUrl,
@@ -139,30 +124,16 @@ class _TextFormForEditingClientState extends State<TextFormForEditingClient> {
   getDataByID() async {
     customerModel = await ApiClient().fetchClientDataById();
     name.text = customerModel.name.toString();
-    surname.text = customerModel.surname.toString();
-    patronymic.text = customerModel.patronymic.toString();
     passport.text = customerModel.passport.toString();
     phoneNumber.text = customerModel.phoneNumber.toString();
-    address.text = customerModel.address.toString();
-    birthday.text = customerModel.birthday.toString();
-    username.text = customerModel.username.toString();
-    email.text = customerModel.email.toString();
-    role.text = customerModel.role.toString();
-    selectedRole = customerModel.role.toString();
+    selectedRole = customerModel.status.toString();
   }
 
   @override
   void dispose() {
     name.dispose();
-    surname.dispose();
-    patronymic.dispose();
     passport.dispose();
     phoneNumber.dispose();
-    address.dispose();
-    birthday.dispose();
-    password.dispose();
-    username.dispose();
-    email.dispose();
     super.dispose();
   }
 
@@ -187,38 +158,6 @@ class _TextFormForEditingClientState extends State<TextFormForEditingClient> {
           decoration: decorationForTextFormField('Name'),
           // onChanged: (val) {
           //   name.text = val;
-          // },
-        ),
-        const SizedBox(
-          height: 15,
-        ),
-        TextFormField(
-          controller: surname,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          textCapitalization: TextCapitalization.sentences,
-          autofocus: false,
-          keyboardType: TextInputType.multiline,
-          style: const TextStyle(
-              fontSize: 16, color: Colors.black, fontWeight: FontWeight.w500),
-          decoration: decorationForTextFormField('Surname'),
-          // onChanged: (val) {
-          //   surname.text = val;
-          // },
-        ),
-        const SizedBox(
-          height: 15,
-        ),
-        TextFormField(
-          controller: patronymic,
-          autovalidateMode: AutovalidateMode.always,
-          textCapitalization: TextCapitalization.sentences,
-          autofocus: false,
-          keyboardType: TextInputType.number,
-          style: const TextStyle(
-              fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField('Patronymic'),
-          // onChanged: (val) {
-          //   patronymic.text = val;
           // },
         ),
         const SizedBox(
@@ -256,88 +195,6 @@ class _TextFormForEditingClientState extends State<TextFormForEditingClient> {
         const SizedBox(
           height: 15,
         ),
-        TextFormField(
-          controller: address,
-          autovalidateMode: AutovalidateMode.always,
-          textCapitalization: TextCapitalization.sentences,
-          autofocus: false,
-          keyboardType: TextInputType.number,
-          style: const TextStyle(
-              fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField(
-            'Address',
-          ),
-          // onChanged: (val) {
-          //   address.text = val;
-          // },
-        ),
-        const SizedBox(
-          height: 15,
-        ),
-        TextFormField(
-          controller: birthday,
-          autovalidateMode: AutovalidateMode.always,
-          textCapitalization: TextCapitalization.sentences,
-          autofocus: false,
-          keyboardType: TextInputType.multiline,
-          style: const TextStyle(
-              fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField('Birthday'),
-          // onChanged: (val) {
-          //   birthday.text = val;
-          // },
-        ),
-        const SizedBox(
-          height: 15,
-        ),
-        TextFormField(
-          controller: password,
-          autovalidateMode: AutovalidateMode.always,
-          textCapitalization: TextCapitalization.sentences,
-          autofocus: false,
-          keyboardType: TextInputType.multiline,
-          style: const TextStyle(
-              fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField('Password'),
-          // onChanged: (val) {
-          //   password.text = val;
-          // },
-        ),
-        const SizedBox(
-          height: 15,
-        ),
-        TextFormField(
-          controller: username,
-          autovalidateMode: AutovalidateMode.always,
-          textCapitalization: TextCapitalization.sentences,
-          autofocus: false,
-          keyboardType: TextInputType.multiline,
-          style: const TextStyle(
-              fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField('Username'),
-          // onChanged: (val) {
-          //   username.text = val;
-          // },
-        ),
-        const SizedBox(
-          height: 15,
-        ),
-        TextFormField(
-          controller: email,
-          autovalidateMode: AutovalidateMode.always,
-          textCapitalization: TextCapitalization.sentences,
-          autofocus: false,
-          keyboardType: TextInputType.multiline,
-          style: const TextStyle(
-              fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField('Email'),
-          // onChanged: (val) {
-          //   email.text = val;
-          // },
-        ),
-        const SizedBox(
-          height: 15,
-        ),
         DropdownButtonFormField<String>(
           autovalidateMode: AutovalidateMode.always,
           autofocus: false,
@@ -345,7 +202,7 @@ class _TextFormForEditingClientState extends State<TextFormForEditingClient> {
               fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
           decoration: decorationForTextFormField('Status'),
           onChanged: (val) {
-            role.text = val!;
+            status.text = val!;
           },
           icon: const FaIcon(
             FontAwesomeIcons.chevronDown,

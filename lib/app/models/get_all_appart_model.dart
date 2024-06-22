@@ -7,13 +7,14 @@ class ApartmentModel {
   final String? address;
   final String? city;
   final String? region;
-  final String? postalCode;
+  final String? square;
   final double? price;
   final String? type;
   final String? description;
   final String? comment;
   final String? phone;
   final String? floor;
+  final String? maxFloor;
   final String? status;
   final String? createdData;
   final String? updatedUser;
@@ -25,13 +26,14 @@ class ApartmentModel {
     this.address,
     this.city,
     this.region,
-    this.postalCode,
+    this.square,
     this.price,
     this.type,
     this.description,
     this.comment,
     this.phone,
     this.floor,
+    this.maxFloor,
     this.createdData,
     this.status,
     this.updatedUser,
@@ -45,13 +47,14 @@ class ApartmentModel {
       'address': address,
       'city': city,
       'region': region,
-      'postalCode': postalCode,
+      'square': square,
       'price': price,
       'type': type,
       'description': description,
       'comment': comment,
       'phone': phone,
       'floor': floor,
+      'maxFloor': maxFloor,
       'photos': photos,
       'status': status,
       'createdData': createdData,
@@ -66,13 +69,14 @@ class ApartmentModel {
       address: map['address'] as String,
       city: map['city'] as String,
       region: map['region'] as String,
-      postalCode: map['postalCode'] as String,
+      square: map['square'] as String,
       price: map['price'] as double,
       type: map['type'] as String,
       description: map['description'] as String,
       comment: map['comment'] as String,
       phone: map['phone'] as String,
       floor: map['floor'] as String,
+      maxFloor: map['maxFloor'] as String,
       photos: List.from((map['photos'] as List)),
       status: map['status'] as String,
       createdData: map['createdData'] as String,

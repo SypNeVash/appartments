@@ -90,11 +90,12 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
   final TextEditingController address = TextEditingController();
   final TextEditingController city = TextEditingController();
   final TextEditingController region = TextEditingController();
-  final TextEditingController postalCode = TextEditingController();
+  final TextEditingController square = TextEditingController();
   final TextEditingController price = TextEditingController();
   final TextEditingController type = TextEditingController();
   final TextEditingController description = TextEditingController();
   final TextEditingController floor = TextEditingController();
+  final TextEditingController maxFloor = TextEditingController();
   final TextEditingController phone = TextEditingController();
   final TextEditingController comments = TextEditingController();
   DateTime now = DateTime.now();
@@ -118,13 +119,14 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
               "address": address.text,
               "city": city.text,
               "region": region.text,
-              "postalCode": postalCode.text,
+              "square": square.text,
               "price": price.text,
               "type": type.text,
               "description": description.text,
               "comment": comments.text,
               "phone": phone.text,
               "floor": floor.text,
+              "maxFloor": maxFloor.text,
               "status": "Active",
               "createdData": now.toString(),
               "updatedUser": now.toString(),
@@ -152,7 +154,7 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
     city.dispose();
     region.dispose();
     contactPerson.dispose();
-    postalCode.dispose();
+    square.dispose();
     address.dispose();
     price.dispose();
     type.dispose();
@@ -160,6 +162,7 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
     comments.dispose();
     phone.dispose();
     floor.dispose();
+    maxFloor.dispose();
     super.dispose();
   }
 
@@ -255,9 +258,9 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
           keyboardType: TextInputType.number,
           style: const TextStyle(
               fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField('Postal Code'),
+          decoration: decorationForTextFormField('Square'),
           onChanged: (val) {
-            postalCode.text = val;
+            square.text = val;
           },
         ),
         const SizedBox(
@@ -333,6 +336,21 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
           decoration: decorationForTextFormField('Floor'),
           onChanged: (val) {
             floor.text = val;
+          },
+        ),
+        const SizedBox(
+          height: 15,
+        ),
+        TextFormField(
+          autovalidateMode: AutovalidateMode.always,
+          textCapitalization: TextCapitalization.sentences,
+          autofocus: false,
+          keyboardType: TextInputType.multiline,
+          style: const TextStyle(
+              fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
+          decoration: decorationForTextFormField('Max Floor'),
+          onChanged: (val) {
+            maxFloor.text = val;
           },
         ),
         const SizedBox(
