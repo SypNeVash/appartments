@@ -11,6 +11,8 @@ class ClientProvider extends ChangeNotifier {
   String _errorMessage = '';
   int _currentPage = 1;
   Future<List<CustomerModel>>? _futureClientModelList;
+  bool _isSearchActive = false;
+  List<FilterCondition> _currentFilters = [];
 
   List<CustomerModel> get clients => _clients;
   bool get isLoading => _isLoading;
@@ -18,6 +20,7 @@ class ClientProvider extends ChangeNotifier {
   int get currentPage => _currentPage;
   Future<List<CustomerModel>>? get futureClientModelList =>
       _futureClientModelList;
+
   Future<List<CustomerModel>> fetchClients(int page) async {
     try {
       _isLoading = true;
@@ -26,6 +29,7 @@ class ClientProvider extends ChangeNotifier {
       final result = await ApiClient().fetchClientDataFromAzure(page);
       _clients = result.customerModel;
       _currentPage = page;
+      _isSearchActive = false;
 
       _futureClientModelList = Future.value(_clients);
 
@@ -43,14 +47,16 @@ class ClientProvider extends ChangeNotifier {
   }
 
   Future<List<CustomerModel>> searchClients(
-      List<FilterCondition> filters) async {
+      List<FilterCondition> filters, int page) async {
     try {
       _isLoading = true;
       notifyListeners();
 
-      final result = await ApiClient.searchClients(filters);
+      final result = await ApiClient.searchClients(filters, page);
       _clients = result.customerModel;
-
+      _currentPage = page;
+      _isSearchActive = true;
+      _currentFilters = filters;
       _futureClientModelList = Future.value(_clients);
 
       _isLoading = false;
@@ -63,6 +69,15 @@ class ClientProvider extends ChangeNotifier {
       _errorMessage = 'Failed to search clients: $e';
       notifyListeners();
       return [];
+    }
+  }
+
+  void onPageChanged(int page) {
+    if (_isSearchActive) {
+      print("_isSearchActive: $_isSearchActive");
+      searchClients(_currentFilters, page);
+    } else {
+      fetchClients(page);
     }
   }
 }

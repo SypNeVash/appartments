@@ -114,8 +114,7 @@ class ApiClient {
     AppartDetailsListener profileDetailsListener =
         Provider.of<AppartDetailsListener>(context, listen: false);
     late List<dynamic> photoReferences;
-    String url =
-        'https://realtor.azurewebsites.net/api/Files/$id'; 
+    String url = 'https://realtor.azurewebsites.net/api/Files/$id';
 
     try {
       var request = http.MultipartRequest('POST', Uri.parse(url));
@@ -174,7 +173,7 @@ class ApiClient {
   }
 
   static Future<CustomerModelList> searchClients(
-      List<FilterCondition> filters) async {
+      List<FilterCondition> filters, page) async {
     var url =
         'https://realtor.azurewebsites.net/api/CustomerCards/paginationWithFilter';
     final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
@@ -182,7 +181,7 @@ class ApiClient {
     var filterJson = jsonEncode(filters);
     try {
       Map<String, dynamic> queryParameters = {
-        'page': 1,
+        'page': page,
         'count': 10,
         'conditions': filterJson
       };

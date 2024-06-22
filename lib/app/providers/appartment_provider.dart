@@ -116,7 +116,7 @@ class ApartmentProvider extends ChangeNotifier {
       final result = await RemoteApi().fetchDataFromAzure(page);
       _apartments = result.apartmentModel;
       _currentPage = page;
-      _isSearchActive = false; // Reset search active flag
+      _isSearchActive = false;
       _futureApartmentModelList = Future.value(_apartments);
 
       _isLoading = false;
@@ -141,8 +141,8 @@ class ApartmentProvider extends ChangeNotifier {
       final result = await RemoteApi.searchApartments(filters, page);
       _apartments = result.apartmentModel;
       _currentPage = page;
-      _isSearchActive = true; // Set search active flag
-      _currentFilters = filters; // Store the current filters
+      _isSearchActive = true;
+      _currentFilters = filters;
       _futureApartmentModelList = Future.value(_apartments);
 
       _isLoading = false;

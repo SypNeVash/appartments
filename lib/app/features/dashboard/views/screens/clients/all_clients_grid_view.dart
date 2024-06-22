@@ -96,7 +96,7 @@ class _AllClientsListState extends State<AllClientsList> {
                       currentPage: provider.currentPage,
                       totalPage: 10,
                       displayItemCount: 3,
-                      onPageChanged: provider.fetchClients,
+                      onPageChanged: (page) => provider.onPageChanged(page),
                     ),
                   ),
                   const SizedBox(height: 25),

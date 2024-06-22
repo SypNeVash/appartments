@@ -27,8 +27,15 @@ class _ClientSearchFormState extends State<ClientSearchForm> {
       }
 
       Provider.of<ClientProvider>(context, listen: false)
-          .searchClients(filters);
+          .searchClients(filters, 1);
     }
+  }
+
+  @override
+  void dispose() {
+    _phoneController.dispose();
+
+    super.dispose();
   }
 
   @override
@@ -41,7 +48,7 @@ class _ClientSearchFormState extends State<ClientSearchForm> {
             controller: _phoneController,
             decoration: decorationForTextFormField('Phone'),
             validator: (value) {
-              return null; // ID is optional, so no validation
+              return null;
             },
           ),
           const SizedBox(
