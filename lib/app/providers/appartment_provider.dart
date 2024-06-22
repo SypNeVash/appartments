@@ -98,6 +98,8 @@ class ApartmentProvider extends ChangeNotifier {
   String _errorMessage = '';
   int _currentPage = 1;
   Future<List<ApartmentModel>>? _futureApartmentModelList;
+  bool _isSearchActive = false;
+  List<FilterCondition> _currentFilters = [];
 
   List<ApartmentModel> get apartments => _apartments;
   bool get isLoading => _isLoading;
@@ -114,7 +116,7 @@ class ApartmentProvider extends ChangeNotifier {
       final result = await RemoteApi().fetchDataFromAzure(page);
       _apartments = result.apartmentModel;
       _currentPage = page;
-
+      _isSearchActive = false; // Reset search active flag
       _futureApartmentModelList = Future.value(_apartments);
 
       _isLoading = false;
@@ -131,14 +133,16 @@ class ApartmentProvider extends ChangeNotifier {
   }
 
   Future<List<ApartmentModel>> searchApartments(
-      List<FilterCondition> filters) async {
+      List<FilterCondition> filters, int page) async {
     try {
       _isLoading = true;
       notifyListeners();
 
-      final result = await RemoteApi.searchApartments(filters);
+      final result = await RemoteApi.searchApartments(filters, page);
       _apartments = result.apartmentModel;
-
+      _currentPage = page;
+      _isSearchActive = true; // Set search active flag
+      _currentFilters = filters; // Store the current filters
       _futureApartmentModelList = Future.value(_apartments);
 
       _isLoading = false;
@@ -151,6 +155,14 @@ class ApartmentProvider extends ChangeNotifier {
       _errorMessage = 'Failed to search apartments: $e';
       notifyListeners();
       return [];
+    }
+  }
+
+  void onPageChanged(int page) {
+    if (_isSearchActive) {
+      searchApartments(_currentFilters, page);
+    } else {
+      fetchApartments(page);
     }
   }
 }

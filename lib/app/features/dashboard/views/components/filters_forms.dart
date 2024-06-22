@@ -26,6 +26,7 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
     _priceController.dispose();
     _roomsController.dispose();
     _regionController.dispose();
+    _statusController.dispose();
     super.dispose();
   }
 
@@ -71,7 +72,7 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
       }
 
       Provider.of<ApartmentProvider>(context, listen: false)
-          .searchApartments(filters);
+          .searchApartments(filters, 1);
     }
   }
 
@@ -115,7 +116,7 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
               size: 15,
               color: Colors.grey,
             ),
-            items: [... types, ""].map((String value) {
+            items: [...types, ""].map((String value) {
               return DropdownMenuItem<String>(
                 value: value,
                 child: Text(value),
@@ -140,7 +141,7 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
               size: 15,
               color: Colors.grey,
             ),
-            items: [... regions, ""].map((String value) {
+            items: [...regions, ""].map((String value) {
               return DropdownMenuItem<String>(
                 value: value,
                 child: Text(value),
@@ -151,7 +152,7 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
           const SizedBox(
             height: 10,
           ),
-           DropdownButtonFormField<String>(
+          DropdownButtonFormField<String>(
             autovalidateMode: AutovalidateMode.always,
             autofocus: false,
             style: const TextStyle(
@@ -165,7 +166,7 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
               size: 15,
               color: Colors.grey,
             ),
-            items: [... statuses, ""].map((String value) {
+            items: [...statuses, ""].map((String value) {
               return DropdownMenuItem<String>(
                 value: value,
                 child: Text(value),

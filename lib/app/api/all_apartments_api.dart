@@ -41,7 +41,7 @@ class RemoteApi {
   }
 
   static Future<ApartmentModelList> searchApartments(
-      List<FilterCondition> filters) async {
+      List<FilterCondition> filters, page) async {
     var url =
         'https://realtor.azurewebsites.net/api/RentObjects/paginationWithFiler';
     final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
@@ -49,7 +49,7 @@ class RemoteApi {
     var filterJson = jsonEncode(filters);
     try {
       Map<String, dynamic> queryParameters = {
-        'page': 1,
+        'page': page,
         'count': 10,
         'conditions': filterJson
       };

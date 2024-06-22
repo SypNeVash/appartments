@@ -89,7 +89,7 @@ class AllApartmentsScreenState extends State<AllApartmentsScreen> {
                         currentPage: provider.currentPage,
                         totalPage: 10,
                         displayItemCount: 3,
-                        onPageChanged: provider.fetchApartments,
+                        onPageChanged: (page) => provider.onPageChanged(page),
                       ),
                     ),
                     const SizedBox(height: 25),
