@@ -71,6 +71,7 @@ class CardTask extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       _buildLabel(),
+                      _buildAddress(),
                       const SizedBox(height: 20),
                       _buildStatus(),
                       const SizedBox(height: 15),
@@ -137,12 +138,14 @@ class CardTask extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      height: 80,
+                      height: 115,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           _buildLabel(),
+                          _buildAddress(),
+                          const SizedBox(height: 15),
                           _buildStatus(),
                           const SizedBox(height: 15),
                         ],
@@ -259,6 +262,14 @@ class CardTask extends StatelessWidget {
       color: onPrimary,
       iconData: EvaIcons.calendarOutline,
       label: data.createdData.toString(),
+    );
+  }
+
+   Widget _buildAddress() {
+    return _IconLabel(
+      color: onPrimary,
+      iconData: EvaIcons.pin,
+      label: data.address.toString(),
     );
   }
 
