@@ -90,6 +90,7 @@ class _TextFormForEditingClientState extends State<TextFormForEditingClient> {
         "name": name.text,
         "passport": passport.text,
         "phoneNumber": phoneNumber.text,
+        "status": status.text
       };
       Response response = await dio.put(
         apiUrl,
@@ -127,6 +128,8 @@ class _TextFormForEditingClientState extends State<TextFormForEditingClient> {
     passport.text = customerModel.passport.toString();
     phoneNumber.text = customerModel.phoneNumber.toString();
     selectedRole = customerModel.status.toString();
+    status.text = customerModel.status.toString();
+    setState(() {});
   }
 
   @override
