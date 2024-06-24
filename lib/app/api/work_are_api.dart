@@ -1,21 +1,23 @@
-import 'package:apartments/app/models/work_area.dart';
+import 'package:apartments/app/models/work_area_model.dart';
 import 'package:apartments/app/utils/services/shared_preferences.dart';
 import 'package:dio/dio.dart';
 
 class WorkAreApi {
   final Dio _dio = Dio();
 
-  Future<WorkingAreaModel> fetchDataFromAzure(
+  Future<WorkingAreaModelList> fetchWorkinAreData(
     int page,
   ) async {
-    var url = 'https://realtor.azurewebsites.net/api/RentObjects/pagination';
-    late WorkingAreaModel workingAreaModel;
+    var url = 'https://realtor.azurewebsites.net/api/WorkArea/pagination';
+    late WorkingAreaModelList workingAreaModelList;
     try {
       final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
       Map<String, dynamic> queryParameters = {
         'page': page,
         'count': 10,
       };
+
+      print('started');
 
       Response response = await _dio.get(
         url,
@@ -26,9 +28,9 @@ class WorkAreApi {
       );
       final data = response.data;
 
-      workingAreaModel = WorkingAreaModel.fromJson(data);
+      workingAreaModelList = WorkingAreaModelList.fromJson(data);
 
-      return workingAreaModel;
+      return workingAreaModelList;
     } on DioError catch (e) {
       return e.response!.data;
     }

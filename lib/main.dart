@@ -8,6 +8,7 @@ import 'package:apartments/app/features/dashboard/views/screens/edit_appartment_
 
 import 'package:apartments/app/features/dashboard/views/screens/second_page.dart';
 import 'package:apartments/app/providers/clients_provider.dart';
+import 'package:apartments/app/providers/work_area_provider.dart';
 import 'package:apartments/app/utils/helpers/navigation_services.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:provider/provider.dart';
@@ -19,6 +20,7 @@ import 'package:get/get.dart';
 import 'app/features/dashboard/views/screens/clients/edit_clients_dat.dart';
 import 'app/features/dashboard/views/screens/login_screen.dart';
 import 'app/features/dashboard/views/screens/sub screens of apartments/apt_details_sub_screen.dart';
+import 'app/features/dashboard/views/screens/work area/add_new_client_to_work_area.dart';
 import 'app/providers/appartment_provider.dart';
 import 'app/utils/services/auth_services.dart';
 
@@ -66,6 +68,9 @@ void main() async {
     ChangeNotifierProvider(
       create: (context) => ClientProvider(),
     ),
+    ChangeNotifierProvider(
+      create: (context) => WorkAreaProvider(),
+    ),
   ], child: const MyApp()));
 }
 
@@ -106,7 +111,9 @@ class _MyAppState extends State<MyApp> {
             name: '/editingApartments',
             page: () => const ApartmentEditDetail()),
         GetPage(name: '/addingNewClient', page: () => const AddingNewClients()),
-
+        GetPage(
+            name: '/addingNewClientToWorkArea',
+            page: () => const WorkingAreaForm()),
         GetPage(name: '/editClientsData', page: () => const EditClientsData()),
         GetPage(
           name: '/second',

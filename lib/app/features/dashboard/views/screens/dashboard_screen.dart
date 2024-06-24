@@ -6,6 +6,7 @@ import 'package:apartments/app/constans/app_constants.dart';
 import 'package:apartments/app/features/dashboard/controllers/authcontroller.dart';
 import 'package:apartments/app/features/dashboard/views/components/filters_forms.dart';
 import 'package:apartments/app/features/dashboard/views/screens/adding_apartment.dart';
+import 'package:apartments/app/features/dashboard/views/screens/work%20area/work_are_dashboard.dart';
 import 'package:apartments/app/providers/appartment_provider.dart';
 import 'package:apartments/app/shared_components/header_text.dart';
 import 'package:apartments/app/shared_components/list_task_assigned.dart';
@@ -369,6 +370,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       child: const AllClientsMain(),
                     ),
                   ),
+                ] else if (profileDetailsListener.getPageIndex == 3) ...[
+                  Flexible(
+                      flex: constraints.maxWidth > 1350 ? 8 : 7,
+                      child: SingleChildScrollView(
+                          controller: ScrollController(),
+                          physics: const BouncingScrollPhysics(),
+                          child: const WorkingAreaDashboard())),
                 ] else ...[
                   Flexible(
                     flex: constraints.maxWidth > 1350 ? 8 : 7,

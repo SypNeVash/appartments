@@ -48,6 +48,11 @@ class _MainMenuState extends State<_MainMenu> {
             label: "Customers",
           ),
           SelectionButtonData(
+            activeIcon: EvaIcons.monitorOutline,
+            icon: EvaIcons.monitorOutline,
+            label: "Working Area",
+          ),
+          SelectionButtonData(
             activeIcon: EvaIcons.logOutOutline,
             icon: EvaIcons.logOutOutline,
             label: "Log out",
