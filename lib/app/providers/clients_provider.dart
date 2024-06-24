@@ -74,7 +74,6 @@ class ClientProvider extends ChangeNotifier {
 
   void onPageChanged(int page) {
     if (_isSearchActive) {
-      print("_isSearchActive: $_isSearchActive");
       searchClients(_currentFilters, page);
     } else {
       fetchClients(page);

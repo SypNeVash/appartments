@@ -41,6 +41,11 @@ class _BottomNavbarState extends State<_BottomNavbar> {
             icon: Icon(EvaIcons.checkmarkCircle),
             label: "Customers",
           ),
+          const BottomNavigationBarItem(
+            activeIcon: Icon(EvaIcons.checkmarkCircle2),
+            icon: Icon(EvaIcons.monitorOutline),
+            label: "Customers",
+          ),
         ] else
           ...[],
         const BottomNavigationBarItem(
