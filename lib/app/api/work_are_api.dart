@@ -39,7 +39,7 @@ class WorkAreApi {
     }
   }
 
-  Future<bool> postWorkAreaClient(jsonData) async {
+  Future<bool> postWorkAreaClient( jsonData) async {
     Dio dio = Dio();
     String apiUrl = 'https://realtor.azurewebsites.net/api/WorkArea';
     final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
@@ -53,7 +53,7 @@ class WorkAreApi {
       ),
     );
 
-    print(response.statusCode);
+ 
     if (response.statusCode == 200 ||
         response.statusCode == 201 ||
         response.statusCode == 204) {

@@ -158,9 +158,9 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
           final data = response.data as List;
 
           final customerCards = CustomerModelList.fromJsons(data);
-          for (var x in customerCards.customerModel) {
-            print(x);
-          }
+          // for (var x in customerCards.customerModel) {
+          //   print(x);
+          // }
 
           setState(() {
             _customerCards = customerCards.customerModel;
@@ -587,8 +587,10 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
                         task: taskController.text,
                         chat: chat,
                       );
-                      String jsonData = jsonEncode(workingArea.toJson());
 
+                        String jsonData = workingArea.toJson();
+
+print(jsonData);
                       WorkAreApi().postWorkAreaClient(jsonData);
                     }
                   },
