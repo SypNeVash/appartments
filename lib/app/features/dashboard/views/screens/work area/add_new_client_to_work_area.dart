@@ -459,7 +459,7 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
               ),
               onConfirm: (results) {
                 setState(() {
-                  regions = List<String>.from(results);
+                  typesAppart = List<String>.from(results);
                 });
               },
               validator: (values) {
