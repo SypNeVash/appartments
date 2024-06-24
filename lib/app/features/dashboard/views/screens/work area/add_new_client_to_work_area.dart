@@ -457,7 +457,7 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
                   fontSize: 15,
                 ),
               ),
-              onConfirm: (results) {
+              onConfirm: (typesAppart) {
                 setState(() {
                   typesAppart = List<String>.from(typesAppart);
                 });
