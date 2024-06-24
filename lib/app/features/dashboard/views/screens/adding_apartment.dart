@@ -55,6 +55,9 @@ class FormsList extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Column(
       children: [
+        SizedBox(
+          height: 25,
+        ),
         Text(
           'Adding new appartment',
           textAlign: TextAlign.center,

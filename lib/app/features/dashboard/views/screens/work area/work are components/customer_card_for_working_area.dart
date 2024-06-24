@@ -67,7 +67,7 @@ class _CustomerCardForWorkingAreState extends State<CustomerCardForWorkingAre> {
   Widget build(BuildContext context) {
     return InkWell(
       borderRadius: BorderRadius.circular(18),
-      splashColor: Color.fromARGB(255, 216, 208, 255),
+      splashColor: const Color.fromARGB(255, 216, 208, 255),
       onTap: () {},
       child: Card(
         color: const Color.fromARGB(255, 224, 196, 255),

@@ -180,7 +180,7 @@ class FormsLists extends StatelessWidget {
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.orange),
                 onPressed: () {
-                  Get.toNamed('/addingNewClientToWorkArea');
+                  Get.toNamed('/addingNewWorkArea');
                 },
                 child: const Text(
                   '+ Add new Notification',

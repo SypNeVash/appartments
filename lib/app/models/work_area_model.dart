@@ -131,6 +131,10 @@ class CustomerCard {
       'status': status,
     };
   }
+
+  factory CustomerCard.fromJsonToMap(Map<String, dynamic> map) {
+    return CustomerCard.fromJson(map);
+  }
 }
 
 class WorkingAreaModelList {

@@ -112,8 +112,7 @@ class _MyAppState extends State<MyApp> {
             page: () => const ApartmentEditDetail()),
         GetPage(name: '/addingNewClient', page: () => const AddingNewClients()),
         GetPage(
-            name: '/addingNewClientToWorkArea',
-            page: () => const WorkingAreaForm()),
+            name: '/addingNewWorkArea', page: () => const WorkingAreMainEdit()),
         GetPage(name: '/editClientsData', page: () => const EditClientsData()),
         GetPage(
           name: '/second',

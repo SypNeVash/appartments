@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:apartments/app/models/work_area_model.dart';
 import 'package:apartments/app/utils/services/shared_preferences.dart';
 import 'package:dio/dio.dart';
+import 'package:uuid/uuid.dart';
 
 class WorkAreApi {
   final Dio _dio = Dio();
@@ -33,6 +36,30 @@ class WorkAreApi {
       return workingAreaModelList;
     } on DioError catch (e) {
       return e.response!.data;
+    }
+  }
+
+  Future<bool> postWorkAreaClient(jsonData) async {
+    Dio dio = Dio();
+    String apiUrl = 'https://realtor.azurewebsites.net/api/WorkArea';
+    final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
+
+    Response response = await dio.post(
+      apiUrl,
+      data: jsonData,
+      options: Options(
+        contentType: 'application/json',
+        headers: {'Authorization': 'Bearer $accessToken'},
+      ),
+    );
+
+    print(response.statusCode);
+    if (response.statusCode == 200 ||
+        response.statusCode == 201 ||
+        response.statusCode == 204) {
+      return true;
+    } else {
+      return false;
     }
   }
 
@@ -96,27 +123,6 @@ class WorkAreApi {
   //     } else {
   //       return false;
   //     }
-  //   } on DioError catch (e) {
-  //     return e.response!.data;
-  //   }
-  // }
-
-  // Future deleteImageFromAppartment(String apartmentId, String photoUrl) async {
-  //   var url = 'https://realtor.azurewebsites.net/api/RentObjects/$apartmentId';
-
-  //   try {
-  //     final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
-
-  //     Response response = await _dio.patch(
-  //       url,
-  //       options: Options(
-  //         headers: {'Authorization': 'Bearer $accessToken'},
-  //       ),
-  //     );
-  //     // final data = response.data;
-  //     if (response.statusCode == 200 || response.statusCode == 201) {
-  //     } else {}
-  //     return true;
   //   } on DioError catch (e) {
   //     return e.response!.data;
   //   }
