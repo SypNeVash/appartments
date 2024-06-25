@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:apartments/app/api/work_are_api.dart';
+import 'package:apartments/app/constans/app_constants.dart';
 import 'package:apartments/app/features/dashboard/views/components/text_form_fiel_decoration.dart';
 import 'package:apartments/app/models/customers_model.dart';
 import 'package:apartments/app/models/work_area_model.dart';
@@ -174,14 +175,9 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
   }
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.symmetric(horizontal: 15.0),
       child: Form(
         key: _formKey,
         child: Column(
@@ -253,19 +249,19 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
                   icon: const Icon(Icons.arrow_drop_down),
                 ),
               ),
-            TextFormField(
-              controller: customerIdController,
-              decoration: decorationForTextFormField('Customer ID'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter Customer ID';
-                }
-                return null;
-              },
-            ),
-            const SizedBox(
-              height: 15,
-            ),
+            // TextFormField(
+            //   controller: customerIdController,
+            //   decoration: decorationForTextFormField('Customer ID'),
+            //   validator: (value) {
+            //     if (value == null || value.isEmpty) {
+            //       return 'Please enter Customer ID';
+            //     }
+            //     return null;
+            //   },
+            // ),
+            // const SizedBox(
+            //   height: 15,
+            // ),
             TextFormField(
               controller: customerNameController,
               decoration: decorationForTextFormField('Customer Name'),
@@ -276,45 +272,45 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
                 return null;
               },
             ),
-            const SizedBox(
-              height: 15,
-            ),
-            TextFormField(
-              controller: customerPassportController,
-              decoration: decorationForTextFormField('Customer Passport'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter Customer Passport';
-                }
-                return null;
-              },
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            TextFormField(
-              controller: customerStatusController,
-              decoration: decorationForTextFormField('Customer Status'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter Customer Status';
-                }
-                return null;
-              },
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            TextFormField(
-              controller: customerRoleController,
-              decoration: decorationForTextFormField('Customer Role'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter Customer Role';
-                }
-                return null;
-              },
-            ),
+            // const SizedBox(
+            //   height: 15,
+            // ),
+            // TextFormField(
+            //   controller: customerPassportController,
+            //   decoration: decorationForTextFormField('Customer Passport'),
+            //   validator: (value) {
+            //     if (value == null || value.isEmpty) {
+            //       return 'Please enter Customer Passport';
+            //     }
+            //     return null;
+            //   },
+            // ),
+            // const SizedBox(
+            //   height: 15,
+            // ),
+            // TextFormField(
+            //   controller: customerStatusController,
+            //   decoration: decorationForTextFormField('Customer Status'),
+            //   validator: (value) {
+            //     if (value == null || value.isEmpty) {
+            //       return 'Please enter Customer Status';
+            //     }
+            //     return null;
+            //   },
+            // ),
+            // const SizedBox(
+            //   height: 15,
+            // ),
+            // TextFormField(
+            //   controller: customerRoleController,
+            //   decoration: decorationForTextFormField('Customer Role'),
+            //   validator: (value) {
+            //     if (value == null || value.isEmpty) {
+            //       return 'Please enter Customer Role';
+            //     }
+            //     return null;
+            //   },
+            // ),
             const SizedBox(
               height: 15,
             ),
@@ -331,15 +327,40 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
             const SizedBox(
               height: 15,
             ),
-            TextFormField(
-              controller: rateController,
-              decoration: decorationForTextFormField('Rate'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter Rate';
-                }
-                return null;
+            // TextFormField(
+            //   controller: rateController,
+            //   decoration: decorationForTextFormField('Rate'),
+            //   validator: (value) {
+            //     if (value == null || value.isEmpty) {
+            //       return 'Please enter Rate';
+            //     }
+            //     return null;
+            //   },
+            // ),
+            DropdownButtonFormField<String>(
+              autovalidateMode: AutovalidateMode.always,
+              autofocus: false,
+              isDense: true,
+              style: const TextStyle(
+                  fontSize: 15,
+                  color: Color.fromARGB(255, 0, 0, 0),
+                  fontWeight: FontWeight.w500),
+              decoration: decorationForTextFormField('Region'),
+              onChanged: (val) {
+                rateController.text = val!;
               },
+              icon: const FaIcon(
+                FontAwesomeIcons.chevronDown,
+                size: 15,
+                color: Colors.grey,
+              ),
+              items: [...rates].map((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+              // value: types[0],
             ),
             const SizedBox(
               height: 15,
@@ -513,6 +534,7 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
             ),
             TextFormField(
               controller: commentsController,
+              maxLines: 5,
               decoration: decorationForTextFormField('Comments'),
               validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -524,34 +546,60 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
             const SizedBox(
               height: 15,
             ),
-            TextFormField(
-              controller: taskController,
-              decoration: decorationForTextFormField('Task'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter Task';
-                }
-                return null;
+
+            DropdownButtonFormField<String>(
+              autovalidateMode: AutovalidateMode.always,
+              autofocus: false,
+              isDense: true,
+              style: const TextStyle(
+                  fontSize: 15,
+                  color: Color.fromARGB(255, 0, 0, 0),
+                  fontWeight: FontWeight.w500),
+              decoration: decorationForTextFormField('Region'),
+              onChanged: (val) {
+                taskController.text = val!;
               },
+              icon: const FaIcon(
+                FontAwesomeIcons.chevronDown,
+                size: 15,
+                color: Colors.grey,
+              ),
+              items: [...tasks].map((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
             ),
-            const SizedBox(
-              height: 15,
-            ),
-            TextFormField(
-              controller: chatController,
-              decoration: decorationForTextFormField('Chat'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter Chat';
-                }
-                return null;
-              },
-            ),
+            // value: typ
+            // TextFormField(
+            //   controller: taskController,
+            //   decoration: decorationForTextFormField('Task'),
+            //   validator: (value) {
+            //     if (value == null || value.isEmpty) {
+            //       return 'Please enter Task';
+            //     }
+            //     return null;
+            //   },
+            // ),
             const SizedBox(
               height: 35,
             ),
+            // TextFormField(
+            //   controller: chatController,
+            //   decoration: decorationForTextFormField('Chat'),
+            //   validator: (value) {
+            //     if (value == null || value.isEmpty) {
+            //       return 'Please enter Chat';
+            //     }
+            //     return null;
+            //   },
+            // ),
+            // const SizedBox(
+            //   height: 35,
+            // ),
             SizedBox(
-              width: 150,
+              width: 200,
               height: 40,
               child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
@@ -588,9 +636,8 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
                         chat: chat,
                       );
 
-                        String jsonData = workingArea.toJson();
+                      String jsonData = workingArea.toJson();
 
-print(jsonData);
                       WorkAreApi().postWorkAreaClient(jsonData);
                     }
                   },

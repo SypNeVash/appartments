@@ -13,7 +13,6 @@ const kFontColorPallets = [
 const kBorderRadius = 10.0;
 const kSpacing = 20.0;
 
-
 const types = [
   "1 кімнатна",
   "2 кімнатна",
@@ -38,3 +37,16 @@ const cities = [
 ];
 
 var statuses = ["Active", "Deleted", "Progress"];
+
+const rates = [
+  "Rate 1",
+  "Rate 2",
+  "Rate 3",
+  "Rate 4",
+  "Rate 5",
+];
+
+const tasks = [
+  "Vstreca",
+  "Perezvonit",
+];
