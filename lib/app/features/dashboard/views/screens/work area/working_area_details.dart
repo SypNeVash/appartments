@@ -25,22 +25,20 @@ class WorkingAreDetails extends StatelessWidget {
         ),
       ));
     }, tabletBuilder: (context, constraints) {
-      return SingleChildScrollView(
-          controller: ScrollController(),
-          child: Center(
-            child: Container(
-                constraints: const BoxConstraints(maxWidth: 400),
-                padding: const EdgeInsets.only(top: 10),
-                child: const Column(
-                  children: [],
-                )),
-          ));
+      return Center(
+        child: Container(
+            constraints: const BoxConstraints(maxWidth: 400),
+            padding: const EdgeInsets.only(top: 10),
+            child: const Column(
+              children: [],
+            )),
+      );
     }, desktopBuilder: (context, constraints) {
       return Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Flexible(
-            flex: 4,
+            flex: 5,
             child: WorkingFieldEditForm(),
           ),
           SizedBox(
@@ -48,13 +46,10 @@ class WorkingAreDetails extends StatelessWidget {
             child: const VerticalDivider(),
           ),
           Flexible(
-            flex: 1,
-            child: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
-                controller: ScrollController(),
-                child: Column(
-                  children: [],
-                )),
+            flex: 2,
+            child: const Column(
+              children: [],
+            ),
           ),
         ],
       );

@@ -1,8 +1,9 @@
 import 'package:apartments/app/api/work_are_api.dart';
+import 'package:apartments/app/features/dashboard/views/components/text_form_fiel_decoration.dart';
 import 'package:apartments/app/models/work_area_model.dart';
-import 'package:apartments/app/utils/services/shared_preferences.dart';
-import 'package:dio/dio.dart';
+
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:uuid/uuid.dart';
 
 class WorkingFieldEditForm extends StatefulWidget {
@@ -20,6 +21,7 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
   final customerPhoneNumberController = TextEditingController();
   final customerRoleController = TextEditingController();
   final customerStatusController = TextEditingController();
+  final idController = TextEditingController();
   final responsibleStaffController = TextEditingController();
   final rateController = TextEditingController();
   final priceController = TextEditingController();
@@ -31,9 +33,9 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
   final checkInController = TextEditingController();
   final commentsController = TextEditingController();
   final taskController = TextEditingController();
-  final List<String> regions = [];
-  final List<String> typesAppart = [];
-  final List<String> chat = [];
+  List<String> regions = [];
+  List<String> typesAppart = [];
+  List<String> chat = [];
 
   // Edit states
   bool isEditingCustomerId = false;
@@ -53,6 +55,7 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
   bool isEditingCheckIn = false;
   bool isEditingComments = false;
   bool isEditingTask = false;
+  bool isEditingRegions = false;
 
   getWorkAreaUsingID() async {
     workingAreaModel = await WorkAreApi().fetchWorkingAreaDetailsById();
@@ -60,8 +63,10 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
     customerPassportController.text = workingAreaModel.customerCard.passport;
     customerPhoneNumberController.text =
         workingAreaModel.customerCard.phoneNumber;
+    print(customerPhoneNumberController.text);
     customerRoleController.text = workingAreaModel.customerCard.role;
     customerStatusController.text = workingAreaModel.customerCard.status;
+    idController.text = workingAreaModel.id;
     responsibleStaffController.text = workingAreaModel.responsibleStaff;
     rateController.text = workingAreaModel.rate;
     priceController.text = workingAreaModel.price;
@@ -73,6 +78,7 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
     checkInController.text = workingAreaModel.checkIn;
     commentsController.text = workingAreaModel.comments;
     taskController.text = workingAreaModel.task;
+    setState(() {});
   }
 
   @override
@@ -89,6 +95,7 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
     customerPhoneNumberController.dispose();
     customerRoleController.dispose();
     customerStatusController.dispose();
+    idController.dispose();
     responsibleStaffController.dispose();
     rateController.dispose();
     priceController.dispose();
@@ -105,7 +112,6 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
 
   void saveData() async {
     if (_formKey.currentState!.validate()) {
-      String uuid = const Uuid().v4();
       CustomerCard customerCard = CustomerCard(
         id: customerIdController.text,
         name: customerNameController.text,
@@ -116,7 +122,7 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
       );
 
       WorkingAreaModel workingArea = WorkingAreaModel(
-        id: uuid,
+        id: idController.text,
         customerCard: customerCard,
         regions: regions,
         typesAppart: typesAppart,
@@ -151,45 +157,166 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
       appBar: AppBar(
         title: const Text('Edit Form'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Container(
-          child: Form(
-            key: _formKey,
-            child: ListView(
-              children: <Widget>[
-                buildEditableTextField(
-                  controller: customerPhoneNumberController,
-                  isEditing: isEditingCustomerId,
-                  label: 'Customer ID',
-                  onEdit: () {
-                    setState(() {
-                      isEditingCustomerId = true;
-                    });
-                  },
-                  onSave: () {
-                    setState(() {
-                      isEditingCustomerId = false;
-                    });
-                  },
-                ),
-                buildEditableTextField(
-                  controller: customerNameController,
-                  isEditing: isEditingCustomerName,
-                  label: 'Customer Name',
-                  onEdit: () {
-                    setState(() {
-                      isEditingCustomerName = true;
-                    });
-                  },
-                  onSave: () {
-                    setState(() {
-                      isEditingCustomerName = false;
-                    });
-                  },
-                ),
-                // Repeat for other fields
-              ],
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Center(
+            child: Container(
+              constraints: const BoxConstraints(maxWidth: 600),
+              child: Column(
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 25, vertical: 15),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Colors.white),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Customer details',
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.w700),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          children: [
+                            const FaIcon(
+                              FontAwesomeIcons.userLarge,
+                              size: 13,
+                              color: Colors.blue,
+                            ),
+                            const SizedBox(
+                              width: 7,
+                            ),
+                            Text(
+                              customerNameController.text,
+                              style: const TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w600,
+                                  color: Color.fromARGB(255, 87, 85, 87)),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 3,
+                        ),
+                        Row(
+                          children: [
+                            const FaIcon(
+                              FontAwesomeIcons.phoneFlip,
+                              size: 13,
+                              color: Colors.blue,
+                            ),
+                            const SizedBox(
+                              width: 7,
+                            ),
+                            Text(
+                              customerPhoneNumberController.text,
+                              style: const TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                  color: Color.fromARGB(255, 87, 85, 87)),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 3),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              color: Colors.orange),
+                          child: Text(
+                            customerStatusController.text,
+                            style: const TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 25, vertical: 30),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Colors.white),
+                    child: Form(
+                      key: _formKey,
+                      child: ListView(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        children: <Widget>[
+                          buildEditableTextField(
+                            controller: idController,
+                            isEditing: isEditingCustomerId,
+                            label: 'Customer ID',
+                            onEdit: () {
+                              setState(() {
+                                isEditingCustomerId = true;
+                              });
+                            },
+                            onSave: () {
+                              setState(() {
+                                isEditingCustomerId = false;
+                              });
+                            },
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          buildEditableTextField(
+                            controller: customerNameController,
+                            isEditing: isEditingCustomerName,
+                            label: 'Customer Name',
+                            onEdit: () {
+                              setState(() {
+                                isEditingCustomerName = true;
+                              });
+                            },
+                            onSave: () {
+                              setState(() {
+                                isEditingCustomerName = false;
+                              });
+                            },
+                          ),
+                          buildEditableMultiSelectField(
+                            context: context,
+                            items: regions,
+                            selectedItems: regions,
+                            label: 'Regions',
+                            isEditing: isEditingRegions,
+                            onEdit: () {
+                              setState(() {
+                                isEditingRegions = true;
+                              });
+                            },
+                            onSave: (List<String> selectedItems) {
+                              setState(() {
+                                regions = selectedItems;
+                                isEditingRegions = false;
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -213,18 +340,35 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
         Expanded(
           child: TextFormField(
             controller: controller,
-            decoration: InputDecoration(labelText: label),
+            style: TextStyle(
+                fontWeight: FontWeight.w600,
+                color: !isEditing ? Colors.white : Colors.black),
+            decoration: decorationForTextFormField(label).copyWith(
+              fillColor: !isEditing
+                  ? const Color.fromARGB(255, 171, 107, 255)
+                  : Colors.white,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.0),
+                borderSide: !isEditing
+                    ? BorderSide.none
+                    : const BorderSide(
+                        color: Color.fromARGB(255, 171, 107, 255), width: 1.5),
+              ),
+            ),
             readOnly: !isEditing,
           ),
         ),
+        const SizedBox(
+          width: 15,
+        ),
         if (!isEditing)
           IconButton(
-            icon: const Icon(Icons.edit),
+            icon: const FaIcon(FontAwesomeIcons.penToSquare),
             onPressed: onEdit,
           ),
         if (isEditing)
           IconButton(
-            icon: const Icon(Icons.save),
+            icon: const FaIcon(FontAwesomeIcons.floppyDisk),
             onPressed: onSave,
           ),
       ],
