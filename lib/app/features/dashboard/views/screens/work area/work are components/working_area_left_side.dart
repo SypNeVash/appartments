@@ -1,10 +1,12 @@
 import 'package:apartments/app/api/work_are_api.dart';
 import 'package:apartments/app/features/dashboard/views/components/text_form_fiel_decoration.dart';
+import 'package:apartments/app/features/dashboard/views/screens/work%20area/work%20are%20components/multi_select.dart';
 import 'package:apartments/app/models/work_area_model.dart';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:uuid/uuid.dart';
+import 'package:multi_select_flutter/dialog/multi_select_dialog_field.dart';
+import 'package:multi_select_flutter/util/multi_select_item.dart';
 
 class WorkingFieldEditForm extends StatefulWidget {
   const WorkingFieldEditForm({super.key});
@@ -33,11 +35,18 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
   final checkInController = TextEditingController();
   final commentsController = TextEditingController();
   final taskController = TextEditingController();
-  List<String> regions = [];
   List<String> typesAppart = [];
   List<String> chat = [];
 
-  // Edit states
+  List<String> regionsFromServer = [];
+  List<String> predefinedRegions = [
+    "Region A",
+    "Region B",
+    "Region C"
+  ]; // Add predefined regions here
+  List<MultiSelectItem<String>> _regionsItems = [];
+  List<String> selectedRegions = [];
+
   bool isEditingCustomerId = false;
   bool isEditingCustomerName = false;
   bool isEditingCustomerPassport = false;
@@ -78,7 +87,40 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
     checkInController.text = workingAreaModel.checkIn;
     commentsController.text = workingAreaModel.comments;
     taskController.text = workingAreaModel.task;
-    setState(() {});
+    final regionsFrom = workingAreaModel.regions;
+    setState(() {
+      setState(() {
+        regionsFromServer = regionsFrom;
+        _combineRegions();
+      });
+
+      print("_regionsItems:$_regionsItems");
+    });
+  }
+
+  void _addRegion(String newRegion) {
+    setState(() {
+      if (!regionsFromServer.contains(newRegion)) {
+        regionsFromServer.add(newRegion);
+        _regionsItems.add(MultiSelectItem<String>(newRegion, newRegion));
+      }
+    });
+  }
+
+  void _combineRegions() {
+    Set<String> combinedRegionsSet = {
+      ...predefinedRegions,
+      ...regionsFromServer
+    };
+    List<String> combinedRegions = combinedRegionsSet.toList();
+
+    setState(() {
+      _regionsItems = combinedRegions
+          .map((region) => MultiSelectItem<String>(region, region))
+          .toList();
+      selectedRegions = List<String>.from(
+          regionsFromServer); // Assuming initially selected are from server
+    });
   }
 
   @override
@@ -124,7 +166,7 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
       WorkingAreaModel workingArea = WorkingAreaModel(
         id: idController.text,
         customerCard: customerCard,
-        regions: regions,
+        regions: regionsFromServer,
         typesAppart: typesAppart,
         responsibleStaff: responsibleStaffController.text,
         rate: rateController.text,
@@ -293,21 +335,15 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
                               });
                             },
                           ),
-                          buildEditableMultiSelectField(
-                            context: context,
-                            items: regions,
-                            selectedItems: regions,
-                            label: 'Regions',
-                            isEditing: isEditingRegions,
-                            onEdit: () {
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          RegionSelector(
+                            items: _regionsItems,
+                            initialValue: selectedRegions,
+                            onConfirm: (results) {
                               setState(() {
-                                isEditingRegions = true;
-                              });
-                            },
-                            onSave: (List<String> selectedItems) {
-                              setState(() {
-                                regions = selectedItems;
-                                isEditingRegions = false;
+                                selectedRegions = List<String>.from(results);
                               });
                             },
                           ),
