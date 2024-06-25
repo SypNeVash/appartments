@@ -1,9 +1,6 @@
-import 'dart:convert';
-
 import 'package:apartments/app/models/work_area_model.dart';
 import 'package:apartments/app/utils/services/shared_preferences.dart';
 import 'package:dio/dio.dart';
-import 'package:uuid/uuid.dart';
 
 class WorkAreApi {
   final Dio _dio = Dio();
@@ -39,7 +36,7 @@ class WorkAreApi {
     }
   }
 
-  Future<bool> postWorkAreaClient( jsonData) async {
+  Future<bool> postWorkAreaClient(jsonData) async {
     Dio dio = Dio();
     String apiUrl = 'https://realtor.azurewebsites.net/api/WorkArea';
     final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
@@ -53,13 +50,32 @@ class WorkAreApi {
       ),
     );
 
- 
     if (response.statusCode == 200 ||
         response.statusCode == 201 ||
         response.statusCode == 204) {
       return true;
     } else {
       return false;
+    }
+  }
+
+  Future<WorkingAreaModel> fetchWorkingAreaDetailsById() async {
+    final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
+    late WorkingAreaModel workingAreaModel;
+    final workAreaId = await SPHelper.getWorkAreaIDSharedPreference();
+    var url = 'https://realtor.azurewebsites.net/api/WorkArea/$workAreaId';
+    try {
+      Response response = await _dio.get(
+        url,
+        options: Options(
+          headers: {'Authorization': 'Bearer $accessToken'},
+        ),
+      );
+      final dataFromResponse = response.data;
+      workingAreaModel = WorkingAreaModel.fromJsonToMap(dataFromResponse);
+      return workingAreaModel;
+    } on DioError catch (e) {
+      return e.response!.data;
     }
   }
 

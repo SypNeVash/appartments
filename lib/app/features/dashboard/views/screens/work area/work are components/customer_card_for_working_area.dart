@@ -1,4 +1,6 @@
+import 'package:apartments/app/constans/app_constants.dart';
 import 'package:apartments/app/models/work_area_model.dart';
+import 'package:apartments/app/utils/services/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -68,9 +70,15 @@ class _CustomerCardForWorkingAreState extends State<CustomerCardForWorkingAre> {
     return InkWell(
       borderRadius: BorderRadius.circular(18),
       splashColor: const Color.fromARGB(255, 216, 208, 255),
-      onTap: () {},
+      onTap: () async {
+        await SPHelper.saveWorkAreaIDSharedPreference(
+            widget.workingAreaModel.id);
+        Get.toNamed('/workingareadetails');
+      },
       child: Card(
-        color: const Color.fromARGB(255, 224, 196, 255),
+        color: widget.workingAreaModel.task == taskSelectionCallLater
+            ? Colors.yellow
+            : const Color.fromARGB(255, 224, 196, 255),
         borderOnForeground: true,
         elevation: 0,
         shape: RoundedRectangleBorder(

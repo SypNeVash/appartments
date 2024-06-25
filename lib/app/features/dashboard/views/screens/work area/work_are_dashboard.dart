@@ -2,7 +2,6 @@ import 'package:apartments/app/constans/app_constants.dart';
 import 'package:apartments/app/features/dashboard/views/screens/dashboard_screen.dart';
 import 'package:apartments/app/features/dashboard/views/screens/work%20area/work%20are%20components/customer_card_for_working_area.dart';
 import 'package:apartments/app/models/work_area_model.dart';
-import 'package:apartments/app/providers/clients_provider.dart';
 import 'package:apartments/app/providers/work_area_provider.dart';
 import 'package:apartments/app/shared_components/search_field.dart';
 import 'package:apartments/app/utils/animations/show_up_animation.dart';

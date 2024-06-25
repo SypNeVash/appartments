@@ -1,16 +1,18 @@
-import 'dart:convert';
-
 import 'package:apartments/app/api/work_are_api.dart';
 import 'package:apartments/app/constans/app_constants.dart';
 import 'package:apartments/app/features/dashboard/views/components/text_form_fiel_decoration.dart';
 import 'package:apartments/app/models/customers_model.dart';
 import 'package:apartments/app/models/work_area_model.dart';
+import 'package:apartments/app/providers/clients_provider.dart';
+import 'package:apartments/app/providers/work_area_provider.dart';
 import 'package:apartments/app/shared_components/responsive_builder.dart';
 import 'package:apartments/app/utils/services/shared_preferences.dart';
+import 'package:bot_toast/bot_toast.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
 import 'work are components/form_headline.dart';
@@ -111,7 +113,6 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
   final TextEditingController checkInController = TextEditingController();
   final TextEditingController commentsController = TextEditingController();
   final TextEditingController taskController = TextEditingController();
-  final TextEditingController chatController = TextEditingController();
 
   List<String> regions = [];
   List<String> typesAppart = [];
@@ -172,6 +173,41 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
     } on DioError catch (e) {
       print('Error fetching customer data: ${e.message}');
     }
+  }
+
+  @override
+  void dispose() {
+    customerIdController.dispose();
+    customerNameController.dispose();
+    customerPassportController.dispose();
+    customerPhoneNumberController.dispose();
+    customerRoleController.dispose();
+    customerStatusController.dispose();
+    responsibleStaffController.dispose();
+    rateController.dispose();
+    priceController.dispose();
+    minFloorController.dispose();
+    maxFloorController.dispose();
+    residentsController.dispose();
+    linkController.dispose();
+    registrationController.dispose();
+    checkInController.dispose();
+    commentsController.dispose();
+    taskController.dispose();
+    super.dispose();
+  }
+
+  showSnackBarForError() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        backgroundColor: Colors.red,
+        content: Text(
+          'Something went wrong',
+          style: TextStyle(color: Colors.white),
+        ),
+        duration: Duration(seconds: 2),
+      ),
+    );
   }
 
   @override
@@ -345,7 +381,7 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
                   fontSize: 15,
                   color: Color.fromARGB(255, 0, 0, 0),
                   fontWeight: FontWeight.w500),
-              decoration: decorationForTextFormField('Region'),
+              decoration: decorationForTextFormField('Rate'),
               onChanged: (val) {
                 rateController.text = val!;
               },
@@ -555,7 +591,7 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
                   fontSize: 15,
                   color: Color.fromARGB(255, 0, 0, 0),
                   fontWeight: FontWeight.w500),
-              decoration: decorationForTextFormField('Region'),
+              decoration: decorationForTextFormField('Tasks'),
               onChanged: (val) {
                 taskController.text = val!;
               },
@@ -605,7 +641,7 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(255, 255, 188, 2),
                   ),
-                  onPressed: () {
+                  onPressed: () async {
                     if (_formKey.currentState!.validate()) {
                       String uuid = const Uuid().v4();
                       CustomerCard customerCard = CustomerCard(
@@ -637,8 +673,20 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
                       );
 
                       String jsonData = workingArea.toJson();
+                      var cancel = BotToast.showLoading();
 
-                      WorkAreApi().postWorkAreaClient(jsonData);
+                      final done =
+                          await WorkAreApi().postWorkAreaClient(jsonData);
+                      if (done == true) {
+                        cancel();
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                          Provider.of<WorkAreaProvider>(context, listen: false)
+                              .fetchWorkingAreaList(1);
+                        });
+                        Navigator.pop(context);
+                      } else {
+                        showSnackBarForError();
+                      }
                     }
                   },
                   child: const Text(
