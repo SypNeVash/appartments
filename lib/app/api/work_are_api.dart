@@ -59,6 +59,32 @@ class WorkAreApi {
     }
   }
 
+  Future<bool> editWorkAreaClient(jsonData) async {
+    Dio dio = Dio();
+    final workAreaId = await SPHelper.getWorkAreaIDSharedPreference();
+    final accessToken = await SPHelper.getTokenSharedPreference();
+
+    String apiUrl =
+        'https://realtor.azurewebsites.net/api/WorkArea/$workAreaId';
+    print(jsonData);
+    Response response = await dio.put(
+      apiUrl,
+      data: jsonData,
+      options: Options(
+        contentType: 'application/json',
+        headers: {'Authorization': 'Bearer $accessToken'},
+      ),
+    );
+    print(response.statusMessage);
+    if (response.statusCode == 200 ||
+        response.statusCode == 201 ||
+        response.statusCode == 204) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   Future<WorkingAreaModel> fetchWorkingAreaDetailsById() async {
     final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
     late WorkingAreaModel workingAreaModel;
@@ -79,68 +105,30 @@ class WorkAreApi {
     }
   }
 
-  // static Future<ApartmentModelList> searchApartments(
-  //     List<FilterCondition> filters, page) async {
-  //   var url =
-  //       'https://realtor.azurewebsites.net/api/RentObjects/paginationWithFiler';
-  //   final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
+  Future<bool> deleteWorkAre(
+    String workAreId,
+  ) async {
+    var url = 'https://realtor.azurewebsites.net/api/WorkArea/$workAreId';
 
-  //   var filterJson = jsonEncode(filters);
-  //   try {
-  //     Map<String, dynamic> queryParameters = {
-  //       'page': page,
-  //       'count': 10,
-  //       'conditions': filterJson
-  //     };
-  //     // for (var filter in filters) {
-  //     //   queryParameters["property"] = filter.property;
-  //     //   queryParameters['value'] = filter.value;
-  //     //   queryParameters['condition'] = filter.condition;
-  //     // }
+    try {
+      final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
 
-  //     for (int i = 0; i < filters.length; i++) {
-  //       queryParameters['conditions[$i].property'] = filters[i].property;
-  //       queryParameters['conditions[$i].value'] = filters[i].value;
-  //       queryParameters['conditions[$i].condition'] = filters[i].condition;
-  //     }
-
-  //     final response = await Dio().get(url,
-  //         options: Options(
-  //           headers: {'Authorization': 'Bearer $accessToken'},
-  //         ),
-  //         queryParameters: queryParameters);
-
-  //     final data = response.data;
-  //     return ApartmentModelList.fromJson(data);
-  //   } catch (e) {
-  //     throw Exception('Failed to search apartments: $e');
-  //   }
-  // }
-
-  // Future<bool> deleteApartDataFromAzure(
-  //   String apartmentId,
-  // ) async {
-  //   var url = 'https://realtor.azurewebsites.net/api/RentObjects/$apartmentId';
-
-  //   try {
-  //     final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
-
-  //     Response response = await _dio.delete(
-  //       url,
-  //       options: Options(
-  //         headers: {'Authorization': 'Bearer $accessToken'},
-  //       ),
-  //     );
-  //     // final data = response.data;
-  //     if (response.statusCode == 200 ||
-  //         response.statusCode == 201 ||
-  //         response.statusCode == 204) {
-  //       return true;
-  //     } else {
-  //       return false;
-  //     }
-  //   } on DioError catch (e) {
-  //     return e.response!.data;
-  //   }
-  // }
+      Response response = await _dio.delete(
+        url,
+        options: Options(
+          headers: {'Authorization': 'Bearer $accessToken'},
+        ),
+      );
+      // final data = response.data;
+      if (response.statusCode == 200 ||
+          response.statusCode == 201 ||
+          response.statusCode == 204) {
+        return true;
+      } else {
+        return false;
+      }
+    } on DioError catch (e) {
+      return e.response!.data;
+    }
+  }
 }

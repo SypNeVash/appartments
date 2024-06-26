@@ -166,7 +166,6 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
       );
 
       WorkingAreaModel workingArea = WorkingAreaModel(
-        id: idController.text,
         customerCard: customerCard,
         regions: regionsFromServer,
         typesAppart: typesAppartFromServer,
@@ -185,13 +184,13 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
       );
 
       String jsonData = workingArea.toJson();
-      // bool success = await WorkAreApi().postWorkAreaClient(jsonData);
+      bool success = await WorkAreApi().editWorkAreaClient(jsonData);
 
-      // if (success) {
-      //   print('Data sent successfully');
-      // } else {
-      //   print('Failed to send data');
-      // }
+      if (success) {
+        print('Data sent successfully');
+      } else {
+        print('Failed to send data');
+      }
     }
   }
 

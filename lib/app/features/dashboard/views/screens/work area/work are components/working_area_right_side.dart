@@ -4,7 +4,6 @@ import 'package:apartments/app/api/work_are_api.dart';
 import 'package:apartments/app/features/dashboard/views/components/text_form_fiel_decoration.dart';
 import 'package:apartments/app/models/chat_message_model.dart';
 import 'package:apartments/app/models/work_area_model.dart';
-import 'package:apartments/app/shared_components/user_profile.dart';
 import 'package:apartments/app/utils/services/shared_preferences.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';

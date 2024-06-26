@@ -1,9 +1,12 @@
+import 'package:apartments/app/api/work_are_api.dart';
 import 'package:apartments/app/constans/app_constants.dart';
 import 'package:apartments/app/models/work_area_model.dart';
+import 'package:apartments/app/providers/work_area_provider.dart';
 import 'package:apartments/app/utils/services/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 
 class CustomerCardForWorkingAre extends StatefulWidget {
   final WorkingAreaModel workingAreaModel;
@@ -15,17 +18,14 @@ class CustomerCardForWorkingAre extends StatefulWidget {
 }
 
 class _CustomerCardForWorkingAreState extends State<CustomerCardForWorkingAre> {
-  void _showAlertDialog(String apartmentId) async {
+  void _showAlertDialog(String id) async {
     Get.defaultDialog(
       title: "Wait!",
       middleText: "Please confirm",
       textConfirm: "Yes",
       confirmTextColor: Colors.white,
       onConfirm: () async {
-        bool deleted = false;
-
-        // final deleted =
-        //     await RemoteClientApi().deleteClientDataFromDB(apartmentId);
+        final deleted = await WorkAreApi().deleteWorkAre(id);
         if (deleted == true) {
           showSnackBarForConfirmation();
         } else {
@@ -33,7 +33,8 @@ class _CustomerCardForWorkingAreState extends State<CustomerCardForWorkingAre> {
         }
         Get.back();
         WidgetsBinding.instance.addPostFrameCallback((_) {
-          // Provider.of<ClientProvider>(context, listen: false).fetchClients(1);
+          Provider.of<WorkAreaProvider>(context, listen: false)
+              .fetchWorkingAreaList(1);
         }); // Close the dialog
       },
       textCancel: "Back",
@@ -72,7 +73,7 @@ class _CustomerCardForWorkingAreState extends State<CustomerCardForWorkingAre> {
       splashColor: const Color.fromARGB(255, 216, 208, 255),
       onTap: () async {
         await SPHelper.saveWorkAreaIDSharedPreference(
-            widget.workingAreaModel.id);
+            widget.workingAreaModel.id.toString());
         Get.toNamed('/workingareadetails');
       },
       child: Card(

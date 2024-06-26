@@ -2,22 +2,22 @@
 import 'dart:convert';
 
 class WorkingAreaModel {
-  final String id;
-  final CustomerCard customerCard;
-  final String responsibleStaff;
-  final String rate;
-  final List<String> regions;
-  final List<String> typesAppart;
-  final String price;
-  final String minFloor;
-  final String maxFloor;
-  final String residents;
-  final String link;
-  final String registration;
-  final String checkIn;
-  final String comments;
-  final String task;
-  final List<String> chat;
+  final String? id;
+  final CustomerCard? customerCard;
+  final String? responsibleStaff;
+  final String? rate;
+  final List<String>? regions;
+  final List<String>? typesAppart;
+  final String? price;
+  final String? minFloor;
+  final String? maxFloor;
+  final String? residents;
+  final String? link;
+  final String? registration;
+  final String? checkIn;
+  final String? comments;
+  final String? task;
+  final List<String>? chat;
 
   WorkingAreaModel({
     required this.id,
