@@ -37,7 +37,7 @@ class _WorkingAreaRightSideState extends State<WorkingAreaRightSide> {
   getWorkAreaUsingID() async {
     await getInfosFromSharedPreferences();
     workingAreaModel = await WorkAreApi().fetchWorkingAreaDetailsById();
-    chat = workingAreaModel.chat;
+    chat = workingAreaModel.chat!;
     setState(() {});
   }
 
@@ -188,10 +188,13 @@ class _WorkingAreaRightSideState extends State<WorkingAreaRightSide> {
                   );
                 }),
           ] else ...[
-            const Center(
-                child: const CircularProgressIndicator(
-              strokeWidth: 1.5,
-            ))
+            const Text(
+              'No chat available',
+              style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w600,
+                  color: Color.fromARGB(255, 126, 126, 126)),
+            )
           ],
           const SizedBox(
             height: 10,
@@ -205,7 +208,7 @@ class _WorkingAreaRightSideState extends State<WorkingAreaRightSide> {
           ),
           TextFormField(
             controller: chatController,
-            decoration: decorationForTextFormField('Chat').copyWith(
+            decoration: decorationForTextFormField('Add message').copyWith(
               suffix: InkWell(
                 onTap: () {
                   if (chatController.text.isNotEmpty) {

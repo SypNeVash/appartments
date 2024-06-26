@@ -1,6 +1,7 @@
 library app_constants;
 
 import 'package:flutter/material.dart';
+import 'package:multi_select_flutter/multi_select_flutter.dart';
 
 part 'api_path.dart';
 part 'assets_path.dart';
@@ -51,3 +52,20 @@ const tasks = [
 
 const String taskSelectionMeeting = "Встреча";
 const String taskSelectionCallLater = "Перезвонить позже";
+
+final List<MultiSelectItem<String>> regionsItemsMulti = [
+  MultiSelectItem<String>('Галицький', 'Галицький'),
+  MultiSelectItem<String>('Залізничний', 'Залізничний'),
+  MultiSelectItem<String>('Личаківський', 'Личаківський'),
+  MultiSelectItem<String>('Франківський', 'Франківський'),
+  MultiSelectItem<String>('Сихівський', 'Сихівський'),
+];
+final List<MultiSelectItem<String>> typesAppartMulti = [
+  MultiSelectItem<String>('1 кімнатна', '1 кімнатна'),
+  MultiSelectItem<String>('2 кімнатна', '2 кімнатна'),
+  MultiSelectItem<String>('3 кімнатна', '3 кімнатна'),
+  MultiSelectItem<String>('4 кімнатна', '4 кімнатна'),
+  MultiSelectItem<String>('Студія', 'Студія'),
+  MultiSelectItem<String>('Приватний будинок', 'Приватний будинок'),
+  MultiSelectItem<String>('Частина будинку', 'Частина будинку'),
+];

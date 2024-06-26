@@ -20,28 +20,28 @@ class WorkingAreaModel {
   final List<String>? chat;
 
   WorkingAreaModel({
-    required this.id,
-    required this.customerCard,
-    required this.responsibleStaff,
-    required this.rate,
-    required this.regions,
-    required this.typesAppart,
-    required this.price,
-    required this.minFloor,
-    required this.maxFloor,
-    required this.residents,
-    required this.link,
-    required this.registration,
-    required this.checkIn,
-    required this.comments,
-    required this.task,
-    required this.chat,
+    this.id,
+    this.customerCard,
+    this.responsibleStaff,
+    this.rate,
+    this.regions,
+    this.typesAppart,
+    this.price,
+    this.minFloor,
+    this.maxFloor,
+    this.residents,
+    this.link,
+    this.registration,
+    this.checkIn,
+    this.comments,
+    this.task,
+    this.chat,
   });
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
-      'customerCard': customerCard.toJson(),
+      'customerCard': customerCard?.toJson(),
       'responsibleStaff': responsibleStaff,
       'rate': rate,
       'regions': regions,
@@ -94,12 +94,12 @@ class WorkingAreaModel {
 //     json.decode(str).map((x) => WorkingAreaModel.fromJson(x)));
 
 class CustomerCard {
-  final String id;
-  final String name;
-  final String passport;
-  final String phoneNumber;
-  final String role;
-  final String status;
+  final String? id;
+  final String? name;
+  final String? passport;
+  final String? phoneNumber;
+  final String? role;
+  final String? status;
 
   CustomerCard({
     required this.id,

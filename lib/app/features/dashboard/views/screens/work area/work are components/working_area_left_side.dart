@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:apartments/app/api/work_are_api.dart';
 import 'package:apartments/app/constans/app_constants.dart';
 import 'package:apartments/app/features/dashboard/views/components/text_form_fiel_decoration.dart';
 import 'package:apartments/app/features/dashboard/views/screens/work%20area/work%20are%20components/multi_select.dart';
 import 'package:apartments/app/models/work_area_model.dart';
+import 'package:apartments/app/utils/services/shared_preferences.dart';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -49,6 +52,8 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
   List<MultiSelectItem<String>> _typesApartItems = [];
   List<String> selectedAparts = [];
   String? selectedTask;
+  String? selectedRate;
+
   bool isEditingCustomerId = false;
   bool isEditingCustomerName = false;
   bool isEditingCustomerPassport = false;
@@ -70,31 +75,33 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
 
   getWorkAreaUsingID() async {
     workingAreaModel = await WorkAreApi().fetchWorkingAreaDetailsById();
-    customerNameController.text = workingAreaModel.customerCard.name;
-    customerPassportController.text = workingAreaModel.customerCard.passport;
+    customerIdController.text = workingAreaModel.customerCard!.id!;
+    customerNameController.text = workingAreaModel.customerCard!.name!;
+    customerPassportController.text = workingAreaModel.customerCard!.passport!;
     customerPhoneNumberController.text =
-        workingAreaModel.customerCard.phoneNumber;
-    customerRoleController.text = workingAreaModel.customerCard.role;
-    customerStatusController.text = workingAreaModel.customerCard.status;
-    idController.text = workingAreaModel.id;
-    responsibleStaffController.text = workingAreaModel.responsibleStaff;
-    rateController.text = workingAreaModel.rate;
-    priceController.text = workingAreaModel.price;
-    minFloorController.text = workingAreaModel.minFloor;
-    maxFloorController.text = workingAreaModel.maxFloor;
-    residentsController.text = workingAreaModel.residents;
-    linkController.text = workingAreaModel.link;
-    registrationController.text = workingAreaModel.registration;
-    checkInController.text = workingAreaModel.checkIn;
-    commentsController.text = workingAreaModel.comments;
-    taskController.text = workingAreaModel.task;
+        workingAreaModel.customerCard!.phoneNumber!;
+    customerRoleController.text = workingAreaModel.customerCard!.role!;
+    customerStatusController.text = workingAreaModel.customerCard!.status!;
+    idController.text = workingAreaModel.id!;
+    responsibleStaffController.text = workingAreaModel.responsibleStaff!;
+    rateController.text = workingAreaModel.rate!;
+    selectedRate = workingAreaModel.rate!;
+    priceController.text = workingAreaModel.price!;
+    minFloorController.text = workingAreaModel.minFloor!;
+    maxFloorController.text = workingAreaModel.maxFloor!;
+    residentsController.text = workingAreaModel.residents!;
+    linkController.text = workingAreaModel.link!;
+    registrationController.text = workingAreaModel.registration!;
+    checkInController.text = workingAreaModel.checkIn!;
+    commentsController.text = workingAreaModel.comments!;
+    taskController.text = workingAreaModel.task!;
     final regionsFrom = workingAreaModel.regions;
     final typesForm = workingAreaModel.typesAppart;
     selectedTask = workingAreaModel.task;
 
     setState(() {
-      regionsFromServer = regionsFrom;
-      typesAppartFromServer = typesForm;
+      regionsFromServer = regionsFrom!;
+      typesAppartFromServer = typesForm!;
       _combineMultiSelectors();
     });
   }
@@ -117,7 +124,7 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
           .map((region) => MultiSelectItem<String>(region, region))
           .toList();
       selectedRegions = List<String>.from(regionsFromServer);
-
+      print(_regionsItems);
       _typesApartItems = combinedApartsType
           .map((region) => MultiSelectItem<String>(region, region))
           .toList();
@@ -155,20 +162,23 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
   }
 
   void saveData() async {
-    if (_formKey.currentState!.validate()) {
-      CustomerCard customerCard = CustomerCard(
-        id: customerIdController.text,
-        name: customerNameController.text,
-        passport: customerPassportController.text,
-        phoneNumber: customerPhoneNumberController.text,
-        role: customerRoleController.text,
-        status: customerStatusController.text,
-      );
+    print('starting to save');
+    final workAreaId = await SPHelper.getWorkAreaIDSharedPreference();
 
-      WorkingAreaModel workingArea = WorkingAreaModel(
+    CustomerCard customerCard = CustomerCard(
+      id: customerIdController.text,
+      name: customerNameController.text,
+      passport: customerPassportController.text,
+      phoneNumber: customerPhoneNumberController.text,
+      role: customerRoleController.text,
+      status: customerStatusController.text,
+    );
+    print("customerIdController.text: ${customerIdController.text}");
+    WorkingAreaModel workingArea = WorkingAreaModel(
+        id: workAreaId,
         customerCard: customerCard,
-        regions: regionsFromServer,
-        typesAppart: typesAppartFromServer,
+        regions: selectedRegions,
+        typesAppart: selectedAparts,
         responsibleStaff: responsibleStaffController.text,
         rate: rateController.text,
         price: priceController.text,
@@ -180,17 +190,13 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
         checkIn: checkInController.text,
         comments: commentsController.text,
         task: taskController.text,
-        chat: chat,
-      );
-
-      String jsonData = workingArea.toJson();
-      bool success = await WorkAreApi().editWorkAreaClient(jsonData);
-
-      if (success) {
-        print('Data sent successfully');
-      } else {
-        print('Failed to send data');
-      }
+        chat: []);
+    final jsonData = jsonEncode(workingArea.toMap());
+    bool success = await WorkAreApi().editWorkAreaClient(jsonData);
+    if (success) {
+      print('Data sent successfully');
+    } else {
+      print('Failed to send data');
     }
   }
 
@@ -357,7 +363,7 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
                                 child: Text(value),
                               );
                             }).toList(),
-                            // value: types[0],
+                            value: selectedRate ?? rates[0],
                           ),
                           const SizedBox(
                             height: 25,
@@ -582,7 +588,9 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: saveData,
+        onPressed: () {
+          saveData();
+        },
         backgroundColor: Colors.orange,
         child: const FaIcon(
           FontAwesomeIcons.cloudArrowUp,

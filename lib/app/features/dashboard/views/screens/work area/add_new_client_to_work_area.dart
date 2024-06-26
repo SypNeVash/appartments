@@ -118,18 +118,6 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
   List<String> typesAppart = [];
   List<String> chat = [];
 
-  final List<MultiSelectItem<String>> _regionsItems = [
-    MultiSelectItem<String>('Region 1', 'Region 1'),
-    MultiSelectItem<String>('Region 2', 'Region 2'),
-    MultiSelectItem<String>('Region 3', 'Region 3'),
-    MultiSelectItem<String>('Region 4', 'Region 4'),
-  ];
-  final List<MultiSelectItem<String>> _typesAppart = [
-    MultiSelectItem<String>('Apartment 1', 'Apartment 1'),
-    MultiSelectItem<String>('Apartment 2', 'Apartment 2'),
-    MultiSelectItem<String>('Apartment 3', 'Apartment 3'),
-    MultiSelectItem<String>('Apartment 4', 'Apartment 4'),
-  ];
   CustomerModel? _selectedCustomerCard;
   final Dio _dio = Dio();
   late List<CustomerModel> _customerCards = [];
@@ -454,7 +442,7 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
               height: 15,
             ),
             MultiSelectDialogField(
-              items: _regionsItems,
+              items: regionsItemsMulti,
               title: const Text("Regions"),
               selectedColor: Colors.blue,
               decoration: BoxDecoration(
@@ -492,7 +480,7 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
               height: 15,
             ),
             MultiSelectDialogField(
-              items: _typesAppart,
+              items: typesAppartMulti,
               title: const Text("Types"),
               selectedColor: Colors.blue,
               decoration: BoxDecoration(

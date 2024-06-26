@@ -35,12 +35,10 @@ class _CustomerCardForWorkingAreState extends State<CustomerCardForWorkingAre> {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           Provider.of<WorkAreaProvider>(context, listen: false)
               .fetchWorkingAreaList(1);
-        }); // Close the dialog
+        });
       },
       textCancel: "Back",
-      onCancel: () {
-        // Perform any action on cancel, if needed
-      },
+      onCancel: () {},
     );
   }
 
@@ -93,7 +91,7 @@ class _CustomerCardForWorkingAreState extends State<CustomerCardForWorkingAre> {
                 radius: 30,
                 backgroundColor: Colors.white,
                 child: Text(
-                  widget.workingAreaModel.customerCard.name[0],
+                  widget.workingAreaModel.customerCard!.name![0],
                   style: const TextStyle(
                       color: Color.fromARGB(255, 50, 12, 156),
                       fontWeight: FontWeight.w700,
@@ -109,18 +107,34 @@ class _CustomerCardForWorkingAreState extends State<CustomerCardForWorkingAre> {
                 children: [
                   const SizedBox(height: 5),
                   Text(
-                    widget.workingAreaModel.customerCard.name,
+                    widget.workingAreaModel.customerCard!.name.toString(),
                     style: const TextStyle(
                         fontWeight: FontWeight.w700, fontSize: 17),
                   ),
                   const SizedBox(height: 5),
                   Text(
-                      'Tel: ${widget.workingAreaModel.customerCard.phoneNumber}, ',
+                      'Tel: ${widget.workingAreaModel.customerCard!.phoneNumber}, ',
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(fontWeight: FontWeight.w700)),
                   const SizedBox(height: 5),
-                  Text(
-                      'Status: ${widget.workingAreaModel.customerCard.status}'),
+                  Row(
+                    children: [
+                      Text('Task: '),
+                      Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 7, vertical: 3),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            border: Border.all(
+                              width: 1.5,
+                              color: Colors.white,
+                            )),
+                        child: Text(widget.workingAreaModel.task.toString(),
+                            style:
+                                const TextStyle(fontWeight: FontWeight.w600)),
+                      ),
+                    ],
+                  ),
                   const SizedBox(height: 5),
                   Text('ID: ${widget.workingAreaModel.id}'),
                 ],

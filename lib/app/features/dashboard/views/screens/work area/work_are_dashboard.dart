@@ -182,7 +182,7 @@ class FormsLists extends StatelessWidget {
                   Get.toNamed('/addingNewWorkArea');
                 },
                 child: const Text(
-                  '+ Add new Notification',
+                  '+ New Work Are',
                   style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.bold,

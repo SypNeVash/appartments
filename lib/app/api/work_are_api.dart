@@ -59,28 +59,49 @@ class WorkAreApi {
     }
   }
 
-  Future<bool> editWorkAreaClient(jsonData) async {
+  Future<bool> editWorkAreaClient(String jsonData) async {
     Dio dio = Dio();
     final workAreaId = await SPHelper.getWorkAreaIDSharedPreference();
     final accessToken = await SPHelper.getTokenSharedPreference();
 
+    if (workAreaId == null || accessToken == null) {
+      print('Error: Missing workAreaId or accessToken');
+      return false;
+    }
+
     String apiUrl =
         'https://realtor.azurewebsites.net/api/WorkArea/$workAreaId';
-    print(jsonData);
-    Response response = await dio.put(
-      apiUrl,
-      data: jsonData,
-      options: Options(
-        contentType: 'application/json',
-        headers: {'Authorization': 'Bearer $accessToken'},
-      ),
-    );
-    print(response.statusMessage);
-    if (response.statusCode == 200 ||
-        response.statusCode == 201 ||
-        response.statusCode == 204) {
-      return true;
-    } else {
+
+    try {
+      Response response = await dio.put(
+        apiUrl,
+        data: jsonData,
+        options: Options(
+          headers: {'Authorization': 'Bearer $accessToken'},
+        ),
+      );
+
+      print('Response status: ${response.statusMessage}');
+      print('Response data: ${response.data}');
+
+      if (response.statusCode == 200 ||
+          response.statusCode == 201 ||
+          response.statusCode == 204) {
+        return true;
+      } else {
+        print('Failed to update WorkArea: ${response.statusCode}');
+        return false;
+      }
+    } on DioError catch (e) {
+      if (e.response != null) {
+        print('Dio error: ${e.response!.statusCode}');
+        print('Dio error data: ${e.response!.data}');
+      } else {
+        print('Dio error: ${e.message}');
+      }
+      return false;
+    } catch (e) {
+      print('Unexpected error: $e');
       return false;
     }
   }
