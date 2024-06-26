@@ -173,7 +173,25 @@ class _CustomerCardState extends State<CustomerCard> {
                   const SizedBox(height: 5),
                   Text('Phone: ${widget.customer.phoneNumber}'),
                   const SizedBox(height: 5),
-                  Text('Status: ${widget.customer.status}'),
+                  Row(
+                    children: [
+                      Text('Status: '),
+                      Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 9, vertical: 3),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50),
+                              color: Colors.orangeAccent,
+                              border: Border.all(
+                                width: 1.5,
+                                color: Colors.white,
+                              )),
+                          child: Text(widget.customer.status.toString(),
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600))),
+                    ],
+                  ),
                 ],
               ),
               const Spacer(),

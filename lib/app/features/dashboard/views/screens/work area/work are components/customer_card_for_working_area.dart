@@ -119,12 +119,13 @@ class _CustomerCardForWorkingAreState extends State<CustomerCardForWorkingAre> {
                   const SizedBox(height: 5),
                   Row(
                     children: [
-                      Text('Task: '),
+                      const Text('Task: '),
                       Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 7, vertical: 3),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 7, vertical: 3),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(50),
+                            color: const Color.fromARGB(255, 247, 245, 245),
                             border: Border.all(
                               width: 1.5,
                               color: Colors.white,
