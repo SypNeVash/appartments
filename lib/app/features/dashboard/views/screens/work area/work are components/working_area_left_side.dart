@@ -1,4 +1,5 @@
 import 'package:apartments/app/api/work_are_api.dart';
+import 'package:apartments/app/constans/app_constants.dart';
 import 'package:apartments/app/features/dashboard/views/components/text_form_fiel_decoration.dart';
 import 'package:apartments/app/features/dashboard/views/screens/work%20area/work%20are%20components/multi_select.dart';
 import 'package:apartments/app/models/work_area_model.dart';
@@ -35,17 +36,18 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
   final checkInController = TextEditingController();
   final commentsController = TextEditingController();
   final taskController = TextEditingController();
-  List<String> typesAppart = [];
+
   List<String> chat = [];
 
   List<String> regionsFromServer = [];
-  List<String> predefinedRegions = [
-    "Region A",
-    "Region B",
-    "Region C"
-  ]; // Add predefined regions here
+  List<String> predefinedRegions = regions;
   List<MultiSelectItem<String>> _regionsItems = [];
   List<String> selectedRegions = [];
+
+  List<String> typesAppartFromServer = [];
+  List<String> predefinedTypesApart = types;
+  List<MultiSelectItem<String>> _typesApartItems = [];
+  List<String> selectedAparts = [];
 
   bool isEditingCustomerId = false;
   bool isEditingCustomerName = false;
@@ -72,7 +74,6 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
     customerPassportController.text = workingAreaModel.customerCard.passport;
     customerPhoneNumberController.text =
         workingAreaModel.customerCard.phoneNumber;
-    print(customerPhoneNumberController.text);
     customerRoleController.text = workingAreaModel.customerCard.role;
     customerStatusController.text = workingAreaModel.customerCard.status;
     idController.text = workingAreaModel.id;
@@ -88,38 +89,38 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
     commentsController.text = workingAreaModel.comments;
     taskController.text = workingAreaModel.task;
     final regionsFrom = workingAreaModel.regions;
-    setState(() {
-      setState(() {
-        regionsFromServer = regionsFrom;
-        _combineRegions();
-      });
+    final typesForm = workingAreaModel.typesAppart;
 
-      print("_regionsItems:$_regionsItems");
+    setState(() {
+      regionsFromServer = regionsFrom;
+      typesAppartFromServer = typesForm;
+      _combineMultiSelectors();
     });
   }
 
-  void _addRegion(String newRegion) {
-    setState(() {
-      if (!regionsFromServer.contains(newRegion)) {
-        regionsFromServer.add(newRegion);
-        _regionsItems.add(MultiSelectItem<String>(newRegion, newRegion));
-      }
-    });
-  }
-
-  void _combineRegions() {
+  void _combineMultiSelectors() {
     Set<String> combinedRegionsSet = {
       ...predefinedRegions,
       ...regionsFromServer
     };
+
+    Set<String> combinedApartSet = {
+      ...predefinedTypesApart,
+      ...typesAppartFromServer
+    };
     List<String> combinedRegions = combinedRegionsSet.toList();
+    List<String> combinedApartsType = combinedApartSet.toList();
 
     setState(() {
       _regionsItems = combinedRegions
           .map((region) => MultiSelectItem<String>(region, region))
           .toList();
-      selectedRegions = List<String>.from(
-          regionsFromServer); // Assuming initially selected are from server
+      selectedRegions = List<String>.from(regionsFromServer);
+
+      _typesApartItems = combinedApartsType
+          .map((region) => MultiSelectItem<String>(region, region))
+          .toList();
+      selectedAparts = List<String>.from(typesAppartFromServer);
     });
   }
 
@@ -167,7 +168,7 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
         id: idController.text,
         customerCard: customerCard,
         regions: regionsFromServer,
-        typesAppart: typesAppart,
+        typesAppart: typesAppartFromServer,
         responsibleStaff: responsibleStaffController.text,
         rate: rateController.text,
         price: priceController.text,
@@ -303,49 +304,91 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
                         shrinkWrap: true,
                         children: <Widget>[
                           buildEditableTextField(
-                            controller: idController,
-                            isEditing: isEditingCustomerId,
-                            label: 'Customer ID',
+                            controller: responsibleStaffController,
+                            isEditing: isEditingResponsibleStaff,
+                            label: 'Responsible Stuff',
                             onEdit: () {
                               setState(() {
-                                isEditingCustomerId = true;
+                                isEditingResponsibleStaff = true;
                               });
                             },
                             onSave: () {
                               setState(() {
-                                isEditingCustomerId = false;
+                                isEditingResponsibleStaff = false;
                               });
                             },
                           ),
                           const SizedBox(
                             height: 15,
                           ),
-                          buildEditableTextField(
-                            controller: customerNameController,
-                            isEditing: isEditingCustomerName,
-                            label: 'Customer Name',
-                            onEdit: () {
-                              setState(() {
-                                isEditingCustomerName = true;
-                              });
+                          DropdownButtonFormField<String>(
+                            autovalidateMode: AutovalidateMode.always,
+                            autofocus: false,
+                            isDense: true,
+                            style: const TextStyle(
+                                fontSize: 15,
+                                color: Color.fromARGB(255, 0, 0, 0),
+                                fontWeight: FontWeight.w500),
+                            decoration: decorationForTextFormField('Rate'),
+                            onChanged: (val) {
+                              rateController.text = val!;
                             },
-                            onSave: () {
-                              setState(() {
-                                isEditingCustomerName = false;
-                              });
-                            },
+                            icon: const FaIcon(
+                              FontAwesomeIcons.chevronDown,
+                              size: 15,
+                              color: Colors.grey,
+                            ),
+                            items: [...rates].map((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                            // value: types[0],
                           ),
                           const SizedBox(
                             height: 15,
                           ),
-                          RegionSelector(
+                          MultiSelector(
                             items: _regionsItems,
                             initialValue: selectedRegions,
+                            fieldText: 'Select Regions',
                             onConfirm: (results) {
                               setState(() {
                                 selectedRegions = List<String>.from(results);
                               });
                             },
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          MultiSelector(
+                            items: _typesApartItems,
+                            initialValue: selectedAparts,
+                            fieldText: 'Select Aprtment',
+                            onConfirm: (results) {
+                              setState(() {
+                                selectedAparts = List<String>.from(results);
+                              });
+                            },
+                          ),
+                          // buildEditableTextField(
+                          //   controller: contr,
+                          //   isEditing: isEditingCustomerName,
+                          //   label: 'Customer Name',
+                          //   onEdit: () {
+                          //     setState(() {
+                          //       isEditingCustomerName = true;
+                          //     });
+                          //   },
+                          //   onSave: () {
+                          //     setState(() {
+                          //       isEditingCustomerName = false;
+                          //     });
+                          //   },
+                          // ),
+                          const SizedBox(
+                            height: 15,
                           ),
                         ],
                       ),

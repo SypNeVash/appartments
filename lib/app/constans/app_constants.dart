@@ -39,11 +39,9 @@ const cities = [
 var statuses = ["Active", "Deleted", "Progress"];
 
 const rates = [
-  "Rate 1",
-  "Rate 2",
-  "Rate 3",
-  "Rate 4",
-  "Rate 5",
+  "Профи",
+  "Базовый",
+  "Гарант",
 ];
 
 const tasks = [

@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 
-class RegionSelector extends StatelessWidget {
+class MultiSelector extends StatelessWidget {
   final List<MultiSelectItem<String>> items;
   final List<String> initialValue;
   final Function(List<String>) onConfirm;
-
-  const RegionSelector(
+  final String fieldText;
+  const MultiSelector(
       {required this.items,
       required this.initialValue,
       required this.onConfirm,
+      required this.fieldText,
       super.key});
 
   @override
@@ -17,7 +18,7 @@ class RegionSelector extends StatelessWidget {
     return MultiSelectDialogField(
       items: items,
       initialValue: initialValue,
-      title: const Text("Regions"),
+      title: Text(fieldText),
       selectedColor: Colors.blue,
       decoration: BoxDecoration(
         color: Colors.blue.withOpacity(0.1),
