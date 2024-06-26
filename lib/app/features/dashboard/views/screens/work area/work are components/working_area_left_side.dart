@@ -175,22 +175,22 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
     );
     print("customerIdController.text: ${customerIdController.text}");
     WorkingAreaModel workingArea = WorkingAreaModel(
-        id: workAreaId,
-        customerCard: customerCard,
-        regions: selectedRegions,
-        typesAppart: selectedAparts,
-        responsibleStaff: responsibleStaffController.text,
-        rate: rateController.text,
-        price: priceController.text,
-        minFloor: minFloorController.text,
-        maxFloor: maxFloorController.text,
-        residents: residentsController.text,
-        link: linkController.text,
-        registration: registrationController.text,
-        checkIn: checkInController.text,
-        comments: commentsController.text,
-        task: taskController.text,
-        chat: []);
+      id: workAreaId,
+      customerCard: customerCard,
+      regions: selectedRegions,
+      typesAppart: selectedAparts,
+      responsibleStaff: responsibleStaffController.text,
+      rate: rateController.text,
+      price: priceController.text,
+      minFloor: minFloorController.text,
+      maxFloor: maxFloorController.text,
+      residents: residentsController.text,
+      link: linkController.text,
+      registration: registrationController.text,
+      checkIn: checkInController.text,
+      comments: commentsController.text,
+      task: taskController.text,
+    );
     final jsonData = jsonEncode(workingArea.toMap());
     bool success = await WorkAreApi().editWorkAreaClient(jsonData);
     if (success) {
