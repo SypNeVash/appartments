@@ -167,15 +167,33 @@ class _CustomerCardState extends State<CustomerCard> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 5),
-                  Text('Name: ${widget.customer.name}'),
+                  Text(
+                    'Name: ${widget.customer.name}',
+                    style: const TextStyle(
+                        fontWeight: FontWeight.w700, fontSize: 17),
+                  ),
                   const SizedBox(height: 5),
-                  Text('Passport: ${widget.customer.passport}'),
+                  Text(
+                    'Passport: ${widget.customer.passport}',
+                    style: const TextStyle(
+                        fontWeight: FontWeight.w600, fontSize: 15),
+                  ),
                   const SizedBox(height: 5),
-                  Text('Phone: ${widget.customer.phoneNumber}'),
+                  Text(
+                    'Phone: ${widget.customer.phoneNumber}, ',
+                    style: const TextStyle(
+                        overflow: TextOverflow.ellipsis,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 15),
+                  ),
                   const SizedBox(height: 5),
                   Row(
                     children: [
-                      Text('Status: '),
+                      const Text(
+                        'Status: ',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 15),
+                      ),
                       Container(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 9, vertical: 3),
