@@ -52,6 +52,7 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
   List<String> selectedAparts = [];
   String? selectedTask;
   String? selectedRate;
+  bool isLoading = false;
 
   bool isEditingCustomerId = false;
   bool isEditingCustomerName = false;
@@ -123,7 +124,6 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
           .map((region) => MultiSelectItem<String>(region, region))
           .toList();
       selectedRegions = List<String>.from(regionsFromServer);
-      print(_regionsItems);
       _typesApartItems = combinedApartsType
           .map((region) => MultiSelectItem<String>(region, region))
           .toList();
@@ -161,7 +161,9 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
   }
 
   void saveData() async {
-    print('starting to save');
+    setState(() {
+      isLoading = true;
+    });
     final workAreaId = await SPHelper.getWorkAreaIDSharedPreference();
 
     CustomerCard customerCard = CustomerCard(
@@ -192,9 +194,11 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
     final jsonData = jsonEncode(workingArea.toMap());
     bool success = await WorkAreApi().editWorkAreaClient(jsonData);
     if (success) {
-      print('Data sent successfully');
+      isLoading = false;
+      setState(() {});
     } else {
-      print('Failed to send data');
+      isLoading = false;
+      setState(() {});
     }
   }
 
@@ -590,10 +594,15 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
           saveData();
         },
         backgroundColor: Colors.orange,
-        child: const FaIcon(
-          FontAwesomeIcons.cloudArrowUp,
-          color: Colors.white,
-        ),
+        child: isLoading == true
+            ? const CircularProgressIndicator(
+                strokeWidth: 1.5,
+                color: Colors.white,
+              )
+            : const FaIcon(
+                FontAwesomeIcons.cloudArrowUp,
+                color: Colors.white,
+              ),
       ),
     );
   }
@@ -616,7 +625,7 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
                 fontWeight: FontWeight.w600, color: Colors.black),
             decoration: decorationForTextFormField(label).copyWith(
               fillColor: !isEditing
-                  ? Color.fromARGB(255, 240, 245, 255)
+                  ? const Color.fromARGB(255, 240, 245, 255)
                   : Colors.white,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8.0),

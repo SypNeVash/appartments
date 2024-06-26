@@ -81,27 +81,14 @@ class WorkAreApi {
         ),
       );
 
-      print('Response status: ${response.statusMessage}');
-      print('Response data: ${response.data}');
-
       if (response.statusCode == 200 ||
           response.statusCode == 201 ||
           response.statusCode == 204) {
         return true;
       } else {
-        print('Failed to update WorkArea: ${response.statusCode}');
         return false;
       }
-    } on DioError catch (e) {
-      if (e.response != null) {
-        print('Dio error: ${e.response!.statusCode}');
-        print('Dio error data: ${e.response!.data}');
-      } else {
-        print('Dio error: ${e.message}');
-      }
-      return false;
     } catch (e) {
-      print('Unexpected error: $e');
       return false;
     }
   }
