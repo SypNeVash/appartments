@@ -185,11 +185,12 @@ class _ApartmentDetailsSubScreenState extends State<ApartmentDetailsSubScreen> {
                               const BorderRadius.all(Radius.circular(10.0)),
                           child: GestureDetector(
                             onTap: () {
-                              Get.to(FullScreenImagePage(
-                                    images: apartment.photos!,
-                                    initialIndex: index,
-                                  ),);
-                             
+                              Get.to(
+                                FullScreenImagePage(
+                                  images: apartment.photos!,
+                                  initialIndex: index,
+                                ),
+                              );
                             },
                             child: Image.network(
                               apartment.photos![index],
@@ -203,10 +204,11 @@ class _ApartmentDetailsSubScreenState extends State<ApartmentDetailsSubScreen> {
                     options: CarouselOptions(
                       height: 400.0,
                       enlargeCenterPage: true,
+                      scrollPhysics: const BouncingScrollPhysics(),
                       autoPlay: true,
                       aspectRatio: 16 / 9,
                       autoPlayCurve: Curves.fastOutSlowIn,
-                      enableInfiniteScroll: false,
+                      enableInfiniteScroll: true,
                       autoPlayAnimationDuration:
                           const Duration(milliseconds: 800),
                       viewportFraction: 0.8,
@@ -531,9 +533,28 @@ class FullScreenImagePage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back_ios_new_outlined,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            Get.back();
+          },
+        ),
       ),
       body: PhotoViewGallery.builder(
         itemCount: images.length,
+        loadingBuilder: (context, event) {
+          return Center(
+            child: CircularProgressIndicator(
+              value: event == null
+                  ? null
+                  : event.cumulativeBytesLoaded /
+                      (event.expectedTotalBytes ?? 1),
+            ),
+          );
+        },
         builder: (context, index) {
           return PhotoViewGalleryPageOptions(
             imageProvider: NetworkImage(images[index]),
