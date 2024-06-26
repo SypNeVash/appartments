@@ -48,7 +48,7 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
   List<String> predefinedTypesApart = types;
   List<MultiSelectItem<String>> _typesApartItems = [];
   List<String> selectedAparts = [];
-
+  String? selectedTask;
   bool isEditingCustomerId = false;
   bool isEditingCustomerName = false;
   bool isEditingCustomerPassport = false;
@@ -90,6 +90,7 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
     taskController.text = workingAreaModel.task;
     final regionsFrom = workingAreaModel.regions;
     final typesForm = workingAreaModel.typesAppart;
+    selectedTask = workingAreaModel.task;
 
     setState(() {
       regionsFromServer = regionsFrom;
@@ -194,13 +195,26 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
     }
   }
 
+  Color _getColorForValue(String? value) {
+    switch (value) {
+      case 'Встреча':
+        return const Color.fromARGB(255, 171, 107, 255);
+      case 'Перезвонить позже':
+        return Colors.yellow;
+      default:
+        return Colors.white;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Edit Form'),
+        title: const Text('Working Area'),
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.vertical,
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -347,7 +361,7 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
                             // value: types[0],
                           ),
                           const SizedBox(
-                            height: 15,
+                            height: 25,
                           ),
                           MultiSelector(
                             items: _regionsItems,
@@ -360,7 +374,7 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
                             },
                           ),
                           const SizedBox(
-                            height: 15,
+                            height: 20,
                           ),
                           MultiSelector(
                             items: _typesApartItems,
@@ -372,23 +386,191 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
                               });
                             },
                           ),
-                          // buildEditableTextField(
-                          //   controller: contr,
-                          //   isEditing: isEditingCustomerName,
-                          //   label: 'Customer Name',
-                          //   onEdit: () {
-                          //     setState(() {
-                          //       isEditingCustomerName = true;
-                          //     });
-                          //   },
-                          //   onSave: () {
-                          //     setState(() {
-                          //       isEditingCustomerName = false;
-                          //     });
-                          //   },
-                          // ),
+                          const SizedBox(
+                            height: 25,
+                          ),
+                          buildEditableTextField(
+                            controller: priceController,
+                            isEditing: isEditingPrice,
+                            label: 'Customer Name',
+                            onEdit: () {
+                              setState(() {
+                                isEditingPrice = true;
+                              });
+                            },
+                            onSave: () {
+                              setState(() {
+                                isEditingPrice = false;
+                              });
+                            },
+                          ),
                           const SizedBox(
                             height: 15,
+                          ),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: buildEditableTextField(
+                                  controller: minFloorController,
+                                  isEditing: isEditingMinFloor,
+                                  label: 'Customer Name',
+                                  onEdit: () {
+                                    setState(() {
+                                      isEditingMinFloor = true;
+                                    });
+                                  },
+                                  onSave: () {
+                                    setState(() {
+                                      isEditingMinFloor = false;
+                                    });
+                                  },
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 15,
+                              ),
+                              Expanded(
+                                child: buildEditableTextField(
+                                  controller: maxFloorController,
+                                  isEditing: isEditingMaxFloor,
+                                  label: 'Customer Name',
+                                  onEdit: () {
+                                    setState(() {
+                                      isEditingMaxFloor = true;
+                                    });
+                                  },
+                                  onSave: () {
+                                    setState(() {
+                                      isEditingMaxFloor = false;
+                                    });
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          buildEditableTextField(
+                            controller: residentsController,
+                            isEditing: isEditingResidents,
+                            label: 'Residents Number',
+                            onEdit: () {
+                              setState(() {
+                                isEditingResidents = true;
+                              });
+                            },
+                            onSave: () {
+                              setState(() {
+                                isEditingResidents = false;
+                              });
+                            },
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          buildEditableTextField(
+                            controller: linkController,
+                            isEditing: isEditingLink,
+                            label: 'Residents Number',
+                            onEdit: () {
+                              setState(() {
+                                isEditingLink = true;
+                              });
+                            },
+                            onSave: () {
+                              setState(() {
+                                isEditingLink = false;
+                              });
+                            },
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          buildEditableTextField(
+                            controller: registrationController,
+                            isEditing: isEditingRegions,
+                            label: 'Residents Number',
+                            onEdit: () {
+                              setState(() {
+                                isEditingRegions = true;
+                              });
+                            },
+                            onSave: () {
+                              setState(() {
+                                isEditingRegions = false;
+                              });
+                            },
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          buildEditableTextField(
+                            controller: checkInController,
+                            isEditing: isEditingCheckIn,
+                            label: 'Residents Number',
+                            onEdit: () {
+                              setState(() {
+                                isEditingCheckIn = true;
+                              });
+                            },
+                            onSave: () {
+                              setState(() {
+                                isEditingCheckIn = false;
+                              });
+                            },
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          buildEditableTextField(
+                              controller: commentsController,
+                              isEditing: isEditingComments,
+                              label: 'Residents Number',
+                              onEdit: () {
+                                setState(() {
+                                  isEditingComments = true;
+                                });
+                              },
+                              onSave: () {
+                                setState(() {
+                                  isEditingComments = false;
+                                });
+                              },
+                              bigTextField: true),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          DropdownButtonFormField<String>(
+                            autovalidateMode: AutovalidateMode.always,
+                            autofocus: false,
+                            isDense: true,
+                            style: const TextStyle(
+                                fontSize: 15,
+                                color: Color.fromARGB(255, 0, 0, 0),
+                                fontWeight: FontWeight.w500),
+                            decoration:
+                                decorationForTextFormField('Task').copyWith(
+                              fillColor: _getColorForValue(taskController.text),
+                            ),
+                            onChanged: (val) {
+                              _getColorForValue(val);
+
+                              taskController.text = val!;
+                              setState(() {});
+                            },
+                            icon: const FaIcon(
+                              FontAwesomeIcons.chevronDown,
+                              size: 15,
+                              color: Color.fromARGB(255, 0, 0, 0),
+                            ),
+                            items: tasks.map((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                            value: selectedTask ?? tasks[0],
                           ),
                         ],
                       ),
@@ -402,7 +584,11 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: saveData,
-        child: const Icon(Icons.save),
+        backgroundColor: Colors.orange,
+        child: const FaIcon(
+          FontAwesomeIcons.cloudArrowUp,
+          color: Colors.white,
+        ),
       ),
     );
   }
@@ -413,12 +599,14 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
     required String label,
     required VoidCallback onEdit,
     required VoidCallback onSave,
+    bool? bigTextField,
   }) {
     return Row(
       children: <Widget>[
         Expanded(
           child: TextFormField(
             controller: controller,
+            maxLines: bigTextField == true ? 5 : null,
             style: TextStyle(
                 fontWeight: FontWeight.w600,
                 color: !isEditing ? Colors.white : Colors.black),

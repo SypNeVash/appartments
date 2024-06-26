@@ -25,7 +25,7 @@ class MultiSelector extends StatelessWidget {
         borderRadius: const BorderRadius.all(Radius.circular(10)),
         border: Border.all(
           color: Colors.blue,
-          width: 2,
+          width: 1,
         ),
       ),
       buttonIcon: const Icon(

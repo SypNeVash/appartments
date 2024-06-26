@@ -1,8 +1,8 @@
-import 'package:apartments/app/features/dashboard/views/screens/dashboard_screen.dart';
 import 'package:apartments/app/shared_components/responsive_builder.dart';
 import 'package:flutter/material.dart';
 
 import 'work are components/working_area_left_side.dart';
+import 'work are components/working_area_right_side.dart';
 
 class WorkingAreDetails extends StatelessWidget {
   const WorkingAreDetails({super.key});
@@ -45,12 +45,12 @@ class WorkingAreDetails extends StatelessWidget {
             height: MediaQuery.of(context).size.height,
             child: const VerticalDivider(),
           ),
-          Flexible(
-            flex: 2,
-            child: const Column(
-              children: [],
-            ),
-          ),
+          const Flexible(
+              flex: 2,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25.0),
+                child: WorkingAreaRightSide(),
+              )),
         ],
       );
     })));
