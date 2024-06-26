@@ -68,8 +68,9 @@ class AllApartmentsScreenState extends State<AllApartmentsScreen> {
                               onTap: () async {
                                 await SPHelper.saveIDAptSharedPreference(
                                     snapshot.data![index].id.toString());
-                                Get.toNamed('/apartmentdetail',
-                                    preventDuplicates: false);
+                                Get.toNamed(
+                                  '/apartmentdetail',
+                                );
                               },
                               child: CardTask(
                                 data: snapshot.data![index],

@@ -422,8 +422,9 @@ class _ApartmentDetailsSubScreenState extends State<ApartmentDetailsSubScreen> {
                                   const Color.fromARGB(255, 255, 188, 2),
                             ),
                             onPressed: () {
-                              Get.toNamed('/editingApartments',
-                                  preventDuplicates: false);
+                              Get.toNamed(
+                                '/editingApartments',
+                              );
                             },
                             child: const Text(
                               'Edit',
