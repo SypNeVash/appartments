@@ -134,10 +134,14 @@ Widget _buildTaskContent({Function()? onPressedMenu}) {
               ),
             ),
             const SizedBox(width: kSpacing / 2),
-            // SizedBox(
-            //   width: 200,
-            //   child: TaskProgress(data: controller.dataTask),
-            // ),
+            const Text(
+              '20 out of 970',
+              style: TextStyle(
+                fontSize: 16,
+                color: Color.fromARGB(255, 105, 105, 105),
+                fontWeight: FontWeight.w600,
+              ),
+            )
           ],
         ),
         const SizedBox(height: kSpacing),

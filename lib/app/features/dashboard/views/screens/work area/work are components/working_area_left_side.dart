@@ -9,7 +9,6 @@ import 'package:apartments/app/utils/services/shared_preferences.dart';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:multi_select_flutter/dialog/multi_select_dialog_field.dart';
 import 'package:multi_select_flutter/util/multi_select_item.dart';
 
 class WorkingFieldEditForm extends StatefulWidget {
@@ -173,7 +172,6 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
       role: customerRoleController.text,
       status: customerStatusController.text,
     );
-    print("customerIdController.text: ${customerIdController.text}");
     WorkingAreaModel workingArea = WorkingAreaModel(
       id: workAreaId,
       customerCard: customerCard,
@@ -614,12 +612,11 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
           child: TextFormField(
             controller: controller,
             maxLines: bigTextField == true ? 5 : null,
-            style: TextStyle(
-                fontWeight: FontWeight.w600,
-                color: !isEditing ? Colors.white : Colors.black),
+            style: const TextStyle(
+                fontWeight: FontWeight.w600, color: Colors.black),
             decoration: decorationForTextFormField(label).copyWith(
               fillColor: !isEditing
-                  ? const Color.fromARGB(255, 171, 107, 255)
+                  ? Color.fromARGB(255, 240, 245, 255)
                   : Colors.white,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8.0),
