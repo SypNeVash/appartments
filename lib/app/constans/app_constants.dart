@@ -40,6 +40,7 @@ const cities = [
 var statuses = ["Active", "Deleted", "Progress"];
 
 const rates = [
+  "1 день",
   "Профи",
   "Базовый",
   "Гарант",
