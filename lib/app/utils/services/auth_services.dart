@@ -27,10 +27,6 @@ class AuthService {
         String token = accessToken;
         Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
 
-        // bool isTokenExpired = JwtDecoder.isExpired(token);
-
-        // if (isTokenExpired == true) {}
-
         await _saveToken(token, decodedToken);
       }
     } on DioError catch (e) {

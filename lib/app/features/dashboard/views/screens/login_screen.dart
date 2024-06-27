@@ -126,13 +126,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                             showCircular = true;
                                           });
 
-                                          await authController.login(
-                                              usernameController.text,
-                                              passwordController.text);
+                                          final isAuthenticated =
+                                              await authController.login(
+                                                  usernameController.text,
+                                                  passwordController.text);
 
-                                          if (authController
-                                                  .isAuthenticated.value ==
-                                              true) {
+                                          if (isAuthenticated == true) {
                                             setState(() {
                                               showCircular = false;
                                             });
@@ -153,8 +152,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 40, vertical: 15)),
                                       child: showCircular == true
-                                          ? const CircularProgressIndicator(
-                                              color: Colors.white,
+                                          ? const SizedBox(
+                                              width: 20,
+                                              height: 20,
+                                              child: CircularProgressIndicator(
+                                                color: Colors.white,
+                                              ),
                                             )
                                           : const Text(
                                               "Login",

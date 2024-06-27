@@ -19,7 +19,6 @@ import 'package:get/get.dart';
 
 import 'app/features/dashboard/views/screens/clients/edit_clients_dat.dart';
 import 'app/features/dashboard/views/screens/login_screen.dart';
-import 'app/features/dashboard/views/screens/sub screens of apartments/apt_details_sub_screen.dart';
 import 'app/features/dashboard/views/screens/work area/add_new_client_to_work_area.dart';
 import 'app/features/dashboard/views/screens/work area/working_area_details.dart';
 import 'app/providers/appartment_provider.dart';
