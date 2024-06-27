@@ -103,7 +103,7 @@ class _MyAppState extends State<MyApp> {
         GetPage(
           name: '/',
           page: () => const DashboardScreen(),
-          middlewares: [AuthMiddleware()],
+          // middlewares: [AuthMiddleware()],
         ),
         GetPage(name: '/login', page: () => const LoginScreen()),
         GetPage(name: '/apartmentdetail', page: () => const ApartmentDetail()),
@@ -116,11 +116,6 @@ class _MyAppState extends State<MyApp> {
         GetPage(
             name: '/workingareadetails', page: () => const WorkingAreDetails()),
         GetPage(name: '/editClientsData', page: () => const EditClientsData()),
-        GetPage(
-          name: '/second',
-          page: () => const SecondPage(),
-          middlewares: [AuthMiddleware()],
-        ),
       ],
       scrollBehavior: CustomScrollBehaviour(),
       builder: BotToastInit(),
