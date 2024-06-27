@@ -68,7 +68,7 @@ class _AllClientsListState extends State<AllClientsList> {
               return Column(
                 children: [
                   if (snapshot.data!.isEmpty) ...[
-                    const Center(child: Text('No Client Found')),
+                    const Center(child: Text('Не знайдено клієнта')),
                   ] else ...[
                     ListView.builder(
                         physics: const NeverScrollableScrollPhysics(),

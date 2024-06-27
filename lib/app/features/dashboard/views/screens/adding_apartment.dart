@@ -59,7 +59,7 @@ class FormsList extends StatelessWidget {
           height: 25,
         ),
         Text(
-          'Adding new appartment',
+          'Додати новий апартамент',
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 25,
@@ -67,7 +67,7 @@ class FormsList extends StatelessWidget {
           ),
         ),
         Text(
-          'Please fill the form',
+          'Будь ласка, заповніть форму',
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: 15),
         ),
@@ -181,7 +181,7 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
           keyboardType: TextInputType.multiline,
           style: const TextStyle(
               fontSize: 16, color: Colors.black, fontWeight: FontWeight.w500),
-          decoration: decorationForTextFormField('Contact Person'),
+          decoration: decorationForTextFormField('Контактна особа'),
           onChanged: (val) {
             contactPerson.text = val;
           },
@@ -196,7 +196,7 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
           keyboardType: TextInputType.multiline,
           style: const TextStyle(
               fontSize: 16, color: Colors.black, fontWeight: FontWeight.w500),
-          decoration: decorationForTextFormField('Address'),
+          decoration: decorationForTextFormField('Адреса'),
           onChanged: (val) {
             address.text = val;
           },
@@ -209,7 +209,7 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
           autofocus: false,
           style: const TextStyle(
               fontSize: 16, color: Colors.black, fontWeight: FontWeight.w500),
-          decoration: decorationForTextFormField('City'),
+          decoration: decorationForTextFormField('Місто'),
           onChanged: (val) {
             city.text = val!;
           },
@@ -234,7 +234,7 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
           autofocus: false,
           style: const TextStyle(
               fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField('Region'),
+          decoration: decorationForTextFormField('Район'),
           onChanged: (val) {
             region.text = val!;
           },
@@ -261,7 +261,7 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
           keyboardType: TextInputType.number,
           style: const TextStyle(
               fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField('Square'),
+          decoration: decorationForTextFormField('Площа'),
           onChanged: (val) {
             square.text = val;
           },
@@ -276,7 +276,7 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
           keyboardType: TextInputType.number,
           style: const TextStyle(
               fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField('Price',
+          decoration: decorationForTextFormField('Ціна',
               icon: const FaIcon(
                 FontAwesomeIcons.dollarSign,
                 color: Colors.grey,
@@ -293,7 +293,7 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
           autofocus: false,
           style: const TextStyle(
               fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField('Type'),
+          decoration: decorationForTextFormField('Тип'),
           onChanged: (val) {
             type.text = val!;
           },
@@ -321,7 +321,7 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
           keyboardType: TextInputType.multiline,
           style: const TextStyle(
               fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField('Description'),
+          decoration: decorationForTextFormField('Опис'),
           onChanged: (val) {
             description.text = val;
           },
@@ -336,7 +336,7 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
           keyboardType: TextInputType.multiline,
           style: const TextStyle(
               fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField('Floor'),
+          decoration: decorationForTextFormField('Поверх'),
           onChanged: (val) {
             floor.text = val;
           },
@@ -351,7 +351,7 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
           keyboardType: TextInputType.multiline,
           style: const TextStyle(
               fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField('Max Floor'),
+          decoration: decorationForTextFormField('Поверховість'),
           onChanged: (val) {
             maxFloor.text = val;
           },
@@ -366,7 +366,7 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
           keyboardType: TextInputType.multiline,
           style: const TextStyle(
               fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField('Phone'),
+          decoration: decorationForTextFormField('Телефон'),
           onChanged: (val) {
             phone.text = val;
           },
@@ -382,7 +382,7 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
           keyboardType: TextInputType.multiline,
           style: const TextStyle(
               fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField('Comments'),
+          decoration: decorationForTextFormField('Коментар'),
           onChanged: (val) {
             comments.text = val;
           },
@@ -411,7 +411,7 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
                 }
               },
               child: const Text(
-                'Submit',
+                'Зберегти',
                 style: TextStyle(
                     fontSize: 16,
                     color: Colors.black,

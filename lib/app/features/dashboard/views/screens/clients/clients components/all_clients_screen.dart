@@ -78,7 +78,7 @@ class FormsLists extends StatelessWidget {
               Expanded(
                 child: SearchField(
                   onSearch: controller.searchTask,
-                  hintText: "Search Task .. ",
+                  hintText: "Пошук .. ",
                 ),
               ),
             ],
@@ -94,7 +94,7 @@ class FormsLists extends StatelessWidget {
                   Get.toNamed('/addingNewClient');
                 },
                 child: const Text(
-                  '+ Add new Customer',
+                  '+ Додати нового клієнта',
                   style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.bold,

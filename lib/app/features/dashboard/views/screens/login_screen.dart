@@ -70,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 style: const TextStyle(
                                     fontWeight: FontWeight.w600),
                                 decoration: InputDecoration(
-                                  hintText: "User name",
+                                  hintText: "Ім'я користувача",
                                   isDense: true,
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(8),
@@ -100,7 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       color: Colors.grey,
                                     ),
                                   ),
-                                  hintText: "Password",
+                                  hintText: "Пароль",
                                   isDense: true,
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
@@ -139,7 +139,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         } else {
                                           setState(() {
                                             textForerror =
-                                                'Login or Password is wrong';
+                                                "Ім'я користувача або пароль є невірним";
                                             showCircular = false;
                                           });
                                         }
@@ -160,7 +160,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                               ),
                                             )
                                           : const Text(
-                                              "Login",
+                                              "Увійти",
                                               style: TextStyle(
                                                 fontSize: 20,
                                                 color: Colors.white,

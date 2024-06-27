@@ -22,7 +22,7 @@ class SearchField extends StatelessWidget {
         enabledBorder: const UnderlineInputBorder(
           borderSide: BorderSide(width: .1),
         ),
-        hintText: hintText ?? "search..",
+        hintText: hintText ?? "Пошук..",
       ),
       onEditingComplete: () {
         FocusScope.of(context).unfocus();

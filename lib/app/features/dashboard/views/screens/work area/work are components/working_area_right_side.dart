@@ -143,7 +143,7 @@ class _WorkingAreaRightSideState extends State<WorkingAreaRightSide> {
                 height: 30,
               ),
               const Text(
-                'Notifications',
+                'Сповіщення',
                 style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
@@ -217,7 +217,7 @@ class _WorkingAreaRightSideState extends State<WorkingAreaRightSide> {
                     }),
               ] else ...[
                 const Text(
-                  'No chat available',
+                  'Немає коментарів',
                   style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
@@ -236,7 +236,7 @@ class _WorkingAreaRightSideState extends State<WorkingAreaRightSide> {
               ),
               TextFormField(
                 controller: chatController,
-                decoration: decorationForTextFormField('Add message').copyWith(
+                decoration: decorationForTextFormField('Додати коментар').copyWith(
                   suffix: InkWell(
                     onTap: () {
                       if (chatController.text.isNotEmpty) {

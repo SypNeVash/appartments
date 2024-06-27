@@ -1,4 +1,5 @@
 import 'package:apartments/app/api/client_api.dart';
+import 'package:apartments/app/constans/app_constants.dart';
 import 'package:apartments/app/features/dashboard/views/components/text_form_fiel_decoration.dart';
 import 'package:apartments/app/models/customers_model.dart';
 import 'package:apartments/app/providers/clients_provider.dart';
@@ -47,11 +48,11 @@ class FormsEditClientList extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Edit Customer',
+          'Редагувати клієнта',
           style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
         ),
         Text(
-          'Please fill the form',
+          'Будь ласка, заповніть форму',
           style: TextStyle(fontSize: 15),
         ),
         SizedBox(
@@ -112,15 +113,7 @@ class _TextFormForEditingClientState extends State<TextFormForEditingClient> {
     }
   }
 
-  var rolesOfClient = [
-    "Recall",
-    "Meet",
-    "Inprogress",
-    "Finished",
-    "Freezed",
-    "Returned",
-    "Realtor"
-  ];
+ 
   String? selectedRole;
   getDataByID() async {
     customerModel = await ApiClient().fetchClientDataById();
@@ -158,7 +151,7 @@ class _TextFormForEditingClientState extends State<TextFormForEditingClient> {
           keyboardType: TextInputType.multiline,
           style: const TextStyle(
               fontSize: 16, color: Colors.black, fontWeight: FontWeight.w500),
-          decoration: decorationForTextFormField('Name'),
+          decoration: decorationForTextFormField("Ім'я"),
           // onChanged: (val) {
           //   name.text = val;
           // },
@@ -174,7 +167,7 @@ class _TextFormForEditingClientState extends State<TextFormForEditingClient> {
           keyboardType: TextInputType.number,
           style: const TextStyle(
               fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField('Passport'),
+          decoration: decorationForTextFormField('Паспорт'),
           // onChanged: (val) {
           //   passport.text = val;
           // },
@@ -190,7 +183,7 @@ class _TextFormForEditingClientState extends State<TextFormForEditingClient> {
           keyboardType: TextInputType.number,
           style: const TextStyle(
               fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField('Phone Number'),
+          decoration: decorationForTextFormField('Телефон'),
           // onChanged: (val) {
           //   phoneNumber.text = val;
           // },
@@ -203,7 +196,7 @@ class _TextFormForEditingClientState extends State<TextFormForEditingClient> {
           autofocus: false,
           style: const TextStyle(
               fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField('Status'),
+          decoration: decorationForTextFormField('Статус'),
           onChanged: (val) {
             status.text = val!;
           },
@@ -212,7 +205,7 @@ class _TextFormForEditingClientState extends State<TextFormForEditingClient> {
             size: 15,
             color: Colors.grey,
           ),
-          hint: const Text('Status'),
+          hint: const Text('Статус'),
           items: rolesOfClient.map((String value) {
             return DropdownMenuItem<String>(
               value: value,
@@ -257,7 +250,7 @@ class _TextFormForEditingClientState extends State<TextFormForEditingClient> {
                 }
               },
               child: const Text(
-                'Submit',
+                'Зберегти',
                 style: TextStyle(
                     fontSize: 16,
                     color: Colors.black,

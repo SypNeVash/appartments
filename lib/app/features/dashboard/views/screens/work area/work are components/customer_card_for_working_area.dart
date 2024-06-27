@@ -21,9 +21,9 @@ class CustomerCardForWorkingAre extends StatefulWidget {
 class _CustomerCardForWorkingAreState extends State<CustomerCardForWorkingAre> {
   void _showAlertDialog(String id) async {
     Get.defaultDialog(
-      title: "Wait!",
-      middleText: "Please confirm",
-      textConfirm: "Yes",
+      title: "Зачекайте!",
+      middleText: "Будь-ласка підтвердіть",
+      textConfirm: "Так",
       confirmTextColor: Colors.white,
       onConfirm: () async {
         final deleted = await WorkAreApi().deleteWorkAre(id);
@@ -38,7 +38,7 @@ class _CustomerCardForWorkingAreState extends State<CustomerCardForWorkingAre> {
               .fetchWorkingAreaList(1);
         });
       },
-      textCancel: "Back",
+      textCancel: "Назад",
       onCancel: () {},
     );
   }
@@ -48,7 +48,7 @@ class _CustomerCardForWorkingAreState extends State<CustomerCardForWorkingAre> {
       const SnackBar(
         backgroundColor: Colors.green,
         content: Text(
-          'Sucessfully deleted',
+          'Успішно видалено',
           style: TextStyle(color: Colors.white),
         ),
         duration: Duration(seconds: 2),
@@ -59,7 +59,7 @@ class _CustomerCardForWorkingAreState extends State<CustomerCardForWorkingAre> {
   showSnackBarForError() {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
-        content: Text('Try again'),
+        content: Text('Спробувати ще раз'),
         duration: Duration(seconds: 2),
       ),
     );
@@ -135,13 +135,13 @@ class _CustomerCardForWorkingAreState extends State<CustomerCardForWorkingAre> {
                     ),
                     const SizedBox(height: 5),
                     Text(
-                        'Tel: ${widget.workingAreaModel.customerCard!.phoneNumber}, ',
+                        'Тел: ${widget.workingAreaModel.customerCard!.phoneNumber}, ',
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(fontWeight: FontWeight.w700)),
                     const SizedBox(height: 5),
                     Row(
                       children: [
-                        const Text('Task: '),
+                        const Text('Завдання: '),
                         Container(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 7, vertical: 3),

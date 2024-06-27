@@ -62,7 +62,7 @@ class WorkAreaProvider extends ChangeNotifier {
       return _workingarealist;
     } catch (e) {
       _isLoading = false;
-      _errorMessage = 'Failed to search apartments: $e';
+      _errorMessage = 'Failed to search work area: $e';
       notifyListeners();
       return [];
     }

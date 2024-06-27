@@ -33,6 +33,16 @@ const regions = [
   "Сихівський",
 ];
 
+ var rolesOfClient = [
+    "Передзвонити",
+    "Зустріч",
+    "В процесі",
+    "Завершено",
+    "Заморожено",
+    "Повернувся",
+    "Ріелтор"
+  ];
+
 const cities = [
   "Львів",
 ];
@@ -54,8 +64,8 @@ const tasks = [
   "Заморожен"
 ];
 
-const String taskSelectionMeeting = "Встреча";
-const String taskSelectionCallLater = "Перезвонить позже";
+const String taskSelectionMeeting = "Зустріч";
+const String taskSelectionCallLater = "Передзвонити пізніше";
 
 final List<MultiSelectItem<String>> regionsItemsMulti = [
   MultiSelectItem<String>('Галицький', 'Галицький'),

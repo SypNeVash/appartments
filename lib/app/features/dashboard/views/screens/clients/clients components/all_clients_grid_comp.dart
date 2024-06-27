@@ -168,19 +168,19 @@ class _CustomerCardState extends State<CustomerCard> {
                 children: [
                   const SizedBox(height: 5),
                   Text(
-                    'Name: ${widget.customer.name}',
+                    "Ім'я: ${widget.customer.name}",
                     style: const TextStyle(
                         fontWeight: FontWeight.w700, fontSize: 17),
                   ),
                   const SizedBox(height: 5),
                   Text(
-                    'Passport: ${widget.customer.passport}',
+                    'Паспорт: ${widget.customer.passport}',
                     style: const TextStyle(
                         fontWeight: FontWeight.w600, fontSize: 15),
                   ),
                   const SizedBox(height: 5),
                   Text(
-                    'Phone: ${widget.customer.phoneNumber}, ',
+                    'Телефон: ${widget.customer.phoneNumber}, ',
                     style: const TextStyle(
                         overflow: TextOverflow.ellipsis,
                         fontWeight: FontWeight.w600,
@@ -190,7 +190,7 @@ class _CustomerCardState extends State<CustomerCard> {
                   Row(
                     children: [
                       const Text(
-                        'Status: ',
+                        'Статус: ',
                         style: TextStyle(
                             fontWeight: FontWeight.w500, fontSize: 15),
                       ),

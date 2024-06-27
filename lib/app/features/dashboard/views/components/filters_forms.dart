@@ -94,7 +94,7 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
           ),
           TextFormField(
             controller: _priceController,
-            decoration: decorationForTextFormField('Price'),
+            decoration: decorationForTextFormField('Ціна'),
             validator: (value) {
               return null; // Price is optional, so no validation
             },
@@ -107,7 +107,7 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
             autofocus: false,
             style: const TextStyle(
                 fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-            decoration: decorationForTextFormField('Type'),
+            decoration: decorationForTextFormField('Тип'),
             onChanged: (val) {
               _roomsController.text = val!;
             },
@@ -132,7 +132,7 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
             autofocus: false,
             style: const TextStyle(
                 fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-            decoration: decorationForTextFormField('Region'),
+            decoration: decorationForTextFormField('Район'),
             onChanged: (val) {
               _regionController.text = val!;
             },
@@ -157,7 +157,7 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
             autofocus: false,
             style: const TextStyle(
                 fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-            decoration: decorationForTextFormField('Status'),
+            decoration: decorationForTextFormField('Статус'),
             onChanged: (val) {
               _statusController.text = val!;
             },
@@ -195,7 +195,7 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
                   // }
                 },
                 child: const Text(
-                  'Search',
+                  'Пошук',
                   style: TextStyle(
                       fontSize: 16,
                       color: Colors.black,

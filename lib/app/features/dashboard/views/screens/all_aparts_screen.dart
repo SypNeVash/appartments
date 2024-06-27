@@ -48,12 +48,12 @@ class AllApartmentsScreenState extends State<AllApartmentsScreen> {
                   ),
                 );
               } else if (snapshot.hasError) {
-                return Center(child: Text('Error: ${snapshot.error}'));
+                return Center(child: Text('Помилка: ${snapshot.error}'));
               } else if (snapshot.hasData) {
                 return Column(
                   children: [
                     if (snapshot.data!.isEmpty) ...[
-                      const Text('No Apartments found'),
+                      const Text('Аппартаменти не були знайдені'),
                     ] else ...[
                       ListView.builder(
                         physics: const NeverScrollableScrollPhysics(),
@@ -104,7 +104,7 @@ class AllApartmentsScreenState extends State<AllApartmentsScreen> {
                   ],
                 );
               } else {
-                return const Center(child: Text('Loading'));
+                return const Center(child: Text('Завантаження'));
               }
             },
           );

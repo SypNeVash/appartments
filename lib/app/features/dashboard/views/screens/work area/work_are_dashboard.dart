@@ -103,7 +103,7 @@ class _WorkingAreaListState extends State<WorkingAreaList> {
               return Column(
                 children: [
                   if (snapshot.data!.isEmpty) ...[
-                    const Center(child: Text('No Client Found')),
+                    const Center(child: Text('Клієнти не були знайдені')),
                   ] else ...[
                     ListView.builder(
                         physics: const NeverScrollableScrollPhysics(),
@@ -138,7 +138,7 @@ class _WorkingAreaListState extends State<WorkingAreaList> {
                 ],
               );
             } else {
-              return const Center(child: Text('Loading data'));
+              return const Center(child: Text('Завантаження даних'));
             }
           });
     });
@@ -170,7 +170,7 @@ class FormsLists extends StatelessWidget {
               Expanded(
                 child: SearchField(
                   onSearch: controller.searchTask,
-                  hintText: "Search .. ",
+                  hintText: "Пошук .. ",
                 ),
               ),
             ],
@@ -186,7 +186,7 @@ class FormsLists extends StatelessWidget {
                   Get.toNamed('/addingNewWorkArea');
                 },
                 child: const Text(
-                  '+ New Work Are',
+                  '+ Додати робочий простір',
                   style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.bold,

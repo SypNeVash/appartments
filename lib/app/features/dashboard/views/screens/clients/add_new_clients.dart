@@ -1,3 +1,4 @@
+import 'package:apartments/app/constans/app_constants.dart';
 import 'package:apartments/app/features/dashboard/views/components/text_form_fiel_decoration.dart';
 import 'package:apartments/app/shared_components/responsive_builder.dart';
 import 'package:apartments/app/utils/services/shared_preferences.dart';
@@ -70,12 +71,12 @@ class FormsList extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          'Adding new Customer',
+          'Додати нового клієнта',
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
         ),
         Text(
-          'Please fill the form',
+          'Будь ласка, заповніть форму',
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: 15),
         ),
@@ -138,19 +139,6 @@ class _TextFormForAddingNewClientsState
     }
   }
 
-  var statusOfClient = [
-    "Recall",
-    "Meet",
-    "Inprogress",
-    "Finished",
-    "Freezed",
-    "Returned",
-    "Realtor"
-  ];
-  var rolesOfClient = [
-    "Stuff",
-    "Customer",
-  ];
   @override
   void dispose() {
     name.dispose();
@@ -184,7 +172,7 @@ class _TextFormForAddingNewClientsState
             keyboardType: TextInputType.multiline,
             style: const TextStyle(
                 fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-            decoration: decorationForTextFormField('Name'),
+            decoration: decorationForTextFormField("Им'я"),
             onChanged: (val) {
               name.text = val;
             },
@@ -199,7 +187,7 @@ class _TextFormForAddingNewClientsState
             keyboardType: TextInputType.number,
             style: const TextStyle(
                 fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-            decoration: decorationForTextFormField('Passport'),
+            decoration: decorationForTextFormField('Паспорт'),
             onChanged: (val) {
               passport.text = val;
             },
@@ -214,7 +202,7 @@ class _TextFormForAddingNewClientsState
             keyboardType: TextInputType.number,
             style: const TextStyle(
                 fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-            decoration: decorationForTextFormField('Phone Number'),
+            decoration: decorationForTextFormField('Телефон'),
             onChanged: (val) {
               phoneNumber.text = val;
             },
@@ -229,7 +217,7 @@ class _TextFormForAddingNewClientsState
               fontSize: 16,
               color: Colors.black,
             ),
-            decoration: decorationForTextFormField('Status').copyWith(
+            decoration: decorationForTextFormField('Статус').copyWith(
               border: const OutlineInputBorder(),
               errorBorder: const OutlineInputBorder(
                 borderSide: BorderSide(
@@ -253,14 +241,14 @@ class _TextFormForAddingNewClientsState
               color: Colors.grey,
             ),
             hint: const Text(
-              'Status',
+              'Статус',
               style: TextStyle(
                 fontSize: 14,
                 color: Color.fromARGB(255, 112, 112, 112),
               ),
             ),
             validator: Validator.validateDropDefaultData,
-            items: statusOfClient.map((String value) {
+            items: rolesOfClient.map((String value) {
               return DropdownMenuItem<String>(
                 value: value,
                 child: Text(value),
@@ -303,7 +291,7 @@ class _TextFormForAddingNewClientsState
                   }
                 },
                 child: const Text(
-                  'Submit',
+                  'Зберегти',
                   style: TextStyle(
                       fontSize: 16,
                       color: Colors.black,

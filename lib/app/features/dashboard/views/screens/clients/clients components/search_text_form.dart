@@ -46,7 +46,7 @@ class _ClientSearchFormState extends State<ClientSearchForm> {
         children: [
           TextFormField(
             controller: _phoneController,
-            decoration: decorationForTextFormField('Phone'),
+            decoration: decorationForTextFormField('Телефон'),
             validator: (value) {
               return null;
             },
@@ -65,7 +65,7 @@ class _ClientSearchFormState extends State<ClientSearchForm> {
                   _submitForm();
                 },
                 child: const Text(
-                  'Search',
+                  'Пошук',
                   style: TextStyle(
                       fontSize: 16,
                       color: Colors.black,

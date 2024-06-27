@@ -122,7 +122,7 @@ Widget _buildTaskContent(
             Expanded(
               child: SearchField(
                 onSearch: controller.searchTask,
-                hintText: "Search Task .. ",
+                hintText: "Пошук .. ",
               ),
             ),
           ],
@@ -137,7 +137,7 @@ Widget _buildTaskContent(
             ),
             const SizedBox(width: kSpacing / 2),
             Text(
-              '$numberOfApartment out of 970',
+              '10 з $numberOfApartment',
               style: const TextStyle(
                 fontSize: 16,
                 color: Color.fromARGB(255, 105, 105, 105),
@@ -178,7 +178,7 @@ class _BuilFilterContentState extends State<BuilFilterContent> {
           const SizedBox(height: kSpacing),
           Row(
             children: [
-              const Expanded(child: HeaderText("Filter")),
+              const Expanded(child: HeaderText("Фільтр")),
               IconButton(
                 onPressed: () {
                   if (widget.isActive == true || widget.isActive == null) {

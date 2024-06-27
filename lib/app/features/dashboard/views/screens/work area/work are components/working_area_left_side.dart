@@ -227,7 +227,7 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
         backgroundColor: Colors.green,
         content: Center(
           child: Text(
-            'Sucessfully edited',
+            'Успішно змінено',
             style: TextStyle(color: Colors.white),
           ),
         ),
@@ -239,7 +239,7 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
   showSnackBarForError() {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
-        content: Center(child: Text('Try again')),
+        content: Center(child: Text('Спробувати ще раз')),
         duration: Duration(seconds: 2),
       ),
     );
@@ -247,15 +247,15 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
 
   Color _getColorForValue(String? value) {
     switch (value) {
-      case 'Встреча':
+      case 'Зустріч':
         return const Color.fromARGB(255, 171, 107, 255);
-      case 'Перезвонить позже':
+      case 'Передзвонити пізніше':
         return Colors.yellow;
-      case 'Оплачен':
+      case 'Сплачено':
         return Colors.green;
-      case 'Заселен':
+      case 'Заселений':
         return const Color.fromARGB(255, 175, 219, 255);
-      case 'Заморожен':
+      case 'Заморожений':
         return Colors.red;
       default:
         return Colors.white;
@@ -276,7 +276,7 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
           icon: const Icon(EvaIcons.arrowBack),
         ),
         title: const Text(
-          'Working Area',
+          'Робочий простір',
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700),
         ),
         centerTitle: true,
@@ -323,7 +323,7 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text(
-                          'Customer details',
+                          'Дані клієнта',
                           style: TextStyle(
                               fontSize: 18, fontWeight: FontWeight.w700),
                         ),
@@ -409,7 +409,7 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
                           buildEditableTextField(
                             controller: responsibleStaffController,
                             isEditing: isEditingResponsibleStaff,
-                            label: 'Responsible Stuff',
+                            label: 'Відповідальна персона',
                             onEdit: () {
                               setState(() {
                                 isEditingResponsibleStaff = true;
@@ -455,7 +455,7 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
                           MultiSelector(
                             items: _regionsItems,
                             initialValue: selectedRegions,
-                            fieldText: 'Select Regions',
+                            fieldText: 'Вибрати район',
                             onConfirm: (results) {
                               setState(() {
                                 selectedRegions = List<String>.from(results);
@@ -468,7 +468,7 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
                           MultiSelector(
                             items: _typesApartItems,
                             initialValue: selectedAparts,
-                            fieldText: 'Select Aprtment',
+                            fieldText: 'Вибрати тип апартаментів',
                             onConfirm: (results) {
                               setState(() {
                                 selectedAparts = List<String>.from(results);
@@ -481,7 +481,7 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
                           buildEditableTextField(
                             controller: priceController,
                             isEditing: isEditingPrice,
-                            label: 'Customer Name',
+                            label: "Ціна",
                             onEdit: () {
                               setState(() {
                                 isEditingPrice = true;
@@ -502,7 +502,7 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
                                 child: buildEditableTextField(
                                   controller: minFloorController,
                                   isEditing: isEditingMinFloor,
-                                  label: 'Customer Name',
+                                  label: "Мінімальний поверх",
                                   onEdit: () {
                                     setState(() {
                                       isEditingMinFloor = true;
@@ -522,7 +522,7 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
                                 child: buildEditableTextField(
                                   controller: maxFloorController,
                                   isEditing: isEditingMaxFloor,
-                                  label: 'Customer Name',
+                                  label: "Максимальний поверх",
                                   onEdit: () {
                                     setState(() {
                                       isEditingMaxFloor = true;
@@ -543,7 +543,7 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
                           buildEditableTextField(
                             controller: residentsController,
                             isEditing: isEditingResidents,
-                            label: 'Residents Number',
+                            label: 'Громадянство',
                             onEdit: () {
                               setState(() {
                                 isEditingResidents = true;
@@ -561,7 +561,7 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
                           buildEditableTextField(
                             controller: linkController,
                             isEditing: isEditingLink,
-                            label: 'Residents Number',
+                            label: "Прив'язка",
                             onEdit: () {
                               setState(() {
                                 isEditingLink = true;
@@ -579,7 +579,7 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
                           buildEditableTextField(
                             controller: registrationController,
                             isEditing: isEditingRegions,
-                            label: 'Residents Number',
+                            label: 'Прописка',
                             onEdit: () {
                               setState(() {
                                 isEditingRegions = true;
@@ -597,7 +597,7 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
                           buildEditableTextField(
                             controller: checkInController,
                             isEditing: isEditingCheckIn,
-                            label: 'Residents Number',
+                            label: 'Заїзд',
                             onEdit: () {
                               setState(() {
                                 isEditingCheckIn = true;
@@ -615,7 +615,7 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
                           buildEditableTextField(
                               controller: commentsController,
                               isEditing: isEditingComments,
-                              label: 'Residents Number',
+                              label: 'Комент',
                               onEdit: () {
                                 setState(() {
                                   isEditingComments = true;
@@ -639,7 +639,7 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
                                 color: Color.fromARGB(255, 0, 0, 0),
                                 fontWeight: FontWeight.w500),
                             decoration:
-                                decorationForTextFormField('Task').copyWith(
+                                decorationForTextFormField('Завдання').copyWith(
                               fillColor: _getColorForValue(taskController.text),
                             ),
                             onChanged: (val) {

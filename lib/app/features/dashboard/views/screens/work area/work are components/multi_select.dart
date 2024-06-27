@@ -33,7 +33,7 @@ class MultiSelector extends StatelessWidget {
         color: Colors.blue,
       ),
       buttonText: Text(
-        "Select Regions",
+        "Вибрати регіон",
         style: TextStyle(
           color: Colors.blue[800],
           fontSize: 15,
@@ -42,7 +42,7 @@ class MultiSelector extends StatelessWidget {
       onConfirm: onConfirm,
       validator: (values) {
         if (values == null || values.isEmpty) {
-          return "Please select one or more regions";
+          return "Будь ласка, виберіть регіон";
         }
         return null;
       },

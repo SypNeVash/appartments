@@ -32,30 +32,30 @@ class _MainMenuState extends State<_MainMenu> {
         SelectionButtonData(
           activeIcon: EvaIcons.home,
           icon: EvaIcons.homeOutline,
-          label: "Apartments",
+          label: "Апартаменти",
         ),
 
         if (role != 'Customer') ...[
           SelectionButtonData(
             activeIcon: EvaIcons.fileAddOutline,
             icon: EvaIcons.fileAddOutline,
-            label: "Add Apartment",
+            label: "Додати апартамент",
             totalNotif: 100,
           ),
           SelectionButtonData(
             activeIcon: EvaIcons.personOutline,
             icon: EvaIcons.personOutline,
-            label: "Customers",
+            label: "Клієнти",
           ),
           SelectionButtonData(
             activeIcon: EvaIcons.monitorOutline,
             icon: EvaIcons.monitorOutline,
-            label: "Working Area",
+            label: "Робочий простір",
           ),
           SelectionButtonData(
             activeIcon: EvaIcons.logOutOutline,
             icon: EvaIcons.logOutOutline,
-            label: "Log out",
+            label: "Вийти",
           ),
         ] else
           ...[],

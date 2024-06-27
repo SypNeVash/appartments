@@ -74,11 +74,11 @@ class FormsEditList extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          'Edit appartment',
+          'Редагувати апартамент',
           style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
         ),
         Text(
-          'Please fill the form',
+          'Будь ласка, заповніть форму',
           style: TextStyle(fontSize: 15),
         ),
         SizedBox(

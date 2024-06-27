@@ -177,7 +177,7 @@ class _TextFormForAddingEditingAptState
           keyboardType: TextInputType.multiline,
           style: const TextStyle(
               fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField('Contact Person'),
+          decoration: decorationForTextFormField('Контактна особа'),
           // onChanged: (val) {
           //   contactPerson.text = val;
           // },
@@ -193,7 +193,7 @@ class _TextFormForAddingEditingAptState
           keyboardType: TextInputType.multiline,
           style: const TextStyle(
               fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField('Address'),
+          decoration: decorationForTextFormField('Адреса'),
           // onChanged: (val) {
           //   address.text = val;
           // },
@@ -206,7 +206,7 @@ class _TextFormForAddingEditingAptState
           autofocus: false,
           style: const TextStyle(
               fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField('Status'),
+          decoration: decorationForTextFormField('Статус'),
           onChanged: (val) {
             status.text = val!;
           },
@@ -232,7 +232,7 @@ class _TextFormForAddingEditingAptState
           autofocus: false,
           style: const TextStyle(
               fontSize: 16, color: Colors.black, fontWeight: FontWeight.w500),
-          decoration: decorationForTextFormField('City'),
+          decoration: decorationForTextFormField('Місто'),
           onChanged: (val) {
             city.text = val!;
           },
@@ -241,7 +241,7 @@ class _TextFormForAddingEditingAptState
             size: 15,
             color: Colors.grey,
           ),
-          hint: const Text('City'),
+          hint: const Text('Місто'),
           items: cities.map((String value) {
             return DropdownMenuItem<String>(
               value: value,
@@ -258,7 +258,7 @@ class _TextFormForAddingEditingAptState
           autofocus: false,
           style: const TextStyle(
               fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField('Region'),
+          decoration: decorationForTextFormField('Район'),
           onChanged: (val) {
             region.text = val!;
           },
@@ -267,7 +267,7 @@ class _TextFormForAddingEditingAptState
             size: 15,
             color: Colors.grey,
           ),
-          hint: const Text('Region'),
+          hint: const Text('Район'),
           items: regions.map((String value) {
             return DropdownMenuItem<String>(
               value: value,
@@ -287,7 +287,7 @@ class _TextFormForAddingEditingAptState
           keyboardType: TextInputType.number,
           style: const TextStyle(
               fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField('Square'),
+          decoration: decorationForTextFormField('Площа'),
           // onChanged: (val) {
           //   square.text = val;
           // },
@@ -303,7 +303,7 @@ class _TextFormForAddingEditingAptState
           keyboardType: TextInputType.number,
           style: const TextStyle(
               fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField('Price',
+          decoration: decorationForTextFormField('Ціна',
               icon: const FaIcon(
                 FontAwesomeIcons.dollarSign,
                 color: Colors.grey,
@@ -320,7 +320,7 @@ class _TextFormForAddingEditingAptState
           autofocus: false,
           style: const TextStyle(
               fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField('Type'),
+          decoration: decorationForTextFormField('Тип'),
           onChanged: (val) {
             type.text = val!;
           },
@@ -329,7 +329,7 @@ class _TextFormForAddingEditingAptState
             size: 15,
             color: Colors.grey,
           ),
-          hint: const Text('Type'),
+          hint: const Text('Тип'),
           items: types.map((String value) {
             return DropdownMenuItem<String>(
               value: value,
@@ -350,7 +350,7 @@ class _TextFormForAddingEditingAptState
           keyboardType: TextInputType.multiline,
           style: const TextStyle(
               fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField('Description'),
+          decoration: decorationForTextFormField('Опис'),
           // onChanged: (val) {
           //   description.text = val;
           // },
@@ -366,7 +366,7 @@ class _TextFormForAddingEditingAptState
           keyboardType: TextInputType.multiline,
           style: const TextStyle(
               fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField('Floor'),
+          decoration: decorationForTextFormField('Поверх'),
           // onChanged: (val) {
           //   floor.text = val;
           // },
@@ -382,7 +382,7 @@ class _TextFormForAddingEditingAptState
           keyboardType: TextInputType.multiline,
           style: const TextStyle(
               fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField('Max Floor'),
+          decoration: decorationForTextFormField('Максимальний поверх'),
           // onChanged: (val) {
           //   floor.text = val;
           // },
@@ -398,7 +398,7 @@ class _TextFormForAddingEditingAptState
           keyboardType: TextInputType.multiline,
           style: const TextStyle(
               fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField('Phone'),
+          decoration: decorationForTextFormField('Телефон'),
           onChanged: (val) {
             phone.text = val;
           },
@@ -415,7 +415,7 @@ class _TextFormForAddingEditingAptState
           keyboardType: TextInputType.multiline,
           style: const TextStyle(
               fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField('Comments'),
+          decoration: decorationForTextFormField('Коментарій'),
           onChanged: (val) {
             comments.text = val;
           },
@@ -443,7 +443,7 @@ class _TextFormForAddingEditingAptState
                 }
               },
               child: const Text(
-                'Submit',
+                'Зберегти',
                 style: TextStyle(
                     fontSize: 16,
                     color: Colors.black,

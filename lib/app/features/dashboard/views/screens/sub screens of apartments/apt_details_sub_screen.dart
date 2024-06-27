@@ -30,9 +30,9 @@ class _ApartmentDetailsSubScreenState extends State<ApartmentDetailsSubScreen> {
   String? role;
   void _showAlertDialog() async {
     Get.defaultDialog(
-      title: "Wait!",
-      middleText: "Are you sure?",
-      textConfirm: "Yes",
+      title: "Зачекай!",
+      middleText: "Ти впевнений?",
+      textConfirm: "Так",
       confirmTextColor: Colors.white,
       onConfirm: () async {
         String apartmentId = await SPHelper.getIDAptSharedPreference() ?? '';
@@ -53,7 +53,7 @@ class _ApartmentDetailsSubScreenState extends State<ApartmentDetailsSubScreen> {
           showSnackBarForError();
         }
       },
-      textCancel: "Back",
+      textCancel: "Назад",
       onCancel: () {
         // Perform any action on cancel, if needed
       },
@@ -93,7 +93,7 @@ class _ApartmentDetailsSubScreenState extends State<ApartmentDetailsSubScreen> {
               ),
             ));
           } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
+            return Center(child: Text('Помилка: ${snapshot.error}'));
           } else if (snapshot.hasData) {
             ApartmentModel apartment = snapshot.data!;
             return Container(
@@ -124,7 +124,7 @@ class _ApartmentDetailsSubScreenState extends State<ApartmentDetailsSubScreen> {
                           //   ),
                           // ),
                           const Text(
-                            "Apartment details",
+                            "Детальна інформація про квартиру",
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w700,
@@ -160,7 +160,7 @@ class _ApartmentDetailsSubScreenState extends State<ApartmentDetailsSubScreen> {
                           width: 5,
                         ),
                         const Text(
-                          'Status: ',
+                          'Статус: ',
                           style: TextStyle(
                               fontSize: 14, fontWeight: FontWeight.w700),
                         ),
@@ -304,7 +304,7 @@ class _ApartmentDetailsSubScreenState extends State<ApartmentDetailsSubScreen> {
                         child1: Row(
                           children: [
                             const Text(
-                              'Address: ',
+                              'Адреса: ',
                               style: TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.w600),
                             ),
@@ -319,7 +319,7 @@ class _ApartmentDetailsSubScreenState extends State<ApartmentDetailsSubScreen> {
                         child2: Row(
                           children: [
                             const Text(
-                              'Square: ',
+                              'Площа: ',
                               style: TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.w600),
                             ),
@@ -334,7 +334,7 @@ class _ApartmentDetailsSubScreenState extends State<ApartmentDetailsSubScreen> {
                         Row(
                           children: [
                             const Text(
-                              'Tel: ',
+                              'Тел: ',
                               style: TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.w600),
                             ),
@@ -356,7 +356,7 @@ class _ApartmentDetailsSubScreenState extends State<ApartmentDetailsSubScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text(
-                            "About Apartment",
+                            "Про квартиру",
                             style: TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.w600),
                           ),
@@ -393,7 +393,7 @@ class _ApartmentDetailsSubScreenState extends State<ApartmentDetailsSubScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Text(
-                              "Comments",
+                              "Коментарій",
                               style: TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.w600),
                             ),
@@ -439,7 +439,7 @@ class _ApartmentDetailsSubScreenState extends State<ApartmentDetailsSubScreen> {
                               // );
                             },
                             child: const Text(
-                              'Edit',
+                              'Редагувати',
                               style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.w600,
@@ -453,7 +453,7 @@ class _ApartmentDetailsSubScreenState extends State<ApartmentDetailsSubScreen> {
               ),
             );
           } else {
-            return const Center(child: Text('No data available'));
+            return const Center(child: Text('Дані не доступні'));
           }
         });
   }

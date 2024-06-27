@@ -35,8 +35,8 @@ class WorkingAreMainEdit extends StatelessWidget {
               child: const Column(
                 children: [
                   FormHeadline(
-                    headLine: 'Adding new working area',
-                    subLine: 'Be sure o fill the form',
+                    headLine: 'Новий робочий простір',
+                    subLine: "Обов'язково заповніть форму",
                   ),
                   WorkingAreaForm()
                 ],
@@ -53,8 +53,8 @@ class WorkingAreMainEdit extends StatelessWidget {
                 child: const Column(
                   children: [
                     FormHeadline(
-                      headLine: 'Adding new working area',
-                      subLine: 'Be sure o fill the form',
+                      headLine: 'Новий робочий простір',
+                      subLine: "Обов'язково заповніть форму",
                     ),
                     WorkingAreaForm()
                   ],
@@ -71,8 +71,8 @@ class WorkingAreMainEdit extends StatelessWidget {
                 child: const Column(
                   children: [
                     FormHeadline(
-                      headLine: 'Adding new working area',
-                      subLine: 'Be sure o fill the form',
+                      headLine: 'Новий робочий простір',
+                      subLine: "Обов'язково заповніть форму",
                     ),
                     WorkingAreaForm()
                   ],
@@ -211,7 +211,7 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
                 TextFormField(
                   controller: customerPhoneNumberController,
                   decoration:
-                      decorationForTextFormField('Customer Phone Number')
+                      decorationForTextFormField('Номер телефона клієнта')
                           .copyWith(
                               suffixIcon: Padding(
                     padding: const EdgeInsets.only(top: 10.0),
@@ -225,7 +225,7 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
                   )),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter Customer Phone Number';
+                      return 'Будь ласка, введіть номер телефона клієнта';
                     }
                     return null;
                   },
@@ -246,14 +246,14 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
               Padding(
                 padding: const EdgeInsets.only(bottom: 15.0),
                 child: DropdownButtonFormField<CustomerModel?>(
-                  hint: const Text('Select Customer'),
+                  hint: const Text('Виберіть Клієнта'),
                   value: _selectedCustomerCard,
                   style: const TextStyle(
                     fontSize: 16,
                     color: Color.fromARGB(255, 0, 0, 0),
                     fontWeight: FontWeight.w500,
                   ),
-                  decoration: decorationForTextFormField('Select Customer'),
+                  decoration: decorationForTextFormField('Виберіть Клієнта'),
                   onChanged: (CustomerModel? newValue) {
                     setState(() {
                       _selectedCustomerCard = newValue;
@@ -288,10 +288,10 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
             // ),
             TextFormField(
               controller: customerNameController,
-              decoration: decorationForTextFormField('Customer Name'),
+              decoration: decorationForTextFormField("Ім'я клієнта"),
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'Please enter Customer Name';
+                  return "Будь ласка, введіть ім'я клієнта";
                 }
                 return null;
               },
@@ -340,10 +340,10 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
             ),
             TextFormField(
               controller: responsibleStaffController,
-              decoration: decorationForTextFormField('Responsible Staff'),
+              decoration: decorationForTextFormField('Відповідальна персона'),
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'Please enter Responsible Staff';
+                  return 'Будь ласка, введіть відповідальу персону';
                 }
                 return null;
               },
@@ -369,7 +369,7 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
                   fontSize: 15,
                   color: Color.fromARGB(255, 0, 0, 0),
                   fontWeight: FontWeight.w500),
-              decoration: decorationForTextFormField('Rate'),
+              decoration: decorationForTextFormField('Тариф'),
               onChanged: (val) {
                 rateController.text = val!;
               },
@@ -391,7 +391,7 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
             ),
             TextFormField(
               controller: priceController,
-              decoration: decorationForTextFormField('Price'),
+              decoration: decorationForTextFormField('Ціна'),
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Please enter Price';
@@ -404,10 +404,10 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
             ),
             TextFormField(
               controller: minFloorController,
-              decoration: decorationForTextFormField('Min Floor'),
+              decoration: decorationForTextFormField('Мінімальний поверх'),
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'Please enter Min Floor';
+                  return 'Введіть мінімальний поверх';
                 }
                 return null;
               },
@@ -417,10 +417,10 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
             ),
             TextFormField(
               controller: maxFloorController,
-              decoration: decorationForTextFormField('Max Floor'),
+              decoration: decorationForTextFormField('Максимальний поверх'),
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'Please enter Max Floor';
+                  return 'Введіть максимальний поверх';
                 }
                 return null;
               },
@@ -430,7 +430,7 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
             ),
             TextFormField(
               controller: residentsController,
-              decoration: decorationForTextFormField('Residents'),
+              decoration: decorationForTextFormField('Громадянство'),
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Please enter Residents';
@@ -443,7 +443,7 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
             ),
             MultiSelectDialogField(
               items: regionsItemsMulti,
-              title: const Text("Regions"),
+              title: const Text("Район"),
               selectedColor: Colors.blue,
               decoration: BoxDecoration(
                 color: Colors.blue.withOpacity(0.1),
@@ -458,7 +458,7 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
                 color: Colors.blue,
               ),
               buttonText: Text(
-                "Select Regions",
+                "Виберіть райони",
                 style: TextStyle(
                   color: Colors.blue[800],
                   fontSize: 15,
@@ -471,7 +471,7 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
               },
               validator: (values) {
                 if (values == null || values.isEmpty) {
-                  return "Please select one or more regions";
+                  return "Виберіть один або декілька районів";
                 }
                 return null;
               },
@@ -481,7 +481,7 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
             ),
             MultiSelectDialogField(
               items: typesAppartMulti,
-              title: const Text("Types"),
+              title: const Text("Типи квартир"),
               selectedColor: Colors.blue,
               decoration: BoxDecoration(
                 color: Colors.blue.withOpacity(0.1),
@@ -496,7 +496,7 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
                 color: Colors.blue,
               ),
               buttonText: Text(
-                "Select Apartment Type",
+                "Виберіть типи квартир",
                 style: TextStyle(
                   color: Colors.blue[800],
                   fontSize: 15,
@@ -509,7 +509,7 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
               },
               validator: (values) {
                 if (values == null || values.isEmpty) {
-                  return "Please select one or more regions";
+                  return "Виберіть один або декілька типів";
                 }
                 return null;
               },
@@ -519,10 +519,10 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
             ),
             TextFormField(
               controller: linkController,
-              decoration: decorationForTextFormField('Link'),
+              decoration: decorationForTextFormField('Привязка'),
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'Please enter Link';
+                  return 'Введіть посилання';
                 }
                 return null;
               },
@@ -532,10 +532,10 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
             ),
             TextFormField(
               controller: registrationController,
-              decoration: decorationForTextFormField('Registration'),
+              decoration: decorationForTextFormField('Реєстрація'),
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'Please enter Registration';
+                  return 'Будь ласка, введіть реєстрацію';
                 }
                 return null;
               },
@@ -545,10 +545,10 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
             ),
             TextFormField(
               controller: checkInController,
-              decoration: decorationForTextFormField('Check In'),
+              decoration: decorationForTextFormField('Заїзд'),
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'Please enter Check In';
+                  return 'Будь ласка, введіть дату заїзда';
                 }
                 return null;
               },
@@ -559,10 +559,10 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
             TextFormField(
               controller: commentsController,
               maxLines: 5,
-              decoration: decorationForTextFormField('Comments'),
+              decoration: decorationForTextFormField('Коментар'),
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'Please enter Comments';
+                  return 'Будь ласка, введіть коментарь';
                 }
                 return null;
               },
@@ -579,7 +579,7 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
                   fontSize: 15,
                   color: Color.fromARGB(255, 0, 0, 0),
                   fontWeight: FontWeight.w500),
-              decoration: decorationForTextFormField('Tasks'),
+              decoration: decorationForTextFormField('Завдання'),
               onChanged: (val) {
                 taskController.text = val!;
               },
@@ -678,7 +678,7 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
                     }
                   },
                   child: const Text(
-                    'Save',
+                    'Зберегти',
                     style: TextStyle(
                         fontSize: 16,
                         color: Colors.black,
