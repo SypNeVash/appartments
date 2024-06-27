@@ -12,15 +12,8 @@ class WorkingAreDetails extends StatelessWidget {
     return Scaffold(
         body: SafeArea(
             child: ResponsiveBuilder(mobileBuilder: (context, constraints) {
-      return const Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Flexible(
-            child: WorkingFieldEditForm(
-              isMobile: true,
-            ),
-          ),
-        ],
+      return const WorkingFieldEditForm(
+        isMobile: true,
       );
     }, tabletBuilder: (context, constraints) {
       return Row(

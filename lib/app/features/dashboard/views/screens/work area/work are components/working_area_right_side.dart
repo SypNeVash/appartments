@@ -128,7 +128,6 @@ class _WorkingAreaRightSideState extends State<WorkingAreaRightSide> {
                 icon: const Icon(EvaIcons.arrowBack),
               ),
               centerTitle: true,
-              backgroundColor: Colors.blue,
             )
           : null,
       body: SingleChildScrollView(

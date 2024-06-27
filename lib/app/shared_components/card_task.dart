@@ -2,7 +2,6 @@ import 'package:apartments/app/models/get_all_appart_model.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CardTask extends StatelessWidget {
@@ -265,7 +264,7 @@ class CardTask extends StatelessWidget {
     );
   }
 
-   Widget _buildAddress() {
+  Widget _buildAddress() {
     return _IconLabel(
       color: onPrimary,
       iconData: EvaIcons.pin,

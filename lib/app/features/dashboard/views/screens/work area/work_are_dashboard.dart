@@ -52,15 +52,13 @@ class WorkingAreaDashboard extends StatefulWidget {
 class _WorkingAreaDashboardState extends State<WorkingAreaDashboard> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          FormsLists(
-            openDrawer: widget.openDrawer,
-          ),
-          const WorkingAreaList(),
-        ],
-      ),
+    return Column(
+      children: [
+        FormsLists(
+          openDrawer: widget.openDrawer,
+        ),
+        const WorkingAreaList(),
+      ],
     );
   }
 }

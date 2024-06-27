@@ -1,4 +1,5 @@
 import 'package:apartments/app/constans/app_constants.dart';
+import 'package:apartments/app/features/dashboard/views/screens/apartment_details.dart';
 import 'package:apartments/app/models/get_all_appart_model.dart';
 import 'package:apartments/app/providers/appartment_provider.dart';
 import 'package:apartments/app/shared_components/card_task.dart';
@@ -68,8 +69,14 @@ class AllApartmentsScreenState extends State<AllApartmentsScreen> {
                               onTap: () async {
                                 await SPHelper.saveIDAptSharedPreference(
                                     snapshot.data![index].id.toString());
-                                Get.toNamed(
-                                  '/apartmentdetail',
+                                // Get.toNamed(
+                                //   '/apartmentdetail',
+                                // );
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const ApartmentDetail()),
                                 );
                               },
                               child: CardTask(

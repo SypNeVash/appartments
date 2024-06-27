@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:ui';
 import 'package:apartments/app/api/token_control.dart';
 import 'package:apartments/app/features/dashboard/controllers/authcontroller.dart';
@@ -11,8 +12,10 @@ import 'package:apartments/app/providers/clients_provider.dart';
 import 'package:apartments/app/providers/work_area_provider.dart';
 import 'package:apartments/app/utils/helpers/navigation_services.dart';
 import 'package:bot_toast/bot_toast.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:provider/provider.dart';
 
+import 'app/api/additional_api.dart';
 import 'app/config/themes/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -56,6 +59,8 @@ class MyNavigatorObserver extends NavigatorObserver {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  bool isMobile = await isMobileDevice();
+  await saveIsMobileToSharedPreferences(isMobile);
   Get.put(DashboardController()); // Initialize DashboardController
   final authController = Get.put(AuthController());
   await authController.checkAuthenticationStatus();

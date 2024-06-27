@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:apartments/app/api/additional_api.dart';
 import 'package:apartments/app/api/work_are_api.dart';
 import 'package:apartments/app/constans/app_constants.dart';
 import 'package:apartments/app/features/dashboard/views/components/text_form_fiel_decoration.dart';
@@ -14,6 +15,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:multi_select_flutter/util/multi_select_item.dart';
 
+import '../../dashboard_screen.dart';
 import 'working_area_right_side.dart';
 
 class WorkingFieldEditForm extends StatefulWidget {
@@ -137,10 +139,19 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
     });
   }
 
+  bool? _isMobile;
   @override
   void initState() {
     getWorkAreaUsingID();
+    _loadIsMobile();
     super.initState();
+  }
+
+  Future<void> _loadIsMobile() async {
+    bool? isMobile = await getIsMobileFromSharedPreferences();
+    setState(() {
+      _isMobile = isMobile;
+    });
   }
 
   @override
@@ -259,30 +270,33 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(
-                  builder: (context) => const WorkingAreaDashboard()),
+              MaterialPageRoute(builder: (context) => const DashboardScreen()),
             );
           },
           icon: const Icon(EvaIcons.arrowBack),
         ),
         title: const Text(
           'Working Area',
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700),
         ),
         centerTitle: true,
-        backgroundColor: Colors.blue,
         actions: [
-          widget.isMobile == true
+          _isMobile == true
               ? Padding(
                   padding: const EdgeInsets.only(right: 10.0),
                   child: IconButton(
                       onPressed: () {
-                        Get.to(const WorkingAreaRightSide(isMobile: true));
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const WorkingAreaRightSide(isMobile: true)),
+                        );
                       },
                       icon: const Icon(
                         Icons.notifications_none_outlined,
                         size: 30,
-                        color: Colors.white,
+                        color: Colors.black,
                       )),
                 )
               : const SizedBox(),

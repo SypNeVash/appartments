@@ -1,4 +1,5 @@
 import 'package:apartments/app/api/work_are_api.dart';
+import 'package:apartments/app/features/dashboard/views/screens/work%20area/working_area_details.dart';
 import 'package:apartments/app/models/work_area_model.dart';
 import 'package:apartments/app/providers/work_area_provider.dart';
 import 'package:apartments/app/utils/services/shared_preferences.dart';
@@ -89,7 +90,12 @@ class _CustomerCardForWorkingAreState extends State<CustomerCardForWorkingAre> {
       onTap: () async {
         await SPHelper.saveWorkAreaIDSharedPreference(
             widget.workingAreaModel.id.toString());
-        Get.toNamed('/workingareadetails');
+        // Get.toNamed('/workingareadetails');
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const WorkingAreDetails()),
+        );
       },
       child: Card(
         color: _getColorForValue(widget.workingAreaModel.task),

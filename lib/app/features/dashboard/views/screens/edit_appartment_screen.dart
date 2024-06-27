@@ -1,5 +1,6 @@
 import 'package:apartments/app/features/dashboard/views/screens/sub%20screens%20of%20apartments/edit_appartment_sub_screen.dart';
 import 'package:apartments/app/shared_components/responsive_builder.dart';
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 
 class ApartmentEditDetail extends StatefulWidget {
@@ -13,43 +14,54 @@ class _ApartmentEditDetailState extends State<ApartmentEditDetail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(EvaIcons.arrowBack),
+          ),
+          centerTitle: true,
+        ),
         body: SafeArea(
             child: ResponsiveBuilder(mobileBuilder: (context, constraints) {
-      return SingleChildScrollView(
-          child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
-        child: Center(
-          child: Container(
-              constraints: const BoxConstraints(maxWidth: 400),
-              padding: const EdgeInsets.only(top: 10),
-              child: const TextFormForAddingEditingApt()),
-        ),
-      ));
-    }, tabletBuilder: (context, constraints) {
-      return SingleChildScrollView(
-          controller: ScrollController(),
-          child: Center(
-            child: Container(
-                constraints: const BoxConstraints(maxWidth: 400),
-                padding: const EdgeInsets.only(top: 10),
-                child: const TextFormForAddingEditingApt()),
-          ));
-    }, desktopBuilder: (context, constraints) {
-      return SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          controller: ScrollController(),
-          child: Center(
-            child: Container(
-                constraints: const BoxConstraints(maxWidth: 400),
-                padding: const EdgeInsets.symmetric(vertical: 55),
-                child: const Column(
-                  children: [
-                    FormsEditList(),
-                    TextFormForAddingEditingApt(),
-                  ],
-                )),
-          ));
-    })));
+          return SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
+                child: Center(
+                  child: Container(
+                      constraints: const BoxConstraints(maxWidth: 400),
+                      padding: const EdgeInsets.only(top: 10),
+                      child: const TextFormForAddingEditingApt()),
+                ),
+              ));
+        }, tabletBuilder: (context, constraints) {
+          return SingleChildScrollView(
+              controller: ScrollController(),
+              child: Center(
+                child: Container(
+                    constraints: const BoxConstraints(maxWidth: 400),
+                    padding: const EdgeInsets.only(top: 10),
+                    child: const TextFormForAddingEditingApt()),
+              ));
+        }, desktopBuilder: (context, constraints) {
+          return SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              controller: ScrollController(),
+              child: Center(
+                child: Container(
+                    constraints: const BoxConstraints(maxWidth: 400),
+                    padding: const EdgeInsets.only(top: 20, bottom: 35),
+                    child: const Column(
+                      children: [
+                        FormsEditList(),
+                        TextFormForAddingEditingApt(),
+                      ],
+                    )),
+              ));
+        })));
   }
 }
 
@@ -59,7 +71,7 @@ class FormsEditList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
           'Edit appartment',

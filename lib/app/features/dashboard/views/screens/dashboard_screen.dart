@@ -222,6 +222,8 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen> {
   final DashboardController controller = Get.find<DashboardController>();
+  final scafoldKey = GlobalKey<ScaffoldState>();
+
   late Timer _timer;
   String? _token;
   bool? isMobile;
@@ -279,6 +281,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
     super.dispose();
   }
 
+  void openDrawer() {
+    if (scafoldKey.currentState != null) {
+      scafoldKey.currentState!.openDrawer();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     AppartDetailsListener profileDetailsListener =
@@ -286,7 +294,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     isMobile = MediaQuery.of(context).size.width < 600;
 
     return Scaffold(
-      key: controller.scafoldKey,
+      key: scafoldKey,
       drawer: ResponsiveBuilder.isDesktop(context)
           ? null
           : Drawer(
@@ -311,7 +319,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   ),
                   if (profileDetailsListener.getPageIndex == 0) ...[
                     _buildTaskContent(
-                      onPressedMenu: () => controller.openDrawer(),
+                      onPressedMenu: () => openDrawer(),
                       numberOfApartment: numberOfApartment,
                     ),
                   ] else if (profileDetailsListener.getPageIndex == 1) ...[
@@ -341,7 +349,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 children: [
                   const BuilFilterContent(isActive: true, desktop: "mobile"),
                   _buildTaskContent(
-                    onPressedMenu: () => controller.openDrawer(),
+                    onPressedMenu: () => openDrawer(),
                     numberOfApartment: numberOfApartment,
                   ),
                   const AddingNewApartments(),

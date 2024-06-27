@@ -1,6 +1,7 @@
 import 'package:apartments/app/api/all_apartments_api.dart';
 import 'package:apartments/app/api/client_api.dart';
 import 'package:apartments/app/features/dashboard/views/components/responsive_raw_to_column.dart';
+import 'package:apartments/app/features/dashboard/views/screens/dashboard_screen.dart';
 import 'package:apartments/app/models/get_all_appart_model.dart';
 import 'package:apartments/app/providers/appartment_provider.dart';
 import 'package:apartments/app/utils/services/shared_preferences.dart';
@@ -13,6 +14,8 @@ import 'package:get/get.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 import 'package:provider/provider.dart';
+
+import '../edit_appartment_screen.dart';
 
 class ApartmentDetailsSubScreen extends StatefulWidget {
   const ApartmentDetailsSubScreen({super.key});
@@ -42,6 +45,8 @@ class _ApartmentDetailsSubScreenState extends State<ApartmentDetailsSubScreen> {
             Provider.of<ApartmentProvider>(context, listen: false)
                 .fetchApartments(1);
           });
+
+          Navigator.pop(context);
 
           Get.toNamed('/');
         } else {
@@ -422,9 +427,16 @@ class _ApartmentDetailsSubScreenState extends State<ApartmentDetailsSubScreen> {
                                   const Color.fromARGB(255, 255, 188, 2),
                             ),
                             onPressed: () {
-                              Get.toNamed(
-                                '/editingApartments',
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const ApartmentEditDetail()),
                               );
+
+                              // Get.toNamed(
+                              //   '/editingApartments',
+                              // );
                             },
                             child: const Text(
                               'Edit',
@@ -535,12 +547,9 @@ class FullScreenImagePage extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back_ios_new_outlined,
-            color: Colors.white,
-          ),
+          icon: const Icon(EvaIcons.arrowBack),
           onPressed: () {
-            Get.back();
+            Navigator.pop(context);
           },
         ),
       ),
