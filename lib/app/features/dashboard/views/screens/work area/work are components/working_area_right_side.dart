@@ -4,6 +4,7 @@ import 'package:apartments/app/api/work_are_api.dart';
 import 'package:apartments/app/features/dashboard/views/components/text_form_fiel_decoration.dart';
 import 'package:apartments/app/models/chat_message_model.dart';
 import 'package:apartments/app/models/work_area_model.dart';
+import 'package:apartments/app/utils/animations/show_up_animation.dart';
 import 'package:apartments/app/utils/services/shared_preferences.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -135,54 +136,57 @@ class _WorkingAreaRightSideState extends State<WorkingAreaRightSide> {
                 itemBuilder: (context, index) {
                   final message = messages[index];
 
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 8.0),
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 15, vertical: 10),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          color: Colors.white),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              const FaIcon(
-                                FontAwesomeIcons.bell,
-                                size: 13,
-                                color: Colors.blue,
-                              ),
-                              const SizedBox(
-                                width: 7,
-                              ),
-                              Text(
-                                message.user,
-                                style: const TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.grey),
-                              ),
-                            ],
-                          ),
-                          Text(
-                            message.text,
-                            style: const TextStyle(
-                                fontSize: 13,
-                                fontWeight: FontWeight.w600,
-                                color: Color.fromARGB(255, 34, 34, 34)),
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            message.date.toString(),
-                            style: const TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.blue),
-                          ),
-                        ],
+                  return ShowUp2(
+                    delay: 400,
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 8.0),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 10),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            color: Colors.white),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                const FaIcon(
+                                  FontAwesomeIcons.bell,
+                                  size: 13,
+                                  color: Colors.blue,
+                                ),
+                                const SizedBox(
+                                  width: 7,
+                                ),
+                                Text(
+                                  message.user,
+                                  style: const TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.grey),
+                                ),
+                              ],
+                            ),
+                            Text(
+                              message.text,
+                              style: const TextStyle(
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w600,
+                                  color: Color.fromARGB(255, 34, 34, 34)),
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                              message.date.toString(),
+                              style: const TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.blue),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   );

@@ -48,6 +48,9 @@ const rates = [
 const tasks = [
   "Встреча",
   "Перезвонить позже",
+  "Оплачен",
+  "Заселен",
+  "Заморожен"
 ];
 
 const String taskSelectionMeeting = "Встреча";

@@ -1,6 +1,7 @@
 library dashboard;
 
 import 'dart:async';
+import 'package:apartments/app/api/all_apartments_api.dart';
 import 'package:apartments/app/api/token_control.dart';
 import 'package:apartments/app/constans/app_constants.dart';
 import 'package:apartments/app/features/dashboard/controllers/authcontroller.dart';
@@ -99,7 +100,8 @@ openDrawer() {
   controller.openDrawer();
 }
 
-Widget _buildTaskContent({Function()? onPressedMenu}) {
+Widget _buildTaskContent(
+    {Function()? onPressedMenu, String? numberOfApartment}) {
   final DashboardController controller = Get.find<DashboardController>();
 
   return Padding(
@@ -134,9 +136,9 @@ Widget _buildTaskContent({Function()? onPressedMenu}) {
               ),
             ),
             const SizedBox(width: kSpacing / 2),
-            const Text(
-              '20 out of 970',
-              style: TextStyle(
+            Text(
+              '$numberOfApartment out of 970',
+              style: const TextStyle(
                 fontSize: 16,
                 color: Color.fromARGB(255, 105, 105, 105),
                 fontWeight: FontWeight.w600,
@@ -224,12 +226,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
   String? _token;
   bool? isMobile;
   String? role;
-
+  String? numberOfApartment;
   @override
   void initState() {
     super.initState();
     getUserData();
     _startTokenCheck();
+    print(numberOfApartment);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       AppartDetailsListener profileDetailsListener =
           Provider.of<AppartDetailsListener>(context, listen: false);
@@ -265,6 +268,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   getUserData() async {
     role = await SPHelper.getRolesSharedPreference() ?? '';
+    final numberOfApartments = await RemoteApi().getNumberForApartments();
+    numberOfApartment = numberOfApartments.toString();
+    setState(() {});
   }
 
   @override
@@ -306,6 +312,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   if (profileDetailsListener.getPageIndex == 0) ...[
                     _buildTaskContent(
                       onPressedMenu: () => controller.openDrawer(),
+                      numberOfApartment: numberOfApartment,
                     ),
                   ] else if (profileDetailsListener.getPageIndex == 1) ...[
                     const AddingNewApartments(),
@@ -316,7 +323,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   ] else if (profileDetailsListener.getPageIndex == 3) ...[
                     const AddNewUsers(),
                   ] else ...[
-                    _buildTaskContent(),
+                    _buildTaskContent(
+                      numberOfApartment: numberOfApartment,
+                    ),
                   ],
                 ],
               ),
@@ -331,6 +340,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   const BuilFilterContent(isActive: true, desktop: "mobile"),
                   _buildTaskContent(
                     onPressedMenu: () => controller.openDrawer(),
+                    numberOfApartment: numberOfApartment,
                   ),
                   const AddingNewApartments(),
                 ],
@@ -355,7 +365,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     child: SingleChildScrollView(
                       controller: ScrollController(),
                       physics: const BouncingScrollPhysics(),
-                      child: _buildTaskContent(),
+                      child: _buildTaskContent(
+                        numberOfApartment: numberOfApartment,
+                      ),
                     ),
                   ),
                 ] else if (profileDetailsListener.getPageIndex == 1) ...[
@@ -387,7 +399,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     child: SingleChildScrollView(
                       controller: ScrollController(),
                       physics: const BouncingScrollPhysics(),
-                      child: _buildTaskContent(),
+                      child: _buildTaskContent(
+                        numberOfApartment: numberOfApartment,
+                      ),
                     ),
                   ),
                 ],

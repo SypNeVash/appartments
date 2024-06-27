@@ -125,9 +125,29 @@ class RemoteApi {
       return e.response!.data;
     }
   }
+
+  Future<int> getNumberForApartments() async {
+    var url =
+        'https://realtor.azurewebsites.net/api/RentObjects/getActiveOpjectsCount';
+
+    late int numberOfApartment;
+    try {
+      final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
+
+      Response response = await _dio.get(
+        url,
+        options: Options(
+          headers: {'Authorization': 'Bearer $accessToken'},
+        ),
+      );
+      numberOfApartment = response.data;
+      print(numberOfApartment);
+      return numberOfApartment;
+    } on DioError catch (e) {
+      return e.response!.data;
+    }
+  }
 }
-
-
 
 
 

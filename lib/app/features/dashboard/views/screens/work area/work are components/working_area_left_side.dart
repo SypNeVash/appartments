@@ -195,11 +195,37 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
     bool success = await WorkAreApi().editWorkAreaClient(jsonData);
     if (success) {
       isLoading = false;
+      showSnackBarForConfirmation();
       setState(() {});
     } else {
       isLoading = false;
+      showSnackBarForError();
       setState(() {});
     }
+  }
+
+  showSnackBarForConfirmation() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        backgroundColor: Colors.green,
+        content: Center(
+          child: Text(
+            'Sucessfully edited',
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
+        duration: Duration(seconds: 2),
+      ),
+    );
+  }
+
+  showSnackBarForError() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Center(child: Text('Try again')),
+        duration: Duration(seconds: 2),
+      ),
+    );
   }
 
   Color _getColorForValue(String? value) {
@@ -208,6 +234,12 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
         return const Color.fromARGB(255, 171, 107, 255);
       case 'Перезвонить позже':
         return Colors.yellow;
+      case 'Оплачен':
+        return Colors.green;
+      case 'Заселен':
+        return const Color.fromARGB(255, 175, 219, 255);
+      case 'Заморожен':
+        return Colors.red;
       default:
         return Colors.white;
     }

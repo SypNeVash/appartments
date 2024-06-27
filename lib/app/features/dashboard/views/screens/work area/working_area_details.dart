@@ -25,13 +25,24 @@ class WorkingAreDetails extends StatelessWidget {
         ),
       ));
     }, tabletBuilder: (context, constraints) {
-      return Center(
-        child: Container(
-            constraints: const BoxConstraints(maxWidth: 400),
-            padding: const EdgeInsets.only(top: 10),
-            child: const Column(
-              children: [],
-            )),
+      return Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Flexible(
+            flex: 5,
+            child: WorkingFieldEditForm(),
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height,
+            child: const VerticalDivider(),
+          ),
+          const Flexible(
+              flex: 2,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25.0),
+                child: WorkingAreaRightSide(),
+              )),
+        ],
       );
     }, desktopBuilder: (context, constraints) {
       return Row(

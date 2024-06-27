@@ -64,6 +64,23 @@ class _CustomerCardForWorkingAreState extends State<CustomerCardForWorkingAre> {
     );
   }
 
+  Color _getColorForValue(String? value) {
+    switch (value) {
+      case 'Встреча':
+        return const Color.fromARGB(255, 171, 107, 255);
+      case 'Перезвонить позже':
+        return Colors.yellow;
+      case 'Оплачен':
+        return Colors.green;
+      case 'Заселен':
+        return const Color.fromARGB(255, 175, 219, 255);
+      case 'Заморожен':
+        return Colors.red;
+      default:
+        return Colors.white;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -75,9 +92,7 @@ class _CustomerCardForWorkingAreState extends State<CustomerCardForWorkingAre> {
         Get.toNamed('/workingareadetails');
       },
       child: Card(
-        color: widget.workingAreaModel.task == taskSelectionCallLater
-            ? Colors.yellow
-            : const Color.fromARGB(255, 224, 196, 255),
+        color: _getColorForValue(widget.workingAreaModel.task),
         borderOnForeground: true,
         elevation: 0,
         shape: RoundedRectangleBorder(
@@ -141,19 +156,21 @@ class _CustomerCardForWorkingAreState extends State<CustomerCardForWorkingAre> {
                 ],
               ),
               const Spacer(),
-              Row(
-                children: [
-                  InkWell(
-                    onTap: () =>
-                        _showAlertDialog(widget.workingAreaModel.id.toString()),
-                    child: const FaIcon(
-                      FontAwesomeIcons.trashCan,
-                      color: Color.fromARGB(255, 0, 0, 0),
-                      size: 18,
-                    ),
-                  )
-                ],
-              )
+              InkWell(
+                onTap: () =>
+                    _showAlertDialog(widget.workingAreaModel.id.toString()),
+                child: Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: const BoxDecoration(
+                      color: Color.fromARGB(255, 247, 243, 243),
+                      shape: BoxShape.circle),
+                  child: const FaIcon(
+                    FontAwesomeIcons.trashCan,
+                    color: Color.fromARGB(255, 0, 0, 0),
+                    size: 18,
+                  ),
+                ),
+              ),
             ],
           ),
         ),
