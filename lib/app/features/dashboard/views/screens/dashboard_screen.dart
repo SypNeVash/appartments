@@ -321,7 +321,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       openDrawer: true,
                     ),
                   ] else if (profileDetailsListener.getPageIndex == 3) ...[
-                    const AddNewUsers(),
+                    const WorkingAreaDashboard(
+                      openDrawer: true,
+                    ),
                   ] else ...[
                     _buildTaskContent(
                       numberOfApartment: numberOfApartment,

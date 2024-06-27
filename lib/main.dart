@@ -36,23 +36,23 @@ class AuthMiddleware extends GetMiddleware {
   }
 }
 
-// class MyNavigatorObserver extends NavigatorObserver {
-//   @override
-//   void didPop(Route route, Route? previousRoute) {
-//     super.didPop(route, previousRoute);
-//     print(
-//         'didPop: ${route.settings.name}, previousRoute: ${previousRoute?.settings.name}');
-//     // Custom behavior on pop
-//   }
+class MyNavigatorObserver extends NavigatorObserver {
+  @override
+  void didPop(Route route, Route? previousRoute) {
+    super.didPop(route, previousRoute);
+    print(
+        'didPop: ${route.settings.name}, previousRoute: ${previousRoute?.settings.name}');
+    // Custom behavior on pop
+  }
 
-//   @override
-//   void didPush(Route route, Route? previousRoute) {
-//     super.didPush(route, previousRoute);
-//     print(
-//         'didPush: ${route.settings.name}, previousRoute: ${previousRoute?.settings.name}');
-//     // Custom behavior on push
-//   }
-// }
+  @override
+  void didPush(Route route, Route? previousRoute) {
+    super.didPush(route, previousRoute);
+    print(
+        'didPush: ${route.settings.name}, previousRoute: ${previousRoute?.settings.name}');
+    // Custom behavior on push
+  }
+}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -95,7 +95,7 @@ class _MyAppState extends State<MyApp> {
     final authController = Get.find<AuthController>();
 
     return GetMaterialApp(
-      navigatorKey: NavigationService().navigationKey,
+      // navigatorKey: NavigationService().navigationKey,
       title: 'Apartment',
       theme: AppTheme.basic,
       initialRoute: authController.isAuthenticated.value ? '/' : '/login',
@@ -119,9 +119,7 @@ class _MyAppState extends State<MyApp> {
       ],
       scrollBehavior: CustomScrollBehaviour(),
       builder: BotToastInit(),
-      navigatorObservers: [
-        BotToastNavigatorObserver(),
-      ],
+      navigatorObservers: [BotToastNavigatorObserver(), MyNavigatorObserver()],
       debugShowCheckedModeBanner: false,
     );
   }

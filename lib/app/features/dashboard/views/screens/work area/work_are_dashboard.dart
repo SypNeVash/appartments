@@ -41,7 +41,9 @@ import 'package:provider/provider.dart';
 // }
 
 class WorkingAreaDashboard extends StatefulWidget {
-  const WorkingAreaDashboard({super.key});
+  final bool? openDrawer;
+
+  const WorkingAreaDashboard({this.openDrawer, super.key});
 
   @override
   State<WorkingAreaDashboard> createState() => _WorkingAreaDashboardState();
@@ -50,11 +52,15 @@ class WorkingAreaDashboard extends StatefulWidget {
 class _WorkingAreaDashboardState extends State<WorkingAreaDashboard> {
   @override
   Widget build(BuildContext context) {
-    return const Column(
-      children: [
-        FormsLists(),
-        WorkingAreaList(),
-      ],
+    return Scaffold(
+      body: Column(
+        children: [
+          FormsLists(
+            openDrawer: widget.openDrawer,
+          ),
+          const WorkingAreaList(),
+        ],
+      ),
     );
   }
 }

@@ -12,18 +12,16 @@ class WorkingAreDetails extends StatelessWidget {
     return Scaffold(
         body: SafeArea(
             child: ResponsiveBuilder(mobileBuilder: (context, constraints) {
-      return SingleChildScrollView(
-          child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
-        child: Center(
-          child: Container(
-              constraints: const BoxConstraints(maxWidth: 400),
-              padding: const EdgeInsets.only(top: 10),
-              child: const Column(
-                children: [],
-              )),
-        ),
-      ));
+      return const Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Flexible(
+            child: WorkingFieldEditForm(
+              isMobile: true,
+            ),
+          ),
+        ],
+      );
     }, tabletBuilder: (context, constraints) {
       return Row(
         crossAxisAlignment: CrossAxisAlignment.start,

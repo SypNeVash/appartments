@@ -1,5 +1,4 @@
 import 'package:apartments/app/api/work_are_api.dart';
-import 'package:apartments/app/constans/app_constants.dart';
 import 'package:apartments/app/models/work_area_model.dart';
 import 'package:apartments/app/providers/work_area_provider.dart';
 import 'package:apartments/app/utils/services/shared_preferences.dart';
@@ -10,6 +9,7 @@ import 'package:provider/provider.dart';
 
 class CustomerCardForWorkingAre extends StatefulWidget {
   final WorkingAreaModel workingAreaModel;
+
   const CustomerCardForWorkingAre({required this.workingAreaModel, super.key});
 
   @override
@@ -116,44 +116,49 @@ class _CustomerCardForWorkingAreState extends State<CustomerCardForWorkingAre> {
               const SizedBox(
                 width: 20,
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 5),
-                  Text(
-                    widget.workingAreaModel.customerCard!.name.toString(),
-                    style: const TextStyle(
-                        fontWeight: FontWeight.w700, fontSize: 17),
-                  ),
-                  const SizedBox(height: 5),
-                  Text(
-                      'Tel: ${widget.workingAreaModel.customerCard!.phoneNumber}, ',
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 5),
+                    Text(
+                      widget.workingAreaModel.customerCard!.name.toString(),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.w700, fontSize: 17),
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                        'Tel: ${widget.workingAreaModel.customerCard!.phoneNumber}, ',
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(fontWeight: FontWeight.w700)),
+                    const SizedBox(height: 5),
+                    Row(
+                      children: [
+                        const Text('Task: '),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 7, vertical: 3),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50),
+                              color: const Color.fromARGB(255, 247, 245, 245),
+                              border: Border.all(
+                                width: 1.5,
+                                color: Colors.white,
+                              )),
+                          child: Text(widget.workingAreaModel.task.toString(),
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.w600)),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      'ID: ${widget.workingAreaModel.id}',
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(fontWeight: FontWeight.w700)),
-                  const SizedBox(height: 5),
-                  Row(
-                    children: [
-                      const Text('Task: '),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 7, vertical: 3),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                            color: const Color.fromARGB(255, 247, 245, 245),
-                            border: Border.all(
-                              width: 1.5,
-                              color: Colors.white,
-                            )),
-                        child: Text(widget.workingAreaModel.task.toString(),
-                            style:
-                                const TextStyle(fontWeight: FontWeight.w600)),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 5),
-                  Text('ID: ${widget.workingAreaModel.id}'),
-                ],
+                    ),
+                  ],
+                ),
               ),
               const Spacer(),
               InkWell(
