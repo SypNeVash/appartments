@@ -1,10 +1,12 @@
 import 'dart:ui';
+import 'package:apartments/app/api/admin_panel_api.dart';
 import 'package:apartments/app/api/token_control.dart';
 import 'package:apartments/app/features/dashboard/controllers/authcontroller.dart';
 import 'package:apartments/app/features/dashboard/views/screens/apartment_details.dart';
 import 'package:apartments/app/features/dashboard/views/screens/clients/add_new_clients.dart';
 import 'package:apartments/app/features/dashboard/views/screens/dashboard_screen.dart';
 import 'package:apartments/app/features/dashboard/views/screens/edit_appartment_screen.dart';
+import 'package:apartments/app/providers/admin_panel_provider.dart';
 
 import 'package:apartments/app/providers/clients_provider.dart';
 import 'package:apartments/app/providers/work_area_provider.dart';
@@ -69,6 +71,9 @@ void main() async {
     ),
     ChangeNotifierProvider(
       create: (context) => WorkAreaProvider(),
+    ),
+    ChangeNotifierProvider(
+      create: (context) => AdminPanelProvider(),
     ),
   ], child: const MyApp()));
 }

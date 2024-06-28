@@ -64,6 +64,11 @@ const tasks = [
   "Заморожен"
 ];
 
+const rolesOfTheUser = [
+  "Stuff",
+  "Customer",
+];
+
 const String taskSelectionMeeting = "Зустріч";
 const String taskSelectionCallLater = "Передзвонити пізніше";
 

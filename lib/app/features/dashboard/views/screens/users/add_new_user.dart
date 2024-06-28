@@ -1,9 +1,11 @@
+import 'package:apartments/app/constans/app_constants.dart';
 import 'package:apartments/app/features/dashboard/views/components/text_form_fiel_decoration.dart';
 import 'package:apartments/app/utils/services/shared_preferences.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:dio/dio.dart';
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:uuid/uuid.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class AddNewUsers extends StatefulWidget {
   const AddNewUsers({super.key});
@@ -15,24 +17,34 @@ class AddNewUsers extends StatefulWidget {
 class _AddNewUsersState extends State<AddNewUsers> {
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        const Expanded(flex: 1, child: SizedBox()),
-        Expanded(
-          flex: 4,
-          child: Container(
-              padding: const EdgeInsets.symmetric(
-                vertical: 55,
-              ),
-              child: const Column(
-                children: [
-                  FormsListForUsers(),
-                  TextFormForAddingNewUser(),
-                ],
-              )),
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(EvaIcons.arrowBack),
         ),
-        const Expanded(flex: 1, child: SizedBox()),
-      ],
+      ),
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Center(
+          child: Column(
+            children: [
+              Container(
+                  constraints: const BoxConstraints(maxWidth: 600),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 55, horizontal: 25),
+                  child: const Column(
+                    children: [
+                      FormsListForUsers(),
+                      TextFormForAddingNewUser(),
+                    ],
+                  )),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
@@ -43,7 +55,7 @@ class FormsListForUsers extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
           'Adding new User',
@@ -70,36 +82,25 @@ class TextFormForAddingNewUser extends StatefulWidget {
 }
 
 class _TextFormForAddingNewUserState extends State<TextFormForAddingNewUser> {
-  final TextEditingController name = TextEditingController();
-  final TextEditingController surname = TextEditingController();
-  final TextEditingController patronymic = TextEditingController();
-  final TextEditingController passport = TextEditingController();
-  final TextEditingController phoneNumber = TextEditingController();
-  final TextEditingController address = TextEditingController();
-  final TextEditingController birthday = TextEditingController();
-  final TextEditingController password = TextEditingController();
   final TextEditingController username = TextEditingController();
-  final TextEditingController email = TextEditingController();
+  final TextEditingController fullName = TextEditingController();
+  final TextEditingController password = TextEditingController();
+  final TextEditingController role = TextEditingController();
+
   String errorText = '';
 
   Future<bool> postClientData() async {
     Dio dio = Dio();
-    String apiUrl = 'https://realtor.azurewebsites.net/api/CustomerCards';
+    String apiUrl =
+        'https://realtor.azurewebsites.net/api/Authenticate/register';
     final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
-    String uuid = const Uuid().v4();
     try {
       Map<String, String> datas = {
-        "id": uuid,
-        "name": name.text,
-        "surname": surname.text,
-        "patronymic": patronymic.text,
-        "passport": passport.text,
-        "phoneNumber": phoneNumber.text,
-        "address": address.text,
-        "birthday": birthday.text,
-        "password": password.text,
+        // "id": uuid,
         "username": username.text,
-        "email": email.text,
+        "password": password.text,
+        "fullName": fullName.text,
+        "role": role.text,
       };
 
       Response response = await dio.post(
@@ -122,16 +123,11 @@ class _TextFormForAddingNewUserState extends State<TextFormForAddingNewUser> {
 
   @override
   void dispose() {
-    name.dispose();
-    surname.dispose();
-    patronymic.dispose();
-    passport.dispose();
-    phoneNumber.dispose();
-    address.dispose();
-    birthday.dispose();
-    password.dispose();
     username.dispose();
-    email.dispose();
+    fullName.dispose();
+    password.dispose();
+    role.dispose();
+
     super.dispose();
   }
 
@@ -146,9 +142,9 @@ class _TextFormForAddingNewUserState extends State<TextFormForAddingNewUser> {
           keyboardType: TextInputType.multiline,
           style: const TextStyle(
               fontSize: 16, color: Colors.black, fontWeight: FontWeight.w500),
-          decoration: decorationForTextFormField('Name'),
+          decoration: decorationForTextFormField('User name'),
           onChanged: (val) {
-            name.text = val;
+            username.text = val;
           },
         ),
         const SizedBox(
@@ -161,98 +157,6 @@ class _TextFormForAddingNewUserState extends State<TextFormForAddingNewUser> {
           keyboardType: TextInputType.multiline,
           style: const TextStyle(
               fontSize: 16, color: Colors.black, fontWeight: FontWeight.w500),
-          decoration: decorationForTextFormField('Surname'),
-          onChanged: (val) {
-            surname.text = val;
-          },
-        ),
-        const SizedBox(
-          height: 15,
-        ),
-        TextFormField(
-          autovalidateMode: AutovalidateMode.always,
-          textCapitalization: TextCapitalization.sentences,
-          autofocus: false,
-          keyboardType: TextInputType.number,
-          style: const TextStyle(
-              fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField('Patronymic'),
-          onChanged: (val) {
-            patronymic.text = val;
-          },
-        ),
-        const SizedBox(
-          height: 15,
-        ),
-        TextFormField(
-          autovalidateMode: AutovalidateMode.always,
-          textCapitalization: TextCapitalization.sentences,
-          autofocus: false,
-          keyboardType: TextInputType.number,
-          style: const TextStyle(
-              fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField('Passport'),
-          onChanged: (val) {
-            passport.text = val;
-          },
-        ),
-        const SizedBox(
-          height: 15,
-        ),
-        TextFormField(
-          autovalidateMode: AutovalidateMode.always,
-          textCapitalization: TextCapitalization.sentences,
-          autofocus: false,
-          keyboardType: TextInputType.number,
-          style: const TextStyle(
-              fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField('Phone Number'),
-          onChanged: (val) {
-            phoneNumber.text = val;
-          },
-        ),
-        const SizedBox(
-          height: 15,
-        ),
-        TextFormField(
-          autovalidateMode: AutovalidateMode.always,
-          textCapitalization: TextCapitalization.sentences,
-          autofocus: false,
-          keyboardType: TextInputType.number,
-          style: const TextStyle(
-              fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField(
-            'Address',
-          ),
-          onChanged: (val) {
-            address.text = val;
-          },
-        ),
-        const SizedBox(
-          height: 15,
-        ),
-        TextFormField(
-          autovalidateMode: AutovalidateMode.always,
-          textCapitalization: TextCapitalization.sentences,
-          autofocus: false,
-          keyboardType: TextInputType.multiline,
-          style: const TextStyle(
-              fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField('Birthday'),
-          onChanged: (val) {
-            birthday.text = val;
-          },
-        ),
-        const SizedBox(
-          height: 15,
-        ),
-        TextFormField(
-          autovalidateMode: AutovalidateMode.always,
-          textCapitalization: TextCapitalization.sentences,
-          autofocus: false,
-          keyboardType: TextInputType.multiline,
-          style: const TextStyle(
-              fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
           decoration: decorationForTextFormField('Password'),
           onChanged: (val) {
             password.text = val;
@@ -265,36 +169,41 @@ class _TextFormForAddingNewUserState extends State<TextFormForAddingNewUser> {
           autovalidateMode: AutovalidateMode.always,
           textCapitalization: TextCapitalization.sentences,
           autofocus: false,
-          keyboardType: TextInputType.multiline,
+          keyboardType: TextInputType.number,
           style: const TextStyle(
               fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField('Username'),
+          decoration: decorationForTextFormField('Full name'),
           onChanged: (val) {
-            username.text = val;
+            fullName.text = val;
           },
         ),
         const SizedBox(
           height: 15,
         ),
-        TextFormField(
+        DropdownButtonFormField<String>(
           autovalidateMode: AutovalidateMode.always,
-          textCapitalization: TextCapitalization.sentences,
           autofocus: false,
-          keyboardType: TextInputType.multiline,
           style: const TextStyle(
               fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField('Email'),
+          decoration: decorationForTextFormField('Role'),
           onChanged: (val) {
-            email.text = val;
+            role.text = val!;
           },
-        ),
-        Text(
-          errorText,
-          style: const TextStyle(
-              fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
+          icon: const FaIcon(
+            FontAwesomeIcons.chevronDown,
+            size: 15,
+            color: Colors.grey,
+          ),
+          items: [...rolesOfTheUser].map((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value),
+            );
+          }).toList(),
+          // value: types[0],
         ),
         const SizedBox(
-          height: 55,
+          height: 45,
         ),
         SizedBox(
           width: 250,

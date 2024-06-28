@@ -1,10 +1,13 @@
 import 'package:apartments/app/api/token_control.dart';
 import 'package:apartments/app/constans/app_constants.dart';
 import 'package:apartments/app/features/dashboard/controllers/authcontroller.dart';
+import 'package:apartments/app/features/dashboard/views/screens/users/add_new_user.dart';
 import 'package:apartments/app/utils/services/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+
+import '../features/dashboard/views/screens/users/users_dashboard.dart';
 
 class UserProfileData {
   final ImageProvider image;
@@ -42,7 +45,9 @@ class _UserProfileState extends State<UserProfile> {
   }
 
   getUserData() async {
-    name = await SPHelper.getFullNameSharedPreference() ?? await SPHelper.getNameSharedPreference() ?? '';
+    name = await SPHelper.getFullNameSharedPreference() ??
+        await SPHelper.getNameSharedPreference() ??
+        '';
     role = await SPHelper.getRolesSharedPreference() ?? '';
     setState(() {});
   }
@@ -53,7 +58,12 @@ class _UserProfileState extends State<UserProfile> {
       padding: const EdgeInsets.all(10),
       child: InkWell(
         borderRadius: BorderRadius.circular(kBorderRadius),
-        onTap: widget.onPressed,
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const UsersDashboard()),
+          );
+        },
         child: Padding(
           padding: const EdgeInsets.all(10),
           child: Row(
@@ -72,6 +82,8 @@ class _UserProfileState extends State<UserProfile> {
                         height: 5,
                       ),
                       const LogOutForCustomers()
+                    ] else ...[
+                      // const AddNewUser(),
                     ]
                   ],
                 ),
@@ -145,6 +157,37 @@ class LogOutForCustomers extends StatelessWidget {
                   fontWeight: FontWeight.w700),
             ),
           ],
+        ));
+  }
+}
+
+class AddNewUser extends StatelessWidget {
+  const AddNewUser({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+        onTap: () {},
+        child: Container(
+          constraints: BoxConstraints(),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(2),
+              color: Colors.orangeAccent),
+          child: const Row(
+            children: [
+              FaIcon(FontAwesomeIcons.plus, color: Colors.black, size: 12),
+              SizedBox(
+                width: 3,
+              ),
+              Text(
+                'Додати',
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w700),
+              ),
+            ],
+          ),
         ));
   }
 }
