@@ -377,12 +377,15 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
                             const SizedBox(
                               width: 7,
                             ),
-                            Text(
-                              customerPhoneNumberController.text,
-                              style: const TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                  color: Color.fromARGB(255, 87, 85, 87)),
+                            Expanded(
+                              child: Text(
+                                customerPhoneNumberController.text,
+                                style: const TextStyle(
+                                    // overflow: TextOverflow.ellipsis,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                    color: Color.fromARGB(255, 87, 85, 87)),
+                              ),
                             ),
                           ],
                         ),

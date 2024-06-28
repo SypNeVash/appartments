@@ -265,7 +265,11 @@ class _CustomerCardState extends State<CustomerCard> {
                       onTap: () async {
                         await SPHelper.saveClientsIDSharedPreference(
                             widget.customer.id.toString());
-                        Get.toNamed('/editClientsData');
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const EditClientsData()),
+                        );
                       },
                       child: const FaIcon(
                         FontAwesomeIcons.pencil,

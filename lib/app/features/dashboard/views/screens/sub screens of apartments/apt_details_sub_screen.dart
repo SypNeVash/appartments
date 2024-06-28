@@ -131,6 +131,9 @@ class _ApartmentDetailsSubScreenState extends State<ApartmentDetailsSubScreen> {
                               ),
                             ),
                           ),
+                          const SizedBox(
+                            width: 10,
+                          ),
                           if (role == 'Admin' || role == 'Stuff') ...[
                             InkWell(
                               onTap: () => _showAlertDialog(),

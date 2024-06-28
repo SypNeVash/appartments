@@ -31,6 +31,7 @@ class _EditClientsDataState extends State<EditClientsData> {
         ),
       ),
       body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Center(
           child: Container(
             constraints: const BoxConstraints(maxWidth: 400),
@@ -231,7 +232,7 @@ class _TextFormForEditingClientState extends State<TextFormForEditingClient> {
               fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
         ),
         const SizedBox(
-          height: 45,
+          height: 20,
         ),
         SizedBox(
           width: 250,

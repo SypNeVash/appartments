@@ -119,11 +119,12 @@ class _WorkingAreaRightSideState extends State<WorkingAreaRightSide> {
           ? AppBar(
               leading: IconButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const WorkingFieldEditForm()),
-                  );
+                  Navigator.pop(context);
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //       builder: (context) => const WorkingFieldEditForm()),
+                  // );
                 },
                 icon: const Icon(EvaIcons.arrowBack),
               ),

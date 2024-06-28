@@ -30,18 +30,21 @@ class _ApartmentDetailState extends State<ApartmentDetail> {
         body: SafeArea(
             child: ResponsiveBuilder(mobileBuilder: (context, constraints) {
           return SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
               child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
-            child: Center(
-              child: Container(
-                  constraints: const BoxConstraints(maxWidth: 400),
-                  padding: const EdgeInsets.only(top: 10),
-                  child: const ApartmentDetailsSubScreen()),
-            ),
-          ));
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
+                child: Center(
+                  child: Container(
+                      constraints: const BoxConstraints(maxWidth: 400),
+                      padding: const EdgeInsets.only(top: 10),
+                      child: const ApartmentDetailsSubScreen()),
+                ),
+              ));
         }, tabletBuilder: (context, constraints) {
           return SingleChildScrollView(
               controller: ScrollController(),
+              physics: const BouncingScrollPhysics(),
               child: Center(
                 child: Container(
                     constraints: const BoxConstraints(maxWidth: 400),
@@ -52,6 +55,7 @@ class _ApartmentDetailState extends State<ApartmentDetail> {
           return SingleChildScrollView(
               scrollDirection: Axis.vertical,
               controller: ScrollController(),
+              physics: const BouncingScrollPhysics(),
               child: Center(
                 child: Container(
                     constraints: const BoxConstraints(maxWidth: 1000),
