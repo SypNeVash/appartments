@@ -40,10 +40,10 @@ class CardTask extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: Color.fromARGB(255, 146, 162, 190).withOpacity(0.5),
+            color: const Color.fromARGB(255, 146, 162, 190).withOpacity(0.5),
             spreadRadius: -5,
             blurRadius: 10,
-            offset: Offset(0, 8), // changes position of shadow
+            offset: const Offset(0, 8), // changes position of shadow
           ),
         ],
       ),
@@ -57,7 +57,7 @@ class CardTask extends StatelessWidget {
               width: 200,
               height: 200,
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(15),
                 child: Image(
                   image: NetworkImage(
                     data.photos!.first.toString(),
@@ -121,7 +121,7 @@ class CardTask extends StatelessWidget {
             color: Colors.grey.withOpacity(0.5),
             spreadRadius: 5,
             blurRadius: 7,
-            offset: Offset(0, 3), // changes position of shadow
+            offset: const Offset(0, 3), // changes position of shadow
           ),
         ],
       ),

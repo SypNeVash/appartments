@@ -33,7 +33,7 @@ class MultiSelector extends StatelessWidget {
         color: Colors.blue,
       ),
       buttonText: Text(
-        "Вибрати регіон",
+        fieldText,
         style: TextStyle(
           color: Colors.blue[800],
           fontSize: 15,

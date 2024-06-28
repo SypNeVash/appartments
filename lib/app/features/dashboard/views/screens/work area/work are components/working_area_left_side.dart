@@ -5,14 +5,15 @@ import 'package:apartments/app/constans/app_constants.dart';
 import 'package:apartments/app/features/dashboard/views/components/text_form_fiel_decoration.dart';
 import 'package:apartments/app/features/dashboard/views/screens/work%20area/work%20are%20components/multi_select.dart';
 import 'package:apartments/app/models/work_area_model.dart';
+import 'package:apartments/app/providers/work_area_provider.dart';
 import 'package:apartments/app/utils/services/shared_preferences.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:multi_select_flutter/util/multi_select_item.dart';
+import 'package:provider/provider.dart';
 
-import '../../dashboard_screen.dart';
 import 'working_area_right_side.dart';
 
 class WorkingFieldEditForm extends StatefulWidget {
@@ -202,7 +203,12 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
     if (success) {
       isLoading = false;
       showSnackBarForConfirmation();
+
       setState(() {});
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Provider.of<WorkAreaProvider>(context, listen: false)
+            .fetchWorkingAreaList(1);
+      });
     } else {
       isLoading = false;
       showSnackBarForError();
@@ -265,10 +271,11 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const DashboardScreen()),
-            );
+            Navigator.pop(context);
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(builder: (context) => const DashboardScreen()),
+            // );
           },
           icon: const Icon(EvaIcons.arrowBack),
         ),

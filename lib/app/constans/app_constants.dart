@@ -33,15 +33,15 @@ const regions = [
   "Сихівський",
 ];
 
- var rolesOfClient = [
-    "Передзвонити",
-    "Зустріч",
-    "В процесі",
-    "Завершено",
-    "Заморожено",
-    "Повернувся",
-    "Ріелтор"
-  ];
+var rolesOfClient = [
+  "Передзвонити",
+  "Зустріч",
+  "В процесі",
+  "Завершено",
+  "Заморожено",
+  "Повернувся",
+  "Ріелтор"
+];
 
 const cities = [
   "Львів",
@@ -72,6 +72,7 @@ final List<MultiSelectItem<String>> regionsItemsMulti = [
   MultiSelectItem<String>('Залізничний', 'Залізничний'),
   MultiSelectItem<String>('Личаківський', 'Личаківський'),
   MultiSelectItem<String>('Франківський', 'Франківський'),
+  MultiSelectItem<String>('Шевченківський', 'Шевченківський'),
   MultiSelectItem<String>('Сихівський', 'Сихівський'),
 ];
 final List<MultiSelectItem<String>> typesAppartMulti = [
