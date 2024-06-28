@@ -152,6 +152,15 @@ class FormsLists extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final DashboardController controller = Get.find<DashboardController>();
+    bool? _isMobile;
+    var screenSize = MediaQuery.of(context).size;
+    if (screenSize.width < 600) {
+      _isMobile = true;
+    } else if (screenSize.width < 1200) {
+      _isMobile = false;
+    } else {
+      _isMobile = false;
+    }
 
     return Padding(
       padding: const EdgeInsets.only(top: 20.0, left: 25, right: 25),
@@ -159,7 +168,7 @@ class FormsLists extends StatelessWidget {
         children: [
           Row(
             children: [
-              if (openDrawer != null || openDrawer == true)
+              if (_isMobile == true)
                 Padding(
                   padding: const EdgeInsets.only(right: kSpacing / 2),
                   child: IconButton(

@@ -141,7 +141,12 @@ class _CustomerCardForWorkingAreState extends State<CustomerCardForWorkingAre> {
                     const SizedBox(height: 5),
                     Row(
                       children: [
-                        const Text('Завдання: '),
+                        // Expanded(
+                        //   child: const Text(
+                        //     'Завдання: ',
+                        //     overflow: TextOverflow.ellipsis,
+                        //   ),
+                        // ),
                         Container(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 7, vertical: 3),

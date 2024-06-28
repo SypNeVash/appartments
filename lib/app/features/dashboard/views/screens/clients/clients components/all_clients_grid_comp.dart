@@ -135,6 +135,8 @@ class _CustomerCardState extends State<CustomerCard> {
 
   @override
   Widget build(BuildContext context) {
+    final isMobile = MediaQuery.of(context).size.width < 600;
+
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -155,92 +157,131 @@ class _CustomerCardState extends State<CustomerCard> {
           padding: const EdgeInsets.all(10),
           child: Row(
             children: [
-              const CircleAvatar(
-                radius: 35,
-                backgroundImage: AssetImage('images/user.png'),
+              Expanded(
+                flex: 1,
+                child: const CircleAvatar(
+                  radius: 35,
+                  backgroundImage: AssetImage('images/user.png'),
+                ),
               ),
               const SizedBox(
                 width: 20,
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 5),
-                  Text(
-                    "Ім'я: ${widget.customer.name}",
-                    style: const TextStyle(
-                        fontWeight: FontWeight.w700, fontSize: 17),
-                  ),
-                  const SizedBox(height: 5),
-                  Text(
-                    'Паспорт: ${widget.customer.passport}',
-                    style: const TextStyle(
-                        fontWeight: FontWeight.w600, fontSize: 15),
-                  ),
-                  const SizedBox(height: 5),
-                  Text(
-                    'Телефон: ${widget.customer.phoneNumber}, ',
-                    style: const TextStyle(
-                        overflow: TextOverflow.ellipsis,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 15),
-                  ),
-                  const SizedBox(height: 5),
-                  Row(
-                    children: [
-                      const Text(
-                        'Статус: ',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500, fontSize: 15),
-                      ),
-                      Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 9, vertical: 3),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(50),
-                              color: Colors.orangeAccent,
-                              border: Border.all(
-                                width: 1.5,
-                                color: Colors.white,
-                              )),
-                          child: Text(widget.customer.status.toString(),
-                              style: const TextStyle(
+              Expanded(
+                flex: 5,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 5),
+                    Text(
+                      "Ім'я: ${widget.customer.name}",
+                      style: const TextStyle(
+                          fontWeight: FontWeight.w700, fontSize: 17),
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      'Паспорт: ${widget.customer.passport}',
+                      style: const TextStyle(
+                          fontWeight: FontWeight.w600, fontSize: 15),
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      'Телефон: ${widget.customer.phoneNumber}, ',
+                      style: const TextStyle(
+                          overflow: TextOverflow.ellipsis,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 15),
+                    ),
+                    const SizedBox(height: 5),
+                    Row(
+                      children: [
+                        const Text(
+                          'Статус: ',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500, fontSize: 15),
+                        ),
+                        Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 9, vertical: 3),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50),
+                                color: Colors.orangeAccent,
+                                border: Border.all(
+                                  width: 1.5,
                                   color: Colors.white,
-                                  fontWeight: FontWeight.w600))),
+                                )),
+                            child: Text(widget.customer.status.toString(),
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600))),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              if (isMobile == true) ...[
+                Expanded(
+                  flex: 1,
+                  child: Column(
+                    children: [
+                      InkWell(
+                        onTap: () async {
+                          await SPHelper.saveClientsIDSharedPreference(
+                              widget.customer.id.toString());
+                          Get.toNamed('/editClientsData');
+                        },
+                        child: const FaIcon(
+                          FontAwesomeIcons.pencil,
+                          color: Colors.blue,
+                          size: 18,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 25,
+                      ),
+                      InkWell(
+                        onTap: () =>
+                            _showAlertDialog(widget.customer.id.toString()),
+                        child: const FaIcon(
+                          FontAwesomeIcons.trashCan,
+                          color: Colors.black,
+                          size: 18,
+                        ),
+                      )
                     ],
                   ),
-                ],
-              ),
-              const Spacer(),
-              Row(
-                children: [
-                  InkWell(
-                    onTap: () async {
-                      await SPHelper.saveClientsIDSharedPreference(
-                          widget.customer.id.toString());
-                      Get.toNamed('/editClientsData');
-                    },
-                    child: const FaIcon(
-                      FontAwesomeIcons.pencil,
-                      color: Colors.blue,
-                      size: 18,
+                )
+              ] else ...[
+                Row(
+                  children: [
+                    InkWell(
+                      onTap: () async {
+                        await SPHelper.saveClientsIDSharedPreference(
+                            widget.customer.id.toString());
+                        Get.toNamed('/editClientsData');
+                      },
+                      child: const FaIcon(
+                        FontAwesomeIcons.pencil,
+                        color: Colors.blue,
+                        size: 18,
+                      ),
                     ),
-                  ),
-                  const SizedBox(
-                    width: 15,
-                  ),
-                  InkWell(
-                    onTap: () =>
-                        _showAlertDialog(widget.customer.id.toString()),
-                    child: const FaIcon(
-                      FontAwesomeIcons.trashCan,
-                      color: Colors.black,
-                      size: 18,
+                    const SizedBox(
+                      width: 15,
                     ),
-                  )
-                ],
-              )
+                    InkWell(
+                      onTap: () =>
+                          _showAlertDialog(widget.customer.id.toString()),
+                      child: const FaIcon(
+                        FontAwesomeIcons.trashCan,
+                        color: Colors.black,
+                        size: 18,
+                      ),
+                    )
+                  ],
+                )
+              ]
             ],
           ),
         ),

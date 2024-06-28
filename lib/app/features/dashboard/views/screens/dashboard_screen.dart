@@ -294,7 +294,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     isMobile = MediaQuery.of(context).size.width < 600;
 
     return Scaffold(
-      key: scafoldKey,
+      key: controller.scafoldKey,
       drawer: ResponsiveBuilder.isDesktop(context)
           ? null
           : Drawer(
@@ -319,7 +319,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   ),
                   if (profileDetailsListener.getPageIndex == 0) ...[
                     _buildTaskContent(
-                      onPressedMenu: () => openDrawer(),
+                      onPressedMenu: () => controller.openDrawer(),
                       numberOfApartment: numberOfApartment,
                     ),
                   ] else if (profileDetailsListener.getPageIndex == 1) ...[

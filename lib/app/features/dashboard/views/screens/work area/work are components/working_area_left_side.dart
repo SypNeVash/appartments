@@ -13,6 +13,7 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:multi_select_flutter/util/multi_select_item.dart';
 
 import '../../dashboard_screen.dart';
@@ -143,15 +144,7 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
   @override
   void initState() {
     getWorkAreaUsingID();
-    _loadIsMobile();
     super.initState();
-  }
-
-  Future<void> _loadIsMobile() async {
-    bool? isMobile = await getIsMobileFromSharedPreferences();
-    setState(() {
-      _isMobile = isMobile;
-    });
   }
 
   @override
@@ -264,6 +257,14 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
 
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
+    if (screenSize.width < 600) {
+      _isMobile = true;
+    } else if (screenSize.width < 1200) {
+      _isMobile = false;
+    } else {
+      _isMobile = false;
+    }
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
