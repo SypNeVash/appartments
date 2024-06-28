@@ -168,8 +168,20 @@ class _WorkingAreaRightSideState extends State<WorkingAreaRightSide> {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 15, vertical: 10),
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                                color: Colors.white),
+                              borderRadius: BorderRadius.circular(8),
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                  color:
+                                      const Color.fromARGB(255, 146, 162, 190)
+                                          .withOpacity(0.5),
+                                  spreadRadius: -5,
+                                  blurRadius: 10,
+                                  offset: const Offset(
+                                      0, 8), // changes position of shadow
+                                ),
+                              ],
+                            ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -236,7 +248,8 @@ class _WorkingAreaRightSideState extends State<WorkingAreaRightSide> {
               ),
               TextFormField(
                 controller: chatController,
-                decoration: decorationForTextFormField('Додати коментар').copyWith(
+                decoration:
+                    decorationForTextFormField('Додати коментар').copyWith(
                   suffix: InkWell(
                     onTap: () {
                       if (chatController.text.isNotEmpty) {

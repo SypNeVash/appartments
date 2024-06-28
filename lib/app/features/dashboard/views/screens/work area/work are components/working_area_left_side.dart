@@ -321,8 +321,19 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 25, vertical: 15),
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: Colors.white),
+                      borderRadius: BorderRadius.circular(15),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: const Color.fromARGB(255, 146, 162, 190)
+                              .withOpacity(0.5),
+                          spreadRadius: -5,
+                          blurRadius: 10,
+                          offset:
+                              const Offset(0, 8), // changes position of shadow
+                        ),
+                      ],
+                    ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -403,6 +414,16 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
                         horizontal: 25, vertical: 30),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
+                        boxShadow: [
+                          BoxShadow(
+                            color: const Color.fromARGB(255, 146, 162, 190)
+                                .withOpacity(0.5),
+                            spreadRadius: -5,
+                            blurRadius: 10,
+                            offset: const Offset(
+                                0, 8), // changes position of shadow
+                          ),
+                        ],
                         color: Colors.white),
                     child: Form(
                       key: _formKey,
