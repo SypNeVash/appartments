@@ -37,17 +37,19 @@ class _AddingNewClientsState extends State<AddingNewClients> {
         body: SafeArea(
             child: ResponsiveBuilder(mobileBuilder: (context, constraints) {
           return const SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
               child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 25, vertical: 25),
-            child: Column(
-              children: [
-                FormsList(),
-                TextFormForAddingNewClients(),
-              ],
-            ),
-          ));
+                padding: EdgeInsets.symmetric(horizontal: 25, vertical: 25),
+                child: Column(
+                  children: [
+                    FormsList(),
+                    TextFormForAddingNewClients(),
+                  ],
+                ),
+              ));
         }, tabletBuilder: (context, constraints) {
           return SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
               controller: ScrollController(),
               child: Container(
                   constraints: const BoxConstraints(maxWidth: 400),
@@ -55,20 +57,27 @@ class _AddingNewClientsState extends State<AddingNewClients> {
                     children: [
                       FormsList(),
                       TextFormForAddingNewClients(),
+                      SizedBox(
+                        height: 35,
+                      )
                     ],
                   )));
         }, desktopBuilder: (context, constraints) {
           return SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
               scrollDirection: Axis.vertical,
               controller: ScrollController(),
               child: Center(
                 child: Container(
                     constraints: const BoxConstraints(maxWidth: 400),
-                    padding: const EdgeInsets.symmetric(vertical: 55),
+                    padding: const EdgeInsets.symmetric(vertical: 10),
                     child: const Column(
                       children: [
                         FormsList(),
                         TextFormForAddingNewClients(),
+                        SizedBox(
+                          height: 35,
+                        )
                       ],
                     )),
               ));

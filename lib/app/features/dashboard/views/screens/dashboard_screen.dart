@@ -29,7 +29,6 @@ import 'package:provider/provider.dart';
 import 'all_aparts_screen.dart';
 import 'clients/all_clients_grid_view.dart';
 import 'clients/clients components/search_text_form.dart';
-import 'users/add_new_user.dart';
 
 // binding
 part '../../bindings/dashboard_binding.dart';

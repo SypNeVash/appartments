@@ -1,6 +1,7 @@
 import 'package:apartments/app/api/work_are_api.dart';
 import 'package:apartments/app/constans/app_constants.dart';
 import 'package:apartments/app/features/dashboard/views/components/text_form_fiel_decoration.dart';
+import 'package:apartments/app/features/dashboard/views/screens/dashboard_screen.dart';
 import 'package:apartments/app/models/customers_model.dart';
 import 'package:apartments/app/models/work_area_model.dart';
 import 'package:apartments/app/providers/clients_provider.dart';
@@ -9,6 +10,7 @@ import 'package:apartments/app/shared_components/responsive_builder.dart';
 import 'package:apartments/app/utils/services/shared_preferences.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:dio/dio.dart';
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
@@ -17,68 +19,96 @@ import 'package:uuid/uuid.dart';
 
 import 'work are components/form_headline.dart';
 
-class WorkingAreMainEdit extends StatelessWidget {
+class WorkingAreMainEdit extends StatefulWidget {
   const WorkingAreMainEdit({super.key});
 
   @override
+  State<WorkingAreMainEdit> createState() => _WorkingAreMainEditState();
+}
+
+class _WorkingAreMainEditState extends State<WorkingAreMainEdit> {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //       builder: (context) => const DashboardScreen()),
+              // );
+            },
+            icon: const Icon(EvaIcons.arrowBack),
+          ),
+        ),
         body: SafeArea(
             child: ResponsiveBuilder(mobileBuilder: (context, constraints) {
-      return SingleChildScrollView(
-          child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
-        child: Center(
-          child: Container(
-              constraints: const BoxConstraints(maxWidth: 400),
-              padding: const EdgeInsets.only(top: 10),
-              child: const Column(
-                children: [
-                  FormHeadline(
-                    headLine: 'Новий робочий простір',
-                    subLine: "Обов'язково заповніть форму",
-                  ),
-                  WorkingAreaForm()
-                ],
-              )),
-        ),
-      ));
-    }, tabletBuilder: (context, constraints) {
-      return SingleChildScrollView(
-          controller: ScrollController(),
-          child: Center(
-            child: Container(
-                constraints: const BoxConstraints(maxWidth: 400),
-                padding: const EdgeInsets.only(top: 10),
-                child: const Column(
-                  children: [
-                    FormHeadline(
-                      headLine: 'Новий робочий простір',
-                      subLine: "Обов'язково заповніть форму",
-                    ),
-                    WorkingAreaForm()
-                  ],
-                )),
+          return SingleChildScrollView(
+              child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 25),
+            child: Center(
+              child: Container(
+                  constraints: const BoxConstraints(maxWidth: 400),
+                  padding: const EdgeInsets.only(top: 10),
+                  child: const Column(
+                    children: [
+                      FormHeadline(
+                        headLine: 'Новий робочий простір',
+                        subLine: "Обов'язково заповніть форму",
+                      ),
+                      WorkingAreaForm(),
+                      SizedBox(
+                        height: 35,
+                      )
+                    ],
+                  )),
+            ),
           ));
-    }, desktopBuilder: (context, constraints) {
-      return SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          controller: ScrollController(),
-          child: Center(
-            child: Container(
-                constraints: const BoxConstraints(maxWidth: 400),
-                padding: const EdgeInsets.symmetric(vertical: 55),
-                child: const Column(
-                  children: [
-                    FormHeadline(
-                      headLine: 'Новий робочий простір',
-                      subLine: "Обов'язково заповніть форму",
-                    ),
-                    WorkingAreaForm()
-                  ],
-                )),
-          ));
-    })));
+        }, tabletBuilder: (context, constraints) {
+          return SingleChildScrollView(
+              controller: ScrollController(),
+              child: Center(
+                child: Container(
+                    constraints: const BoxConstraints(maxWidth: 400),
+                    padding: const EdgeInsets.only(top: 10),
+                    child: const Column(
+                      children: [
+                        FormHeadline(
+                          headLine: 'Новий робочий простір',
+                          subLine: "Обов'язково заповніть форму",
+                        ),
+                        WorkingAreaForm(),
+                        SizedBox(
+                          height: 35,
+                        )
+                      ],
+                    )),
+              ));
+        }, desktopBuilder: (context, constraints) {
+          return SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              controller: ScrollController(),
+              child: Center(
+                child: Container(
+                    constraints: const BoxConstraints(maxWidth: 400),
+                    padding: const EdgeInsets.symmetric(vertical: 5),
+                    child: const Column(
+                      children: [
+                        FormHeadline(
+                          headLine: 'Новий робочий простір',
+                          subLine: "Обов'язково заповніть форму",
+                        ),
+                        WorkingAreaForm(),
+                        SizedBox(
+                          height: 35,
+                        )
+                      ],
+                    )),
+              ));
+        })));
   }
 }
 

@@ -1,19 +1,15 @@
 import 'dart:convert';
 
-import 'package:apartments/app/api/additional_api.dart';
 import 'package:apartments/app/api/work_are_api.dart';
 import 'package:apartments/app/constans/app_constants.dart';
 import 'package:apartments/app/features/dashboard/views/components/text_form_fiel_decoration.dart';
 import 'package:apartments/app/features/dashboard/views/screens/work%20area/work%20are%20components/multi_select.dart';
-import 'package:apartments/app/features/dashboard/views/screens/work%20area/work_are_dashboard.dart';
 import 'package:apartments/app/models/work_area_model.dart';
 import 'package:apartments/app/utils/services/shared_preferences.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:multi_select_flutter/util/multi_select_item.dart';
 
 import '../../dashboard_screen.dart';

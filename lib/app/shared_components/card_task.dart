@@ -29,52 +29,139 @@ class CardTask extends StatelessWidget {
     });
   }
 
-  ClipRRect mobileCardTask() {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(20),
-      child: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [primary, primary.withOpacity(.7)],
-            begin: AlignmentDirectional.topCenter,
-            end: AlignmentDirectional.bottomCenter,
-          ),
+  mobileCardTask() {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border.all(
+          color: const Color.fromARGB(255, 217, 159, 253),
+          width: 2,
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SizedBox(
-                width: 200,
-                height: 200,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image(
-                    image: NetworkImage(
-                      data.photos!.first.toString(),
-                    ),
-                    fit: BoxFit.cover,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Color.fromARGB(255, 146, 162, 190).withOpacity(0.5),
+            spreadRadius: -5,
+            blurRadius: 10,
+            offset: Offset(0, 8), // changes position of shadow
+          ),
+        ],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SizedBox(
+              width: 200,
+              height: 200,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Image(
+                  image: NetworkImage(
+                    data.photos!.first.toString(),
                   ),
+                  fit: BoxFit.cover,
                 ),
               ),
-              const SizedBox(
-                height: 25,
+            ),
+            const SizedBox(
+              height: 25,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    _buildLabel(),
+                    _buildAddress(),
+                    const SizedBox(height: 20),
+                    _buildStatus(),
+                    const SizedBox(height: 15),
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    price(),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    _buildDate(),
+                  ],
+                ),
+                const SizedBox(
+                  height: 25,
+                ),
+                IdButton(
+                  id: data.id.toString(),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  desktopCardTask() {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border.all(
+          color: const Color.fromARGB(255, 217, 159, 253),
+          width: 2,
+        ),
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 5,
+            blurRadius: 7,
+            offset: Offset(0, 3), // changes position of shadow
+          ),
+        ],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Row(
+          children: [
+            SizedBox(
+              width: 200,
+              height: 200,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Image(
+                  image: NetworkImage(
+                    data.photos!.first.toString(),
+                  ),
+                  fit: BoxFit.cover,
+                ),
               ),
-              Column(
+            ),
+            const SizedBox(
+              width: 25,
+            ),
+            Expanded(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      _buildLabel(),
-                      _buildAddress(),
-                      const SizedBox(height: 20),
-                      _buildStatus(),
-                      const SizedBox(height: 15),
-                    ],
+                  SizedBox(
+                    height: 115,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        _buildLabel(),
+                        _buildAddress(),
+                        const SizedBox(height: 15),
+                        _buildStatus(),
+                        const SizedBox(height: 15),
+                      ],
+                    ),
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -94,83 +181,8 @@ class CardTask extends StatelessWidget {
                   ),
                 ],
               ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  ClipRRect desktopCardTask() {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(20),
-      child: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [primary, primary.withOpacity(.7)],
-            begin: AlignmentDirectional.topCenter,
-            end: AlignmentDirectional.bottomCenter,
-          ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Row(
-            children: [
-              SizedBox(
-                width: 200,
-                height: 200,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image(
-                    image: NetworkImage(
-                      data.photos!.first.toString(),
-                    ),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              const SizedBox(
-                width: 25,
-              ),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: 115,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          _buildLabel(),
-                          _buildAddress(),
-                          const SizedBox(height: 15),
-                          _buildStatus(),
-                          const SizedBox(height: 15),
-                        ],
-                      ),
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        price(),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        _buildDate(),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 25,
-                    ),
-                    IdButton(
-                      id: data.id.toString(),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -201,10 +213,10 @@ class CardTask extends StatelessWidget {
       children: [
         Text(
           data.region ?? '',
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.w800,
-            color: onPrimary,
+            color: Colors.black,
             letterSpacing: 1,
           ),
           maxLines: 2,
@@ -212,10 +224,10 @@ class CardTask extends StatelessWidget {
         ),
         Text(
           ' - ${data.type}',
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.w800,
-            color: onPrimary,
+            color: Colors.black,
             letterSpacing: 1,
           ),
           maxLines: 2,
@@ -233,7 +245,7 @@ class CardTask extends StatelessWidget {
               borderRadius: BorderRadius.circular(25),
             )
           : BoxDecoration(
-              color: onPrimary,
+              color: Colors.blue,
               borderRadius: BorderRadius.circular(10),
             ),
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -244,12 +256,12 @@ class CardTask extends StatelessWidget {
                 color: Colors.white,
                 fontSize: 15,
                 letterSpacing: 1,
-              )
+                fontWeight: FontWeight.w700)
             : const TextStyle(
-                color: Colors.black,
+                color: Colors.white,
                 fontSize: 15,
                 letterSpacing: 1,
-              ),
+                fontWeight: FontWeight.w700),
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
       ),
@@ -258,7 +270,7 @@ class CardTask extends StatelessWidget {
 
   Widget _buildDate() {
     return _IconLabel(
-      color: onPrimary,
+      color: Colors.blue,
       iconData: EvaIcons.calendarOutline,
       label: data.createdData.toString(),
     );
@@ -266,7 +278,7 @@ class CardTask extends StatelessWidget {
 
   Widget _buildAddress() {
     return _IconLabel(
-      color: onPrimary,
+      color: Colors.orange,
       iconData: EvaIcons.pin,
       label: data.address.toString(),
     );
@@ -277,7 +289,7 @@ class CardTask extends StatelessWidget {
       children: [
         const FaIcon(
           FontAwesomeIcons.dollarSign,
-          color: Colors.white,
+          color: Colors.blue,
           size: 18,
         ),
         const SizedBox(
@@ -286,7 +298,7 @@ class CardTask extends StatelessWidget {
         Text(
           data.price.toString(),
           style: const TextStyle(
-              fontSize: 19, fontWeight: FontWeight.w700, color: Colors.white),
+              fontSize: 19, fontWeight: FontWeight.w700, color: Colors.blue),
         )
       ],
     );
@@ -319,15 +331,15 @@ class _IconLabel extends StatelessWidget {
       children: [
         Icon(
           iconData,
-          color: color,
+          color: const Color.fromARGB(255, 95, 95, 95),
           size: 18,
         ),
         const SizedBox(width: 5),
         Text(
           label,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 12,
-            color: color.withOpacity(.8),
+            color: Color.fromARGB(255, 95, 95, 95),
           ),
         )
       ],

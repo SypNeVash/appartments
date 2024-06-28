@@ -40,6 +40,7 @@ class _ApartmentEditDetailState extends State<ApartmentEditDetail> {
         }, tabletBuilder: (context, constraints) {
           return SingleChildScrollView(
               controller: ScrollController(),
+              physics: const BouncingScrollPhysics(),
               child: Center(
                 child: Container(
                     constraints: const BoxConstraints(maxWidth: 400),
@@ -49,6 +50,7 @@ class _ApartmentEditDetailState extends State<ApartmentEditDetail> {
         }, desktopBuilder: (context, constraints) {
           return SingleChildScrollView(
               scrollDirection: Axis.vertical,
+              physics: const BouncingScrollPhysics(),
               controller: ScrollController(),
               child: Center(
                 child: Container(

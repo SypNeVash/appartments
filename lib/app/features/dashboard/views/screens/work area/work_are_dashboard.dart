@@ -1,4 +1,5 @@
 import 'package:apartments/app/constans/app_constants.dart';
+import 'package:apartments/app/features/dashboard/views/screens/clients/add_new_clients.dart';
 import 'package:apartments/app/features/dashboard/views/screens/dashboard_screen.dart';
 import 'package:apartments/app/features/dashboard/views/screens/work%20area/work%20are%20components/customer_card_for_working_area.dart';
 import 'package:apartments/app/models/work_area_model.dart';
@@ -9,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_web_pagination/flutter_web_pagination.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+
+import 'add_new_client_to_work_area.dart';
 
 // class WorkingAreaDashboard extends StatefulWidget {
 //   const WorkingAreaDashboard({super.key});
@@ -192,7 +195,11 @@ class FormsLists extends StatelessWidget {
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.orange),
                 onPressed: () {
-                  Get.toNamed('/addingNewWorkArea');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const WorkingAreMainEdit()),
+                  );
                 },
                 child: const Text(
                   '+ Додати робочий простір',

@@ -160,8 +160,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                               horizontal: 40, vertical: 15)),
                                       child: showCircular == true
                                           ? const SizedBox(
-                                              width: 25,
-                                              height: 25,
+                                              width: 30,
+                                              height: 30,
                                               child: CircularProgressIndicator(
                                                 color: Colors.white,
                                                 strokeWidth: 1.5,

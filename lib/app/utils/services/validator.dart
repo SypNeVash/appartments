@@ -1,7 +1,7 @@
 class Validator {
   static String? validateDropDefaultData(value) {
     if (value == null) {
-      return 'Please select an item.';
+      return 'Виберіть будь ласка.';
     } else {
       return null;
     }
@@ -11,16 +11,16 @@ class Validator {
     String pattern = r'^(?=.*[A-Z])(?=.*[\W_]).{8,16}$';
     RegExp regex = RegExp(pattern);
     if (value == null || value.isEmpty) {
-      return 'Password is required';
+      return 'Необхідно ввести пароль';
     } else if (!regex.hasMatch(value)) {
-      return 'Password must be 8-16 characters long,\ninclude at least one uppercase letter and one symbol';
+      return 'Пароль має містити 8-16 символів, \nмістити принаймні одну велику літеру та один символ';
     }
     return null;
   }
 
   static String? validateName(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Name is required';
+      return 'Необхідно вказати ім я';
     }
     return null;
   }
