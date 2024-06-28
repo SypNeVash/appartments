@@ -36,7 +36,7 @@ class _WorkingAreaRightSideState extends State<WorkingAreaRightSide> {
   }
 
   getInfosFromSharedPreferences() async {
-    name = await SPHelper.getNameSharedPreference() ?? '';
+    name = await SPHelper.getFullNameSharedPreference() ?? await SPHelper.getNameSharedPreference() ?? '';
   }
 
   getWorkAreaUsingID() async {

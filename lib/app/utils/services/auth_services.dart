@@ -40,6 +40,8 @@ class AuthService {
     await SPHelper.saveRoleSharedPreference(role);
     final name = await getField('/identity/claims/name', decodedToken);
     await SPHelper.saveNameSharedPreference(name);
+    final fullName = await getField('/identity/claims/surname', decodedToken);
+    await SPHelper.saveFullNameSharedPreference(fullName);
     await TokenManager.saveToken(token);
   }
 
