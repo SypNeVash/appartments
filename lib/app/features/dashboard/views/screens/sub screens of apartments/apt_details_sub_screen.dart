@@ -121,11 +121,14 @@ class _ApartmentDetailsSubScreenState extends State<ApartmentDetailsSubScreen> {
                           //     size: 18,
                           //   ),
                           // ),
-                          const Text(
-                            "Детальна інформація про квартиру",
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w700,
+                          const Expanded(
+                            child: Text(
+                              "Детальна інформація про квартиру",
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w700,
+                              ),
                             ),
                           ),
                           if (role == 'Admin' || role == 'Stuff') ...[

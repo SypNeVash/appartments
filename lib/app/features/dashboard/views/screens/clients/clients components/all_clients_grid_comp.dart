@@ -1,5 +1,6 @@
 import 'package:apartments/app/constans/app_constants.dart';
 import 'package:apartments/app/features/dashboard/views/screens/clients/crud_client_api.dart';
+import 'package:apartments/app/features/dashboard/views/screens/clients/edit_clients_dat.dart';
 import 'package:apartments/app/models/customers_model.dart';
 import 'package:apartments/app/providers/clients_provider.dart';
 import 'package:apartments/app/utils/animations/show_up_animation.dart';
@@ -229,7 +230,12 @@ class _CustomerCardState extends State<CustomerCard> {
                         onTap: () async {
                           await SPHelper.saveClientsIDSharedPreference(
                               widget.customer.id.toString());
-                          Get.toNamed('/editClientsData');
+
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const EditClientsData()),
+                          );
                         },
                         child: const FaIcon(
                           FontAwesomeIcons.pencil,

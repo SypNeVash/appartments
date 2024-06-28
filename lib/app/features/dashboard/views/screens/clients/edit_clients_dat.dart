@@ -6,6 +6,7 @@ import 'package:apartments/app/providers/clients_provider.dart';
 import 'package:apartments/app/utils/services/shared_preferences.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:dio/dio.dart';
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -21,11 +22,19 @@ class _EditClientsDataState extends State<EditClientsData> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(EvaIcons.arrowBack),
+        ),
+      ),
       body: SingleChildScrollView(
         child: Center(
           child: Container(
             constraints: const BoxConstraints(maxWidth: 400),
-            padding: const EdgeInsets.only(top: 40, bottom: 40),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
             child: const Column(
               children: [
                 FormsEditClientList(),
@@ -45,7 +54,7 @@ class FormsEditClientList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
           'Редагувати клієнта',
@@ -84,7 +93,7 @@ class _TextFormForEditingClientState extends State<TextFormForEditingClient> {
     final id = await SPHelper.getClientsIDSharedPreference() ?? '';
     final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
     String apiUrl = 'https://realtor.azurewebsites.net/api/CustomerCards/$id';
-    
+
     try {
       Map<String, String> datas = {
         "id": id,
@@ -113,7 +122,6 @@ class _TextFormForEditingClientState extends State<TextFormForEditingClient> {
     }
   }
 
- 
   String? selectedRole;
   getDataByID() async {
     customerModel = await ApiClient().fetchClientDataById();
