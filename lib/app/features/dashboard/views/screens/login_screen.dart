@@ -126,13 +126,20 @@ class _LoginScreenState extends State<LoginScreen> {
                                             showCircular = true;
                                           });
 
-                                          final isAuthenticated =
-                                              await authController.login(
-                                                  usernameController.text,
-                                                  passwordController.text);
+                                          await authController.login(
+                                              usernameController.text,
+                                              passwordController.text);
 
-                                          if (isAuthenticated == true) {
+                                          if (authController
+                                                  .isAuthenticated.value ==
+                                              true) {
                                             setState(() {
+                                              showCircular = false;
+                                            });
+                                          } else {
+                                            setState(() {
+                                              textForerror =
+                                                  "Ім'я користувача або пароль є невірним";
                                               showCircular = false;
                                             });
                                           }
@@ -153,10 +160,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                               horizontal: 40, vertical: 15)),
                                       child: showCircular == true
                                           ? const SizedBox(
-                                              width: 20,
-                                              height: 20,
+                                              width: 25,
+                                              height: 25,
                                               child: CircularProgressIndicator(
                                                 color: Colors.white,
+                                                strokeWidth: 1.5,
                                               ),
                                             )
                                           : const Text(

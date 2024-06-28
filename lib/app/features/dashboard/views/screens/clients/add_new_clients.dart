@@ -5,6 +5,7 @@ import 'package:apartments/app/utils/services/shared_preferences.dart';
 import 'package:apartments/app/utils/services/validator.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:dio/dio.dart';
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:uuid/uuid.dart';
@@ -20,45 +21,58 @@ class _AddingNewClientsState extends State<AddingNewClients> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //       builder: (context) => const DashboardScreen()),
+              // );
+            },
+            icon: const Icon(EvaIcons.arrowBack),
+          ),
+        ),
         body: SafeArea(
             child: ResponsiveBuilder(mobileBuilder: (context, constraints) {
-      return const SingleChildScrollView(
-          child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 25, vertical: 25),
-        child: Column(
-          children: [
-            FormsList(),
-            TextFormForAddingNewClients(),
-          ],
-        ),
-      ));
-    }, tabletBuilder: (context, constraints) {
-      return SingleChildScrollView(
-          controller: ScrollController(),
-          child: Container(
-              constraints: const BoxConstraints(maxWidth: 400),
-              child: const Column(
-                children: [
-                  FormsList(),
-                  TextFormForAddingNewClients(),
-                ],
-              )));
-    }, desktopBuilder: (context, constraints) {
-      return SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          controller: ScrollController(),
-          child: Center(
-            child: Container(
-                constraints: const BoxConstraints(maxWidth: 400),
-                padding: const EdgeInsets.symmetric(vertical: 55),
-                child: const Column(
-                  children: [
-                    FormsList(),
-                    TextFormForAddingNewClients(),
-                  ],
-                )),
+          return const SingleChildScrollView(
+              child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 25, vertical: 25),
+            child: Column(
+              children: [
+                FormsList(),
+                TextFormForAddingNewClients(),
+              ],
+            ),
           ));
-    })));
+        }, tabletBuilder: (context, constraints) {
+          return SingleChildScrollView(
+              controller: ScrollController(),
+              child: Container(
+                  constraints: const BoxConstraints(maxWidth: 400),
+                  child: const Column(
+                    children: [
+                      FormsList(),
+                      TextFormForAddingNewClients(),
+                    ],
+                  )));
+        }, desktopBuilder: (context, constraints) {
+          return SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              controller: ScrollController(),
+              child: Center(
+                child: Container(
+                    constraints: const BoxConstraints(maxWidth: 400),
+                    padding: const EdgeInsets.symmetric(vertical: 55),
+                    child: const Column(
+                      children: [
+                        FormsList(),
+                        TextFormForAddingNewClients(),
+                      ],
+                    )),
+              ));
+        })));
   }
 }
 

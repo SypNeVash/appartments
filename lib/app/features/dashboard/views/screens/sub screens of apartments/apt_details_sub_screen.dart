@@ -54,9 +54,7 @@ class _ApartmentDetailsSubScreenState extends State<ApartmentDetailsSubScreen> {
         }
       },
       textCancel: "Назад",
-      onCancel: () {
-        // Perform any action on cancel, if needed
-      },
+      onCancel: () {},
     );
   }
 
@@ -547,7 +545,10 @@ class FullScreenImagePage extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(EvaIcons.arrowBack),
+          icon: const Icon(
+            EvaIcons.arrowBack,
+            color: Colors.white,
+          ),
           onPressed: () {
             Navigator.pop(context);
           },

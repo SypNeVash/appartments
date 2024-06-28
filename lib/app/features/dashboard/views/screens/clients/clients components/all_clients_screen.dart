@@ -1,4 +1,6 @@
 import 'package:apartments/app/constans/app_constants.dart';
+import 'package:apartments/app/features/dashboard/views/screens/adding_apartment.dart';
+import 'package:apartments/app/features/dashboard/views/screens/clients/add_new_clients.dart';
 import 'package:apartments/app/features/dashboard/views/screens/dashboard_screen.dart';
 import 'package:apartments/app/shared_components/search_field.dart';
 import 'package:flutter/material.dart';
@@ -91,7 +93,11 @@ class FormsLists extends StatelessWidget {
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.orange),
                 onPressed: () {
-                  Get.toNamed('/addingNewClient');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const AddingNewClients()),
+                  );
                 },
                 child: const Text(
                   '+ Додати нового клієнта',

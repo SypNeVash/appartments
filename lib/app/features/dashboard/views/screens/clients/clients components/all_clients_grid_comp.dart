@@ -157,9 +157,9 @@ class _CustomerCardState extends State<CustomerCard> {
           padding: const EdgeInsets.all(10),
           child: Row(
             children: [
-              Expanded(
+              const Expanded(
                 flex: 1,
-                child: const CircleAvatar(
+                child: CircleAvatar(
                   radius: 35,
                   backgroundImage: AssetImage('images/user.png'),
                 ),
@@ -237,7 +237,7 @@ class _CustomerCardState extends State<CustomerCard> {
                           size: 18,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 25,
                       ),
                       InkWell(

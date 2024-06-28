@@ -20,7 +20,7 @@ class AuthController extends GetxController {
       isAuthenticated.value = true;
       Get.offAllNamed('/'); // Navigate to home page
     } else {
-      Get.snackbar('Login Failed', errorMessage);
+      isAuthenticated.value = false;
     }
   }
 
