@@ -19,6 +19,8 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
   final _roomsController = TextEditingController();
   final _regionController = TextEditingController();
   final _statusController = TextEditingController();
+  RangeValues _currentRangeValues = const RangeValues(1000, 100000);
+  RangeValues? _setRangeValues = null;
 
   @override
   void dispose() {
@@ -38,13 +40,6 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
         filters.add(FilterCondition(
           property: 'id',
           value: _idController.text,
-          condition: 'contains',
-        ));
-      }
-      if (_priceController.text.isNotEmpty) {
-        filters.add(FilterCondition(
-          property: 'price',
-          value: _priceController.text,
           condition: 'contains',
         ));
       }
@@ -71,6 +66,27 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
         ));
       }
 
+      if (_statusController.text.isNotEmpty) {
+        filters.add(FilterCondition(
+          property: 'status',
+          value: _statusController.text,
+          condition: 'equals',
+        ));
+      }
+
+      if (_setRangeValues != null) {
+        filters.add(FilterCondition(
+          property: 'Price',
+          value: _setRangeValues!.start.toString(),
+          condition: 'Greater',
+        ));
+        filters.add(FilterCondition(
+          property: 'Price',
+          value: _setRangeValues!.end.toString(),
+          condition: 'Less',
+        ));
+      }
+
       Provider.of<ApartmentProvider>(context, listen: false)
           .searchApartments(filters, 1);
     }
@@ -92,13 +108,21 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
           const SizedBox(
             height: 10,
           ),
-          TextFormField(
-            controller: _priceController,
-            decoration: decorationForTextFormField('Ціна'),
-            validator: (value) {
-              return null; // Price is optional, so no validation
-            },
+          RangeSlider(
+          values: _currentRangeValues,
+          max: 100000,
+          divisions: 1000,
+          labels: RangeLabels(
+            _currentRangeValues.start.round().toString(),
+            _currentRangeValues.end.round().toString(),
           ),
+          onChanged: (RangeValues values) {
+            setState(() {
+              _setRangeValues = values;
+              _currentRangeValues = values;
+            });
+          },
+        ),
           const SizedBox(
             height: 10,
           ),
