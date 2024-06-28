@@ -1,11 +1,13 @@
 import 'package:apartments/app/constans/app_constants.dart';
 import 'package:apartments/app/features/dashboard/views/components/text_form_fiel_decoration.dart';
+import 'package:apartments/app/providers/admin_panel_provider.dart';
 import 'package:apartments/app/utils/services/shared_preferences.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:dio/dio.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 class AddNewUsers extends StatefulWidget {
   const AddNewUsers({super.key});
@@ -131,6 +133,28 @@ class _TextFormForAddingNewUserState extends State<TextFormForAddingNewUser> {
     super.dispose();
   }
 
+  showSnackBarForConfirmation() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        backgroundColor: Colors.green,
+        content: Text(
+          'Sucessfully deleted',
+          style: TextStyle(color: Colors.white),
+        ),
+        duration: Duration(seconds: 2),
+      ),
+    );
+  }
+
+  showSnackBarForError() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Try again'),
+        duration: Duration(seconds: 2),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -217,6 +241,10 @@ class _TextFormForAddingNewUserState extends State<TextFormForAddingNewUser> {
                 final done = await postClientData();
                 if (done == true) {
                   cancel();
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    Provider.of<AdminPanelProvider>(context, listen: false)
+                        .fetchAdminPanelList(1);
+                  }); // Close the dialog
                   Navigator.of(context).pop();
                 } else {
                   cancel();
