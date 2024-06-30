@@ -79,7 +79,7 @@ class FormsListForUsersDashboard extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          'All users',
+          'Всі користувачі',
           style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
         ),
         SizedBox(
