@@ -41,7 +41,7 @@ class CardTask extends StatelessWidget {
           BoxShadow(
             color: const Color.fromARGB(255, 146, 162, 190).withOpacity(0.5),
             spreadRadius: -5,
-            blurRadius: -5,
+            blurRadius: 5,
             offset: const Offset(0, 8),
           ),
         ],

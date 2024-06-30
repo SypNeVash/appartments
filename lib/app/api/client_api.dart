@@ -165,7 +165,7 @@ class ApiClient {
       final data = response.data;
 
       customerModelList = CustomerModelList.fromJsons(data);
-
+      print(customerModelList.customerModel[0]);
       return customerModelList;
     } on DioError catch (e) {
       return e.response!.data;

@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
 class CustomerModel {
@@ -6,28 +5,37 @@ class CustomerModel {
   final String? name;
   final String? passport;
   final String? phoneNumber;
+  final String? role;
   final String? status;
+  final String? comment;
 
-  CustomerModel(
-      {this.id,
-      this.name,
-      this.passport,
-      this.phoneNumber,
-      this.status});
+  CustomerModel({
+    this.id,
+    this.name,
+    this.passport,
+    this.phoneNumber,
+    this.role,
+    this.status,
+    this.comment,
+  });
 
-  CustomerModel copyWith(
-      {String? id,
-      String? name,
-      String? passport,
-      String? phoneNumber,
-      String? status}) {
+  CustomerModel copyWith({
+    String? id,
+    String? name,
+    String? passport,
+    String? phoneNumber,
+    String? role,
+    String? status,
+    String? comment,
+  }) {
     return CustomerModel(
-      id: id ?? this.id,
-      name: name ?? this.name,
-      passport: passport ?? this.passport,
-      phoneNumber: phoneNumber ?? this.phoneNumber,
-      status: status ?? this.status,
-    );
+        id: id ?? this.id,
+        name: name ?? this.name,
+        passport: passport ?? this.passport,
+        phoneNumber: phoneNumber ?? this.phoneNumber,
+        role: role ?? this.role,
+        status: status ?? this.status,
+        comment: comment ?? this.comment);
   }
 
   Map<String, dynamic> toMap() {
@@ -36,17 +44,21 @@ class CustomerModel {
       'name': name,
       'passport': passport,
       'phoneNumber': phoneNumber,
-      'status': status
+      'role': role,
+      'status': status,
+      'comment': comment,
     };
   }
 
   factory CustomerModel.fromMap(Map<String, dynamic> map) {
     return CustomerModel(
-      id: map['id'] as String,
-      name: map['name'] as String,
-      passport: map['passport'] as String,
-      phoneNumber: map['phoneNumber'] as String,
-      status: map['status'] as String,
+      id: map['id'],
+      name: map['name'],
+      passport: map['passport'],
+      phoneNumber: map['phoneNumber'],
+      role: map['role'],
+      status: map['status'],
+      comment: map['comment'],
     );
   }
 
@@ -61,7 +73,7 @@ class CustomerModel {
 
   @override
   String toString() {
-    return 'CustomerModel(id: $id, name: $name, passport: $passport, phoneNumber: $phoneNumber, status:$status)';
+    return 'CustomerModel(id: $id, name: $name, passport: $passport, phoneNumber: $phoneNumber, comment: $comment, status:$status, role:$role)';
   }
 
   @override
@@ -72,7 +84,9 @@ class CustomerModel {
         other.name == name &&
         other.passport == passport &&
         other.phoneNumber == phoneNumber &&
-        other.status== status;
+        other.status == status &&
+        other.role == role &&
+        other.comment == comment;
   }
 
   @override
@@ -81,6 +95,8 @@ class CustomerModel {
         name.hashCode ^
         passport.hashCode ^
         phoneNumber.hashCode ^
+        comment.hashCode ^
+        role.hashCode ^
         status.hashCode;
   }
 }
@@ -94,7 +110,6 @@ class CustomerModelList {
 
   factory CustomerModelList.fromJsons(List<dynamic> parsedJson) {
     List<CustomerModel> listOfApp = [];
-
     listOfApp = parsedJson.map((i) => CustomerModel.fromMap(i)).toList();
     return CustomerModelList(customerModel: listOfApp);
   }

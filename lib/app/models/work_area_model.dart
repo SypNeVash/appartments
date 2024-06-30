@@ -100,14 +100,16 @@ class CustomerCard {
   final String? phoneNumber;
   final String? role;
   final String? status;
+  final String? comment;
 
   CustomerCard({
-    required this.id,
-    required this.name,
-    required this.passport,
-    required this.phoneNumber,
-    required this.role,
-    required this.status,
+    this.id,
+    this.name,
+    this.passport,
+    this.phoneNumber,
+    this.role,
+    this.status,
+    this.comment,
   });
 
   factory CustomerCard.fromJson(Map<String, dynamic> json) {
@@ -118,6 +120,7 @@ class CustomerCard {
       phoneNumber: json['phoneNumber'],
       role: json['role'],
       status: json['status'],
+      comment: json['comment'],
     );
   }
 
@@ -129,6 +132,7 @@ class CustomerCard {
       'phoneNumber': phoneNumber,
       'role': role,
       'status': status,
+      'comment': comment,
     };
   }
 

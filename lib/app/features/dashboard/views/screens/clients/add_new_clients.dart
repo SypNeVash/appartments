@@ -125,6 +125,8 @@ class _TextFormForAddingNewClientsState
   final TextEditingController passport = TextEditingController();
   final TextEditingController phoneNumber = TextEditingController();
   final TextEditingController status = TextEditingController();
+  final TextEditingController comments = TextEditingController();
+
   final _formKey = GlobalKey<FormState>();
   String errorText = '';
   bool _isValid = true;
@@ -141,6 +143,7 @@ class _TextFormForAddingNewClientsState
       "passport": passport.text,
       "phoneNumber": phoneNumber.text,
       "status": status.text,
+      "comment": comments.text
     };
 
     Response response = await dio.post(
@@ -152,7 +155,6 @@ class _TextFormForAddingNewClientsState
       ),
     );
 
-    print(response.statusCode);
     if (response.statusCode == 200 ||
         response.statusCode == 201 ||
         response.statusCode == 204) {
@@ -168,6 +170,7 @@ class _TextFormForAddingNewClientsState
     passport.dispose();
     phoneNumber.dispose();
     status.dispose();
+    comments.dispose();
     super.dispose();
   }
 
@@ -277,6 +280,22 @@ class _TextFormForAddingNewClientsState
                 child: Text(value),
               );
             }).toList(),
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          TextFormField(
+            autovalidateMode: AutovalidateMode.always,
+            textCapitalization: TextCapitalization.sentences,
+            autofocus: false,
+            maxLines: 5,
+            keyboardType: TextInputType.number,
+            style: const TextStyle(
+                fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
+            decoration: decorationForTextFormField('Comments'),
+            onChanged: (val) {
+              comments.text = val;
+            },
           ),
           const SizedBox(
             height: 15,

@@ -86,6 +86,8 @@ class _TextFormForEditingClientState extends State<TextFormForEditingClient> {
   final TextEditingController passport = TextEditingController();
   final TextEditingController phoneNumber = TextEditingController();
   final TextEditingController status = TextEditingController();
+  final TextEditingController comments = TextEditingController();
+
   String errorText = '';
   CustomerModel customerModel = CustomerModel();
 
@@ -101,7 +103,8 @@ class _TextFormForEditingClientState extends State<TextFormForEditingClient> {
         "name": name.text,
         "passport": passport.text,
         "phoneNumber": phoneNumber.text,
-        "status": status.text
+        "status": status.text,
+        "comment": comments.text
       };
       Response response = await dio.put(
         apiUrl,
@@ -131,6 +134,7 @@ class _TextFormForEditingClientState extends State<TextFormForEditingClient> {
     phoneNumber.text = customerModel.phoneNumber.toString();
     selectedRole = customerModel.status.toString();
     status.text = customerModel.status.toString();
+    comments.text = customerModel.comment.toString();
     setState(() {});
   }
 
@@ -139,6 +143,7 @@ class _TextFormForEditingClientState extends State<TextFormForEditingClient> {
     name.dispose();
     passport.dispose();
     phoneNumber.dispose();
+    comments.dispose();
     super.dispose();
   }
 
@@ -225,6 +230,19 @@ class _TextFormForEditingClientState extends State<TextFormForEditingClient> {
         ),
         const SizedBox(
           height: 15,
+        ),
+        TextFormField(
+          autovalidateMode: AutovalidateMode.always,
+          textCapitalization: TextCapitalization.sentences,
+          autofocus: false,
+          maxLines: 5,
+          keyboardType: TextInputType.number,
+          style: const TextStyle(
+              fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
+          decoration: decorationForTextFormField('Comments'),
+          onChanged: (val) {
+            comments.text = val;
+          },
         ),
         Text(
           errorText,

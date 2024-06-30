@@ -218,6 +218,16 @@ class _CustomerCardState extends State<CustomerCard> {
                                     fontWeight: FontWeight.w600))),
                       ],
                     ),
+                    Text(
+                      widget.customer.comment == null
+                          ? 'No comments'
+                          : widget.customer.comment.toString(),
+                      style: const TextStyle(
+                          overflow: TextOverflow.ellipsis,
+                          fontWeight: FontWeight.w600,
+                          color: Color.fromARGB(255, 107, 107, 107),
+                          fontSize: 15),
+                    ),
                   ],
                 ),
               ),
