@@ -21,6 +21,7 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
   final _statusController = TextEditingController();
   final _maxRangePriceController = TextEditingController();
   final _minRangePriceController = TextEditingController();
+  final _phoneController = TextEditingController();
   RangeValues _currentRangeValues = const RangeValues(1000, 40000);
 
   @override
@@ -90,6 +91,14 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
         ));
       }
 
+      if (_phoneController.text.isNotEmpty) {
+        filters.add(FilterCondition(
+          property: 'Phone',
+          value: _phoneController.text.toString(),
+          condition: 'Contains',
+        ));
+      }
+
       Provider.of<ApartmentProvider>(context, listen: false)
           .searchApartments(filters, 1);
     }
@@ -104,6 +113,16 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
           TextFormField(
             controller: _idController,
             decoration: decorationForTextFormField('ID'),
+            validator: (value) {
+              return null; // ID is optional, so no validation
+            },
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          TextFormField(
+            controller: _phoneController,
+            decoration: decorationForTextFormField('Телефон'),
             validator: (value) {
               return null; // ID is optional, so no validation
             },
