@@ -106,7 +106,7 @@ class _WorkingAreaListState extends State<WorkingAreaList> {
               return Column(
                 children: [
                   if (snapshot.data!.isEmpty) ...[
-                    const Center(child: Text('Клієнти не були знайдені')),
+                    const Center(child: Text('Робочі простіри не були знайдені')),
                   ] else ...[
                     ListView.builder(
                         physics: const NeverScrollableScrollPhysics(),

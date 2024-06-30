@@ -287,16 +287,11 @@ class CardTask extends StatelessWidget {
   Widget price() {
     return Row(
       children: [
-        const FaIcon(
-          FontAwesomeIcons.dollarSign,
-          color: Colors.blue,
-          size: 18,
-        ),
         const SizedBox(
           width: 5,
         ),
         Text(
-          data.price.toString(),
+          '₴ ' + data.price.toString(),
           style: const TextStyle(
               fontSize: 19, fontWeight: FontWeight.w700, color: Colors.blue),
         )

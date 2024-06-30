@@ -303,11 +303,7 @@ class _TextFormForAddingEditingAptState
           keyboardType: TextInputType.number,
           style: const TextStyle(
               fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField('Ціна',
-              icon: const FaIcon(
-                FontAwesomeIcons.dollarSign,
-                color: Colors.grey,
-              )),
+          decoration: decorationForTextFormField('Ціна ₴'),
           // onChanged: (val) {
           //   price.text = val;
           // },

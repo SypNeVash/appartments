@@ -87,7 +87,7 @@ Widget _buildSidebar(BuildContext context, bool? mobile) {
       const Padding(
         padding: EdgeInsets.all(kSpacing),
         child: Text(
-          "Realtor-2024",
+          "Елітний квадрат",
         ),
       ),
     ],

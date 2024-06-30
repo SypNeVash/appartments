@@ -248,16 +248,11 @@ class _ApartmentDetailsSubScreenState extends State<ApartmentDetailsSubScreen> {
                         ),
                         Row(
                           children: [
-                            const FaIcon(
-                              FontAwesomeIcons.dollarSign,
-                              color: Colors.black,
-                              size: 18,
-                            ),
                             const SizedBox(
                               width: 5,
                             ),
                             Text(
-                              apartment.price.toString(),
+                              '₴ ' + apartment.price.toString(),
                               style: const TextStyle(
                                   fontSize: 19,
                                   fontWeight: FontWeight.w700,
