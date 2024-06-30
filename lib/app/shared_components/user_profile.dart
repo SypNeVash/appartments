@@ -116,7 +116,7 @@ class _UserProfileState extends State<UserProfile> {
 
   Widget _buildJobdesk() {
     return Text(
-      role,
+      roleDefinition[role] ?? 'Користувач',
       style: TextStyle(
         fontWeight: FontWeight.w300,
         color: kFontColorPallets[1],

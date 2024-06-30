@@ -7,6 +7,7 @@ import 'package:apartments/app/constans/app_constants.dart';
 import 'package:apartments/app/features/dashboard/controllers/authcontroller.dart';
 import 'package:apartments/app/features/dashboard/views/components/filters_forms.dart';
 import 'package:apartments/app/features/dashboard/views/screens/adding_apartment.dart';
+import 'package:apartments/app/features/dashboard/views/screens/work%20area/filter.dart';
 import 'package:apartments/app/features/dashboard/views/screens/work%20area/work_are_dashboard.dart';
 import 'package:apartments/app/providers/appartment_provider.dart';
 import 'package:apartments/app/shared_components/header_text.dart';
@@ -203,6 +204,9 @@ class _BuilFilterContentState extends State<BuilFilterContent> {
             ],
             if (profileDetailsListener.getPageIndex == 2) ...[
               const ClientSearchForm(),
+            ],
+            if (profileDetailsListener.getPageIndex == 3) ...[
+              const WorkAreaFormFilter(),
             ] else ...[
               const SizedBox(),
             ]

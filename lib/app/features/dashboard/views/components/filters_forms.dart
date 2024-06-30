@@ -19,8 +19,9 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
   final _roomsController = TextEditingController();
   final _regionController = TextEditingController();
   final _statusController = TextEditingController();
-  RangeValues _currentRangeValues = const RangeValues(1000, 100000);
-  RangeValues? _setRangeValues = null;
+  final _maxRangePriceController = TextEditingController();
+  final _minRangePriceController = TextEditingController();
+  RangeValues _currentRangeValues = const RangeValues(1000, 40000);
 
   @override
   void dispose() {
@@ -74,15 +75,17 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
         ));
       }
 
-      if (_setRangeValues != null) {
+      if (_minRangePriceController.text.isNotEmpty) {
         filters.add(FilterCondition(
           property: 'Price',
-          value: _setRangeValues!.start.toString(),
+          value: _minRangePriceController.text.toString(),
           condition: 'Greater',
         ));
+      }
+      if (_maxRangePriceController.text.isNotEmpty) {
         filters.add(FilterCondition(
           property: 'Price',
-          value: _setRangeValues!.end.toString(),
+          value: _maxRangePriceController.text.toString(),
           condition: 'Less',
         ));
       }
@@ -110,7 +113,7 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
           ),
           RangeSlider(
           values: _currentRangeValues,
-          max: 100000,
+          max: 40000,
           divisions: 1000,
           labels: RangeLabels(
             _currentRangeValues.start.round().toString(),
@@ -118,11 +121,12 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
           ),
           onChanged: (RangeValues values) {
             setState(() {
-              _setRangeValues = values;
+              _maxRangePriceController.text = values.end.toString();
+              _minRangePriceController.text = values.start.toString();
               _currentRangeValues = values;
             });
           },
-        ),
+          ),
           const SizedBox(
             height: 10,
           ),

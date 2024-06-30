@@ -2,6 +2,8 @@ import 'package:apartments/app/api/work_are_api.dart';
 import 'package:apartments/app/models/work_area_model.dart';
 import 'package:flutter/material.dart';
 
+import 'appartment_provider.dart';
+
 class WorkAreaProvider extends ChangeNotifier {
   List<WorkingAreaModel> _workingarealist = [];
   bool _isLoading = false;
@@ -42,17 +44,17 @@ class WorkAreaProvider extends ChangeNotifier {
     }
   }
 
-  Future<List<WorkingAreaModel>> searchApartments(
+  Future<List<WorkingAreaModel>> searchWorkArea(
       List<FilterCondition> filters, int page) async {
     try {
       _isLoading = true;
       notifyListeners();
-
-      // final result = await RemoteApi.searchApartments(filters, page);
-      // _workingarealist = result.apartmentModel;
-      _currentPage = page;
-      _isSearchActive = true;
       _currentFilters = filters;
+
+      final result = await WorkAreApi.searchWorkArea(filters, page);
+      _workingarealist = result.workingAreaModel;
+      _currentPage = page;
+      _isSearchActive = false;
       _futureWorkingAreaModelList = Future.value(_workingarealist);
 
       _isLoading = false;
@@ -62,37 +64,13 @@ class WorkAreaProvider extends ChangeNotifier {
       return _workingarealist;
     } catch (e) {
       _isLoading = false;
-      _errorMessage = 'Failed to search work area: $e';
+      _errorMessage = 'Failed to fetch apartments: $e';
       notifyListeners();
       return [];
     }
   }
 
   void onPageChanged(int page) {
-    if (_isSearchActive) {
-      searchApartments(_currentFilters, page);
-    } else {
-      fetchWorkingAreaList(page);
-    }
-  }
-}
-
-class FilterCondition {
-  final String property;
-  final String value;
-  final String condition;
-
-  FilterCondition({
-    required this.property,
-    required this.value,
-    required this.condition,
-  });
-
-  Map<String, dynamic> toJson() {
-    return {
-      'property': property,
-      'value': value,
-      'condition': condition,
-    };
+      searchWorkArea(_currentFilters, page);
   }
 }

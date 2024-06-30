@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:apartments/app/models/work_area_model.dart';
 import 'package:apartments/app/utils/services/shared_preferences.dart';
 import 'package:dio/dio.dart';
+
+import '../providers/appartment_provider.dart';
 
 class WorkAreApi {
   final Dio _dio = Dio();
@@ -137,6 +141,36 @@ class WorkAreApi {
       }
     } on DioError catch (e) {
       return e.response!.data;
+    }
+  }
+
+  static Future<WorkingAreaModelList> searchWorkArea(
+      List<FilterCondition> filters, page) async {
+    var url =
+        'https://realtor.azurewebsites.net/api/WorkArea/paginationWithFiler';
+    final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
+    late WorkingAreaModelList workingAreaModelList;
+
+    var filterJson = jsonEncode(filters);
+    try {
+      Map<String, dynamic> queryParameters = {
+        'page': page,
+        'count': 10,
+        'conditions': filterJson
+      };
+
+      final response = await Dio().get(url,
+          options: Options(
+            headers: {'Authorization': 'Bearer $accessToken'},
+          ),
+          queryParameters: queryParameters);
+
+      final data = response.data;
+      workingAreaModelList = WorkingAreaModelList.fromJson(data);
+
+      return workingAreaModelList;
+    } catch (e) {
+      throw Exception('Failed to search apartments: $e');
     }
   }
 }

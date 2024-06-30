@@ -69,6 +69,12 @@ const rolesOfTheUser = [
   "Customer",
 ];
 
+const roleDefinition = {
+  "Stuff" : "Співробітник",
+  "Customer" : "Клієнт",
+  "Admin": "Адмін"
+};
+
 const String taskSelectionMeeting = "Зустріч";
 const String taskSelectionCallLater = "Передзвонити пізніше";
 

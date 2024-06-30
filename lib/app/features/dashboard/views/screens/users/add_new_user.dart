@@ -60,11 +60,11 @@ class FormsListForUsers extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          'Adding new User',
+          'Додати нового користувача',
           style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
         ),
         Text(
-          'Please fill the form',
+          'Заповныть форму',
           style: TextStyle(fontSize: 15),
         ),
         SizedBox(
@@ -138,7 +138,7 @@ class _TextFormForAddingNewUserState extends State<TextFormForAddingNewUser> {
       const SnackBar(
         backgroundColor: Colors.green,
         content: Text(
-          'Sucessfully deleted',
+          'Користувач видален',
           style: TextStyle(color: Colors.white),
         ),
         duration: Duration(seconds: 2),
@@ -166,7 +166,7 @@ class _TextFormForAddingNewUserState extends State<TextFormForAddingNewUser> {
           keyboardType: TextInputType.multiline,
           style: const TextStyle(
               fontSize: 16, color: Colors.black, fontWeight: FontWeight.w500),
-          decoration: decorationForTextFormField('User name'),
+          decoration: decorationForTextFormField("Ім'я користувача"),
           onChanged: (val) {
             username.text = val;
           },
@@ -181,7 +181,7 @@ class _TextFormForAddingNewUserState extends State<TextFormForAddingNewUser> {
           keyboardType: TextInputType.multiline,
           style: const TextStyle(
               fontSize: 16, color: Colors.black, fontWeight: FontWeight.w500),
-          decoration: decorationForTextFormField('Password'),
+          decoration: decorationForTextFormField('Пароль'),
           onChanged: (val) {
             password.text = val;
           },
@@ -196,7 +196,7 @@ class _TextFormForAddingNewUserState extends State<TextFormForAddingNewUser> {
           keyboardType: TextInputType.number,
           style: const TextStyle(
               fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField('Full name'),
+          decoration: decorationForTextFormField("Повне им'я"),
           onChanged: (val) {
             fullName.text = val;
           },
@@ -209,7 +209,7 @@ class _TextFormForAddingNewUserState extends State<TextFormForAddingNewUser> {
           autofocus: false,
           style: const TextStyle(
               fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField('Role'),
+          decoration: decorationForTextFormField('Роль'),
           onChanged: (val) {
             role.text = val!;
           },
@@ -221,7 +221,7 @@ class _TextFormForAddingNewUserState extends State<TextFormForAddingNewUser> {
           items: [...rolesOfTheUser].map((String value) {
             return DropdownMenuItem<String>(
               value: value,
-              child: Text(value),
+              child: Text(roleDefinition[value] ?? ''),
             );
           }).toList(),
           // value: types[0],
@@ -254,7 +254,7 @@ class _TextFormForAddingNewUserState extends State<TextFormForAddingNewUser> {
                 }
               },
               child: const Text(
-                'Submit',
+                'Зберегти',
                 style: TextStyle(
                     fontSize: 16,
                     color: Colors.black,
