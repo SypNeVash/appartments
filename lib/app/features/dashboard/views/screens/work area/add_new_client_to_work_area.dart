@@ -669,7 +669,7 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
                         phoneNumber: customerPhoneNumberController.text,
                         role: customerRoleController.text,
                         status: customerStatusController.text,
-                        // comment: customerStatusController.text,
+                        comment: customerStatusController.text,
                       );
 
                       WorkingAreaModel workingArea = WorkingAreaModel(

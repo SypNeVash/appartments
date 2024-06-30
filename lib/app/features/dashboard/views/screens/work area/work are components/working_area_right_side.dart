@@ -219,12 +219,14 @@ class _WorkingAreaRightSideState extends State<WorkingAreaRightSide> {
                                     const SizedBox(
                                       width: 7,
                                     ),
-                                    Text(
-                                      message.user,
-                                      style: const TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w600,
-                                          color: Colors.grey),
+                                    Expanded(
+                                      child: Text(
+                                        message.user,
+                                        style: const TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.grey),
+                                      ),
                                     ),
                                   ],
                                 ),
