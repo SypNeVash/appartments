@@ -14,7 +14,7 @@ class ImageAnimationPath {
 
 class ImageRasterPath {
   static const _folderPath = "assets/images/raster";
-  static const man = "$_folderPath/man.png";
+  static const man = "$_folderPath/logo.jpg";
   // static const myRaster2 = "$_folderPath/my_raster2.jpg";
   // static const myRaster3 = "$_folderPath/my_raster3.jpeg";
 }

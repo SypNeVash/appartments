@@ -71,6 +71,6 @@ class WorkAreaProvider extends ChangeNotifier {
   }
 
   void onPageChanged(int page) {
-      searchWorkArea(_currentFilters, page);
+    searchWorkArea(_currentFilters, page);
   }
 }

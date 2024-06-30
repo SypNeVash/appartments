@@ -2,7 +2,6 @@ import 'package:apartments/app/models/get_all_appart_model.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CardTask extends StatelessWidget {
   const CardTask({
@@ -42,8 +41,8 @@ class CardTask extends StatelessWidget {
           BoxShadow(
             color: const Color.fromARGB(255, 146, 162, 190).withOpacity(0.5),
             spreadRadius: -5,
-            blurRadius: 10,
-            offset: const Offset(0, 8), // changes position of shadow
+            blurRadius: -5,
+            offset: const Offset(0, 8),
           ),
         ],
       ),
@@ -119,9 +118,9 @@ class CardTask extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.5),
-            spreadRadius: 5,
-            blurRadius: 7,
-            offset: const Offset(0, 3), // changes position of shadow
+            spreadRadius: -5,
+            blurRadius: 5,
+            offset: const Offset(0, 8), // changes position of shadow
           ),
         ],
       ),

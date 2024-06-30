@@ -77,6 +77,26 @@ class _ApartmentDetailsSubScreenState extends State<ApartmentDetailsSubScreen> {
     super.initState();
   }
 
+  saveChatTextToClipboard(String text) {
+    Clipboard.setData(ClipboardData(text: text));
+    showSnackBarForConfirmation();
+  }
+
+  showSnackBarForConfirmation() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        backgroundColor: Colors.green,
+        content: Center(
+          child: Text(
+            'Copied',
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
+        duration: Duration(seconds: 2),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -310,8 +330,7 @@ class _ApartmentDetailsSubScreenState extends State<ApartmentDetailsSubScreen> {
                             Text(
                               apartment.address.toString(),
                               style: const TextStyle(
-                                fontSize: 16,
-                              ),
+                                  fontSize: 16, fontWeight: FontWeight.w600),
                             ),
                           ],
                         ),
@@ -337,10 +356,15 @@ class _ApartmentDetailsSubScreenState extends State<ApartmentDetailsSubScreen> {
                               style: TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.w600),
                             ),
-                            Text(
-                              apartment.phone.toString(),
-                              style: const TextStyle(
-                                fontSize: 16,
+                            InkWell(
+                              onTap: () {
+                                saveChatTextToClipboard(
+                                    apartment.phone.toString());
+                              },
+                              child: Text(
+                                apartment.phone.toString(),
+                                style: const TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.w600),
                               ),
                             ),
                           ],

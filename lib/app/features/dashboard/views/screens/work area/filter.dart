@@ -1,7 +1,6 @@
 import 'package:apartments/app/constans/app_constants.dart';
 import 'package:apartments/app/features/dashboard/views/components/text_form_fiel_decoration.dart';
 import 'package:apartments/app/providers/appartment_provider.dart';
-import 'package:apartments/app/providers/clients_provider.dart';
 import 'package:apartments/app/providers/work_area_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -79,7 +78,7 @@ class _WorkAreaFormFilterState extends State<WorkAreaFormFilter> {
               size: 15,
               color: Colors.grey,
             ),
-            items: [...tasks, ""].map((String value) {
+            items: [...tasks].map((String value) {
               return DropdownMenuItem<String>(
                 value: value,
                 child: Text(value),
@@ -87,7 +86,7 @@ class _WorkAreaFormFilterState extends State<WorkAreaFormFilter> {
             }).toList(),
             // value: types[0],
           ),
-            const SizedBox(
+          const SizedBox(
             height: 25,
           ),
           SizedBox(

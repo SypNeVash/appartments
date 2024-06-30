@@ -7,7 +7,6 @@ import 'package:apartments/app/utils/animations/show_up_animation.dart';
 import 'package:apartments/app/utils/services/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_pagination/flutter_web_pagination.dart';
-import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 class AllApartmentsScreen extends StatefulWidget {

@@ -9,6 +9,7 @@ import 'package:apartments/app/utils/services/shared_preferences.dart';
 import 'package:dio/dio.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'working_area_left_side.dart';
@@ -36,7 +37,9 @@ class _WorkingAreaRightSideState extends State<WorkingAreaRightSide> {
   }
 
   getInfosFromSharedPreferences() async {
-    name = await SPHelper.getFullNameSharedPreference() ?? await SPHelper.getNameSharedPreference() ?? '';
+    name = await SPHelper.getFullNameSharedPreference() ??
+        await SPHelper.getNameSharedPreference() ??
+        '';
   }
 
   getWorkAreaUsingID() async {
@@ -106,6 +109,26 @@ class _WorkingAreaRightSideState extends State<WorkingAreaRightSide> {
     }
     setState(() {});
     return finalResult;
+  }
+
+  saveChatTextToClipboard(String text) {
+    Clipboard.setData(ClipboardData(text: text));
+    showSnackBarForConfirmation();
+  }
+
+  showSnackBarForConfirmation() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        backgroundColor: Colors.green,
+        content: Center(
+          child: Text(
+            'Copied',
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
+        duration: Duration(seconds: 2),
+      ),
+    );
   }
 
   @override
@@ -205,12 +228,17 @@ class _WorkingAreaRightSideState extends State<WorkingAreaRightSide> {
                                     ),
                                   ],
                                 ),
-                                Text(
-                                  message.text,
-                                  style: const TextStyle(
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w600,
-                                      color: Color.fromARGB(255, 34, 34, 34)),
+                                InkWell(
+                                  onTap: () {
+                                    saveChatTextToClipboard(message.text);
+                                  },
+                                  child: Text(
+                                    message.text,
+                                    style: const TextStyle(
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w600,
+                                        color: Color.fromARGB(255, 34, 34, 34)),
+                                  ),
                                 ),
                                 const SizedBox(
                                   height: 5,
