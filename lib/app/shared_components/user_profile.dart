@@ -59,10 +59,12 @@ class _UserProfileState extends State<UserProfile> {
       child: InkWell(
         borderRadius: BorderRadius.circular(kBorderRadius),
         onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const UsersDashboard()),
-          );
+          if (role != 'Customer') {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const UsersDashboard()),
+            );
+          }
         },
         child: Padding(
           padding: const EdgeInsets.all(10),
@@ -105,11 +107,11 @@ class _UserProfileState extends State<UserProfile> {
   Widget _buildName() {
     return Text(
       name,
-      style: TextStyle(
+       style: TextStyle(
         fontWeight: FontWeight.bold,
         color: kFontColorPallets[0],
       ),
-      maxLines: 1,
+      maxLines: 2,
       overflow: TextOverflow.ellipsis,
     );
   }
