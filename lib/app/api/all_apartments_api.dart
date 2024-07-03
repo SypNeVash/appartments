@@ -105,6 +105,33 @@ class RemoteApi {
     }
   }
 
+  Future<bool> refreshApartDataFromAzure(
+    String apartmentId,
+  ) async {
+    var url = 'https://realtor.azurewebsites.net/api/RentObjects/refresh?id=$apartmentId';
+
+    try {
+      final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
+
+      Response response = await _dio.get(
+        url,
+        options: Options(
+          headers: {'Authorization': 'Bearer $accessToken'},
+        ),
+      );
+      // final data = response.data;
+      if (response.statusCode == 200 ||
+          response.statusCode == 201 ||
+          response.statusCode == 204) {
+        return true;
+      } else {
+        return false;
+      }
+    } on DioError catch (e) {
+      return e.response!.data;
+    }
+  }
+
   Future deleteImageFromAppartment(String apartmentId, String photoUrl) async {
     var url = 'https://realtor.azurewebsites.net/api/RentObjects/$apartmentId';
 

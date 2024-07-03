@@ -96,7 +96,7 @@ class CardTask extends StatelessWidget {
                   height: 25,
                 ),
                 IdButton(
-                  id: data.id.toString(),
+                  id: data.secondId.toString(),
                 ),
               ],
             ),
@@ -176,7 +176,7 @@ class CardTask extends StatelessWidget {
                     height: 25,
                   ),
                   IdButton(
-                    id: data.id.toString(),
+                    id: data.secondId.toString(),
                   ),
                 ],
               ),
@@ -271,7 +271,7 @@ class CardTask extends StatelessWidget {
     return _IconLabel(
       color: Colors.blue,
       iconData: EvaIcons.calendarOutline,
-      label: data.createdData.toString(),
+      label: DateTime.parse(data.lastUpdate.toString()).toString(),
     );
   }
 

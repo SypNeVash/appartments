@@ -58,6 +58,36 @@ class _ApartmentDetailsSubScreenState extends State<ApartmentDetailsSubScreen> {
     );
   }
 
+  void _refreshAppDialog() async {
+    Get.defaultDialog(
+      title: "Зачекай!",
+      middleText: "Актуалізувати данні?",
+      textConfirm: "Так",
+      confirmTextColor: Colors.white,
+      onConfirm: () async {
+        String apartmentId = await SPHelper.getIDAptSharedPreference() ?? '';
+        final response =
+            await RemoteApi().refreshApartDataFromAzure(apartmentId);
+
+        if (response == true) {
+          Get.back();
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            Provider.of<ApartmentProvider>(context, listen: false)
+                .fetchApartments(1);
+          });
+
+          Navigator.pop(context);
+
+          Get.toNamed('/');
+        } else {
+          showSnackBarForError();
+        }
+      },
+      textCancel: "Назад",
+      onCancel: () {},
+    );
+  }
+
   showSnackBarForError() {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
@@ -155,6 +185,17 @@ class _ApartmentDetailsSubScreenState extends State<ApartmentDetailsSubScreen> {
                             width: 10,
                           ),
                           if (role == 'Admin' || role == 'Stuff') ...[
+                            InkWell(
+                              onTap: () => _refreshAppDialog(),
+                              child: const FaIcon(
+                                FontAwesomeIcons.arrowsRotate,
+                                color: Colors.black,
+                                size: 18,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
                             InkWell(
                               onTap: () => _showAlertDialog(),
                               child: const FaIcon(
@@ -305,7 +346,7 @@ class _ApartmentDetailsSubScreenState extends State<ApartmentDetailsSubScreen> {
                           height: 10,
                         ),
                         IdButtonForAptDetails(
-                          id: apartment.id.toString(),
+                          id: apartment.secondId.toString(),
                         ),
                       ],
                     ),

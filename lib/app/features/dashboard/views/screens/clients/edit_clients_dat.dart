@@ -226,12 +226,13 @@ class _TextFormForEditingClientState extends State<TextFormForEditingClient> {
               child: Text(value),
             );
           }).toList(),
-          value: selectedRole ?? rolesOfClient[0],
+          value: rolesOfClient.contains(selectedRole) ? selectedRole : rolesOfClient[0],
         ),
         const SizedBox(
           height: 15,
         ),
         TextFormField(
+          controller: comments,
           autovalidateMode: AutovalidateMode.always,
           textCapitalization: TextCapitalization.sentences,
           autofocus: false,
@@ -240,9 +241,6 @@ class _TextFormForEditingClientState extends State<TextFormForEditingClient> {
           style: const TextStyle(
               fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
           decoration: decorationForTextFormField('Comments'),
-          onChanged: (val) {
-            comments.text = val;
-          },
         ),
         Text(
           errorText,

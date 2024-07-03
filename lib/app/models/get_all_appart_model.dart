@@ -19,6 +19,8 @@ class ApartmentModel {
   final String? createdData;
   final String? updatedUser;
   final List? photos;
+  final int? secondId;
+  final String? lastUpdate;
 
   ApartmentModel({
     this.id,
@@ -38,6 +40,8 @@ class ApartmentModel {
     this.status,
     this.updatedUser,
     this.photos,
+    this.secondId,
+    this.lastUpdate
   });
 
   Map<String, dynamic> toMap() {
@@ -58,7 +62,9 @@ class ApartmentModel {
       'photos': photos,
       'status': status,
       'createdData': createdData,
-      'updatedUser': updatedUser
+      'updatedUser': updatedUser,
+      'secondId': secondId,
+      'lastUpdate': lastUpdate
     };
   }
 
@@ -81,6 +87,8 @@ class ApartmentModel {
       status: map['status'] as String,
       createdData: map['createdData'] as String,
       updatedUser: map['updatedUser'] as String,
+      secondId: map['secondId'] as int,
+      lastUpdate: map['lastUpdate'] as String
     );
   }
 

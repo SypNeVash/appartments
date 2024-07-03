@@ -14,7 +14,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  bool _showPassword = false;
+  bool _showPassword = true;
   final AuthController authController = Get.find();
   bool showCircular = false;
   String textForerror = '';
