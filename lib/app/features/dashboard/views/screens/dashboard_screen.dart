@@ -237,7 +237,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
     super.initState();
     getUserData();
     _startTokenCheck();
-    print(numberOfApartment);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       AppartDetailsListener profileDetailsListener =
           Provider.of<AppartDetailsListener>(context, listen: false);

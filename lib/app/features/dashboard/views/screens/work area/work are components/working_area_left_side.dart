@@ -14,6 +14,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:multi_select_flutter/util/multi_select_item.dart';
 import 'package:provider/provider.dart';
 
+import '../../clients/edit_clients_dat.dart';
 import 'working_area_right_side.dart';
 
 class WorkingFieldEditForm extends StatefulWidget {
@@ -334,77 +335,102 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
                         ),
                       ],
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    child: Row(
                       children: [
-                        const Text(
-                          'Дані клієнта',
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.w700),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          children: [
-                            const FaIcon(
-                              FontAwesomeIcons.userLarge,
-                              size: 13,
-                              color: Colors.blue,
-                            ),
-                            const SizedBox(
-                              width: 7,
-                            ),
-                            Text(
-                              customerNameController.text,
-                              style: const TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w600,
-                                  color: Color.fromARGB(255, 87, 85, 87)),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 3,
-                        ),
-                        Row(
-                          children: [
-                            const FaIcon(
-                              FontAwesomeIcons.phoneFlip,
-                              size: 13,
-                              color: Colors.blue,
-                            ),
-                            const SizedBox(
-                              width: 7,
-                            ),
-                            Expanded(
-                              child: Text(
-                                customerPhoneNumberController.text,
-                                style: const TextStyle(
-                                    // overflow: TextOverflow.ellipsis,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600,
-                                    color: Color.fromARGB(255, 87, 85, 87)),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'Дані клієнта',
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.w700),
                               ),
-                            ),
-                          ],
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Row(
+                                children: [
+                                  const FaIcon(
+                                    FontAwesomeIcons.userLarge,
+                                    size: 13,
+                                    color: Colors.blue,
+                                  ),
+                                  const SizedBox(
+                                    width: 7,
+                                  ),
+                                  Text(
+                                    customerNameController.text,
+                                    style: const TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w600,
+                                        color: Color.fromARGB(255, 87, 85, 87)),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 3,
+                              ),
+                              Row(
+                                children: [
+                                  const FaIcon(
+                                    FontAwesomeIcons.phoneFlip,
+                                    size: 13,
+                                    color: Colors.blue,
+                                  ),
+                                  const SizedBox(
+                                    width: 7,
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                      customerPhoneNumberController.text,
+                                      style: const TextStyle(
+                                          // overflow: TextOverflow.ellipsis,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                          color:
+                                              Color.fromARGB(255, 87, 85, 87)),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 8, vertical: 3),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    color: Colors.orange),
+                                child: Text(
+                                  customerStatusController.text,
+                                  style: const TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.white),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const EditClientsData()),
+                            );
+                          },
+                          child: const FaIcon(
+                            FontAwesomeIcons.pencil,
+                            size: 15,
+                            color: Colors.blue,
+                          ),
                         ),
                         const SizedBox(
-                          height: 10,
-                        ),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 8, vertical: 3),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              color: Colors.orange),
-                          child: Text(
-                            customerStatusController.text,
-                            style: const TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white),
-                          ),
+                          width: 7,
                         ),
                       ],
                     ),

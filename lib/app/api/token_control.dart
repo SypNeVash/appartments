@@ -7,7 +7,8 @@ class TokenManager {
   static Future<void> saveToken(String token) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(_tokenKey, token);
-    await prefs.setInt(_timestampKey, DateTime.now().toUtc().millisecondsSinceEpoch);
+    await prefs.setInt(
+        _timestampKey, DateTime.now().toUtc().millisecondsSinceEpoch);
   }
 
   static Future<String?> getToken() async {
@@ -16,8 +17,8 @@ class TokenManager {
     final timestamp = prefs.getInt(_timestampKey);
 
     if (token != null && timestamp != null) {
-      final currentTime = DateTime.now().toUtc().millisecondsSinceEpoch;
-      if (currentTime - timestamp < 3600000) {
+      final currentTime = DateTime.now().toUtc().hour;
+      if (currentTime - timestamp < 8) {
         return token;
       } else {
         await clearToken();
