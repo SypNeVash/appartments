@@ -69,34 +69,34 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
 
   String? _validateMin(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Please enter a value';
+      return 'Будь ласка введіть число';
     }
     final doubleValue = double.tryParse(value);
     if (doubleValue == null) {
-      return 'Please enter a valid number';
+      return 'Будь ласка введіть більше нуля число';
     }
     if (doubleValue < 1000 || doubleValue > 40000) {
-      return 'Entered cost must be between 1000 and 40000';
+      return 'Будь ласка введіть число від 1000 до 40000';
     }
     if (doubleValue > _currentRangeValues.end) {
-      return 'Entered cost cannot be greater than the maximum range value';
+      return 'Мін число не повинно бути більше Макс';
     }
     return null;
   }
 
   String? _validateMax(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Please enter a value';
+      return 'Будь ласка введіть число';
     }
     final doubleValue = double.tryParse(value);
     if (doubleValue == null) {
-      return 'Please enter a valid number';
+      return 'Будь ласка введіть більше нуля число';
     }
     if (doubleValue < 1000 || doubleValue > 40000) {
-      return 'Entered cost must be between 1000 and 40000';
+      return 'Будь ласка введіть число від 1000 до 40000';
     }
     if (doubleValue < _currentRangeValues.start) {
-      return 'Entered cost cannot be less than the minimum range value';
+      return 'Мін число не повинно бути більше Макс';
     }
     return null;
   }
@@ -202,9 +202,9 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
               TextFormField(
                   controller: _minRangePriceController,
                   keyboardType: TextInputType.number,
-                  decoration: decorationForTextFormField('Min Cost',
-                          icon: const FaIcon(FontAwesomeIcons.dollarSign))
-                      .copyWith(prefix: const Text('Min: ')),
+                  decoration: decorationForTextFormField('Мін',
+                          icon: const FaIcon(FontAwesomeIcons.moneyBill1Wave))
+                      .copyWith(prefix: const Text('Мін: ')),
                   onChanged: (value) {
                     _formKey.currentState!.validate();
                   },
@@ -215,9 +215,9 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
               TextFormField(
                   controller: _maxRangePriceController,
                   keyboardType: TextInputType.number,
-                  decoration: decorationForTextFormField('Max Cost',
-                          icon: const FaIcon(FontAwesomeIcons.dollarSign))
-                      .copyWith(prefix: const Text('Max: ')),
+                  decoration: decorationForTextFormField('Макс',
+                          icon: const FaIcon(FontAwesomeIcons.moneyBill1Wave))
+                      .copyWith(prefix: const Text('Макс: ')),
                   onChanged: (value) {
                     _formKey.currentState!.validate();
                   },
