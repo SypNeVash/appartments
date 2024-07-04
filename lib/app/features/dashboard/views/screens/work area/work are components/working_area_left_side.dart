@@ -415,7 +415,9 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
                           ),
                         ),
                         InkWell(
-                          onTap: () {
+                          onTap: () async {
+                            await SPHelper.saveClientsIDSharedPreference(
+                                customerIdController.text);
                             Navigator.push(
                               context,
                               MaterialPageRoute(
