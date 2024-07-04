@@ -1,8 +1,11 @@
 import 'package:apartments/app/constans/app_constants.dart';
+import 'package:apartments/app/features/dashboard/views/components/custom_drop_down_selector.dart';
 import 'package:apartments/app/features/dashboard/views/components/text_form_fiel_decoration.dart';
 import 'package:apartments/app/providers/appartment_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:multi_select_flutter/dialog/multi_select_dialog_field.dart';
+import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:provider/provider.dart';
 
 class FilterOfAppartments extends StatefulWidget {
@@ -23,6 +26,9 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
   final _minRangePriceController = TextEditingController();
   final _phoneController = TextEditingController();
   RangeValues _currentRangeValues = const RangeValues(1000, 40000);
+  List _selectedRegions = [];
+
+  List _selectedTypes = [];
 
   @override
   void dispose() {
@@ -31,7 +37,68 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
     _roomsController.dispose();
     _regionController.dispose();
     _statusController.dispose();
+    _maxRangePriceController.dispose();
+    _minRangePriceController.dispose();
+
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _minRangePriceController.text =
+        _currentRangeValues.start.toStringAsFixed(0);
+    _maxRangePriceController.text = _currentRangeValues.end.toStringAsFixed(0);
+  }
+
+  void _handleRangeChange(RangeValues values) {
+    setState(() {
+      if (values.start < 1000) {
+        _currentRangeValues = RangeValues(1000, values.end);
+      } else if (values.end > 40000) {
+        _currentRangeValues = RangeValues(values.start, 40000);
+      } else {
+        _currentRangeValues = values;
+      }
+      _minRangePriceController.text =
+          _currentRangeValues.start.toStringAsFixed(0);
+      _maxRangePriceController.text =
+          _currentRangeValues.end.toStringAsFixed(0);
+    });
+  }
+
+  String? _validateMin(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter a value';
+    }
+    final doubleValue = double.tryParse(value);
+    if (doubleValue == null) {
+      return 'Please enter a valid number';
+    }
+    if (doubleValue < 1000 || doubleValue > 40000) {
+      return 'Entered cost must be between 1000 and 40000';
+    }
+    if (doubleValue > _currentRangeValues.end) {
+      return 'Entered cost cannot be greater than the maximum range value';
+    }
+    return null;
+  }
+
+  String? _validateMax(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter a value';
+    }
+    final doubleValue = double.tryParse(value);
+    if (doubleValue == null) {
+      return 'Please enter a valid number';
+    }
+    if (doubleValue < 1000 || doubleValue > 40000) {
+      return 'Entered cost must be between 1000 and 40000';
+    }
+    if (doubleValue < _currentRangeValues.start) {
+      return 'Entered cost cannot be less than the minimum range value';
+    }
+    return null;
   }
 
   void _submitForm() {
@@ -114,7 +181,7 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
             controller: _idController,
             decoration: decorationForTextFormField('ID'),
             validator: (value) {
-              return null; // ID is optional, so no validation
+              return null;
             },
           ),
           const SizedBox(
@@ -124,31 +191,101 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
             controller: _phoneController,
             decoration: decorationForTextFormField('Телефон'),
             validator: (value) {
-              return null; // ID is optional, so no validation
+              return null;
             },
           ),
           const SizedBox(
             height: 10,
           ),
-          RangeSlider(
-          values: _currentRangeValues,
-          max: 40000,
-          divisions: 1000,
-          labels: RangeLabels(
-            _currentRangeValues.start.round().toString(),
-            _currentRangeValues.end.round().toString(),
-          ),
-          onChanged: (RangeValues values) {
-            setState(() {
-              _maxRangePriceController.text = values.end.toString();
-              _minRangePriceController.text = values.start.toString();
-              _currentRangeValues = values;
-            });
-          },
+          Column(
+            children: [
+              TextFormField(
+                  controller: _minRangePriceController,
+                  keyboardType: TextInputType.number,
+                  decoration: decorationForTextFormField('Min Cost',
+                          icon: const FaIcon(FontAwesomeIcons.dollarSign))
+                      .copyWith(prefix: const Text('Min: ')),
+                  onChanged: (value) {
+                    _formKey.currentState!.validate();
+                  },
+                  validator: _validateMin),
+              const SizedBox(
+                height: 10,
+              ),
+              TextFormField(
+                  controller: _maxRangePriceController,
+                  keyboardType: TextInputType.number,
+                  decoration: decorationForTextFormField('Max Cost',
+                          icon: const FaIcon(FontAwesomeIcons.dollarSign))
+                      .copyWith(prefix: const Text('Max: ')),
+                  onChanged: (value) {
+                    _formKey.currentState!.validate();
+                  },
+                  validator: _validateMax),
+            ],
           ),
           const SizedBox(
             height: 10,
           ),
+          Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: const Color.fromARGB(255, 245, 243, 243)),
+            child: SliderTheme(
+              data: const SliderThemeData(
+                  thumbColor: Colors.blue, activeTrackColor: Colors.orange),
+              child: RangeSlider(
+                values: _currentRangeValues,
+                min: 1000,
+                max: 40000,
+                divisions: 100,
+                labels: RangeLabels(
+                  _currentRangeValues.start.round().toString(),
+                  _currentRangeValues.end.round().toString(),
+                ),
+                onChanged: _handleRangeChange,
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+
+          // MultiSelectDialogField(
+          //   items: types
+          //       .map((region) => MultiSelectItem<String>(region, region))
+          //       .toList(),
+          //   initialValue: _selectedTypes,
+          //   title: const Text('Select Regions'),
+          //   buttonIcon: const Icon(
+          //     FontAwesomeIcons.chevronDown,
+          //     size: 15,
+          //     color: Colors.grey,
+          //   ),
+          //   buttonText: _selectedTypes.isEmpty
+          //       ? const Text('Select Regions')
+          //       : Text(
+          //           " Selected: ${_selectedTypes.length.toString()}",
+          //           overflow: TextOverflow.ellipsis,
+          //         ),
+          //   decoration: BoxDecoration(
+          //       borderRadius: BorderRadius.circular(8.0),
+          //       border: Border.all(
+          //           width: 1.5,
+          //           color: const Color.fromARGB(255, 171, 107, 255))),
+          //   onConfirm: (values) {
+          //     setState(() {
+          //       _selectedTypes = values;
+          //     });
+          //   },
+          //   chipDisplay: MultiSelectChipDisplay.none(),
+          //   validator: (values) {
+          //     if (values == null || values.isEmpty) {
+          //       return 'Please select at least one region';
+          //     }
+          //     return null;
+          //   },
+          // ),
           DropdownButtonFormField<String>(
             autovalidateMode: AutovalidateMode.always,
             autofocus: false,
@@ -163,7 +300,7 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
               size: 15,
               color: Colors.grey,
             ),
-            items: [...types, ""].map((String value) {
+            items: [...types].map((String value) {
               return DropdownMenuItem<String>(
                 value: value,
                 child: Text(value),
@@ -188,7 +325,7 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
               size: 15,
               color: Colors.grey,
             ),
-            items: [...regions, ""].map((String value) {
+            items: [...regions].map((String value) {
               return DropdownMenuItem<String>(
                 value: value,
                 child: Text(value),
@@ -196,6 +333,41 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
             }).toList(),
             // value: types[0],
           ),
+          // MultiSelectDialogField(
+          //   items: regions
+          //       .map((region) => MultiSelectItem<String>(region, region))
+          //       .toList(),
+          //   initialValue: _selectedRegions,
+          //   title: const Text('Select Regions'),
+          //   buttonIcon: const Icon(
+          //     FontAwesomeIcons.chevronDown,
+          //     size: 15,
+          //     color: Colors.grey,
+          //   ),
+          //   buttonText: _selectedRegions.isEmpty
+          //       ? const Text('Select Regions')
+          //       : Text(
+          //           " Selected: ${_selectedRegions.length.toString()}",
+          //           overflow: TextOverflow.ellipsis,
+          //         ),
+          //   decoration: BoxDecoration(
+          //       borderRadius: BorderRadius.circular(8.0),
+          //       border: Border.all(
+          //           width: 1.5,
+          //           color: const Color.fromARGB(255, 171, 107, 255))),
+          //   onConfirm: (values) {
+          //     setState(() {
+          //       _selectedRegions = values;
+          //     });
+          //   },
+          //   chipDisplay: MultiSelectChipDisplay.none(),
+          //   validator: (values) {
+          //     if (values == null || values.isEmpty) {
+          //       return 'Please select at least one region';
+          //     }
+          //     return null;
+          //   },
+          // ),
           const SizedBox(
             height: 10,
           ),
@@ -213,7 +385,7 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
               size: 15,
               color: Colors.grey,
             ),
-            items: [...statuses, ""].map((String value) {
+            items: [...statuses].map((String value) {
               return DropdownMenuItem<String>(
                 value: value,
                 child: Text(value),

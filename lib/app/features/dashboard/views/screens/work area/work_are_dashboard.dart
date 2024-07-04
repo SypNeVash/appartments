@@ -106,7 +106,8 @@ class _WorkingAreaListState extends State<WorkingAreaList> {
               return Column(
                 children: [
                   if (snapshot.data!.isEmpty) ...[
-                    const Center(child: Text('Робочі простіри не були знайдені')),
+                    const Center(
+                        child: Text('Робочі простіри не були знайдені')),
                   ] else ...[
                     ListView.builder(
                         physics: const NeverScrollableScrollPhysics(),
@@ -132,8 +133,8 @@ class _WorkingAreaListState extends State<WorkingAreaList> {
                     padding: const EdgeInsets.all(8.0),
                     child: WebPagination(
                       currentPage: provider.currentPage,
-                      totalPage: 10,
-                      displayItemCount: 3,
+                      totalPage: 1000,
+                      displayItemCount: 4,
                       onPageChanged: (page) => provider.onPageChanged(page),
                     ),
                   ),

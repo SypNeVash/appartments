@@ -7,19 +7,22 @@ InputDecoration decorationForTextFormField(String textForForm, {Widget? icon}) {
       filled: true,
       fillColor: Colors.white,
       suffixIcon: Padding(
-        padding: const EdgeInsets.only(top: 8),
+        padding: const EdgeInsets.only(
+          top: 8,
+        ),
         child: icon,
       ),
       focusedBorder: outlineMainInputFocusedBorder,
       enabledBorder: outlineMainInputFocusedBorder,
+      errorBorder: outlineMainInputFocusedBorder,
+      focusedErrorBorder: outlineMainInputFocusedBorder,
       contentPadding:
-          // ignore: prefer_const_constructors
-          EdgeInsets.only(top: 24, bottom: 5, left: 15, right: 15),
+          const EdgeInsets.only(top: 24, bottom: 5, left: 15, right: 10),
       hintStyle: const TextStyle(
           color: Color.fromARGB(255, 112, 112, 112),
           fontSize: 14,
           fontWeight: FontWeight.w600),
-      border: InputBorder.none,
+      border: outlineMainInputFocusedBorder,
       hintText: textForForm);
 }
 

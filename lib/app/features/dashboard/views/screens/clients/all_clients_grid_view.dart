@@ -94,8 +94,8 @@ class _AllClientsListState extends State<AllClientsList> {
                     padding: const EdgeInsets.all(8.0),
                     child: WebPagination(
                       currentPage: provider.currentPage,
-                      totalPage: 10,
-                      displayItemCount: 3,
+                      totalPage: 1000,
+                      displayItemCount: 4,
                       onPageChanged: (page) => provider.onPageChanged(page),
                     ),
                   ),
