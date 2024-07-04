@@ -166,6 +166,17 @@ class BuilFilterContent extends StatefulWidget {
 
 class _BuilFilterContentState extends State<BuilFilterContent> {
   bool openFilter = false;
+  String? role;
+
+  @override
+  void initState() {
+    getUserData();
+    super.initState();
+  }
+
+  getUserData() async {
+    role = await SPHelper.getRolesSharedPreference() ?? '';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -176,41 +187,45 @@ class _BuilFilterContentState extends State<BuilFilterContent> {
       child: Column(
         children: [
           const SizedBox(height: kSpacing),
-          Row(
-            children: [
-              const Expanded(child: HeaderText("Фільтр")),
-              IconButton(
-                onPressed: () {
-                  if (widget.isActive == true || widget.isActive == null) {
-                    openFilter = !openFilter;
-                    setState(() {});
-                  }
-                },
-                icon: openFilter == true
-                    ? const FaIcon(FontAwesomeIcons.circleXmark)
-                    : const Icon(EvaIcons.funnelOutline),
-                tooltip: "Filter",
-              )
-            ],
-          ),
-          const SizedBox(
-            height: 25,
-          ),
-          if (widget.desktop == 'mobile') ...[
-            openFilter == true ? const FilterOfAppartments() : const SizedBox(),
-          ] else ...[
-            if (profileDetailsListener.getPageIndex == 0) ...[
-              const FilterOfAppartments(),
-            ],
-            if (profileDetailsListener.getPageIndex == 2) ...[
-              const ClientSearchForm(),
-            ],
-            if (profileDetailsListener.getPageIndex == 3) ...[
-              const WorkAreaFormFilter(),
+          if (role != 'Customer') ...[
+            Row(
+              children: [
+                const Expanded(child: HeaderText("Фільтр")),
+                IconButton(
+                  onPressed: () {
+                    if (widget.isActive == true || widget.isActive == null) {
+                      openFilter = !openFilter;
+                      setState(() {});
+                    }
+                  },
+                  icon: openFilter == true
+                      ? const FaIcon(FontAwesomeIcons.circleXmark)
+                      : const Icon(EvaIcons.funnelOutline),
+                  tooltip: "Filter",
+                )
+              ],
+            ),
+            const SizedBox(
+              height: 25,
+            ),
+            if (widget.desktop == 'mobile') ...[
+              openFilter == true
+                  ? const FilterOfAppartments()
+                  : const SizedBox(),
             ] else ...[
-              const SizedBox(),
+              if (profileDetailsListener.getPageIndex == 0) ...[
+                const FilterOfAppartments(),
+              ],
+              if (profileDetailsListener.getPageIndex == 2) ...[
+                const ClientSearchForm(),
+              ],
+              if (profileDetailsListener.getPageIndex == 3) ...[
+                const WorkAreaFormFilter(),
+              ] else ...[
+                const SizedBox(),
+              ]
             ]
-          ]
+          ],
         ],
       ),
     );

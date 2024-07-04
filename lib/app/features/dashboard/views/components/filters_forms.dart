@@ -203,7 +203,7 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
                   controller: _minRangePriceController,
                   keyboardType: TextInputType.number,
                   decoration: decorationForTextFormField('Мін',
-                          icon: const FaIcon(FontAwesomeIcons.moneyBill1Wave))
+                          icon: const FaIcon(FontAwesomeIcons.hryvniaSign))
                       .copyWith(prefix: const Text('Мін: ')),
                   onChanged: (value) {
                     _formKey.currentState!.validate();
@@ -216,7 +216,7 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
                   controller: _maxRangePriceController,
                   keyboardType: TextInputType.number,
                   decoration: decorationForTextFormField('Макс',
-                          icon: const FaIcon(FontAwesomeIcons.moneyBill1Wave))
+                          icon: const FaIcon(FontAwesomeIcons.hryvniaSign))
                       .copyWith(prefix: const Text('Макс: ')),
                   onChanged: (value) {
                     _formKey.currentState!.validate();
@@ -420,6 +420,9 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
                       color: Colors.black,
                       fontWeight: FontWeight.w600),
                 )),
+          ),
+          const SizedBox(
+            height: 30,
           )
         ],
       ),
