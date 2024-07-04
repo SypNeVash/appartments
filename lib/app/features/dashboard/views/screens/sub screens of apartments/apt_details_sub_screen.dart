@@ -77,8 +77,6 @@ class _ApartmentDetailsSubScreenState extends State<ApartmentDetailsSubScreen> {
           });
 
           Navigator.pop(context);
-
-          Get.toNamed('/');
         } else {
           showSnackBarForError();
         }
