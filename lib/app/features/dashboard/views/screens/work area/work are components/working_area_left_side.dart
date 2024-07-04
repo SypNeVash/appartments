@@ -503,7 +503,7 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
                                 child: Text(value),
                               );
                             }).toList(),
-                            value: selectedRate ?? rates[0],
+                            value: rates.contains(selectedRate) ? selectedRate : rates[0],
                           ),
                           const SizedBox(
                             height: 25,
@@ -715,7 +715,7 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
                                 child: Text(value),
                               );
                             }).toList(),
-                            value: selectedTask ?? tasks[0],
+                            value: tasks.contains(selectedTask) ? selectedTask : tasks[0],
                           ),
                         ],
                       ),
