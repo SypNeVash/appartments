@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
+import '../features/dashboard/controllers/authcontroller.dart';
+
 class SelectionButtonData {
   final IconData activeIcon;
   final IconData icon;
@@ -55,6 +57,8 @@ class _SelectionButtonState extends State<SelectionButton> {
   Widget build(BuildContext context) {
     AppartDetailsListener profileDetailsListener =
         Provider.of<AppartDetailsListener>(context, listen: true);
+    final controller = Get.find<AuthController>();
+
     return Column(
       children: widget.data.asMap().entries.map((e) {
         final index = e.key;
@@ -72,7 +76,8 @@ class _SelectionButtonState extends State<SelectionButton> {
               if (profileDetailsListener.getMobile == true) {
                 Get.back();
               }
-              if (index == 4) {
+              if (index == 4 && controller.isAuthenticated.value == false) {
+                print('heheheehehheehe');
                 profileDetailsListener.setPageIndex = 0;
               }
               profileDetailsListener.setPageIndex = index;
