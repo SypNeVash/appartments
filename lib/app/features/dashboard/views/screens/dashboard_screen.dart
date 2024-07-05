@@ -176,14 +176,7 @@ class _BuilFilterContentState extends State<BuilFilterContent> {
 
   getUserData() async {
     role = await SPHelper.getRolesSharedPreference() ?? '';
-    print(role);
   }
-
-  // @override
-  // void didUpdateWidget(BuilFilterContent oldWidget) async {
-  //   role = await SPHelper.getRolesSharedPreference() ?? '';
-  //   super.didUpdateWidget(oldWidget);
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -216,7 +209,8 @@ class _BuilFilterContentState extends State<BuilFilterContent> {
           ),
           if (widget.desktop == 'mobile') ...[
             openFilter == true ? const FilterOfAppartments() : const SizedBox(),
-          ] else ...[
+          ],
+          if (widget.desktop == 'desktop') ...[
             if (profileDetailsListener.getPageIndex == 0) ...[
               const FilterOfAppartments(),
             ],
@@ -225,8 +219,6 @@ class _BuilFilterContentState extends State<BuilFilterContent> {
             ],
             if (profileDetailsListener.getPageIndex == 3) ...[
               const WorkAreaFormFilter(),
-            ] else ...[
-              const SizedBox(),
             ]
           ]
         ],
