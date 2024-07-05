@@ -424,7 +424,7 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
               decoration: decorationForTextFormField('Ціна'),
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'Please enter Price';
+                  return 'Будь ласка, введіть ціну';
                 }
                 return null;
               },
@@ -460,10 +460,10 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
             ),
             TextFormField(
               controller: residentsController,
-              decoration: decorationForTextFormField('Громадянство'),
+              decoration: decorationForTextFormField('Состав проживающих'),
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'Please enter Residents';
+                  return 'Будь ласка, введіть жителів';
                 }
                 return null;
               },
@@ -602,7 +602,7 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
             ),
 
             DropdownButtonFormField<String>(
-              autovalidateMode: AutovalidateMode.always,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
               autofocus: false,
               isDense: true,
               style: const TextStyle(
@@ -618,6 +618,12 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
                 size: 15,
                 color: Colors.grey,
               ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Будь ласка, введіть Завдання';
+                }
+                return null;
+              },
               items: [...tasks].map((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
