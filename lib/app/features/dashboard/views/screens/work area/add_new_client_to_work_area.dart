@@ -435,12 +435,12 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
             TextFormField(
               controller: minFloorController,
               decoration: decorationForTextFormField('Мінімальний поверх'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Введіть мінімальний поверх';
-                }
-                return null;
-              },
+              // validator: (value) {
+              //   if (value == null || value.isEmpty) {
+              //     return 'Введіть мінімальний поверх';
+              //   }
+              //   return null;
+              // },
             ),
             const SizedBox(
               height: 15,
@@ -448,12 +448,12 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
             TextFormField(
               controller: maxFloorController,
               decoration: decorationForTextFormField('Максимальний поверх'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Введіть максимальний поверх';
-                }
-                return null;
-              },
+              // validator: (value) {
+              //   if (value == null || value.isEmpty) {
+              //     return 'Введіть максимальний поверх';
+              //   }
+              //   return null;
+              // },
             ),
             const SizedBox(
               height: 15,
@@ -550,12 +550,12 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
             TextFormField(
               controller: linkController,
               decoration: decorationForTextFormField('Привязка'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Введіть посилання';
-                }
-                return null;
-              },
+              // validator: (value) {
+              //   if (value == null || value.isEmpty) {
+              //     return 'Введіть посилання';
+              //   }
+              //   return null;
+              // },
             ),
             const SizedBox(
               height: 15,
@@ -563,12 +563,12 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
             TextFormField(
               controller: registrationController,
               decoration: decorationForTextFormField('Реєстрація'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Будь ласка, введіть реєстрацію';
-                }
-                return null;
-              },
+              // validator: (value) {
+              //   if (value == null || value.isEmpty) {
+              //     return 'Будь ласка, введіть реєстрацію';
+              //   }
+              //   return null;
+              // },
             ),
             const SizedBox(
               height: 15,
@@ -576,12 +576,12 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
             TextFormField(
               controller: checkInController,
               decoration: decorationForTextFormField('Заїзд'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Будь ласка, введіть дату заїзда';
-                }
-                return null;
-              },
+              // validator: (value) {
+              //   if (value == null || value.isEmpty) {
+              //     return 'Будь ласка, введіть дату заїзда';
+              //   }
+              //   return null;
+              // },
             ),
             const SizedBox(
               height: 15,
@@ -590,12 +590,12 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
               controller: commentsController,
               maxLines: 5,
               decoration: decorationForTextFormField('Коментар'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Будь ласка, введіть коментарь';
-                }
-                return null;
-              },
+              // validator: (value) {
+              //   if (value == null || value.isEmpty) {
+              //     return 'Будь ласка, введіть коментарь';
+              //   }
+              //   return null;
+              // },
             ),
             const SizedBox(
               height: 15,

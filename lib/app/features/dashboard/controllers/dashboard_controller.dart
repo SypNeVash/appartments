@@ -14,6 +14,21 @@ class DashboardController extends GetxController {
 
   void onPressedProfil() {}
 
+  void _showAlertDialog() async {
+    Get.defaultDialog(
+      title: "Зачекай!",
+      middleText: "Ти впевнений?",
+      textConfirm: "Так",
+      confirmTextColor: Colors.white,
+      onConfirm: () async {
+        authController.logout();
+        Get.back();
+      },
+      textCancel: "Назад",
+      onCancel: () {},
+    );
+  }
+
   Future onSelectedMainMenu(int index, SelectionButtonData value) async {
     if (index == 0) {
       // Get.toNamed('/');
@@ -26,7 +41,8 @@ class DashboardController extends GetxController {
       // Get.to(AllClientsList());
     }
     if (index == 4) {
-      authController.logout();
+      _showAlertDialog();
+      // authController.logout();
     }
   }
 

@@ -72,7 +72,9 @@ class _SelectionButtonState extends State<SelectionButton> {
               if (profileDetailsListener.getMobile == true) {
                 Get.back();
               }
-
+              if (index == 4) {
+                profileDetailsListener.setPageIndex = 0;
+              }
               profileDetailsListener.setPageIndex = index;
             },
             data: data,

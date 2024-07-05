@@ -213,13 +213,12 @@ class _BuilFilterContentState extends State<BuilFilterContent> {
           if (widget.desktop == 'desktop') ...[
             if (profileDetailsListener.getPageIndex == 0) ...[
               const FilterOfAppartments(),
-            ],
-            if (profileDetailsListener.getPageIndex == 2) ...[
+            ] else if (profileDetailsListener.getPageIndex == 2) ...[
               const ClientSearchForm(),
-            ],
-            if (profileDetailsListener.getPageIndex == 3) ...[
+            ] else if (profileDetailsListener.getPageIndex == 3) ...[
               const WorkAreaFormFilter(),
-            ]
+            ] else
+              ...[]
           ]
         ],
       ),
@@ -273,11 +272,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   void _logout() {
+    final apartDetailsListener =
+        Provider.of<AppartDetailsListener>(context, listen: false);
     final AuthController authController = Get.put(AuthController());
-
     _timer.cancel();
     TokenManager.clearToken();
     authController.logout();
+    apartDetailsListener.setPageIndex = 0;
   }
 
   getUserData() async {

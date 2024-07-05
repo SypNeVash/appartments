@@ -24,7 +24,7 @@ class AppartDetailsListener with ChangeNotifier {
       UnmodifiableListView(portfolioModelList);
   get getuseDifferentFormat => useDifferentFormat;
   get getAllPortfolioImagesWithNotifier => allPortfolioImagesWithNotifier;
-  get getPageIndex => pageIndex;
+  int get getPageIndex => pageIndex;
   get getphoneNumberForFilter => phoneNumberFilter;
 
   set setApartmentModel(ApartmentModel apartmentModels) {

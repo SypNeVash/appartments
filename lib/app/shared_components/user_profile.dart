@@ -107,7 +107,7 @@ class _UserProfileState extends State<UserProfile> {
   Widget _buildName() {
     return Text(
       name,
-       style: TextStyle(
+      style: TextStyle(
         fontWeight: FontWeight.bold,
         color: kFontColorPallets[0],
       ),
@@ -171,7 +171,7 @@ class AddNewUser extends StatelessWidget {
     return InkWell(
         onTap: () {},
         child: Container(
-          constraints: BoxConstraints(),
+          constraints: const BoxConstraints(),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(2),
               color: Colors.orangeAccent),
