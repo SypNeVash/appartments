@@ -176,7 +176,14 @@ class _BuilFilterContentState extends State<BuilFilterContent> {
 
   getUserData() async {
     role = await SPHelper.getRolesSharedPreference() ?? '';
+    print(role);
   }
+
+  // @override
+  // void didUpdateWidget(BuilFilterContent oldWidget) async {
+  //   role = await SPHelper.getRolesSharedPreference() ?? '';
+  //   super.didUpdateWidget(oldWidget);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -187,45 +194,44 @@ class _BuilFilterContentState extends State<BuilFilterContent> {
       child: Column(
         children: [
           const SizedBox(height: kSpacing),
-          if (role != 'Customer') ...[
-            Row(
-              children: [
-                const Expanded(child: HeaderText("Фільтр")),
-                IconButton(
-                  onPressed: () {
-                    if (widget.isActive == true || widget.isActive == null) {
-                      openFilter = !openFilter;
-                      setState(() {});
-                    }
-                  },
-                  icon: openFilter == true
-                      ? const FaIcon(FontAwesomeIcons.circleXmark)
-                      : const Icon(EvaIcons.funnelOutline),
-                  tooltip: "Filter",
-                )
-              ],
-            ),
-            const SizedBox(
-              height: 25,
-            ),
-            if (widget.desktop == 'mobile') ...[
-              openFilter == true
-                  ? const FilterOfAppartments()
-                  : const SizedBox(),
-            ] else ...[
-              if (profileDetailsListener.getPageIndex == 0) ...[
-                const FilterOfAppartments(),
-              ],
-              if (profileDetailsListener.getPageIndex == 2) ...[
-                const ClientSearchForm(),
-              ],
-              if (profileDetailsListener.getPageIndex == 3) ...[
-                const WorkAreaFormFilter(),
-              ] else ...[
-                const SizedBox(),
-              ]
-            ]
+          Row(
+            children: [
+              const Expanded(child: HeaderText("Фільтр")),
+              IconButton(
+                onPressed: () {
+                  if (widget.isActive == true || widget.isActive == null) {
+                    openFilter = !openFilter;
+                    setState(() {});
+                  }
+                },
+                icon: openFilter == true
+                    ? const FaIcon(FontAwesomeIcons.circleXmark)
+                    : const Icon(EvaIcons.funnelOutline),
+                tooltip: "Filter",
+              )
+            ],
+          ),
+          const SizedBox(
+            height: 25,
+          ),
+          if (profileDetailsListener.getPageIndex == 0) ...[
+            const FilterOfAppartments(),
           ],
+          if (widget.desktop == 'mobile') ...[
+            openFilter == true ? const FilterOfAppartments() : const SizedBox(),
+          ] else ...[
+            if (profileDetailsListener.getPageIndex == 0) ...[
+              const FilterOfAppartments(),
+            ],
+            if (profileDetailsListener.getPageIndex == 2) ...[
+              const ClientSearchForm(),
+            ],
+            if (profileDetailsListener.getPageIndex == 3) ...[
+              const WorkAreaFormFilter(),
+            ] else ...[
+              const SizedBox(),
+            ]
+          ]
         ],
       ),
     );
