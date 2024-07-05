@@ -214,9 +214,6 @@ class _BuilFilterContentState extends State<BuilFilterContent> {
           const SizedBox(
             height: 25,
           ),
-          if (profileDetailsListener.getPageIndex == 0) ...[
-            const FilterOfAppartments(),
-          ],
           if (widget.desktop == 'mobile') ...[
             openFilter == true ? const FilterOfAppartments() : const SizedBox(),
           ] else ...[
