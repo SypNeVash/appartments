@@ -21,8 +21,6 @@ class WorkAreApi {
         'count': 10,
       };
 
-      print('started');
-
       Response response = await _dio.get(
         url,
         queryParameters: queryParameters,
@@ -69,7 +67,6 @@ class WorkAreApi {
     final accessToken = await SPHelper.getTokenSharedPreference();
 
     if (workAreaId == null || accessToken == null) {
-      print('Error: Missing workAreaId or accessToken');
       return false;
     }
 

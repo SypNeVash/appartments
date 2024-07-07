@@ -53,11 +53,33 @@ class _SelectionButtonState extends State<SelectionButton> {
     role = await SPHelper.getRolesSharedPreference() ?? '';
   }
 
+  final AuthController authController = Get.put(AuthController());
+
+  void _showAlertDialog(int index) async {
+    final controller = Get.find<AuthController>();
+    final apartDetailsListener =
+        Provider.of<AppartDetailsListener>(context, listen: false);
+    Get.defaultDialog(
+      title: "Зачекай!",
+      middleText: "Ти впевнений?",
+      textConfirm: "Так",
+      confirmTextColor: Colors.white,
+      onConfirm: () async {
+        authController.logout();
+        if (index == 4 && authController.isAuthenticated.value == false) {
+          apartDetailsListener.setPageIndex = 0;
+        }
+        Get.back();
+      },
+      textCancel: "Назад",
+      onCancel: () {},
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     AppartDetailsListener profileDetailsListener =
         Provider.of<AppartDetailsListener>(context, listen: true);
-    final controller = Get.find<AuthController>();
 
     return Column(
       children: widget.data.asMap().entries.map((e) {
@@ -73,14 +95,14 @@ class _SelectionButtonState extends State<SelectionButton> {
               setState(() {
                 selected = index;
               });
+
               if (profileDetailsListener.getMobile == true) {
                 Get.back();
               }
-              if (index == 4 && controller.isAuthenticated.value == false) {
-                print('heheheehehheehe');
-                profileDetailsListener.setPageIndex = 0;
+              if (index == 4) {
+                _showAlertDialog(index);
               }
-              profileDetailsListener.setPageIndex = index;
+              // profileDetailsListener.setPageIndex = index;
             },
             data: data,
           ),

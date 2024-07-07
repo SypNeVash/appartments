@@ -108,7 +108,8 @@ class RemoteApi {
   Future<bool> refreshApartDataFromAzure(
     String apartmentId,
   ) async {
-    var url = 'https://realtor.azurewebsites.net/api/RentObjects/refresh?id=$apartmentId';
+    var url =
+        'https://realtor.azurewebsites.net/api/RentObjects/refresh?id=$apartmentId';
 
     try {
       final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
@@ -168,7 +169,6 @@ class RemoteApi {
         ),
       );
       numberOfApartment = response.data;
-      print(numberOfApartment);
       return numberOfApartment;
     } on DioError catch (e) {
       return e.response!.data;

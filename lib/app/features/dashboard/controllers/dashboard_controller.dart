@@ -41,7 +41,7 @@ class DashboardController extends GetxController {
       // Get.to(AllClientsList());
     }
     if (index == 4) {
-      _showAlertDialog();
+      // _showAlertDialog();
       // authController.logout();
     }
   }
