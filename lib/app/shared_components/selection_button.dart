@@ -102,7 +102,9 @@ class _SelectionButtonState extends State<SelectionButton> {
               if (index == 4) {
                 _showAlertDialog(index);
               }
-              // profileDetailsListener.setPageIndex = index;
+              else {
+                profileDetailsListener.setPageIndex = index;
+              }
             },
             data: data,
           ),
