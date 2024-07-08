@@ -26,9 +26,6 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
   final _minRangePriceController = TextEditingController();
   final _phoneController = TextEditingController();
   RangeValues _currentRangeValues = const RangeValues(1000, 40000);
-  List _selectedRegions = [];
-
-  List _selectedTypes = [];
 
   @override
   void dispose() {
@@ -100,6 +97,9 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
     }
     return null;
   }
+
+  List _selectedRegions = [];
+  List _selectedTypes = [];
 
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
@@ -251,123 +251,125 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
             height: 10,
           ),
 
-          // MultiSelectDialogField(
-          //   items: types
-          //       .map((region) => MultiSelectItem<String>(region, region))
-          //       .toList(),
-          //   initialValue: _selectedTypes,
-          //   title: const Text('Select Regions'),
-          //   buttonIcon: const Icon(
-          //     FontAwesomeIcons.chevronDown,
-          //     size: 15,
-          //     color: Colors.grey,
-          //   ),
-          //   buttonText: _selectedTypes.isEmpty
-          //       ? const Text('Select Regions')
-          //       : Text(
-          //           " Selected: ${_selectedTypes.length.toString()}",
-          //           overflow: TextOverflow.ellipsis,
-          //         ),
-          //   decoration: BoxDecoration(
-          //       borderRadius: BorderRadius.circular(8.0),
-          //       border: Border.all(
-          //           width: 1.5,
-          //           color: const Color.fromARGB(255, 171, 107, 255))),
-          //   onConfirm: (values) {
-          //     setState(() {
-          //       _selectedTypes = values;
-          //     });
-          //   },
-          //   chipDisplay: MultiSelectChipDisplay.none(),
-          //   validator: (values) {
-          //     if (values == null || values.isEmpty) {
-          //       return 'Please select at least one region';
-          //     }
-          //     return null;
-          //   },
-          // ),
-          DropdownButtonFormField<String>(
-            autovalidateMode: AutovalidateMode.always,
-            autofocus: false,
-            style: const TextStyle(
-                fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-            decoration: decorationForTextFormField('Тип'),
-            onChanged: (val) {
-              _roomsController.text = val!;
-            },
-            icon: const FaIcon(
+          MultiSelectDialogField(
+            items: types
+                .map((region) => MultiSelectItem<String>(region, region))
+                .toList(),
+            initialValue: _selectedTypes,
+            title: const Text('Тип'),
+            buttonIcon: const Icon(
               FontAwesomeIcons.chevronDown,
               size: 15,
               color: Colors.grey,
             ),
-            items: [...types].map((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(value),
-              );
-            }).toList(),
-            // value: types[0],
+            buttonText: _selectedTypes.isEmpty
+                ? const Text('Тип')
+                : Text(
+                    " Тип: ${_selectedTypes.length.toString()}",
+                    overflow: TextOverflow.ellipsis,
+                  ),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8.0),
+                border: Border.all(
+                    width: 1.5,
+                    color: const Color.fromARGB(255, 171, 107, 255))),
+            onConfirm: (values) {
+              setState(() {
+                _selectedTypes = values;
+              });
+              _roomsController.text = _selectedTypes.join(',');
+            },
+            chipDisplay: MultiSelectChipDisplay.none(),
+            validator: (values) {
+              if (values == null || values.isEmpty) {
+                return 'Виберіть принаймні один тип';
+              }
+              return null;
+            },
           ),
+          // DropdownButtonFormField<String>(
+          //   autovalidateMode: AutovalidateMode.always,
+          //   autofocus: false,
+          //   style: const TextStyle(
+          //       fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
+          //   decoration: decorationForTextFormField('Тип'),
+          //   onChanged: (val) {
+          //     _roomsController.text = val!;
+          //   },
+          //   icon: const FaIcon(
+          //     FontAwesomeIcons.chevronDown,
+          //     size: 15,
+          //     color: Colors.grey,
+          //   ),
+          //   items: [...types].map((String value) {
+          //     return DropdownMenuItem<String>(
+          //       value: value,
+          //       child: Text(value),
+          //     );
+          //   }).toList(),
+          //   // value: types[0],
+          // ),
           const SizedBox(
             height: 10,
           ),
-          DropdownButtonFormField<String>(
-            autovalidateMode: AutovalidateMode.always,
-            autofocus: false,
-            style: const TextStyle(
-                fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-            decoration: decorationForTextFormField('Район'),
-            onChanged: (val) {
-              _regionController.text = val!;
-            },
-            icon: const FaIcon(
-              FontAwesomeIcons.chevronDown,
-              size: 15,
-              color: Colors.grey,
-            ),
-            items: [...regions].map((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(value),
-              );
-            }).toList(),
-            // value: types[0],
-          ),
-          // MultiSelectDialogField(
-          //   items: regions
-          //       .map((region) => MultiSelectItem<String>(region, region))
-          //       .toList(),
-          //   initialValue: _selectedRegions,
-          //   title: const Text('Select Regions'),
-          //   buttonIcon: const Icon(
+          // DropdownButtonFormField<String>(
+          //   autovalidateMode: AutovalidateMode.always,
+          //   autofocus: false,
+          //   style: const TextStyle(
+          //       fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
+          //   decoration: decorationForTextFormField('Район'),
+          //   onChanged: (val) {
+          //     _regionController.text = val!;
+          //   },
+          //   icon: const FaIcon(
           //     FontAwesomeIcons.chevronDown,
           //     size: 15,
           //     color: Colors.grey,
           //   ),
-          //   buttonText: _selectedRegions.isEmpty
-          //       ? const Text('Select Regions')
-          //       : Text(
-          //           " Selected: ${_selectedRegions.length.toString()}",
-          //           overflow: TextOverflow.ellipsis,
-          //         ),
-          //   decoration: BoxDecoration(
-          //       borderRadius: BorderRadius.circular(8.0),
-          //       border: Border.all(
-          //           width: 1.5,
-          //           color: const Color.fromARGB(255, 171, 107, 255))),
-          //   onConfirm: (values) {
-          //     setState(() {
-          //       _selectedRegions = values;
-          //     });
-          //   },
-          //   chipDisplay: MultiSelectChipDisplay.none(),
-          //   validator: (values) {
-          //     if (values == null || values.isEmpty) {
-          //       return 'Please select at least one region';
-          //     }
-          //     return null;
-          //   },
+          //   items: [...regions].map((String value) {
+          //     return DropdownMenuItem<String>(
+          //       value: value,
+          //       child: Text(value),
+          //     );
+          //   }).toList(),
+          //   // value: types[0],
           // ),
+          MultiSelectDialogField(
+            items: regions
+                .map((region) => MultiSelectItem<String>(region, region))
+                .toList(),
+            initialValue: _selectedRegions,
+            title: const Text('Район'),
+            buttonIcon: const Icon(
+              FontAwesomeIcons.chevronDown,
+              size: 15,
+              color: Colors.grey,
+            ),
+            buttonText: _selectedRegions.isEmpty
+                ? const Text('Район')
+                : Text(
+                    " Район: ${_selectedRegions.length.toString()}",
+                    overflow: TextOverflow.ellipsis,
+                  ),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8.0),
+                border: Border.all(
+                    width: 1.5,
+                    color: const Color.fromARGB(255, 171, 107, 255))),
+            onConfirm: (values) {
+              setState(() {
+                _selectedRegions = values;
+              });
+              _regionController.text = _selectedRegions.join(',');
+            },
+            chipDisplay: MultiSelectChipDisplay.none(),
+            validator: (values) {
+              if (values == null || values.isEmpty) {
+                return 'Виберіть принаймні один регіон';
+              }
+              return null;
+            },
+          ),
           const SizedBox(
             height: 10,
           ),
