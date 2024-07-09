@@ -6,8 +6,10 @@ import 'package:apartments/app/utils/services/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:overlay_support/overlay_support.dart';
 
 import '../features/dashboard/views/screens/users/users_dashboard.dart';
+import '../features/dashboard/views/screens/work area/work are components/work_area_notifications.dart';
 
 class UserProfileData {
   final ImageProvider image;
@@ -73,20 +75,25 @@ class _UserProfileState extends State<UserProfile> {
               _buildImage(),
               const SizedBox(width: 10),
               Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                child: Row(
                   children: [
-                    _buildName(),
-                    _buildJobdesk(),
-                    if (role == 'Customer') ...[
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      const LogOutForCustomers()
-                    ] else ...[
-                      // const AddNewUser(),
-                    ]
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildName(),
+                        _buildJobdesk(),
+                        if (role == 'Customer') ...[
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          const LogOutForCustomers()
+                        ] else ...[
+                          // const AddNewUser(),
+                        ]
+                      ],
+                    ),
+                    // const WorkAreaNotification()
                   ],
                 ),
               )
