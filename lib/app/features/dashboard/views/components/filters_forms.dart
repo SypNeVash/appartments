@@ -280,12 +280,12 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
               _roomsController.text = _selectedTypes.join(',');
             },
             chipDisplay: MultiSelectChipDisplay.none(),
-            validator: (values) {
-              if (values == null || values.isEmpty) {
-                return 'Виберіть принаймні один тип';
-              }
-              return null;
-            },
+            // validator: (values) {
+            //   if (values == null || values.isEmpty) {
+            //     return 'Виберіть принаймні один тип';
+            //   }
+            //   return null;
+            // },
           ),
           // DropdownButtonFormField<String>(
           //   autovalidateMode: AutovalidateMode.always,
@@ -363,12 +363,12 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
               _regionController.text = _selectedRegions.join(',');
             },
             chipDisplay: MultiSelectChipDisplay.none(),
-            validator: (values) {
-              if (values == null || values.isEmpty) {
-                return 'Виберіть принаймні один регіон';
-              }
-              return null;
-            },
+            // validator: (values) {
+            //   if (values == null || values.isEmpty) {
+            //     return 'Виберіть принаймні один регіон';
+            //   }
+            //   return null;
+            // },
           ),
           const SizedBox(
             height: 10,
