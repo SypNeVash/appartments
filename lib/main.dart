@@ -11,6 +11,7 @@ import 'package:apartments/app/providers/admin_panel_provider.dart';
 import 'package:apartments/app/providers/clients_provider.dart';
 import 'package:apartments/app/providers/work_area_provider.dart';
 import 'package:bot_toast/bot_toast.dart';
+import 'package:overlay_support/overlay_support.dart';
 import 'package:provider/provider.dart';
 
 import 'app/config/themes/app_theme.dart';
@@ -98,33 +99,40 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     final authController = Get.find<AuthController>();
 
-    return GetMaterialApp(
-      // navigatorKey: NavigationService().navigationKey,
-      title: 'Apartment',
-      theme: AppTheme.basic,
-      initialRoute: authController.isAuthenticated.value ? '/' : '/login',
-      getPages: [
-        GetPage(
-          name: '/',
-          page: () => const DashboardScreen(),
-          // middlewares: [AuthMiddleware()],
-        ),
-        GetPage(name: '/login', page: () => const LoginScreen()),
-        GetPage(name: '/apartmentdetail', page: () => const ApartmentDetail()),
-        GetPage(
-            name: '/editingApartments',
-            page: () => const ApartmentEditDetail()),
-        GetPage(name: '/addingNewClient', page: () => const AddingNewClients()),
-        GetPage(
-            name: '/addingNewWorkArea', page: () => const WorkingAreMainEdit()),
-        GetPage(
-            name: '/workingareadetails', page: () => const WorkingAreDetails()),
-        GetPage(name: '/editClientsData', page: () => const EditClientsData()),
-      ],
-      scrollBehavior: CustomScrollBehaviour(),
-      builder: BotToastInit(),
-      navigatorObservers: [BotToastNavigatorObserver()],
-      debugShowCheckedModeBanner: false,
+    return OverlaySupport.global(
+      child: GetMaterialApp(
+        // navigatorKey: NavigationService().navigationKey,
+        title: 'Apartment',
+        theme: AppTheme.basic,
+        initialRoute: authController.isAuthenticated.value ? '/' : '/login',
+        getPages: [
+          GetPage(
+            name: '/',
+            page: () => const DashboardScreen(),
+            // middlewares: [AuthMiddleware()],
+          ),
+          GetPage(name: '/login', page: () => const LoginScreen()),
+          GetPage(
+              name: '/apartmentdetail', page: () => const ApartmentDetail()),
+          GetPage(
+              name: '/editingApartments',
+              page: () => const ApartmentEditDetail()),
+          GetPage(
+              name: '/addingNewClient', page: () => const AddingNewClients()),
+          GetPage(
+              name: '/addingNewWorkArea',
+              page: () => const WorkingAreMainEdit()),
+          GetPage(
+              name: '/workingareadetails',
+              page: () => const WorkingAreDetails()),
+          GetPage(
+              name: '/editClientsData', page: () => const EditClientsData()),
+        ],
+        scrollBehavior: CustomScrollBehaviour(),
+        builder: BotToastInit(),
+        navigatorObservers: [BotToastNavigatorObserver()],
+        debugShowCheckedModeBanner: false,
+      ),
     );
   }
 }
