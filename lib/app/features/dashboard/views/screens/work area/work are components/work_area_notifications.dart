@@ -66,9 +66,9 @@ class NotificationWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(10),
-      margin: EdgeInsets.symmetric(horizontal: 16),
-      decoration: BoxDecoration(
+      padding: const EdgeInsets.all(10),
+      margin: const EdgeInsets.symmetric(horizontal: 16),
+      decoration: const BoxDecoration(
         color: Colors.white,
         boxShadow: [
           BoxShadow(
@@ -84,27 +84,27 @@ class NotificationWidget extends StatelessWidget {
         children: [
           Row(
             children: [
-              Icon(Icons.notifications, color: Colors.blue),
-              SizedBox(width: 10),
+              const Icon(Icons.notifications, color: Colors.blue),
+              const SizedBox(width: 10),
               Expanded(
                 child: Text(
                   title,
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
               IconButton(
-                icon: Icon(Icons.close, color: Colors.grey),
+                icon: const Icon(Icons.close, color: Colors.grey),
                 onPressed: onClose,
               ),
             ],
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             child: Text(
               message,
-              style: TextStyle(fontSize: 14),
+              style: const TextStyle(fontSize: 14),
             ),
           ),
         ],
