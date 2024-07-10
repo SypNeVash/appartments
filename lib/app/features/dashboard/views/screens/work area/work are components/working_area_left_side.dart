@@ -7,6 +7,7 @@ import 'package:apartments/app/features/dashboard/views/screens/work%20area/work
 import 'package:apartments/app/models/work_area_model.dart';
 import 'package:apartments/app/providers/work_area_provider.dart';
 import 'package:apartments/app/utils/services/shared_preferences.dart';
+import 'package:dio/dio.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 
 import 'package:flutter/material.dart';
@@ -60,6 +61,8 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
   String? selectedTask;
   String? selectedRate;
   bool isLoading = false;
+  List<String> _responsibleStaff = [];
+  bool _isFetching = false;
 
   bool isEditingCustomerId = false;
   bool isEditingCustomerName = false;
@@ -255,6 +258,33 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
         return Colors.red;
       default:
         return Colors.white;
+    }
+  }
+
+  Future<void> fetchCResponsibleStaff() async {
+    Dio _dio = Dio();
+    final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
+    var url = 'https://realtor.azurewebsites.net/api/Authenticate/getstuff';
+    try {
+      setState(() {
+        _isFetching = true;
+      });
+
+      Response response = await _dio.get(
+        url,
+        options: Options(
+          headers: {'Authorization': 'Bearer $accessToken'},
+        ),
+      );
+      if (response.statusCode == 200) {
+        final List data = response.data;
+        setState(() {
+          _responsibleStaff = List<String>.from(data);
+          _isFetching = false;
+        });
+      }
+    } on DioError catch (e) {
+      print('Error fetching customer data: ${e.message}');
     }
   }
 
@@ -462,21 +492,74 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         children: <Widget>[
-                          buildEditableTextField(
-                            controller: responsibleStaffController,
-                            isEditing: isEditingResponsibleStaff,
-                            label: 'Відповідальна персона',
-                            onEdit: () {
-                              setState(() {
-                                isEditingResponsibleStaff = true;
-                              });
+                          GestureDetector(
+                            onTap: () {
+                              if (_responsibleStaff.isEmpty) {
+                                fetchCResponsibleStaff();
+                              }
                             },
-                            onSave: () {
-                              setState(() {
-                                isEditingResponsibleStaff = false;
-                              });
-                            },
+                            child: AbsorbPointer(
+                              absorbing: _isFetching,
+                              child: DropdownButtonFormField<String>(
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
+                                autofocus: false,
+                                isDense: true,
+                                style: const TextStyle(
+                                    fontSize: 15,
+                                    color: Color.fromARGB(255, 0, 0, 0),
+                                    fontWeight: FontWeight.w500),
+                                decoration: _responsibleStaff.isEmpty
+                                    ? _isFetching == false
+                                        ? nonActiveDecorationTextField(
+                                            responsibleStaffController.text)
+                                        : nonActiveDecorationTextField('')
+                                    : decorationForTextFormField(''),
+                                onChanged: (val) {
+                                  responsibleStaffController.text = val!;
+                                },
+                                icon: _isFetching == true
+                                    ? const SizedBox(
+                                        height: 17,
+                                        width: 17,
+                                        child: CircularProgressIndicator(
+                                          strokeWidth: 1.5,
+                                        ))
+                                    : const FaIcon(
+                                        FontAwesomeIcons.chevronDown,
+                                        size: 15,
+                                        color: Colors.grey,
+                                      ),
+                                items: _responsibleStaff.map((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  );
+                                }).toList(),
+                                value: _responsibleStaff.isEmpty == true
+                                    ? responsibleStaffController.text
+                                    : _responsibleStaff.singleWhere((element) {
+                                        return element ==
+                                            responsibleStaffController.text;
+                                      }),
+                              ),
+                            ),
                           ),
+                          // buildEditableTextField(
+                          //   controller: responsibleStaffController,
+                          //   isEditing: isEditingResponsibleStaff,
+                          //   label: 'Відповідальна персона',
+                          //   onEdit: () {
+                          //     setState(() {
+                          //       isEditingResponsibleStaff = true;
+                          //     });
+                          //   },
+                          //   onSave: () {
+                          //     setState(() {
+                          //       isEditingResponsibleStaff = false;
+                          //     });
+                          //   },
+                          // ),
                           const SizedBox(
                             height: 15,
                           ),
@@ -503,7 +586,9 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
                                 child: Text(value),
                               );
                             }).toList(),
-                            value: rates.contains(selectedRate) ? selectedRate : rates[0],
+                            value: rates.contains(selectedRate)
+                                ? selectedRate
+                                : rates[0],
                           ),
                           const SizedBox(
                             height: 25,
@@ -715,7 +800,9 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
                                 child: Text(value),
                               );
                             }).toList(),
-                            value: tasks.contains(selectedTask) ? selectedTask : tasks[0],
+                            value: tasks.contains(selectedTask)
+                                ? selectedTask
+                                : tasks[0],
                           ),
                         ],
                       ),
