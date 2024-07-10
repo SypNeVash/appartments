@@ -538,10 +538,14 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
                                 }).toList(),
                                 value: _responsibleStaff.isEmpty == true
                                     ? responsibleStaffController.text
-                                    : _responsibleStaff.singleWhere((element) {
-                                        return element ==
-                                            responsibleStaffController.text;
-                                      }),
+                                    : _responsibleStaff.contains(
+                                            responsibleStaffController.text)
+                                        ? _responsibleStaff
+                                            .singleWhere((element) {
+                                            return element ==
+                                                responsibleStaffController.text;
+                                          })
+                                        : _responsibleStaff[0],
                               ),
                             ),
                           ),
