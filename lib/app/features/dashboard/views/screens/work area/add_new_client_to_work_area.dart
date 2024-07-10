@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:apartments/app/api/work_are_api.dart';
 import 'package:apartments/app/constans/app_constants.dart';
 import 'package:apartments/app/features/dashboard/views/components/text_form_fiel_decoration.dart';
@@ -151,6 +153,10 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
   CustomerModel? _selectedCustomerCard;
   final Dio _dio = Dio();
   late List<CustomerModel> _customerCards = [];
+  List<String> _responsibleStaff = [];
+
+  bool _isFetching = false;
+
   bool search = false;
   Future<void> fetchCustomerData() async {
     final phoneNumber = customerPhoneNumberController.text;
@@ -178,15 +184,38 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
           final data = response.data as List;
 
           final customerCards = CustomerModelList.fromJsons(data);
-          // for (var x in customerCards.customerModel) {
-          //   print(x);
-          // }
 
           setState(() {
             _customerCards = customerCards.customerModel;
             search = false;
           });
         }
+      }
+    } on DioError catch (e) {
+      print('Error fetching customer data: ${e.message}');
+    }
+  }
+
+  Future<void> fetchCResponsibleStaff() async {
+    final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
+    var url = 'https://realtor.azurewebsites.net/api/Authenticate/getstuff';
+    try {
+      setState(() {
+        _isFetching = true;
+      });
+
+      Response response = await _dio.get(
+        url,
+        options: Options(
+          headers: {'Authorization': 'Bearer $accessToken'},
+        ),
+      );
+      if (response.statusCode == 200) {
+        final List data = response.data;
+        setState(() {
+          _responsibleStaff = List<String>.from(data);
+          _isFetching = false;
+        });
       }
     } on DioError catch (e) {
       print('Error fetching customer data: ${e.message}');
@@ -368,16 +397,65 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
             const SizedBox(
               height: 15,
             ),
-            TextFormField(
-              controller: responsibleStaffController,
-              decoration: decorationForTextFormField('Відповідальна персона'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Будь ласка, введіть відповідальу персону';
+            GestureDetector(
+              onTap: () {
+                if (_responsibleStaff.isEmpty) {
+                  fetchCResponsibleStaff();
                 }
-                return null;
               },
+              child: AbsorbPointer(
+                absorbing: _isFetching,
+                child: DropdownButtonFormField<String>(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  autofocus: false,
+                  isDense: true,
+                  style: const TextStyle(
+                      fontSize: 15,
+                      color: Color.fromARGB(255, 0, 0, 0),
+                      fontWeight: FontWeight.w500),
+                  decoration: _responsibleStaff.isEmpty
+                      ? _isFetching == false
+                          ? nonActiveDecorationTextField(
+                              'Відповідальна персона')
+                          : nonActiveDecorationTextField('')
+                      : decorationForTextFormField(''),
+                  onChanged: (val) {
+                    responsibleStaffController.text = val!;
+                  },
+                  icon: _isFetching == true
+                      ? const SizedBox(
+                          height: 17,
+                          width: 17,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 1.5,
+                          ))
+                      : const FaIcon(
+                          FontAwesomeIcons.chevronDown,
+                          size: 15,
+                          color: Colors.grey,
+                        ),
+                  items: _responsibleStaff.map((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                  value: _responsibleStaff.isEmpty == true
+                      ? null
+                      : _responsibleStaff[0],
+                ),
+              ),
             ),
+            // TextFormField(
+            //   controller: responsibleStaffController,
+            //   decoration: decorationForTextFormField('Відповідальна персона'),
+            //   validator: (value) {
+            //     if (value == null || value.isEmpty) {
+            //       return 'Будь ласка, введіть відповідальу персону';
+            //     }
+            //     return null;
+            //   },
+            // ),
             const SizedBox(
               height: 15,
             ),
