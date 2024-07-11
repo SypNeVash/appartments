@@ -3,10 +3,10 @@ class TaskModel {
   String type;
   String clientPhone;
   String userName;
-  DateTime date;
-  DateTime doneDate;
+  String date;
+  String doneDate;
   String description;
-  bool status;
+  String status;
 
   TaskModel({
     required this.id,
@@ -25,8 +25,8 @@ class TaskModel {
       type: json['type'],
       clientPhone: json['clientPhone'],
       userName: json['userName'],
-      date: DateTime.parse(json['date']),
-      doneDate: DateTime.parse(json['doneDate']),
+      date: json['date'],
+      doneDate: json['doneDate'],
       description: json['description'],
       status: json['status'],
     );
@@ -38,8 +38,8 @@ class TaskModel {
       'type': type,
       'clientPhone': clientPhone,
       'userName': userName,
-      'date': date.toIso8601String(),
-      'doneDate': doneDate.toIso8601String(),
+      'date': date,
+      'doneDate': doneDate,
       'description': description,
       'status': status,
     };

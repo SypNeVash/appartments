@@ -1,9 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+import 'package:apartments/app/models/task_model.dart';
+
 class WorkingAreaModel {
   final String? id;
   final CustomerCard? customerCard;
+  final TaskModel? tasks;
   final String? responsibleStaff;
   final String? rate;
   final List<String>? regions;
@@ -22,6 +25,7 @@ class WorkingAreaModel {
   WorkingAreaModel({
     this.id,
     this.customerCard,
+    this.tasks,
     this.responsibleStaff,
     this.rate,
     this.regions,
@@ -42,6 +46,7 @@ class WorkingAreaModel {
     return <String, dynamic>{
       'id': id,
       'customerCard': customerCard?.toJson(),
+      'tasks': tasks?.toJson(),
       'responsibleStaff': responsibleStaff,
       'rate': rate,
       'regions': regions,

@@ -4,6 +4,7 @@ import 'package:apartments/app/api/work_are_api.dart';
 import 'package:apartments/app/constans/app_constants.dart';
 import 'package:apartments/app/features/dashboard/views/components/text_form_fiel_decoration.dart';
 import 'package:apartments/app/features/dashboard/views/screens/work%20area/work%20are%20components/multi_select.dart';
+import 'package:apartments/app/models/task_model.dart';
 import 'package:apartments/app/models/work_area_model.dart';
 import 'package:apartments/app/providers/work_area_provider.dart';
 import 'package:apartments/app/utils/services/shared_preferences.dart';
@@ -176,7 +177,8 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
       isLoading = true;
     });
     final workAreaId = await SPHelper.getWorkAreaIDSharedPreference();
-
+    final nameOfUser = await SPHelper.getNameSharedPreference() ?? '';
+    final dateTime = DateTime.now();
     CustomerCard customerCard = CustomerCard(
       id: customerIdController.text,
       name: customerNameController.text,
@@ -185,6 +187,16 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
       role: customerRoleController.text,
       status: customerStatusController.text,
     );
+
+    // TaskModel tasks = TaskModel(
+    //     id: id,
+    //     type: cus,
+    //     clientPhone: customerPhoneNumberController.text,
+    //     userName: nameOfUser,
+    //     date: dateTime.toString(),
+    //     doneDate: dateTime.toString(),
+    //     description: commentsController.text,
+    //     status: customerStatusController.text.toString());
     WorkingAreaModel workingArea = WorkingAreaModel(
       id: workAreaId,
       customerCard: customerCard,
