@@ -6,7 +6,7 @@ class TaskModel {
   String date;
   String doneDate;
   String description;
-  String status;
+  bool status;
 
   TaskModel({
     required this.id,

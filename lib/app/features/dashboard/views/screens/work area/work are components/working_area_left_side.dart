@@ -15,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:multi_select_flutter/util/multi_select_item.dart';
 import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../clients/edit_clients_dat.dart';
 import 'working_area_right_side.dart';
@@ -188,18 +189,19 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
       status: customerStatusController.text,
     );
 
-    // TaskModel tasks = TaskModel(
-    //     id: id,
-    //     type: cus,
-    //     clientPhone: customerPhoneNumberController.text,
-    //     userName: nameOfUser,
-    //     date: dateTime.toString(),
-    //     doneDate: dateTime.toString(),
-    //     description: commentsController.text,
-    //     status: customerStatusController.text.toString());
+    TaskModel tasks = TaskModel(
+        id: const Uuid().v4(),
+        type: taskController.text,
+        clientPhone: customerPhoneNumberController.text,
+        userName: nameOfUser,
+        date: dateTime.toString(),
+        doneDate: dateTime.toString(),
+        description: commentsController.text,
+        status: customerStatusController.text);
     WorkingAreaModel workingArea = WorkingAreaModel(
       id: workAreaId,
       customerCard: customerCard,
+      // tasks: tasks,
       regions: selectedRegions,
       typesAppart: selectedAparts,
       responsibleStaff: responsibleStaffController.text,
