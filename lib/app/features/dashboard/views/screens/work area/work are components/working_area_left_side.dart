@@ -189,15 +189,15 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
       status: customerStatusController.text,
     );
 
-    TaskModel tasks = TaskModel(
-        id: const Uuid().v4(),
-        type: taskController.text,
-        clientPhone: customerPhoneNumberController.text,
-        userName: nameOfUser,
-        date: dateTime.toString(),
-        doneDate: dateTime.toString(),
-        description: commentsController.text,
-        status: customerStatusController.text);
+    // TaskModel tasks = TaskModel(
+    //     id: const Uuid().v4(),
+    //     type: taskController.text,
+    //     clientPhone: customerPhoneNumberController.text,
+    //     userName: nameOfUser,
+    //     date: dateTime.toString(),
+    //     doneDate: dateTime.toString(),
+    //     description: commentsController.text,
+    //     status: customerStatusController.text);
     WorkingAreaModel workingArea = WorkingAreaModel(
       id: workAreaId,
       customerCard: customerCard,
