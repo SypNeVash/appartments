@@ -92,9 +92,12 @@ class NotificationWidget extends StatefulWidget {
 }
 
 class _NotificationWidgetState extends State<NotificationWidget> {
+  late Future<List<TaskModel>> _futureTasks;
+
   @override
   void initState() {
     super.initState();
+    _futureTasks = TaskApi().fetchTasks(); // Fetch tasks once during initState
   }
 
   @override
@@ -152,73 +155,74 @@ class _NotificationWidgetState extends State<NotificationWidget> {
                 const Divider(),
                 const SizedBox(height: 8),
                 Expanded(
-                  child: SingleChildScrollView(
-                    physics: const BouncingScrollPhysics(),
-                    scrollDirection: Axis.vertical,
-                    child: FutureBuilder<List<TaskModel>>(
-                      future: TaskApi().fetchTasks(),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return const Center(
-                              child: CircularProgressIndicator(
-                            strokeWidth: 1.5,
-                          ));
-                        } else if (snapshot.hasError) {
-                          return Center(
-                              child: Text('Error: ${snapshot.error}'));
-                        } else if (!snapshot.hasData ||
-                            snapshot.data!.isEmpty) {
-                          return const Center(
-                              child: Text('No notifications found'));
-                        } else {
-                          List<TaskModel> notifications = snapshot.data!;
-                          return ListView.builder(
-                            physics: const NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemCount: notifications.length,
-                            itemBuilder: (context, index) {
-                              TaskModel notification = notifications[index];
-                              return ListTile(
-                                isThreeLine: true,
-                                title: Text(
-                                  notification.type,
-                                  style: const TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                                subtitle: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(notification.description),
-                                    Text(
-                                      notification.clientPhone ??
-                                          'No phone number',
-                                      style: const TextStyle(
-                                        fontSize: 11,
-                                        fontWeight: FontWeight.w600,
-                                        color: Color.fromARGB(255, 42, 42, 42),
-                                      ),
+                  child: FutureBuilder<List<TaskModel>>(
+                    future: _futureTasks,
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(
+                            child: CircularProgressIndicator(
+                          strokeWidth: 1.5,
+                        ));
+                      } else if (snapshot.hasError) {
+                        return Center(child: Text('Error: ${snapshot.error}'));
+                      } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                        return const Center(
+                            child: Text('No notifications found'));
+                      } else {
+                        List<TaskModel> notifications = snapshot.data!;
+                        return ListView.builder(
+                          itemCount: notifications.length,
+                          itemBuilder: (context, index) {
+                            TaskModel notification = notifications[index];
+                            return ListTile(
+                              isThreeLine: true,
+                              title: Text(
+                                notification.type,
+                                style: const TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                              subtitle: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    notification.description,
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.blue,
                                     ),
-                                    Text(
-                                      notification.date,
-                                      style: const TextStyle(
-                                        fontSize: 10,
-                                        color: Color.fromARGB(255, 87, 87, 87),
-                                      ),
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text(
+                                    notification.clientPhone ??
+                                        'No phone number',
+                                    style: const TextStyle(
+                                      fontSize: 11,
+                                      fontWeight: FontWeight.w600,
+                                      color: Color.fromARGB(255, 42, 42, 42),
                                     ),
-                                  ],
-                                ),
-                                trailing: Icon(notification.status
-                                    ? Icons.check
-                                    : Icons.warning_amber_outlined),
-                                onTap: () {},
-                              );
-                            },
-                          );
-                        }
-                      },
-                    ),
+                                  ),
+                                  Text(
+                                    notification.date,
+                                    style: const TextStyle(
+                                      fontSize: 10,
+                                      color: Color.fromARGB(255, 87, 87, 87),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              trailing: Icon(notification.status
+                                  ? Icons.check
+                                  : Icons.warning_amber_outlined),
+                              onTap: () {},
+                            );
+                          },
+                        );
+                      }
+                    },
                   ),
                 )
               ],
