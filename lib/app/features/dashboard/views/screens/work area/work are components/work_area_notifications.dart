@@ -1,5 +1,6 @@
 import 'package:apartments/app/api/notifications_api.dart';
 import 'package:apartments/app/models/task_model.dart';
+import 'package:apartments/app/utils/animations/show_up_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:overlay_support/overlay_support.dart';
 
@@ -174,50 +175,53 @@ class _NotificationWidgetState extends State<NotificationWidget> {
                           itemCount: notifications.length,
                           itemBuilder: (context, index) {
                             TaskModel notification = notifications[index];
-                            return ListTile(
-                              isThreeLine: true,
-                              title: Text(
-                                notification.type,
-                                style: const TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w600),
+                            return ShowUp(
+                              delay: 300,
+                              child: ListTile(
+                                isThreeLine: true,
+                                title: Text(
+                                  notification.type,
+                                  style: const TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                                subtitle: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      notification.description,
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.blue,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text(
+                                      notification.clientPhone ??
+                                          'No phone number',
+                                      style: const TextStyle(
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.w600,
+                                        color: Color.fromARGB(255, 42, 42, 42),
+                                      ),
+                                    ),
+                                    Text(
+                                      notification.date,
+                                      style: const TextStyle(
+                                        fontSize: 10,
+                                        color: Color.fromARGB(255, 87, 87, 87),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                trailing: Icon(notification.status
+                                    ? Icons.check
+                                    : Icons.warning_amber_outlined),
+                                onTap: () {},
                               ),
-                              subtitle: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    notification.description,
-                                    style: const TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.blue,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Text(
-                                    notification.clientPhone ??
-                                        'No phone number',
-                                    style: const TextStyle(
-                                      fontSize: 11,
-                                      fontWeight: FontWeight.w600,
-                                      color: Color.fromARGB(255, 42, 42, 42),
-                                    ),
-                                  ),
-                                  Text(
-                                    notification.date,
-                                    style: const TextStyle(
-                                      fontSize: 10,
-                                      color: Color.fromARGB(255, 87, 87, 87),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              trailing: Icon(notification.status
-                                  ? Icons.check
-                                  : Icons.warning_amber_outlined),
-                              onTap: () {},
                             );
                           },
                         );
