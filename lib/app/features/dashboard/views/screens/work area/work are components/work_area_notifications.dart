@@ -50,10 +50,7 @@ class _WorkAreaNotificationState extends State<WorkAreaNotification>
             child: Material(
               color: Colors.transparent,
               child: NotificationWidget(
-                title: "New Notification",
-                message:
-                    "This is a custom drop-down notification with scrollable content." *
-                        5,
+                title: "Notification",
                 onClose: () {
                   OverlaySupportEntry.of(context)!.dismiss();
                 },
@@ -85,14 +82,10 @@ class _WorkAreaNotificationState extends State<WorkAreaNotification>
 
 class NotificationWidget extends StatefulWidget {
   final String title;
-  final String message;
   final VoidCallback onClose;
 
   const NotificationWidget(
-      {super.key,
-      required this.title,
-      required this.message,
-      required this.onClose});
+      {super.key, required this.title, required this.onClose});
 
   @override
   State<NotificationWidget> createState() => _NotificationWidgetState();
