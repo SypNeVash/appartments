@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:apartments/app/models/task_model.dart';
 import 'package:apartments/app/utils/services/shared_preferences.dart';
 import 'package:dio/dio.dart';
@@ -26,9 +28,9 @@ class TaskApi {
     final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
     var url = 'https://realtor.azurewebsites.net/api/Task/done';
 
-    final data = {
-      'id': idTask,
-    };
+  
+
+    final data = jsonEncode(idTask);
 
     try {
       Response response = await dio.post(
@@ -39,7 +41,6 @@ class TaskApi {
         ),
       );
 
-      print("responseis: $response");
       if (response.statusCode == 200 ||
           response.statusCode == 201 ||
           response.statusCode == 204) {

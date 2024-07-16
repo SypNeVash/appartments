@@ -234,13 +234,14 @@ class _NotificationWidgetState extends State<NotificationWidget> {
                                         onTap: () async {
                                           isDone = await TaskApi()
                                               .tasksDone(notification.id);
-                                          print(isDone);
+                                          if(isDone == true){
+                                             _futureTasks = TaskApi().fetchTasks();
+                                             setState(() {
+                                               
+                                             }); 
+                                          }
                                         },
-                                        child: isDone == true
-                                            ? const Icon(
-                                                Icons.check_circle_outline,
-                                                color: Colors.green)
-                                            : const Icon(Icons.circle_outlined,
+                                        child: const Icon(Icons.circle_outlined,
                                                 color: Colors.grey)),
                                     onTap: () {},
                                   ),
