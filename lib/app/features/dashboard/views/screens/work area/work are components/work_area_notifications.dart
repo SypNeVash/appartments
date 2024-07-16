@@ -153,7 +153,9 @@ class _NotificationWidgetState extends State<NotificationWidget> {
                     ),
                   ],
                 ),
-                const Divider(),
+                const Divider(
+                  color: Colors.blue,
+                ),
                 const SizedBox(height: 8),
                 Expanded(
                   child: FutureBuilder<List<TaskModel>>(
@@ -177,50 +179,62 @@ class _NotificationWidgetState extends State<NotificationWidget> {
                             TaskModel notification = notifications[index];
                             return ShowUp(
                               delay: 300,
-                              child: ListTile(
-                                isThreeLine: true,
-                                title: Text(
-                                  notification.type,
-                                  style: const TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w600),
+                              child: Padding(
+                                padding: const EdgeInsets.only(bottom: 10),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: const Color.fromARGB(
+                                          255, 251, 249, 249)),
+                                  child: ListTile(
+                                    isThreeLine: true,
+                                    title: Text(
+                                      notification.type,
+                                      style: const TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                    subtitle: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          notification.description,
+                                          style: const TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.blue,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          notification.clientPhone ??
+                                              'No phone number',
+                                          style: const TextStyle(
+                                            fontSize: 11,
+                                            fontWeight: FontWeight.w600,
+                                            color:
+                                                Color.fromARGB(255, 42, 42, 42),
+                                          ),
+                                        ),
+                                        Text(
+                                          notification.date,
+                                          style: const TextStyle(
+                                            fontSize: 10,
+                                            color:
+                                                Color.fromARGB(255, 87, 87, 87),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    trailing: Icon(notification.status
+                                        ? Icons.check
+                                        : Icons.warning_amber_outlined),
+                                    onTap: () {},
+                                  ),
                                 ),
-                                subtitle: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      notification.description,
-                                      style: const TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.blue,
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text(
-                                      notification.clientPhone ??
-                                          'No phone number',
-                                      style: const TextStyle(
-                                        fontSize: 11,
-                                        fontWeight: FontWeight.w600,
-                                        color: Color.fromARGB(255, 42, 42, 42),
-                                      ),
-                                    ),
-                                    Text(
-                                      notification.date,
-                                      style: const TextStyle(
-                                        fontSize: 10,
-                                        color: Color.fromARGB(255, 87, 87, 87),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                trailing: Icon(notification.status
-                                    ? Icons.check
-                                    : Icons.warning_amber_outlined),
-                                onTap: () {},
                               ),
                             );
                           },
