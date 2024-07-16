@@ -231,7 +231,7 @@ class _NotificationWidgetState extends State<NotificationWidget> {
                                     ),
                                     trailing: Icon(notification.status
                                         ? Icons.check
-                                        : Icons.warning_amber_outlined),
+                                        : Icons.error_outline),
                                     onTap: () {},
                                   ),
                                 ),
