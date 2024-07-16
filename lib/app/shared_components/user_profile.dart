@@ -77,23 +77,25 @@ class _UserProfileState extends State<UserProfile> {
               Expanded(
                 child: Row(
                   children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _buildName(),
-                        _buildJobdesk(),
-                        if (role == 'Customer') ...[
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          const LogOutForCustomers()
-                        ] else ...[
-                          // const AddNewUser(),
-                        ]
-                      ],
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _buildName(),
+                          _buildJobdesk(),
+                          if (role == 'Customer') ...[
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            const LogOutForCustomers()
+                          ] else ...[
+                            // const AddNewUser(),
+                          ]
+                        ],
+                      ),
                     ),
-                    // const WorkAreaNotification()
+                    const WorkAreaNotification()
                   ],
                 ),
               )

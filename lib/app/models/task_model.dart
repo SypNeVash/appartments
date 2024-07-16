@@ -1,7 +1,7 @@
 class TaskModel {
   String id;
   String type;
-  String clientPhone;
+  String? clientPhone;
   String userName;
   String date;
   String doneDate;
@@ -11,7 +11,7 @@ class TaskModel {
   TaskModel({
     required this.id,
     required this.type,
-    required this.clientPhone,
+    this.clientPhone,
     required this.userName,
     required this.date,
     required this.doneDate,
