@@ -101,6 +101,7 @@ class _NotificationWidgetState extends State<NotificationWidget> {
     _futureTasks = TaskApi().fetchTasks(); // Fetch tasks once during initState
   }
 
+  bool isDone = false;
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -229,9 +230,18 @@ class _NotificationWidgetState extends State<NotificationWidget> {
                                         ),
                                       ],
                                     ),
-                                    trailing: Icon(notification.status
-                                        ? Icons.check
-                                        : Icons.error_outline),
+                                    trailing: InkWell(
+                                        onTap: () async {
+                                          isDone = await TaskApi()
+                                              .tasksDone(notification.id);
+                                          print(isDone);
+                                        },
+                                        child: isDone == true
+                                            ? const Icon(
+                                                Icons.check_circle_outline,
+                                                color: Colors.green)
+                                            : const Icon(Icons.circle_outlined,
+                                                color: Colors.grey)),
                                     onTap: () {},
                                   ),
                                 ),

@@ -21,4 +21,35 @@ class TaskApi {
       return e.response!.data;
     }
   }
+
+  Future<bool> tasksDone(String idTask) async {
+    final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
+    var url = 'https://realtor.azurewebsites.net/api/Task/done';
+
+    final data = {
+      'id': idTask,
+    };
+
+    try {
+      Response response = await dio.post(
+        url,
+        data: data,
+        options: Options(
+          headers: {'Authorization': 'Bearer $accessToken'},
+        ),
+      );
+
+      print("responseis: $response");
+      if (response.statusCode == 200 ||
+          response.statusCode == 201 ||
+          response.statusCode == 204) {
+        return true;
+      } else {
+        return false;
+      }
+    } on DioError catch (e) {
+      print('Error: ${e.response?.data}');
+      return false;
+    }
+  }
 }
