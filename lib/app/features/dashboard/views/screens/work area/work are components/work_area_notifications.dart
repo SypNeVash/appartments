@@ -187,13 +187,35 @@ class _NotificationWidgetState extends State<NotificationWidget> {
                             itemBuilder: (context, index) {
                               TaskModel notification = notifications[index];
                               return ListTile(
+                                isThreeLine: true,
                                 title: Text(
                                   notification.type,
                                   style: const TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.w600),
                                 ),
-                                subtitle: Text(notification.description),
+                                subtitle: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(notification.description),
+                                    Text(
+                                      notification.clientPhone ??
+                                          'No phone number',
+                                      style: const TextStyle(
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.w600,
+                                        color: Color.fromARGB(255, 42, 42, 42),
+                                      ),
+                                    ),
+                                    Text(
+                                      notification.date,
+                                      style: const TextStyle(
+                                        fontSize: 10,
+                                        color: Color.fromARGB(255, 87, 87, 87),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                                 trailing: Icon(notification.status
                                     ? Icons.check
                                     : Icons.warning_amber_outlined),
