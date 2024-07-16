@@ -67,15 +67,15 @@ class _CustomerCardForWorkingAreState extends State<CustomerCardForWorkingAre> {
 
   Color _getColorForValue(String? value) {
     switch (value) {
-      case 'Встреча':
+      case 'Зустріч':
         return const Color.fromARGB(255, 171, 107, 255);
-      case 'Перезвонить позже':
+      case 'Передзвонити':
         return Colors.yellow;
-      case 'Оплачен':
+      case 'Оплачено':
         return Colors.green;
-      case 'Заселен':
+      case 'Заселений':
         return const Color.fromARGB(255, 175, 219, 255);
-      case 'Заморожен':
+      case 'Заморожений':
         return Colors.red;
       default:
         return Colors.white;
