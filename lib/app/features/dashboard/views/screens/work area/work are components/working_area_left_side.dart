@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:apartments/app/api/work_are_api.dart';
 import 'package:apartments/app/constans/app_constants.dart';
 import 'package:apartments/app/features/dashboard/views/components/text_form_fiel_decoration.dart';
+import 'package:apartments/app/features/dashboard/views/screens/work%20area/work%20are%20components/add_task_working_area.dart';
 import 'package:apartments/app/features/dashboard/views/screens/work%20area/work%20are%20components/multi_select.dart';
 import 'package:apartments/app/models/task_model.dart';
 import 'package:apartments/app/models/work_area_model.dart';
@@ -198,6 +199,7 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
     //     doneDate: dateTime.toString(),
     //     description: commentsController.text,
     //     status: customerStatusController.text);
+
     WorkingAreaModel workingArea = WorkingAreaModel(
       id: workAreaId,
       customerCard: customerCard,
@@ -483,6 +485,58 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
                   ),
                   const SizedBox(
                     height: 25,
+                  ),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 25, vertical: 10),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      boxShadow: [
+                        BoxShadow(
+                          color: const Color.fromARGB(255, 146, 162, 190)
+                              .withOpacity(0.5),
+                          spreadRadius: -5,
+                          blurRadius: 10,
+                          offset: const Offset(0, 8),
+                        ),
+                      ],
+                      color: Colors.white,
+                    ),
+                    child: Row(
+                      children: [
+                        const Expanded(
+                            child: Text(
+                                overflow: TextOverflow.ellipsis,
+                                'Add Task',
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black))),
+                        ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.orangeAccent,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5))),
+                            onPressed: () {
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //       builder: (context) =>
+                              //           const AddTaskToWorkingArea()),
+                              // );
+                            },
+                            child: const Text(
+                              'Add',
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white),
+                            ))
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 15,
                   ),
                   Container(
                     padding: const EdgeInsets.symmetric(
