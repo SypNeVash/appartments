@@ -2,6 +2,7 @@ import 'package:apartments/app/api/client_api.dart';
 import 'package:apartments/app/constans/app_constants.dart';
 import 'package:apartments/app/features/dashboard/views/components/text_form_fiel_decoration.dart';
 import 'package:apartments/app/models/customers_model.dart';
+import 'package:apartments/app/models/task_model.dart';
 import 'package:apartments/app/providers/clients_provider.dart';
 import 'package:apartments/app/utils/services/shared_preferences.dart';
 import 'package:bot_toast/bot_toast.dart';
@@ -58,7 +59,7 @@ class FormsEditTask extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          'Редагувати клієнта',
+          'Add new Task',
           style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
         ),
         Text(
@@ -81,14 +82,14 @@ class TextFormForTask extends StatefulWidget {
 }
 
 class _TextFormForTaskState extends State<TextFormForTask> {
-  final TextEditingController name = TextEditingController();
-  final TextEditingController passport = TextEditingController();
-  final TextEditingController phoneNumber = TextEditingController();
+  final TextEditingController type = TextEditingController();
+  final TextEditingController clientPhone = TextEditingController();
+  final TextEditingController userName = TextEditingController();
   final TextEditingController status = TextEditingController();
-  final TextEditingController comments = TextEditingController();
+  final TextEditingController description = TextEditingController();
 
   String errorText = '';
-  CustomerModel customerModel = CustomerModel();
+  TaskModel taskModel = TaskModel();
 
   Future<bool> postClientData() async {
     Dio dio = Dio();
@@ -98,12 +99,14 @@ class _TextFormForTaskState extends State<TextFormForTask> {
 
     try {
       Map<String, String> datas = {
-        "id": id,
-        "name": name.text,
-        "passport": passport.text,
-        "phoneNumber": phoneNumber.text,
-        "status": status.text,
-        "comment": comments.text
+        "id": "string",
+        "type": "string",
+        "clientPhone": "string",
+        "userName": "string",
+        "date": "2024-07-17T20:19:31.959Z",
+        "doneDate": "2024-07-17T20:19:31.959Z",
+        "description": "string",
+        "status": '',
       };
       Response response = await dio.put(
         apiUrl,
@@ -127,10 +130,10 @@ class _TextFormForTaskState extends State<TextFormForTask> {
 
   @override
   void dispose() {
-    name.dispose();
-    passport.dispose();
-    phoneNumber.dispose();
-    comments.dispose();
+    type.dispose();
+    clientPhone.dispose();
+    status.dispose();
+    description.dispose();
     super.dispose();
   }
 
@@ -139,7 +142,7 @@ class _TextFormForTaskState extends State<TextFormForTask> {
     return Column(
       children: [
         TextFormField(
-          controller: name,
+          controller: userName,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           textCapitalization: TextCapitalization.sentences,
           autofocus: false,
@@ -152,7 +155,7 @@ class _TextFormForTaskState extends State<TextFormForTask> {
           height: 15,
         ),
         TextFormField(
-          controller: passport,
+          controller: clientPhone,
           autovalidateMode: AutovalidateMode.always,
           textCapitalization: TextCapitalization.sentences,
           autofocus: false,
@@ -165,7 +168,7 @@ class _TextFormForTaskState extends State<TextFormForTask> {
           height: 15,
         ),
         TextFormField(
-          controller: phoneNumber,
+          controller: type,
           autovalidateMode: AutovalidateMode.always,
           textCapitalization: TextCapitalization.sentences,
           autofocus: false,
@@ -206,7 +209,7 @@ class _TextFormForTaskState extends State<TextFormForTask> {
           height: 15,
         ),
         TextFormField(
-          controller: comments,
+          controller: description,
           autovalidateMode: AutovalidateMode.always,
           textCapitalization: TextCapitalization.sentences,
           autofocus: false,

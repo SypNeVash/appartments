@@ -1,22 +1,22 @@
 class TaskModel {
-  String id;
-  String type;
+  String? id;
+  String? type;
   String? clientPhone;
-  String userName;
-  String date;
-  String doneDate;
-  String description;
-  bool status;
+  String? userName;
+  String? date;
+  String? doneDate;
+  String? description;
+  bool? status;
 
   TaskModel({
-    required this.id,
-    required this.type,
+     this.id,
+     this.type,
     this.clientPhone,
-    required this.userName,
-    required this.date,
-    required this.doneDate,
-    required this.description,
-    required this.status,
+     this.userName,
+     this.date,
+     this.doneDate,
+     this.description,
+     this.status,
   });
 
   factory TaskModel.fromJson(Map<String, dynamic> json) {
