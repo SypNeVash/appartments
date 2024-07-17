@@ -94,31 +94,34 @@ class NotificationWidget extends StatefulWidget {
 
 class _NotificationWidgetState extends State<NotificationWidget> {
   late Future<List<TaskModel>> _futureTasks;
+  List<bool> isDoneList = [];
 
   @override
   void initState() {
     super.initState();
-    _futureTasks = TaskApi().fetchTasks(); // Fetch tasks once during initState
+    _futureTasks = TaskApi().fetchTasks();
+    _futureTasks.then((tasks) {
+      setState(() {
+        isDoneList = List<bool>.filled(tasks.length, false);
+      });
+    });
   }
 
-  bool isDone = false;
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
         double width;
         if (constraints.maxWidth < 600) {
-          width = constraints.maxWidth * 0.9; // Mobile: 90% of the screen width
+          width = constraints.maxWidth * 0.9;
         } else {
-          width = constraints.maxWidth *
-              0.5; // Larger screens: 50% of the screen width
+          width = constraints.maxWidth * 0.5;
         }
 
         return Center(
           child: Container(
             width: width,
-            height:
-                MediaQuery.of(context).size.height, // Full height of the screen
+            height: MediaQuery.of(context).size.height,
             padding: const EdgeInsets.all(10),
             margin: const EdgeInsets.symmetric(horizontal: 16),
             decoration: BoxDecoration(
@@ -174,19 +177,21 @@ class _NotificationWidgetState extends State<NotificationWidget> {
                             child: Text('No notifications found'));
                       } else {
                         List<TaskModel> notifications = snapshot.data!;
+
                         return ListView.builder(
                           itemCount: notifications.length,
                           itemBuilder: (context, index) {
                             TaskModel notification = notifications[index];
                             return ShowUp(
-                              delay: 300,
+                              delay: 200,
                               child: Padding(
                                 padding: const EdgeInsets.only(bottom: 10),
                                 child: Container(
                                   decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: const Color.fromARGB(
-                                          255, 251, 249, 249)),
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: const Color.fromARGB(
+                                        255, 251, 249, 249),
+                                  ),
                                   child: ListTile(
                                     isThreeLine: true,
                                     title: Text(
@@ -231,18 +236,39 @@ class _NotificationWidgetState extends State<NotificationWidget> {
                                       ],
                                     ),
                                     trailing: InkWell(
-                                        onTap: () async {
-                                          isDone = await TaskApi()
-                                              .tasksDone(notification.id);
-                                          if(isDone == true){
-                                             _futureTasks = TaskApi().fetchTasks();
-                                             setState(() {
-                                               
-                                             }); 
-                                          }
-                                        },
-                                        child: const Icon(Icons.circle_outlined,
-                                                color: Colors.grey)),
+                                      highlightColor: Colors.blue,
+                                      onTap: () async {
+                                        bool isDone = await TaskApi()
+                                            .tasksDone(notification.id);
+                                        if (isDone == true) {
+                                          setState(() {
+                                            isDoneList[index] = true;
+                                          });
+                                          await Future.delayed(const Duration(
+                                              milliseconds: 500));
+                                          _futureTasks = TaskApi().fetchTasks();
+                                          _futureTasks.then((tasks) {
+                                            setState(() {
+                                              isDoneList = List<bool>.filled(
+                                                  tasks.length, false);
+                                            });
+                                          });
+                                        }
+                                      },
+                                      child: isDoneList.isNotEmpty &&
+                                              isDoneList[index] == true
+                                          ? const ShowUp2(
+                                              delay: 300,
+                                              child: Icon(
+                                                  Icons
+                                                      .check_circle_outline_rounded,
+                                                  color: Colors.grey),
+                                            )
+                                          : const Icon(
+                                              Icons.circle_outlined,
+                                              color: Colors.grey,
+                                            ),
+                                    ),
                                     onTap: () {},
                                   ),
                                 ),
@@ -253,7 +279,7 @@ class _NotificationWidgetState extends State<NotificationWidget> {
                       }
                     },
                   ),
-                )
+                ),
               ],
             ),
           ),
