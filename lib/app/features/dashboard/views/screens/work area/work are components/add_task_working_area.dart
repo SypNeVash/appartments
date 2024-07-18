@@ -1,10 +1,6 @@
-import 'package:apartments/app/api/client_api.dart';
-import 'package:apartments/app/api/work_are_api.dart';
 import 'package:apartments/app/constans/app_constants.dart';
 import 'package:apartments/app/features/dashboard/views/components/text_form_fiel_decoration.dart';
-import 'package:apartments/app/models/customers_model.dart';
 import 'package:apartments/app/models/task_model.dart';
-import 'package:apartments/app/providers/clients_provider.dart';
 import 'package:apartments/app/utils/services/shared_preferences.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:dio/dio.dart';
@@ -14,70 +10,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
 
-class AddTaskToWorkingArea extends StatefulWidget {
-  const AddTaskToWorkingArea({super.key});
-
-  @override
-  State<AddTaskToWorkingArea> createState() => _AddTaskToWorkingAreaState();
-}
-
-class _AddTaskToWorkingAreaState extends State<AddTaskToWorkingArea> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(EvaIcons.arrowBack),
-        ),
-      ),
-      body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Center(
-          child: Container(
-            constraints: const BoxConstraints(maxWidth: 400),
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: const Column(
-              children: [
-                FormsEditTask(),
-                TextFormForTask(),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class FormsEditTask extends StatelessWidget {
-  const FormsEditTask({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Text(
-          'Add new Task',
-          style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-        ),
-        Text(
-          'Будь ласка, заповніть форму',
-          style: TextStyle(fontSize: 15),
-        ),
-        SizedBox(
-          height: 20,
-        ),
-      ],
-    );
-  }
-}
-
 class TextFormForTask extends StatefulWidget {
-  const TextFormForTask({Key? key}) : super(key: key);
+  final Function(bool) callBack;
+  const TextFormForTask({required this.callBack, Key? key}) : super(key: key);
 
   @override
   State<TextFormForTask> createState() => _TextFormForTaskState();
@@ -187,152 +122,160 @@ class _TextFormForTaskState extends State<TextFormForTask> {
   String? selectedType;
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        TextFormField(
-          controller: _dateController,
-          decoration: InputDecoration(
-            labelText: 'Select Date',
-            filled: true,
-            fillColor: Colors.white,
-            focusedBorder: outlineMainInputFocusedBorder,
-            enabledBorder: outlineMainInputFocusedBorder,
-            errorBorder: outlineMainInputFocusedBorder,
-            focusedErrorBorder: outlineMainInputFocusedBorder,
-            border: outlineMainInputFocusedBorder,
-            suffixIcon: IconButton(
-              icon: const Icon(
-                EvaIcons.calendar,
-                color: Colors.blue,
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
+      child: Center(
+        child: Container(
+          constraints: const BoxConstraints(maxWidth: 400),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          child: Column(
+            children: [
+              TextFormField(
+                controller: _dateController,
+                decoration: InputDecoration(
+                  labelText: 'Select Date',
+                  filled: true,
+                  fillColor: Colors.white,
+                  focusedBorder: outlineMainInputFocusedBorder,
+                  enabledBorder: outlineMainInputFocusedBorder,
+                  errorBorder: outlineMainInputFocusedBorder,
+                  focusedErrorBorder: outlineMainInputFocusedBorder,
+                  border: outlineMainInputFocusedBorder,
+                  suffixIcon: IconButton(
+                    icon: const Icon(
+                      EvaIcons.calendar,
+                      color: Colors.blue,
+                    ),
+                    onPressed: () => _selectDate(context),
+                  ),
+                ),
+                readOnly: true,
+                onTap: () => _selectDate(context),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please select a date';
+                  }
+                  return null;
+                },
               ),
-              onPressed: () => _selectDate(context),
-            ),
-          ),
-          readOnly: true,
-          onTap: () => _selectDate(context),
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Please select a date';
-            }
-            return null;
-          },
-        ),
-        const SizedBox(height: 16),
-        TextFormField(
-          controller: _timeController,
-          decoration: InputDecoration(
-            labelText: 'Select Time',
-            filled: true,
-            border: outlineMainInputFocusedBorder,
-            fillColor: Colors.white,
-            focusedBorder: outlineMainInputFocusedBorder,
-            enabledBorder: outlineMainInputFocusedBorder,
-            errorBorder: outlineMainInputFocusedBorder,
-            focusedErrorBorder: outlineMainInputFocusedBorder,
-            suffixIcon: IconButton(
-              icon: const Icon(
-                EvaIcons.clockOutline,
-                color: Colors.blue,
+              const SizedBox(height: 16),
+              TextFormField(
+                controller: _timeController,
+                decoration: InputDecoration(
+                  labelText: 'Select Time',
+                  filled: true,
+                  border: outlineMainInputFocusedBorder,
+                  fillColor: Colors.white,
+                  focusedBorder: outlineMainInputFocusedBorder,
+                  enabledBorder: outlineMainInputFocusedBorder,
+                  errorBorder: outlineMainInputFocusedBorder,
+                  focusedErrorBorder: outlineMainInputFocusedBorder,
+                  suffixIcon: IconButton(
+                    icon: const Icon(
+                      EvaIcons.clockOutline,
+                      color: Colors.blue,
+                    ),
+                    onPressed: () => _selectTime(context),
+                  ),
+                ),
+                readOnly: true,
+                onTap: () => _selectTime(context),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please select a time';
+                  }
+                  return null;
+                },
               ),
-              onPressed: () => _selectTime(context),
-            ),
-          ),
-          readOnly: true,
-          onTap: () => _selectTime(context),
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Please select a time';
-            }
-            return null;
-          },
-        ),
-        const SizedBox(
-          height: 15,
-        ),
-        DropdownButtonFormField<String>(
-          autovalidateMode: AutovalidateMode.always,
-          autofocus: false,
-          style: const TextStyle(
-              fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField('Тип'),
-          onChanged: (val) {
-            type.text = val!;
-          },
-          icon: const FaIcon(
-            FontAwesomeIcons.chevronDown,
-            size: 15,
-            color: Colors.grey,
-          ),
-          hint: const Text('Тип'),
-          items: tasks.map((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
-              child: Text(value),
-            );
-          }).toList(),
-        ),
-        const SizedBox(
-          height: 15,
-        ),
-        TextFormField(
-          controller: description,
-          autovalidateMode: AutovalidateMode.always,
-          textCapitalization: TextCapitalization.sentences,
-          autofocus: false,
-          maxLines: 4,
-          keyboardType: TextInputType.number,
-          style: const TextStyle(
-              fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField('Description'),
-        ),
-        Text(
-          errorText,
-          style: const TextStyle(
-              fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        SizedBox(
-          width: 250,
-          height: 40,
-          child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(255, 255, 188, 2),
+              const SizedBox(
+                height: 15,
               ),
-              onPressed: () async {
-                TaskModel datas = TaskModel(
-                  id: uuid,
-                  type: type.text,
-                  date: _dateController.text + "," + _timeController.text,
-                  description: description.text,
-                );
-
-                String jsonData = datas.toJson();
-                var cancel = BotToast.showLoading();
-                final done = await postTaskData();
-                if (done == true) {
-                  cancel();
-                  Navigator.of(context).pop(true);
-                } else {
-                  cancel();
-                  setState(() {
-                    errorText = 'Error: Please check and try again';
-                  });
-                }
-              },
-              child: const Text(
-                'Зберегти',
-                style: TextStyle(
+              DropdownButtonFormField<String>(
+                autovalidateMode: AutovalidateMode.always,
+                autofocus: false,
+                style: const TextStyle(
                     fontSize: 16,
                     color: Colors.black,
                     fontWeight: FontWeight.w600),
-              )),
+                decoration: decorationForTextFormField('Тип'),
+                onChanged: (val) {
+                  type.text = val!;
+                },
+                icon: const FaIcon(
+                  FontAwesomeIcons.chevronDown,
+                  size: 15,
+                  color: Colors.grey,
+                ),
+                hint: const Text('Тип'),
+                items: tasks.map((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              TextFormField(
+                controller: description,
+                autovalidateMode: AutovalidateMode.always,
+                textCapitalization: TextCapitalization.sentences,
+                autofocus: false,
+                maxLines: 4,
+                keyboardType: TextInputType.number,
+                style: const TextStyle(
+                    fontSize: 16,
+                    color: Colors.black,
+                    fontWeight: FontWeight.w600),
+                decoration: decorationForTextFormField('Description'),
+              ),
+              Text(
+                errorText,
+                style: const TextStyle(
+                    fontSize: 16,
+                    color: Colors.black,
+                    fontWeight: FontWeight.w600),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              SizedBox(
+                width: 250,
+                height: 40,
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(255, 255, 188, 2),
+                    ),
+                    onPressed: () async {
+                      var cancel = BotToast.showLoading();
+                      final done = await postTaskData();
+                      if (done == true) {
+                        cancel();
+                        widget.callBack(done);
+                        // Navigator.of(context).pop(true);
+                      } else {
+                        cancel();
+                        setState(() {
+                          errorText = 'Error: Please check and try again';
+                        });
+                      }
+                    },
+                    child: const Text(
+                      'Зберегти',
+                      style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w600),
+                    )),
+              ),
+              const SizedBox(
+                height: 30,
+              )
+            ],
+          ),
         ),
-        const SizedBox(
-          height: 30,
-        )
-      ],
+      ),
     );
   }
 }

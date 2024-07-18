@@ -510,8 +510,7 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) =>
-                                        const WorkAreaNotificationWidget()),
+                                    builder: (context) => const WorkAreTask()),
                               );
                             },
                             child: const Text(
