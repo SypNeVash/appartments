@@ -195,7 +195,7 @@ class _NotificationWidgetState extends State<NotificationWidget> {
                                   child: ListTile(
                                     isThreeLine: true,
                                     title: Text(
-                                      notification.type,
+                                      notification.type.toString(),
                                       style: const TextStyle(
                                           color: Colors.black,
                                           fontWeight: FontWeight.w600),
@@ -205,7 +205,7 @@ class _NotificationWidgetState extends State<NotificationWidget> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          notification.description,
+                                          notification.description.toString(),
                                           style: const TextStyle(
                                             fontSize: 14,
                                             fontWeight: FontWeight.w600,
@@ -226,7 +226,7 @@ class _NotificationWidgetState extends State<NotificationWidget> {
                                           ),
                                         ),
                                         Text(
-                                          notification.date,
+                                          notification.date.toString(),
                                           style: const TextStyle(
                                             fontSize: 10,
                                             color:
@@ -238,8 +238,8 @@ class _NotificationWidgetState extends State<NotificationWidget> {
                                     trailing: InkWell(
                                       highlightColor: Colors.blue,
                                       onTap: () async {
-                                        bool isDone = await TaskApi()
-                                            .tasksDone(notification.id);
+                                        bool isDone = await TaskApi().tasksDone(
+                                            notification.id.toString());
                                         if (isDone == true) {
                                           setState(() {
                                             isDoneList[index] = true;

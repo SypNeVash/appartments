@@ -1,4 +1,5 @@
 import 'package:apartments/app/api/client_api.dart';
+import 'package:apartments/app/api/work_are_api.dart';
 import 'package:apartments/app/constans/app_constants.dart';
 import 'package:apartments/app/features/dashboard/views/components/text_form_fiel_decoration.dart';
 import 'package:apartments/app/models/customers_model.dart';
@@ -10,7 +11,8 @@ import 'package:dio/dio.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
+import 'package:uuid/uuid.dart';
 
 class AddTaskToWorkingArea extends StatefulWidget {
   const AddTaskToWorkingArea({super.key});
@@ -36,7 +38,7 @@ class _AddTaskToWorkingAreaState extends State<AddTaskToWorkingArea> {
         child: Center(
           child: Container(
             constraints: const BoxConstraints(maxWidth: 400),
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: const Column(
               children: [
                 FormsEditTask(),
@@ -83,39 +85,39 @@ class TextFormForTask extends StatefulWidget {
 
 class _TextFormForTaskState extends State<TextFormForTask> {
   final TextEditingController type = TextEditingController();
-  final TextEditingController clientPhone = TextEditingController();
-  final TextEditingController userName = TextEditingController();
-  final TextEditingController status = TextEditingController();
   final TextEditingController description = TextEditingController();
+  final TextEditingController dateAndTime = TextEditingController();
 
   String errorText = '';
   TaskModel taskModel = TaskModel();
+  DateTime dateTime = DateTime.now();
+  String uuid = const Uuid().v4();
 
-  Future<bool> postClientData() async {
+  Future<bool> postTaskData() async {
     Dio dio = Dio();
-    final id = await SPHelper.getClientsIDSharedPreference() ?? '';
     final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
-    String apiUrl = 'https://realtor.azurewebsites.net/api/CustomerCards/$id';
+    final workAreaId = await SPHelper.getWorkAreaIDSharedPreference();
+
+    String apiUrl =
+        'https://realtor.azurewebsites.net/api/WorkArea/task/$workAreaId';
+    final dateTime = _combineDateAndTime();
 
     try {
-      Map<String, String> datas = {
-        "id": "string",
-        "type": "string",
-        "clientPhone": "string",
-        "userName": "string",
-        "date": "2024-07-17T20:19:31.959Z",
-        "doneDate": "2024-07-17T20:19:31.959Z",
-        "description": "string",
-        "status": '',
+      Map<String, dynamic> datas = {
+        "id": uuid,
+        "type": type.text,
+        "date": dateTime!.toIso8601String(),
+        "description": description.text,
       };
-      Response response = await dio.put(
+
+      Response response = await dio.post(
         apiUrl,
         data: datas,
         options: Options(
-          contentType: 'application/json',
           headers: {'Authorization': 'Bearer $accessToken'},
         ),
       );
+      print(response.statusCode);
       if (response.statusCode == 200 ||
           response.statusCode == 201 ||
           response.statusCode == 204) {
@@ -131,51 +133,118 @@ class _TextFormForTaskState extends State<TextFormForTask> {
   @override
   void dispose() {
     type.dispose();
-    clientPhone.dispose();
-    status.dispose();
     description.dispose();
+    dateAndTime.dispose();
     super.dispose();
   }
 
+  final _dateController = TextEditingController();
+  final _timeController = TextEditingController();
+
+  Future<void> _selectDate(BuildContext context) async {
+    DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
+    if (picked != null) {
+      setState(() {
+        _dateController.text = DateFormat('yyyy-MM-dd').format(picked);
+      });
+    }
+  }
+
+  Future<void> _selectTime(BuildContext context) async {
+    TimeOfDay? picked = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    );
+    if (picked != null) {
+      setState(() {
+        final now = DateTime.now();
+        final dt =
+            DateTime(now.year, now.month, now.day, picked.hour, picked.minute);
+        _timeController.text = DateFormat('HH:mm').format(dt);
+      });
+    }
+  }
+
+  DateTime? _combineDateAndTime() {
+    final dateText = _dateController.text;
+    final timeText = _timeController.text;
+
+    if (dateText.isEmpty || timeText.isEmpty) {
+      return null;
+    }
+
+    final date = DateFormat('yyyy-MM-dd').parse(dateText);
+    final time = DateFormat('HH:mm').parse(timeText);
+
+    return DateTime(date.year, date.month, date.day, time.hour, time.minute);
+  }
+
+  String? selectedType;
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         TextFormField(
-          controller: userName,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          textCapitalization: TextCapitalization.sentences,
-          autofocus: false,
-          keyboardType: TextInputType.multiline,
-          style: const TextStyle(
-              fontSize: 16, color: Colors.black, fontWeight: FontWeight.w500),
-          decoration: decorationForTextFormField("Ім'я"),
+          controller: _dateController,
+          decoration: InputDecoration(
+            labelText: 'Select Date',
+            filled: true,
+            fillColor: Colors.white,
+            focusedBorder: outlineMainInputFocusedBorder,
+            enabledBorder: outlineMainInputFocusedBorder,
+            errorBorder: outlineMainInputFocusedBorder,
+            focusedErrorBorder: outlineMainInputFocusedBorder,
+            border: outlineMainInputFocusedBorder,
+            suffixIcon: IconButton(
+              icon: const Icon(
+                EvaIcons.calendar,
+                color: Colors.blue,
+              ),
+              onPressed: () => _selectDate(context),
+            ),
+          ),
+          readOnly: true,
+          onTap: () => _selectDate(context),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Please select a date';
+            }
+            return null;
+          },
         ),
-        const SizedBox(
-          height: 15,
-        ),
+        const SizedBox(height: 16),
         TextFormField(
-          controller: clientPhone,
-          autovalidateMode: AutovalidateMode.always,
-          textCapitalization: TextCapitalization.sentences,
-          autofocus: false,
-          keyboardType: TextInputType.number,
-          style: const TextStyle(
-              fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField('Паспорт'),
-        ),
-        const SizedBox(
-          height: 15,
-        ),
-        TextFormField(
-          controller: type,
-          autovalidateMode: AutovalidateMode.always,
-          textCapitalization: TextCapitalization.sentences,
-          autofocus: false,
-          keyboardType: TextInputType.number,
-          style: const TextStyle(
-              fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField('Телефон'),
+          controller: _timeController,
+          decoration: InputDecoration(
+            labelText: 'Select Time',
+            filled: true,
+            border: outlineMainInputFocusedBorder,
+            fillColor: Colors.white,
+            focusedBorder: outlineMainInputFocusedBorder,
+            enabledBorder: outlineMainInputFocusedBorder,
+            errorBorder: outlineMainInputFocusedBorder,
+            focusedErrorBorder: outlineMainInputFocusedBorder,
+            suffixIcon: IconButton(
+              icon: const Icon(
+                EvaIcons.clockOutline,
+                color: Colors.blue,
+              ),
+              onPressed: () => _selectTime(context),
+            ),
+          ),
+          readOnly: true,
+          onTap: () => _selectTime(context),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Please select a time';
+            }
+            return null;
+          },
         ),
         const SizedBox(
           height: 15,
@@ -185,25 +254,22 @@ class _TextFormForTaskState extends State<TextFormForTask> {
           autofocus: false,
           style: const TextStyle(
               fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField('Статус'),
+          decoration: decorationForTextFormField('Тип'),
           onChanged: (val) {
-            status.text = val!;
+            type.text = val!;
           },
           icon: const FaIcon(
             FontAwesomeIcons.chevronDown,
             size: 15,
             color: Colors.grey,
           ),
-          hint: const Text('Статус'),
-          items: rolesOfClient.map((String value) {
+          hint: const Text('Тип'),
+          items: tasks.map((String value) {
             return DropdownMenuItem<String>(
               value: value,
               child: Text(value),
             );
           }).toList(),
-          // value: rolesOfClient.contains(selectedRole)
-          //     ? selectedRole
-          //     : rolesOfClient[0],
         ),
         const SizedBox(
           height: 15,
@@ -213,11 +279,11 @@ class _TextFormForTaskState extends State<TextFormForTask> {
           autovalidateMode: AutovalidateMode.always,
           textCapitalization: TextCapitalization.sentences,
           autofocus: false,
-          maxLines: 5,
+          maxLines: 4,
           keyboardType: TextInputType.number,
           style: const TextStyle(
               fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
-          decoration: decorationForTextFormField('Comments'),
+          decoration: decorationForTextFormField('Description'),
         ),
         Text(
           errorText,
@@ -235,15 +301,19 @@ class _TextFormForTaskState extends State<TextFormForTask> {
                 backgroundColor: const Color.fromARGB(255, 255, 188, 2),
               ),
               onPressed: () async {
+                TaskModel datas = TaskModel(
+                  id: uuid,
+                  type: type.text,
+                  date: _dateController.text + "," + _timeController.text,
+                  description: description.text,
+                );
+
+                String jsonData = datas.toJson();
                 var cancel = BotToast.showLoading();
-                final done = await postClientData();
+                final done = await postTaskData();
                 if (done == true) {
                   cancel();
-
-                  Provider.of<ClientProvider>(context, listen: false)
-                      .fetchClients(1);
-
-                  Navigator.of(context).pop();
+                  Navigator.of(context).pop(true);
                 } else {
                   cancel();
                   setState(() {
@@ -259,11 +329,10 @@ class _TextFormForTaskState extends State<TextFormForTask> {
                     fontWeight: FontWeight.w600),
               )),
         ),
+        const SizedBox(
+          height: 30,
+        )
       ],
     );
   }
-}
-
-textShow() {
-  return const Text('dddd');
 }

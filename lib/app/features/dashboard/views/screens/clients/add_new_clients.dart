@@ -320,7 +320,6 @@ class _TextFormForAddingNewClientsState
                     _onSubmit();
                     var cancel = BotToast.showLoading();
                     final done = await postClientData();
-                    print('done: $done');
                     if (done == true) {
                       cancel();
                       Navigator.of(context).pop();

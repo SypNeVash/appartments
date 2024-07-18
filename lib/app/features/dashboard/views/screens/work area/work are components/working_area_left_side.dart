@@ -180,8 +180,7 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
       isLoading = true;
     });
     final workAreaId = await SPHelper.getWorkAreaIDSharedPreference();
-    final nameOfUser = await SPHelper.getNameSharedPreference() ?? '';
-    final dateTime = DateTime.now();
+
     CustomerCard customerCard = CustomerCard(
       id: customerIdController.text,
       name: customerNameController.text,
@@ -191,20 +190,9 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
       status: customerStatusController.text,
     );
 
-    // TaskModel tasks = TaskModel(
-    //     id: const Uuid().v4(),
-    //     type: taskController.text,
-    //     clientPhone: customerPhoneNumberController.text,
-    //     userName: nameOfUser,
-    //     date: dateTime.toString(),
-    //     doneDate: dateTime.toString(),
-    //     description: commentsController.text,
-    //     status: customerStatusController.text);
-
     WorkingAreaModel workingArea = WorkingAreaModel(
       id: workAreaId,
       customerCard: customerCard,
-      // tasks: tasks,
       regions: selectedRegions,
       typesAppart: selectedAparts,
       responsibleStaff: responsibleStaffController.text,
@@ -508,7 +496,7 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
                         const Expanded(
                             child: Text(
                                 overflow: TextOverflow.ellipsis,
-                                'Add Task',
+                                'All Tasks',
                                 style: TextStyle(
                                     fontSize: 15,
                                     fontWeight: FontWeight.w600,
@@ -519,15 +507,15 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(5))),
                             onPressed: () {
-                              // Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //       builder: (context) =>
-                              //           const WorkAreaNotificationWidget()),
-                              // );
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const WorkAreaNotificationWidget()),
+                              );
                             },
                             child: const Text(
-                              'Add',
+                              'Check',
                               style: TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.w600,

@@ -6,7 +6,7 @@ import 'package:apartments/app/models/task_model.dart';
 class WorkingAreaModel {
   final String? id;
   final CustomerCard? customerCard;
-  final TaskModel? tasks;
+  final List<TaskModel>? tasks;
   final String? responsibleStaff;
   final String? rate;
   final List<String>? regions;
@@ -46,7 +46,7 @@ class WorkingAreaModel {
     return <String, dynamic>{
       'id': id,
       'customerCard': customerCard?.toJson(),
-      'tasks': tasks?.toJson(),
+      'tasks': tasks,
       'responsibleStaff': responsibleStaff,
       'rate': rate,
       'regions': regions,
@@ -82,6 +82,9 @@ class WorkingAreaModel {
       comments: json['comments'],
       task: json['task'],
       chat: List<String>.from(json['chat']),
+      tasks: (json['tasks'] as List)
+          .map((taskJson) => TaskModel.fromJson(taskJson))
+          .toList(),
     );
   }
 
