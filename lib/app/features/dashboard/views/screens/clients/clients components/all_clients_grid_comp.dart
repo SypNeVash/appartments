@@ -220,7 +220,7 @@ class _CustomerCardState extends State<CustomerCard> {
                     ),
                     Text(
                       widget.customer.comment == null
-                          ? 'No comments'
+                          ? 'Без коментарів'
                           : widget.customer.comment.toString(),
                       style: const TextStyle(
                           overflow: TextOverflow.ellipsis,

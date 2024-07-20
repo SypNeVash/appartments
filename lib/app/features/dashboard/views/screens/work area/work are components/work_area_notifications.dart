@@ -51,7 +51,7 @@ class _WorkAreaNotificationState extends State<WorkAreaNotification>
             child: Material(
               color: Colors.transparent,
               child: NotificationWidget(
-                title: "Notification",
+                title: "Завдання",
                 onClose: () {
                   OverlaySupportEntry.of(context)!.dismiss();
                 },
@@ -171,10 +171,10 @@ class _NotificationWidgetState extends State<NotificationWidget> {
                           strokeWidth: 1.5,
                         ));
                       } else if (snapshot.hasError) {
-                        return Center(child: Text('Error: ${snapshot.error}'));
+                        return Center(child: Text('Помилка: ${snapshot.error}'));
                       } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
                         return const Center(
-                            child: Text('No notifications found'));
+                            child: Text('Немає поки задач'));
                       } else {
                         List<TaskModel> notifications = snapshot.data!;
 
@@ -217,7 +217,7 @@ class _NotificationWidgetState extends State<NotificationWidget> {
                                         ),
                                         Text(
                                           notification.clientPhone ??
-                                              'No phone number',
+                                              'Немає телефон номеру',
                                           style: const TextStyle(
                                             fontSize: 11,
                                             fontWeight: FontWeight.w600,

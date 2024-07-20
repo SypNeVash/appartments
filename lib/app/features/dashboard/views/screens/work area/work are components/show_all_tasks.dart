@@ -68,7 +68,7 @@ class _WorkAreTaskState extends State<WorkAreTask> {
           icon: const Icon(EvaIcons.arrowBack),
         ),
         title: const Text(
-          'All Tasks',
+          'Всі завдання',
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700),
         ),
         centerTitle: true,
@@ -138,7 +138,7 @@ class _WorkAreaNotificationWidgetState
             const SizedBox(height: 8),
             if (_futureTasks.isEmpty) ...[
               const Center(
-                child: Text('No Notification'),
+                child: Text('Немає задач'),
               ),
             ],
             Expanded(
@@ -196,7 +196,7 @@ class _WorkAreaNotificationWidgetState
                                 height: 5,
                               ),
                               Text(
-                                notification.clientPhone ?? 'No phone number',
+                                notification.clientPhone ?? 'Не вказано телефон',
                                 style: const TextStyle(
                                   fontSize: 13,
                                   fontWeight: FontWeight.w600,

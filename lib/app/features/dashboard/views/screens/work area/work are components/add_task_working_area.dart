@@ -133,7 +133,7 @@ class _TextFormForTaskState extends State<TextFormForTask> {
               TextFormField(
                 controller: _dateController,
                 decoration: InputDecoration(
-                  labelText: 'Select Date',
+                  labelText: 'Виберіть дату',
                   filled: true,
                   fillColor: Colors.white,
                   focusedBorder: outlineMainInputFocusedBorder,
@@ -153,7 +153,7 @@ class _TextFormForTaskState extends State<TextFormForTask> {
                 onTap: () => _selectDate(context),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please select a date';
+                    return 'Помика, перевірте дату';
                   }
                   return null;
                 },
@@ -162,7 +162,7 @@ class _TextFormForTaskState extends State<TextFormForTask> {
               TextFormField(
                 controller: _timeController,
                 decoration: InputDecoration(
-                  labelText: 'Select Time',
+                  labelText: 'Виберіть час',
                   filled: true,
                   border: outlineMainInputFocusedBorder,
                   fillColor: Colors.white,
@@ -182,7 +182,7 @@ class _TextFormForTaskState extends State<TextFormForTask> {
                 onTap: () => _selectTime(context),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please select a time';
+                    return 'Будь ласка виберіть час';
                   }
                   return null;
                 },
@@ -228,7 +228,7 @@ class _TextFormForTaskState extends State<TextFormForTask> {
                     fontSize: 16,
                     color: Colors.black,
                     fontWeight: FontWeight.w600),
-                decoration: decorationForTextFormField('Description'),
+                decoration: decorationForTextFormField('Деталі'),
               ),
               Text(
                 errorText,
@@ -257,7 +257,7 @@ class _TextFormForTaskState extends State<TextFormForTask> {
                       } else {
                         cancel();
                         setState(() {
-                          errorText = 'Error: Please check and try again';
+                          errorText = 'Помилка перевірте все і натисніть ще раз';
                         });
                       }
                     },

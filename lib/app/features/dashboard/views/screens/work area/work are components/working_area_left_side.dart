@@ -496,7 +496,7 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
                         const Expanded(
                             child: Text(
                                 overflow: TextOverflow.ellipsis,
-                                'All Tasks',
+                                'Всі завдання',
                                 style: TextStyle(
                                     fontSize: 15,
                                     fontWeight: FontWeight.w600,
@@ -514,7 +514,7 @@ class _WorkingFieldEditFormState extends State<WorkingFieldEditForm> {
                               );
                             },
                             child: const Text(
-                              'Check',
+                              'Переглянути',
                               style: TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.w600,
