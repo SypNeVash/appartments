@@ -252,10 +252,20 @@ class _ApartmentDetailsSubScreenState extends State<ApartmentDetailsSubScreen> {
                               const BorderRadius.all(Radius.circular(10.0)),
                           child: GestureDetector(
                             onTap: () {
-                              Get.to(
-                                FullScreenImagePage(
-                                  images: apartment.photos!,
-                                  initialIndex: index,
+                              // Get.to(
+                              //   FullScreenImagePage(
+                              //     images: apartment.photos!,
+                              //     initialIndex: index,
+                              //   ),
+                              // );
+
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => FullScreenImagePage(
+                                    images: apartment.photos!,
+                                    initialIndex: index,
+                                  ),
                                 ),
                               );
                             },

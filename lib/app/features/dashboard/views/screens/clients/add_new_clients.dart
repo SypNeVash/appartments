@@ -180,7 +180,7 @@ class _TextFormForAddingNewClientsState
     });
     if (_formKey.currentState?.validate() ?? false) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('All information is valid')),
+        const SnackBar(content: const Text('All information is valid')),
       );
     }
   }

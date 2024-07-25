@@ -1,6 +1,7 @@
-import 'package:apartments/app/constans/app_constants.dart';
+// ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:apartments/app/utils/helpers/app_helpers.dart';
+import '../constans/app_constants.dart';
 
 class SimpleUserProfile extends StatelessWidget {
   const SimpleUserProfile({

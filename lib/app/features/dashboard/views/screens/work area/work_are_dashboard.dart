@@ -1,5 +1,4 @@
 import 'package:apartments/app/constans/app_constants.dart';
-import 'package:apartments/app/features/dashboard/views/screens/clients/add_new_clients.dart';
 import 'package:apartments/app/features/dashboard/views/screens/dashboard_screen.dart';
 import 'package:apartments/app/features/dashboard/views/screens/work%20area/work%20are%20components/customer_card_for_working_area.dart';
 import 'package:apartments/app/models/work_area_model.dart';

@@ -56,7 +56,6 @@ class _SelectionButtonState extends State<SelectionButton> {
   final AuthController authController = Get.put(AuthController());
 
   void _showAlertDialog(int index) async {
-    final controller = Get.find<AuthController>();
     final apartDetailsListener =
         Provider.of<AppartDetailsListener>(context, listen: false);
     Get.defaultDialog(
@@ -101,8 +100,7 @@ class _SelectionButtonState extends State<SelectionButton> {
               }
               if (index == 4) {
                 _showAlertDialog(index);
-              }
-              else {
+              } else {
                 profileDetailsListener.setPageIndex = index;
               }
             },

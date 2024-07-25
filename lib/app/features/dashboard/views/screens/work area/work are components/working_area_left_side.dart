@@ -3,9 +3,7 @@ import 'dart:convert';
 import 'package:apartments/app/api/work_are_api.dart';
 import 'package:apartments/app/constans/app_constants.dart';
 import 'package:apartments/app/features/dashboard/views/components/text_form_fiel_decoration.dart';
-import 'package:apartments/app/features/dashboard/views/screens/work%20area/work%20are%20components/add_task_working_area.dart';
 import 'package:apartments/app/features/dashboard/views/screens/work%20area/work%20are%20components/multi_select.dart';
-import 'package:apartments/app/models/task_model.dart';
 import 'package:apartments/app/models/work_area_model.dart';
 import 'package:apartments/app/providers/work_area_provider.dart';
 import 'package:apartments/app/utils/services/shared_preferences.dart';
@@ -16,7 +14,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:multi_select_flutter/util/multi_select_item.dart';
 import 'package:provider/provider.dart';
-import 'package:uuid/uuid.dart';
 
 import '../../clients/edit_clients_dat.dart';
 import 'show_all_tasks.dart';

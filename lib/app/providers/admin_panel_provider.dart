@@ -1,5 +1,4 @@
 import 'package:apartments/app/api/admin_panel_api.dart';
-import 'package:apartments/app/features/dashboard/views/screens/users/users%20components/filter_condition_for_users.dart';
 import 'package:apartments/app/models/admin_panel_model.dart';
 import 'package:flutter/material.dart';
 

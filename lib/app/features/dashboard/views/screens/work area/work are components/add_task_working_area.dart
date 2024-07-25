@@ -52,7 +52,6 @@ class _TextFormForTaskState extends State<TextFormForTask> {
           headers: {'Authorization': 'Bearer $accessToken'},
         ),
       );
-      print(response.statusCode);
       if (response.statusCode == 200 ||
           response.statusCode == 201 ||
           response.statusCode == 204) {
@@ -257,7 +256,8 @@ class _TextFormForTaskState extends State<TextFormForTask> {
                       } else {
                         cancel();
                         setState(() {
-                          errorText = 'Помилка перевірте все і натисніть ще раз';
+                          errorText =
+                              'Помилка перевірте все і натисніть ще раз';
                         });
                       }
                     },

@@ -1,4 +1,3 @@
-import 'package:apartments/app/api/notifications_api.dart';
 import 'package:apartments/app/api/work_are_api.dart';
 import 'package:apartments/app/models/task_model.dart';
 import 'package:apartments/app/models/work_area_model.dart';
@@ -196,7 +195,8 @@ class _WorkAreaNotificationWidgetState
                                 height: 5,
                               ),
                               Text(
-                                notification.clientPhone ?? 'Не вказано телефон',
+                                notification.clientPhone ??
+                                    'Не вказано телефон',
                                 style: const TextStyle(
                                   fontSize: 13,
                                   fontWeight: FontWeight.w600,
