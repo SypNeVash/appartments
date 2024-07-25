@@ -89,7 +89,7 @@ final List<MultiSelectItem<String>> regionsItemsMulti = [
   MultiSelectItem<String>('Сихівський', 'Сихівський'),
 ];
 final List<MultiSelectItem<String>> typesAppartMulti = [
-  MultiSelectItem<String>('кімната', 'кімнатна'),
+  MultiSelectItem<String>('кімната', 'кімната'),
   MultiSelectItem<String>('1 кімнатна', '1 кімнатна'),
   MultiSelectItem<String>('2 кімнатна', '2 кімнатна'),
   MultiSelectItem<String>('3 кімнатна', '3 кімнатна'),
