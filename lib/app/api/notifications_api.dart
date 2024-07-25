@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:apartments/app/models/task_model.dart';
-import 'package:apartments/app/models/work_area_model.dart';
 import 'package:apartments/app/utils/services/shared_preferences.dart';
 import 'package:dio/dio.dart';
 
