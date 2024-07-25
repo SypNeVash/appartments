@@ -4,7 +4,6 @@ import 'package:apartments/app/features/dashboard/views/components/responsive_ra
 import 'package:apartments/app/models/get_all_appart_model.dart';
 import 'package:apartments/app/providers/appartment_provider.dart';
 import 'package:apartments/app/utils/services/shared_preferences.dart';
-import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
