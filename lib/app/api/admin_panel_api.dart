@@ -5,6 +5,8 @@ import 'package:apartments/app/providers/admin_panel_provider.dart';
 import 'package:apartments/app/utils/services/shared_preferences.dart';
 import 'package:dio/dio.dart';
 
+import '../constans/app_constants.dart';
+
 class AdminPanelApi {
   final Dio _dio = Dio();
 
@@ -12,7 +14,7 @@ class AdminPanelApi {
     int page,
   ) async {
     var url =
-        'https://realtor.azurewebsites.net/api/Authenticate/paginationWithFilter';
+        '$URL/api/Authenticate/paginationWithFilter';
     late AdminPanelModelList adminPanelModelList;
     try {
       final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
@@ -41,7 +43,7 @@ class AdminPanelApi {
   static Future<AdminPanelModelList> searchApartments(
       List<FilterCondition> filters, page) async {
     var url =
-        'https://realtor.azurewebsites.net/api/RentObjects/paginationWithFiler';
+        '$URL/api/RentObjects/paginationWithFiler';
     final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
 
     var filterJson = jsonEncode(filters);
@@ -75,7 +77,7 @@ class AdminPanelApi {
     String userName,
   ) async {
     var url =
-        'https://realtor.azurewebsites.net/api/Authenticate?userName=$userName';
+        '$URL/api/Authenticate?userName=$userName';
 
     try {
       final accessToken = await SPHelper.getTokenSharedPreference() ?? '';

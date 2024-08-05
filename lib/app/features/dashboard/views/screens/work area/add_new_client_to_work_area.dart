@@ -158,7 +158,7 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
     final phoneNumber = customerPhoneNumberController.text;
     final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
     var url =
-        'https://realtor.azurewebsites.net/api/CustomerCards/searchByPhone?phoneNumber=$phoneNumber';
+        '$URL/api/CustomerCards/searchByPhone?phoneNumber=$phoneNumber';
     try {
       if (phoneNumber.isNotEmpty) {
         setState(() {
@@ -194,7 +194,7 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
 
   Future<void> fetchCResponsibleStaff() async {
     final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
-    var url = 'https://realtor.azurewebsites.net/api/Authenticate/getstuff';
+    var url = '$URL/api/Authenticate/getstuff';
     try {
       setState(() {
         _isFetching = true;

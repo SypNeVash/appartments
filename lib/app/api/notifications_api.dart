@@ -4,12 +4,14 @@ import 'package:apartments/app/models/task_model.dart';
 import 'package:apartments/app/utils/services/shared_preferences.dart';
 import 'package:dio/dio.dart';
 
+import '../constans/app_constants.dart';
+
 class TaskApi {
   Dio dio = Dio();
 
   Future<List<TaskModel>> fetchTasks() async {
     final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
-    var url = 'https://realtor.azurewebsites.net/api/Task';
+    var url = '$URL/api/Task';
     try {
       Response response = await dio.get(
         url,
@@ -27,7 +29,7 @@ class TaskApi {
   Future<List<TaskModel>> fetchTasksById() async {
     final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
     final workAreaId = await SPHelper.getWorkAreaIDSharedPreference();
-    var url = 'https://realtor.azurewebsites.net/api/WorkArea/task/$workAreaId';
+    var url = '$URL/api/WorkArea/task/$workAreaId';
 
     final dataId = jsonEncode(workAreaId);
 
@@ -50,7 +52,7 @@ class TaskApi {
 
   Future<bool> tasksDone(String idTask) async {
     final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
-    var url = 'https://realtor.azurewebsites.net/api/Task/done';
+    var url = '$URL/api/Task/done';
 
     final data = jsonEncode(idTask);
 

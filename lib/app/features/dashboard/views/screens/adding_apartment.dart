@@ -88,7 +88,7 @@ class TextFormForAddingNewApt extends StatefulWidget {
 }
 
 class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
-  final String apiUrl = 'https://realtor.azurewebsites.net/api/RentObjects';
+  final String apiUrl = '$URL/api/RentObjects';
   final TextEditingController contactPerson = TextEditingController();
   final TextEditingController address = TextEditingController();
   final TextEditingController city = TextEditingController();

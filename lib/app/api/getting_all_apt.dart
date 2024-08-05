@@ -2,12 +2,14 @@ import 'package:apartments/app/models/get_all_appart_model.dart';
 import 'package:apartments/app/utils/services/shared_preferences.dart';
 import 'package:dio/dio.dart';
 
+import '../constans/app_constants.dart';
+
 class RemoteApi {
   final Dio _dio = Dio();
 
   Future<ApartmentModelList> fetchDataFromAzure(int page, int limit,
       {String? filter}) async {
-    var url = 'https://realtor.azurewebsites.net/api/RentObjects/pagination';
+    var url = '$URL/api/RentObjects/pagination';
     late ApartmentModelList apartmentModelList;
 
     try {
@@ -38,7 +40,7 @@ class RemoteApi {
   Future<bool> deleteApartDataFromAzure(
     String apartmentId,
   ) async {
-    var url = 'https://realtor.azurewebsites.net/api/RentObjects/$apartmentId';
+    var url = '$URL/api/RentObjects/$apartmentId';
 
     try {
       final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
@@ -59,7 +61,7 @@ class RemoteApi {
   }
 
   Future deleteImageFromAppartment(String apartmentId, String photoUrl) async {
-    var url = 'https://realtor.azurewebsites.net/api/RentObjects/$apartmentId';
+    var url = '$URL/api/RentObjects/$apartmentId';
 
     try {
       final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
@@ -88,7 +90,7 @@ class RemoteApi {
 
 // workingremote api
 // Future<ApartmentModelList> fetchDataFromAzureHttp() async {
-//     var url = 'https://realtor.azurewebsites.net/api/RentObjects';
+//     var url = '$URL/api/RentObjects';
 
 //     late ApartmentModelList appartmentList;
 

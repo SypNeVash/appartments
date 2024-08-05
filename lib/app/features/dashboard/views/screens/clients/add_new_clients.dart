@@ -133,7 +133,7 @@ class _TextFormForAddingNewClientsState
 
   Future<bool> postClientData() async {
     Dio dio = Dio();
-    String apiUrl = 'https://realtor.azurewebsites.net/api/CustomerCards';
+    String apiUrl = '$URL/api/CustomerCards';
     final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
     String uuid = const Uuid().v4();
 

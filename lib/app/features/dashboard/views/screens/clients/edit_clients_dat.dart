@@ -95,7 +95,7 @@ class _TextFormForEditingClientState extends State<TextFormForEditingClient> {
     Dio dio = Dio();
     final id = await SPHelper.getClientsIDSharedPreference() ?? '';
     final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
-    String apiUrl = 'https://realtor.azurewebsites.net/api/CustomerCards/$id';
+    String apiUrl = '$URL/api/CustomerCards/$id';
 
     try {
       Map<String, String> datas = {

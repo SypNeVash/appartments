@@ -94,7 +94,7 @@ class _TextFormForAddingNewUserState extends State<TextFormForAddingNewUser> {
   Future<bool> postClientData() async {
     Dio dio = Dio();
     String apiUrl =
-        'https://realtor.azurewebsites.net/api/Authenticate/register';
+        '$URL/api/Authenticate/register';
     final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
     try {
       Map<String, String> datas = {

@@ -21,7 +21,7 @@ class TextFormForAddingEditingApt extends StatefulWidget {
 
 class _TextFormForAddingEditingAptState
     extends State<TextFormForAddingEditingApt> {
-  final String apiUrl = 'https://realtor.azurewebsites.net/api/RentObjects';
+  final String apiUrl = '$URL/api/RentObjects';
   final TextEditingController contactPerson = TextEditingController();
   final TextEditingController address = TextEditingController();
   final TextEditingController city = TextEditingController();
@@ -48,7 +48,7 @@ class _TextFormForAddingEditingAptState
     List listOfImages = [];
     final List<dynamic> listFromModelPhoto =
         profileDetailsListener.getAllPortfolioImagesWithNotifier;
-    String url = 'https://realtor.azurewebsites.net/api/RentObjects/$id';
+    String url = '$URL/api/RentObjects/$id';
     List<dynamic> mergedList = [];
     try {
       if (profileDetailsListener.getXfileList.isNotEmpty &&

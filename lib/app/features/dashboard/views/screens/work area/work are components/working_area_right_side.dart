@@ -12,6 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../../../../../../constans/app_constants.dart';
+
 class WorkingAreaRightSide extends StatefulWidget {
   final bool? isMobile;
   const WorkingAreaRightSide({this.isMobile, super.key});
@@ -51,9 +53,9 @@ class _WorkingAreaRightSideState extends State<WorkingAreaRightSide> {
     final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
     final workAreaId = await SPHelper.getWorkAreaIDSharedPreference();
     final String apiUrl =
-        'https://realtor.azurewebsites.net/api/WorkArea/comment/$workAreaId';
+        '$URL/api/WorkArea/comment/$workAreaId';
 
-    var url = 'https://realtor.azurewebsites.net/api/WorkArea/$workAreaId';
+    var url = '$URL/api/WorkArea/$workAreaId';
 
     final Dio dio = Dio();
 

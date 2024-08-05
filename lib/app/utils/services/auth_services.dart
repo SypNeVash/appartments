@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
 import '../../api/token_control.dart';
+import '../../constans/app_constants.dart';
 
 class AuthService {
   static Future<bool> isAuthenticated() async {
@@ -14,7 +15,7 @@ class AuthService {
     Dio _dio = Dio();
     try {
       Response response = await _dio.post(
-        'https://realtor.azurewebsites.net/api/Authenticate/login',
+        '$URL/api/Authenticate/login',
         data: {
           'username': username,
           'password': password,

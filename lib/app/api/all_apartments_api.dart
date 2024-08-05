@@ -4,6 +4,7 @@ import 'package:apartments/app/models/get_all_appart_model.dart';
 import 'package:apartments/app/utils/services/shared_preferences.dart';
 import 'package:dio/dio.dart';
 
+import '../constans/app_constants.dart';
 import '../providers/appartment_provider.dart';
 
 class RemoteApi {
@@ -12,7 +13,7 @@ class RemoteApi {
   Future<ApartmentModelList> fetchDataFromAzure(
     int page,
   ) async {
-    var url = 'https://realtor.azurewebsites.net/api/RentObjects/pagination';
+    var url = '$URL/api/RentObjects/pagination';
     late ApartmentModelList apartmentModelList;
     try {
       final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
@@ -43,7 +44,7 @@ class RemoteApi {
   static Future<ApartmentModelList> searchApartments(
       List<FilterCondition> filters, page) async {
     var url =
-        'https://realtor.azurewebsites.net/api/RentObjects/paginationWithFiler';
+        '$URL/api/RentObjects/paginationWithFiler';
     final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
 
     var filterJson = jsonEncode(filters);
@@ -81,7 +82,7 @@ class RemoteApi {
   Future<bool> deleteApartDataFromAzure(
     String apartmentId,
   ) async {
-    var url = 'https://realtor.azurewebsites.net/api/RentObjects/$apartmentId';
+    var url = '$URL/api/RentObjects/$apartmentId';
 
     try {
       final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
@@ -109,7 +110,7 @@ class RemoteApi {
     String apartmentId,
   ) async {
     var url =
-        'https://realtor.azurewebsites.net/api/RentObjects/refresh?id=$apartmentId';
+        '$URL/api/RentObjects/refresh?id=$apartmentId';
 
     try {
       final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
@@ -134,7 +135,7 @@ class RemoteApi {
   }
 
   Future deleteImageFromAppartment(String apartmentId, String photoUrl) async {
-    var url = 'https://realtor.azurewebsites.net/api/RentObjects/$apartmentId';
+    var url = '$URL/api/RentObjects/$apartmentId';
 
     try {
       final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
@@ -156,7 +157,7 @@ class RemoteApi {
 
   Future<int> getNumberForApartments() async {
     var url =
-        'https://realtor.azurewebsites.net/api/RentObjects/getActiveOpjectsCount';
+        '$URL/api/RentObjects/getActiveOpjectsCount';
 
     late int numberOfApartment;
     try {
@@ -182,7 +183,7 @@ class RemoteApi {
 
 // workingremote api
 // Future<ApartmentModelList> fetchDataFromAzureHttp() async {
-//     var url = 'https://realtor.azurewebsites.net/api/RentObjects';
+//     var url = '$URL/api/RentObjects';
 
 //     late ApartmentModelList appartmentList;
 

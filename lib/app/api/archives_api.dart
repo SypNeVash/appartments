@@ -7,7 +7,7 @@
 //     }
 //     final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
 //     print(id);
-//     var uri = Uri.parse("https://realtor.azurewebsites.net/api/Files");
+//     var uri = Uri.parse("$URL/api/Files");
 //     var request = http.MultipartRequest('POST', uri);
 
 //     // request.fields['id'] = id;
@@ -51,7 +51,7 @@
 
 //       // var _request = http.MultipartRequest('PATCH', Uri.parse('\$baseUrl/post/upload-image/$postId/'));
 //       var _request = http.MultipartRequest(
-//           'POST', Uri.parse('https://realtor.azurewebsites.net/api/Files'));
+//           'POST', Uri.parse('$URL/api/Files'));
 //       _request.headers.addAll({
 //         'Accept': '*/*',
 //         "Content-Type": "multipart/form-data",
@@ -124,7 +124,7 @@
 //     }
 
 //     Response response = await dio.post(
-//       'https://realtor.azurewebsites.net/api/Files',
+//       '$URL/api/Files',
 //       data: formData,
 //       options: Options(
 //         headers: {
@@ -150,7 +150,7 @@
 // Future addImagesToDb(BuildContext context, String _jwtToken) async {
 //   AppartDetailsListener profileDetailsListener =
 //       Provider.of<AppartDetailsListener>(context, listen: false);
-//   const url = 'https://realtor.azurewebsites.net/api/Files';
+//   const url = '$URL/api/Files';
 
 //   late XFile images;
 //   for (var x = 0; x < profileDetailsListener.getXfileList.length; x++) {
@@ -199,7 +199,7 @@
 
 
   // Future<void> postData() async {
-  //   String url = 'https://realtor.azurewebsites.net/api/RentObjects';
+  //   String url = '$URL/api/RentObjects';
   //   Dio dio = Dio();
   //   String uuid = const Uuid().v4();
   //   final accessToken = await SPHelper.getTokenSharedPreference() ?? '';

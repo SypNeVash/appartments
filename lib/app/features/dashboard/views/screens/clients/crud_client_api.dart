@@ -2,12 +2,14 @@ import 'package:apartments/app/models/get_all_appart_model.dart';
 import 'package:apartments/app/utils/services/shared_preferences.dart';
 import 'package:dio/dio.dart';
 
+import '../../../../../constans/app_constants.dart';
+
 class RemoteClientApi {
   final Dio _dio = Dio();
 
   Future<ApartmentModelList> fetchClientDataFromDB(int page, int limit,
       {String? filter}) async {
-    var url = 'https://realtor.azurewebsites.net/api/RentObjects/pagination';
+    var url = '$URL/api/RentObjects/pagination';
     late ApartmentModelList apartmentModelList;
     try {
       final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
@@ -37,7 +39,7 @@ class RemoteClientApi {
   Future<bool> deleteClientDataFromDB(
     String clientId,
   ) async {
-    var url = 'https://realtor.azurewebsites.net/api/CustomerCards/$clientId';
+    var url = '$URL/api/CustomerCards/$clientId';
 
     try {
       final accessToken = await SPHelper.getTokenSharedPreference() ?? '';

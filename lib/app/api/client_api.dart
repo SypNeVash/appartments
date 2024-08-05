@@ -11,6 +11,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../constans/app_constants.dart';
 import '../models/customers_model.dart';
 
 class ApiClient {
@@ -37,7 +38,7 @@ class ApiClient {
   Future<dynamic> getUserProfileData(String accessToken) async {
     try {
       Response response = await _dio.get(
-        'https://realtor.azurewebsites.net/api/CustomerCards',
+        '$URL/api/CustomerCards',
         // queryParameters: {'apikey': ApiSecret.apiKey},
         options: Options(
           headers: {'Authorization': 'Bearer $accessToken'},
@@ -90,7 +91,7 @@ class ApiClient {
 
   Future<ApartmentModel> fetchApartmentDetails() async {
     String apartmentId = await SPHelper.getIDAptSharedPreference() ?? '';
-    var url = 'https://realtor.azurewebsites.net/api/RentObjects/$apartmentId';
+    var url = '$URL/api/RentObjects/$apartmentId';
     late ApartmentModel apartmentModel;
 
     final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
@@ -114,7 +115,7 @@ class ApiClient {
     AppartDetailsListener profileDetailsListener =
         Provider.of<AppartDetailsListener>(context, listen: false);
     late List<dynamic> photoReferences;
-    String url = 'https://realtor.azurewebsites.net/api/Files/$id';
+    String url = '$URL/api/Files/$id';
 
     try {
       var request = http.MultipartRequest('POST', Uri.parse(url));
@@ -144,7 +145,7 @@ class ApiClient {
 
   Future<CustomerModelList> fetchClientDataFromAzure(int page,
       {String? filter}) async {
-    var url = 'https://realtor.azurewebsites.net/api/CustomerCards/pagination';
+    var url = '$URL/api/CustomerCards/pagination';
     late CustomerModelList customerModelList;
     try {
       final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
@@ -174,7 +175,7 @@ class ApiClient {
   static Future<CustomerModelList> searchClients(
       List<FilterCondition> filters, page) async {
     var url =
-        'https://realtor.azurewebsites.net/api/CustomerCards/paginationWithFilter';
+        '$URL/api/CustomerCards/paginationWithFilter';
     final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
 
     var filterJson = jsonEncode(filters);
@@ -211,7 +212,7 @@ class ApiClient {
 
   Future<CustomerModel> fetchClientDataById() async {
     final id = await SPHelper.getClientsIDSharedPreference() ?? '';
-    var url = 'https://realtor.azurewebsites.net/api/CustomerCards/$id';
+    var url = '$URL/api/CustomerCards/$id';
     late CustomerModel customerModel;
 
     try {

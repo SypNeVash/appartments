@@ -34,7 +34,7 @@ class _TextFormForTaskState extends State<TextFormForTask> {
     final workAreaId = await SPHelper.getWorkAreaIDSharedPreference();
 
     String apiUrl =
-        'https://realtor.azurewebsites.net/api/WorkArea/task/$workAreaId';
+        '$URL/api/WorkArea/task/$workAreaId';
     final dateTime = _combineDateAndTime();
 
     try {
