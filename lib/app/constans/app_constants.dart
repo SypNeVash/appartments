@@ -14,7 +14,7 @@ const kFontColorPallets = [
 const kBorderRadius = 10.0;
 const kSpacing = 20.0;
 
-const URL = "http://localhost:5069";
+const URL = "https://site.elite-square.com.ua:81";
 
 const types = [
   "кімната",
