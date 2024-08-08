@@ -401,9 +401,12 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
               onPressed: () async {
                 var cancel = BotToast.showLoading();
                 final done = await postData();
+                cancel();
                 if (done == true) {
-                  cancel();
                   provider.setPageIndex = 0;
+                }
+                else {
+                  showSnackBarForError();
                 }
               },
               child: const Text(
@@ -420,8 +423,17 @@ class _TextFormForAddingNewAptState extends State<TextFormForAddingNewApt> {
       ],
     );
   }
+  
+  showSnackBarForError() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        backgroundColor: Color.fromARGB(255, 255, 0, 0),
+        content: Text('Помилка при відправці. Спробуйте ще раз'),
+        duration: Duration(seconds: 2),
+      ),
+    );
+  }
 }
-
 textShow() {
   return const Text('dddd');
 }

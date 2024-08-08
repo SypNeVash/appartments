@@ -140,6 +140,7 @@ class ApiClient {
     } catch (e) {
       print('Upload error: $e');
     }
+    profileDetailsListener.getXfileList.clear();
     return photoReferences;
   }
 

@@ -255,7 +255,7 @@ class ImagesXFileListToSend extends StatelessWidget {
         const Align(
           alignment: Alignment.centerLeft,
           child: Text(
-            'Adding new image',
+            'Додати нове зображення',
             style: TextStyle(
                 color: Colors.black, fontWeight: FontWeight.w500, fontSize: 14),
           ),
