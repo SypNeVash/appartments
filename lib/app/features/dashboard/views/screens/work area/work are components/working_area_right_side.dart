@@ -137,6 +137,7 @@ class _WorkingAreaRightSideState extends State<WorkingAreaRightSide> {
       Map<String, dynamic> json = jsonDecode(jsonString);
       return ChatMessage.fromJson(json);
     }).toList();
+    messages.sort((a,b) => b.date.compareTo(a.date));
     return Scaffold(
       appBar: widget.isMobile == true
           ? AppBar(

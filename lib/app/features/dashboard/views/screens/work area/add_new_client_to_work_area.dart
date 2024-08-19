@@ -11,6 +11,7 @@ import 'package:dio/dio.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
@@ -151,9 +152,56 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
   late List<CustomerModel> _customerCards = [];
   List<String> _responsibleStaff = [];
 
+  final _dateController = TextEditingController();
+  final _timeController = TextEditingController();
+
   bool _isFetching = false;
 
   bool search = false;
+
+  Future<void> _selectDate(BuildContext context) async {
+    DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
+    if (picked != null) {
+      setState(() {
+        _dateController.text = DateFormat('yyyy-MM-dd').format(picked);
+      });
+    }
+  }
+
+  Future<void> _selectTime(BuildContext context) async {
+    TimeOfDay? picked = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    );
+    if (picked != null) {
+      setState(() {
+        final now = DateTime.now();
+        final dt =
+            DateTime(now.year, now.month, now.day, picked.hour, picked.minute);
+        _timeController.text = DateFormat('HH:mm').format(dt);
+      });
+    }
+  }
+
+  DateTime? _combineDateAndTime() {
+    final dateText = _dateController.text;
+    final timeText = _timeController.text;
+
+    if (dateText.isEmpty || timeText.isEmpty) {
+      return null;
+    }
+
+    final date = DateFormat('yyyy-MM-dd').parse(dateText);
+    final time = DateFormat('HH:mm').parse(timeText);
+
+    return DateTime(date.year, date.month, date.day, time.hour, time.minute);
+  }
+
   Future<void> fetchCustomerData() async {
     final phoneNumber = customerPhoneNumberController.text;
     final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
@@ -705,6 +753,54 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
                 );
               }).toList(),
             ),
+            const SizedBox(
+                height: 15,
+              ),
+            TextFormField(
+                controller: _dateController,
+                decoration: InputDecoration(
+                  labelText: 'Виберіть дату',
+                  filled: true,
+                  fillColor: Colors.white,
+                  focusedBorder: outlineMainInputFocusedBorder,
+                  enabledBorder: outlineMainInputFocusedBorder,
+                  errorBorder: outlineMainInputFocusedBorder,
+                  focusedErrorBorder: outlineMainInputFocusedBorder,
+                  border: outlineMainInputFocusedBorder,
+                  suffixIcon: IconButton(
+                    icon: const Icon(
+                      EvaIcons.calendar,
+                      color: Colors.blue,
+                    ),
+                    onPressed: () => _selectDate(context),
+                  ),
+                ),
+                readOnly: true,
+                onTap: () => _selectDate(context),
+              ),
+              const SizedBox(height: 16),
+              TextFormField(
+                controller: _timeController,
+                decoration: InputDecoration(
+                  labelText: 'Виберіть час',
+                  filled: true,
+                  border: outlineMainInputFocusedBorder,
+                  fillColor: Colors.white,
+                  focusedBorder: outlineMainInputFocusedBorder,
+                  enabledBorder: outlineMainInputFocusedBorder,
+                  errorBorder: outlineMainInputFocusedBorder,
+                  focusedErrorBorder: outlineMainInputFocusedBorder,
+                  suffixIcon: IconButton(
+                    icon: const Icon(
+                      EvaIcons.clockOutline,
+                      color: Colors.blue,
+                    ),
+                    onPressed: () => _selectTime(context),
+                  ),
+                ),
+                readOnly: true,
+                onTap: () => _selectTime(context),
+              ),
             // value: typ
             // TextFormField(
             //   controller: taskController,
@@ -769,6 +865,7 @@ class _WorkingAreaFormState extends State<WorkingAreaForm> {
                         comments: commentsController.text,
                         task: taskController.text,
                         chat: chat,
+                        taskDate:  _combineDateAndTime()?.toIso8601String(),
                       );
 
                       String jsonData = workingArea.toJson();

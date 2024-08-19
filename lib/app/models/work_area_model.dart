@@ -21,6 +21,7 @@ class WorkingAreaModel {
   final String? comments;
   final String? task;
   final List<String>? chat;
+  final String? taskDate;
 
   WorkingAreaModel({
     this.id,
@@ -40,6 +41,7 @@ class WorkingAreaModel {
     this.comments,
     this.task,
     this.chat,
+    this.taskDate,
   });
 
   Map<String, dynamic> toMap() {
@@ -61,6 +63,7 @@ class WorkingAreaModel {
       'comments': comments,
       'task': task,
       'chat': chat,
+      'taskDate': taskDate,
     };
   }
 
