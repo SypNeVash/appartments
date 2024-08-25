@@ -59,7 +59,7 @@ class CardTask extends StatelessWidget {
                 borderRadius: BorderRadius.circular(15),
                 child: Image(
                   image: NetworkImage(
-                    data.photos!.first.toString(),
+                    data.photos!.first.toString() ?? "https://demofree.sirv.com/nope-not-here.jpg",
                   ),
                   fit: BoxFit.cover,
                 ),
