@@ -7,6 +7,7 @@ import 'package:apartments/app/constans/app_constants.dart';
 import 'package:apartments/app/features/dashboard/controllers/authcontroller.dart';
 import 'package:apartments/app/features/dashboard/views/components/filters_forms.dart';
 import 'package:apartments/app/features/dashboard/views/screens/adding_apartment.dart';
+import 'package:apartments/app/features/dashboard/views/screens/clients/search_client.dart';
 import 'package:apartments/app/features/dashboard/views/screens/work%20area/filter.dart';
 import 'package:apartments/app/features/dashboard/views/screens/work%20area/work_are_dashboard.dart';
 import 'package:apartments/app/providers/appartment_provider.dart';
@@ -100,7 +101,7 @@ openDrawer() {
   controller.openDrawer();
 }
 
-Widget _buildTaskContent(
+Widget _buildTaskContent(BuildContext context,
     {Function()? onPressedMenu, String? numberOfApartment}) {
   final DashboardController controller = Get.find<DashboardController>();
 
@@ -121,8 +122,14 @@ Widget _buildTaskContent(
               ),
             Expanded(
               child: SearchField(
-                onSearch: controller.searchTask,
-                hintText: "Пошук .. ",
+                onSearch: (String value) async => {
+                   if(await SPHelper.getRolesSharedPreference() != 'Customer')
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SearchClients(value)),
+                    )
+                },
+                hintText: "Пошук ... ",
               ),
             ),
           ],
@@ -331,7 +338,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     desktop: "mobile",
                   ),
                   if (profileDetailsListener.getPageIndex == 0) ...[
-                    _buildTaskContent(
+                    _buildTaskContent(context,
                       onPressedMenu: () => controller.openDrawer(),
                       numberOfApartment: numberOfApartment,
                     ),
@@ -346,7 +353,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       openDrawer: true,
                     ),
                   ] else ...[
-                    _buildTaskContent(
+                    _buildTaskContent(context,
                       numberOfApartment: numberOfApartment,
                     ),
                   ],
@@ -361,7 +368,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const BuilFilterContent(isActive: true, desktop: "mobile"),
-                  _buildTaskContent(
+                  _buildTaskContent(context,
                     onPressedMenu: () => openDrawer(),
                     numberOfApartment: numberOfApartment,
                   ),
@@ -388,7 +395,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     child: SingleChildScrollView(
                       controller: ScrollController(),
                       physics: const BouncingScrollPhysics(),
-                      child: _buildTaskContent(
+                      child: _buildTaskContent(context,
                         numberOfApartment: numberOfApartment,
                       ),
                     ),
@@ -422,7 +429,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     child: SingleChildScrollView(
                       controller: ScrollController(),
                       physics: const BouncingScrollPhysics(),
-                      child: _buildTaskContent(
+                      child: _buildTaskContent(context,
                         numberOfApartment: numberOfApartment,
                       ),
                     ),

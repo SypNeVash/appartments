@@ -3,8 +3,10 @@ import 'dart:convert';
 import 'package:apartments/app/models/work_area_model.dart';
 import 'package:apartments/app/utils/services/shared_preferences.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 
 import '../constans/app_constants.dart';
+import '../models/search_panel_model.dart';
 import '../providers/appartment_provider.dart';
 
 class WorkAreApi {
@@ -136,6 +138,34 @@ class WorkAreApi {
         return true;
       } else {
         return false;
+      }
+    } on DioError catch (e) {
+      return e.response!.data;
+    }
+  }
+
+  Future<SearchPanelModel> searchAllData(
+    String phone,
+  ) async {
+    var url = '$URL/api/Aggregation/getByPhone?phone=$phone';
+
+    try {
+      final accessToken = await SPHelper.getTokenSharedPreference() ?? '';
+
+      Response response = await _dio.get(
+        url,
+        options: Options(
+          headers: {'Authorization': 'Bearer $accessToken'},
+        ),
+      );
+      // final data = response.data;
+      if (response.statusCode == 200 ||
+          response.statusCode == 201 ||
+          response.statusCode == 204) {
+        SearchPanelModel model = SearchPanelModel.fromJsonToMap(response.data);
+        return model;
+      } else {
+        return SearchPanelModel();
       }
     } on DioError catch (e) {
       return e.response!.data;

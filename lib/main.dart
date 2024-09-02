@@ -19,10 +19,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'app/features/dashboard/views/screens/clients/edit_clients_dat.dart';
+import 'app/features/dashboard/views/screens/clients/search_client.dart';
 import 'app/features/dashboard/views/screens/login_screen.dart';
 import 'app/features/dashboard/views/screens/work area/add_new_client_to_work_area.dart';
 import 'app/features/dashboard/views/screens/work area/working_area_details.dart';
 import 'app/providers/appartment_provider.dart';
+import 'app/providers/search_panel_provider.dart';
 import 'app/utils/services/auth_services.dart';
 
 class AuthMiddleware extends GetMiddleware {
@@ -64,6 +66,7 @@ void main() async {
   await TokenManager.getToken();
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (_) => AppartDetailsListener()),
+    ChangeNotifierProvider(create: (_) => SearchPanelProvider()),
     ChangeNotifierProvider(
       create: (context) => ApartmentProvider(),
     ),

@@ -10,6 +10,8 @@ import 'package:flutter_web_pagination/flutter_web_pagination.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../../utils/services/shared_preferences.dart';
+import '../clients/search_client.dart';
 import 'add_new_client_to_work_area.dart';
 
 // class WorkingAreaDashboard extends StatefulWidget {
@@ -180,10 +182,16 @@ class FormsLists extends StatelessWidget {
                   ),
                 ),
               Expanded(
-                child: SearchField(
-                  onSearch: controller.searchTask,
-                  hintText: "Пошук .. ",
-                ),
+                child:  SearchField(
+                onSearch: (String value) async => {
+                  if(await SPHelper.getRolesSharedPreference() != 'Customer')
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SearchClients(value)),
+                    )
+                },
+                hintText: "Пошук ... ",
+              ),
               ),
             ],
           ),

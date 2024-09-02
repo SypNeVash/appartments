@@ -177,6 +177,47 @@ class _WorkingAreaRightSideState extends State<WorkingAreaRightSide> {
               const SizedBox(
                 height: 15,
               ),
+              TextFormField(
+                controller: chatController,
+                decoration:
+                    decorationForTextFormField('Додати коментар').copyWith(
+                  suffix: InkWell(
+                    onTap: () {
+                      if (chatController.text.isNotEmpty) {
+                        sendChatToServer();
+                      }
+                    },
+                    child: isLoading == true
+                        ? const SizedBox(
+                            height: 17,
+                            width: 17,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 1.5,
+                            ))
+                        : const FaIcon(
+                            FontAwesomeIcons.paperPlane,
+                            color: Colors.black,
+                            size: 20,
+                          ),
+                  ),
+                ),
+                validator: (value) {
+                  return null; // ID is optional, so no validation
+                },
+                onChanged: (value) {
+                  addToTheChat.add(value);
+                },
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 18.0),
+                child: Divider(),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
               if (chat.isNotEmpty) ...[
                 ListView.builder(
                     physics: const NeverScrollableScrollPhysics(),
@@ -268,47 +309,6 @@ class _WorkingAreaRightSideState extends State<WorkingAreaRightSide> {
                       color: Color.fromARGB(255, 126, 126, 126)),
                 )
               ],
-              const SizedBox(
-                height: 10,
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 18.0),
-                child: Divider(),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              TextFormField(
-                controller: chatController,
-                decoration:
-                    decorationForTextFormField('Додати коментар').copyWith(
-                  suffix: InkWell(
-                    onTap: () {
-                      if (chatController.text.isNotEmpty) {
-                        sendChatToServer();
-                      }
-                    },
-                    child: isLoading == true
-                        ? const SizedBox(
-                            height: 17,
-                            width: 17,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 1.5,
-                            ))
-                        : const FaIcon(
-                            FontAwesomeIcons.paperPlane,
-                            color: Colors.black,
-                            size: 20,
-                          ),
-                  ),
-                ),
-                validator: (value) {
-                  return null; // ID is optional, so no validation
-                },
-                onChanged: (value) {
-                  addToTheChat.add(value);
-                },
-              ),
               const SizedBox(
                 height: 30,
               ),

@@ -5,6 +5,9 @@ import 'package:apartments/app/shared_components/search_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../../../utils/services/shared_preferences.dart';
+import '../search_client.dart';
+
 // class AllClientsScreen extends StatefulWidget {
 //   const AllClientsScreen({Key? key}) : super(key: key);
 
@@ -77,10 +80,16 @@ class FormsLists extends StatelessWidget {
                   ),
                 ),
               Expanded(
-                child: SearchField(
-                  onSearch: controller.searchTask,
-                  hintText: "Пошук .. ",
-                ),
+                child:  SearchField(
+                onSearch: (String value) async => {
+                  if(await SPHelper.getRolesSharedPreference() != 'Customer')
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SearchClients(value)),
+                    )
+                },
+                hintText: "Пошук ... ",
+              ),
               ),
             ],
           ),
