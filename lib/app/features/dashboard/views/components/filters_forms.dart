@@ -6,6 +6,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:provider/provider.dart';
 
+const double MaxValue = 70000;
+
 class FilterOfAppartments extends StatefulWidget {
   const FilterOfAppartments({super.key});
 
@@ -23,7 +25,7 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
   final _maxRangePriceController = TextEditingController();
   final _minRangePriceController = TextEditingController();
   final _phoneController = TextEditingController();
-  RangeValues _currentRangeValues = const RangeValues(1000, 40000);
+  RangeValues _currentRangeValues = const RangeValues(1000, MaxValue);
 
   @override
   void dispose() {
@@ -50,8 +52,8 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
     setState(() {
       if (values.start < 1000) {
         _currentRangeValues = RangeValues(1000, values.end);
-      } else if (values.end > 40000) {
-        _currentRangeValues = RangeValues(values.start, 40000);
+      } else if (values.end > MaxValue) {
+        _currentRangeValues = RangeValues(values.start, MaxValue);
       } else {
         _currentRangeValues = values;
       }
@@ -70,8 +72,8 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
     if (doubleValue == null) {
       return 'Будь ласка введіть більше нуля число';
     }
-    if (doubleValue < 1000 || doubleValue > 40000) {
-      return 'Будь ласка введіть число від 1000 до 40000';
+    if (doubleValue < 1000 || doubleValue > MaxValue) {
+      return 'Будь ласка введіть число від 1000 до $MaxValue}';
     }
     if (doubleValue > _currentRangeValues.end) {
       return 'Мін число не повинно бути більше Макс';
@@ -87,8 +89,8 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
     if (doubleValue == null) {
       return 'Будь ласка введіть більше нуля число';
     }
-    if (doubleValue < 1000 || doubleValue > 40000) {
-      return 'Будь ласка введіть число від 1000 до 40000';
+    if (doubleValue < 1000 || doubleValue > MaxValue) {
+      return 'Будь ласка введіть число від 1000 до $MaxValue';
     }
     if (doubleValue < _currentRangeValues.start) {
       return 'Мін число не повинно бути більше Макс';
@@ -235,7 +237,7 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
               child: RangeSlider(
                 values: _currentRangeValues,
                 min: 1000,
-                max: 40000,
+                max: MaxValue,
                 divisions: 100,
                 labels: RangeLabels(
                   _currentRangeValues.start.round().toString(),
