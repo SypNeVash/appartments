@@ -390,7 +390,7 @@ class _FilterOfAppartmentsState extends State<FilterOfAppartments> {
             items: [...statuses].map((String value) {
               return DropdownMenuItem<String>(
                 value: value,
-                child: Text(value),
+                child: Text(statusDefinition[value] ?? value),
               );
             }).toList(),
             // value: types[0],

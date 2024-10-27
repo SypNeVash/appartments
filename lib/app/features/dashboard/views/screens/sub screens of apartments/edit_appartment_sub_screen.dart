@@ -208,7 +208,7 @@ class _TextFormForAddingEditingAptState
               fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
           decoration: decorationForTextFormField('Статус'),
           onChanged: (val) {
-            status.text = val!;
+            status.text =  val!;
           },
           icon: const FaIcon(
             FontAwesomeIcons.chevronDown,
@@ -219,7 +219,7 @@ class _TextFormForAddingEditingAptState
           items: statuses.map((String value) {
             return DropdownMenuItem<String>(
               value: value,
-              child: Text(value),
+              child: Text(statusDefinition[value] ?? value),
             );
           }).toList(),
           value: selectedStatus ?? statuses[0],

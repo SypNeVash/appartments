@@ -52,6 +52,12 @@ const cities = [
 
 var statuses = ["Active", "Deleted", "Progress"];
 
+const statusDefinition = {
+  "Active": "Актуальні",
+  "Deleted": "Архів",
+  "Progress": "В процесі"
+};
+
 const rates = [
   "1 день",
   "Профи",

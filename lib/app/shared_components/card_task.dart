@@ -1,3 +1,4 @@
+import 'package:apartments/app/constans/app_constants.dart';
 import 'package:apartments/app/models/get_all_appart_model.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
@@ -249,7 +250,7 @@ class CardTask extends StatelessWidget {
             ),
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       child: Text(
-        data.status ?? '',
+        statusDefinition[data.status] ?? data.status ?? '',
         style: data.status == 'Deleted'
             ? const TextStyle(
                 color: Colors.white,

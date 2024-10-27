@@ -81,7 +81,7 @@ class _WorkAreaFormFilterState extends State<WorkAreaFormFilter> {
             items: [...tasks].map((String value) {
               return DropdownMenuItem<String>(
                 value: value,
-                child: Text(value),
+                child: Text(statusDefinition[value] ?? value),
               );
             }).toList(),
             // value: types[0],

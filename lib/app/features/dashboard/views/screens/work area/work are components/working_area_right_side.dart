@@ -96,7 +96,7 @@ class _WorkingAreaRightSideState extends State<WorkingAreaRightSide> {
     Map<String, String> newMessage = {
       "text": chatController.text,
       "user": name.toString(),
-      "date": dateTime.toString()
+      "date": DateTime.now().toString()
     };
 
     final finalResult = await addMessageToCustomerChat(newMessage);
