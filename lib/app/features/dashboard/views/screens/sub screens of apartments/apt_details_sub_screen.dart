@@ -400,23 +400,24 @@ class _ApartmentDetailsSubScreenState extends State<ApartmentDetailsSubScreen> {
                         ),
                         Row(
                           children: [
-                            const Text(
-                              'Тел: ',
-                              style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.w600),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                saveChatTextToClipboard(
-                                    apartment.phone.toString());
-                              },
-                              child: Text(
-                                apartment.phone.toString(),
-                                style: const TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.w600),
-                              ),
-                            ),
-                          ],
+                              if (role == 'Admin' || role == 'Stuff') ...[
+                                const Text(
+                                  'Тел: ',
+                                  style: TextStyle(
+                                      fontSize: 16, fontWeight: FontWeight.w600),
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    saveChatTextToClipboard(
+                                        apartment.phone.toString());
+                                  },
+                                  child: Text(
+                                    apartment.phone.toString(),
+                                    style: const TextStyle(
+                                        fontSize: 16, fontWeight: FontWeight.w600),
+                                  ),
+                                ),
+                          ]],
                         ),
                         const SizedBox()),
                   ),
